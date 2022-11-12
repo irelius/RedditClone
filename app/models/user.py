@@ -1,7 +1,7 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-
+import datetime
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -10,9 +10,19 @@ class User(db.Model, UserMixin):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(40), nullable=False, unique=True)
+    first_name = db.Column(db.String(40))
+    last_name = db.Column(db.String(40))
+    user_name = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
+    profile_image = db.Column(db.String(255))
+    created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+
+    # One to Many Relationships
+    comments = db.Relationship("Comment", backref="user")
+    posts = db.Relationship("Post", backref="user")
+    likes = db.Relationship("Like", backref="user")
 
     @property
     def password(self):
@@ -28,6 +38,11 @@ class User(db.Model, UserMixin):
     def to_dict(self):
         return {
             'id': self.id,
-            'username': self.username,
-            'email': self.email
+            'first_name':self.first_name,
+            'last_name':self.last_name,
+            'user_name': self.user_name,
+            'email': self.email,
+            'profile_image': self.profile_image,
+            'created_at': self.created_at,
+            'updated_at': self.updated_at
         }

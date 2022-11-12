@@ -5,8 +5,6 @@ class Post(db.Model):
     __tablename__ = "posts"
 
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column("user_id", db.ForeignKey("users.id"))
-    subreddit_id = db.Column("subreddit_id", db.ForeignKey("subreddits.id"))
     title = db.Column(db.String(255), nullable=False)
     body = db.Column(db.String(5000), nullable=True)
     image = db.Column(db.String(255), nullable=True)
@@ -14,6 +12,14 @@ class Post(db.Model):
     likes_total = db.Column(db.Integer, nullable=False, default=0)
     created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+
+    # One to Many Relationships
+    comments = db.Relationship("Comment", backref="post")
+
+    # Many to One Relationships
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    subreddit_id = db.Column(db.Integer, db.ForeignKey("subreddits.id"))
+
 
     def to_dict(self):
         return {

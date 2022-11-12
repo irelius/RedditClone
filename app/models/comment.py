@@ -5,14 +5,19 @@ class Comment(db.Model):
     __tablename__ = "comments"
 
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column("user_id", db.ForeignKey("users.id"))
-    post_id = db.Column("post_id", db.ForeignKey("posts.id"))
-    subreddit_id = db.Column("subreddit_id", db.ForeignKey("subreddits.id"))
     reply_to_id = db.Column(db.Integer, nullable=True)
     body = db.Column(db.String(3000), nullable=False)
     likes_total = db.Column(db.Integer, nullable=False, default=0)
     created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+
+    # One to Many Relationship
+    likes = db.Relationship("Like", backref="comment")
+
+    # Many to One Relationship
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    post_id = db.Column(db.Integer, db.ForeignKey("posts.id"))
+    subreddit_id = db.Column(db.Integer, db.ForeignKey("subreddits.id"))
 
     def to_dict(self):
         return {
