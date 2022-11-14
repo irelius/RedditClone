@@ -169,6 +169,7 @@ def users_test():
 #     return{"errors": [error_values for error in form.errors for error_values in form.errors[error]]}, 400
 
 
+
 # Delete user
 user_routes.route("/current", methods = ["DELETE"])
 def users_delete():
