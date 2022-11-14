@@ -1,4 +1,4 @@
-from .db import db, Like
+from app.models import db, Like
 
 def seed_likes():
     like_one = Like(

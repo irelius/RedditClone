@@ -1,7 +1,6 @@
 from app.models import db, UserSubreddit
 
 def seed_users_subreddits():
-    test = User
     subreddit_one_user_one = UserSubreddit(
         subreddit_id = 1,
         admin_id = 1,
