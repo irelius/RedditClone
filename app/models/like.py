@@ -20,7 +20,7 @@ class Like(db.Model):
             "user_id": self.user_id,
             "post_id": self.post_id,
             "comment_id": self.comment_id,
-            "like_status": self.like_status
+            "like_status": self.like_status,
             'created_at': self.created_at,
             'updated_at': self.updated_at
         }
