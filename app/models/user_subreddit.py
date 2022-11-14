@@ -6,9 +6,11 @@ class UserSubreddit(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     subreddit_id = db.Column("subreddit_id", db.ForeignKey("subreddits.id"))
-    admin_id = db.Column("admin_id", db.ForeignKey("users.id"), nullable=True)
+    admin_id = db.Column("admin_id", db.ForeignKey("users.id"), nullable=False)
     mod_id = db.Column("mod_id", db.ForeignKey("users.id"), nullable=True)
     user_id = db.Column("user_id", db.ForeignKey("users.id"), nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
     def to_dict(self):
         return {

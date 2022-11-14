@@ -17,17 +17,11 @@ def seed_subreddits():
         name = "Subreddit 4",
         description = "Subreddit 4 description"
     )
-    subreddit_five = Subreddit(
-        name = "Subreddit 5",
-        description = "Subreddit 5 description"
-    )
 
     db.session.add(subreddit_one)
     db.session.add(subreddit_two)
     db.session.add(subreddit_three)
     db.session.add(subreddit_four)
-    db.session.add(subreddit_five)
-
 
     db.session.commit()
 
