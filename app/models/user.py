@@ -10,12 +10,10 @@ class User(db.Model, UserMixin):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    first_name = db.Column(db.String(40))
-    last_name = db.Column(db.String(40))
     user_name = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
-    profile_image = db.Column(db.String(255))
+    profile_image = db.Column(db.String(255), nullable=True, default="https://www.redditstatic.com/avatars/avatar_default_01_A5A4A4.png")
     created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
@@ -38,8 +36,6 @@ class User(db.Model, UserMixin):
     def to_dict(self):
         return {
             'id': self.id,
-            'first_name':self.first_name,
-            'last_name':self.last_name,
             'user_name': self.user_name,
             'email': self.email,
             'profile_image': self.profile_image,
