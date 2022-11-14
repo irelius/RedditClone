@@ -11,8 +11,8 @@ class Subreddit(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
     # One to Many Relationship
-    posts = db.Relationship("Post", backref="subreddit")
-    comments = db.Relationship("Comment", backref="subreddit")
+    posts = db.relationship("Post", backref="subreddit")
+    comments = db.relationship("Comment", backref="subreddit")
 
     def to_dict(self):
         return {

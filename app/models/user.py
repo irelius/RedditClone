@@ -20,9 +20,9 @@ class User(db.Model, UserMixin):
     updated_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
     # One to Many Relationships
-    comments = db.Relationship("Comment", backref="user")
-    posts = db.Relationship("Post", backref="user")
-    likes = db.Relationship("Like", backref="user")
+    comments = db.relationship("Comment", backref="user")
+    posts = db.relationship("Post", backref="user")
+    likes = db.relationship("Like", backref="user")
 
     @property
     def password(self):

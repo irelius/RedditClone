@@ -14,7 +14,7 @@ class Post(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
     # One to Many Relationships
-    comments = db.Relationship("Comment", backref="post")
+    comments = db.relationship("Comment", backref="post")
 
     # Many to One Relationships
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))

@@ -12,7 +12,7 @@ class Comment(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
     # One to Many Relationship
-    likes = db.Relationship("Like", backref="comment")
+    likes = db.relationship("Like", backref="comment")
 
     # Many to One Relationship
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
