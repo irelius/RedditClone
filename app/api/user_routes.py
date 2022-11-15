@@ -17,10 +17,9 @@ def validation_error_message(validation_errors):
 # ---------------------------------------------------------------------------------
 # Get all users
 @user_routes.route('/', methods=["GET"])
-@login_required
 def users_all():
     users = User.query.all()
-    return {'users': [user.to_dict() for user in users]}
+    return {'users': {user.id: user.to_dict() for user in users}}
 
 
 # Get current user
@@ -28,15 +27,14 @@ def users_all():
 @login_required
 def users_current():
     user = User.query.get(current_user.get_id())
-    return {"users": user.to_dict()}
+    return {"users": {user.id: user.to_dict()}}
 
 
 # Get specific user by id
-@user_routes.route('/<int:id>', methods=["GET"])
-@login_required
-def users_specific(id):
-    user = User.query.get(id)
-    return {"users": user.to_dict()}
+@user_routes.route('/<int:user_id>', methods=["GET"])
+def users_specific(user_id):
+    user = User.query.get(user_id)
+    return {"users": {user_id: user.to_dict()}}
 
 
 # Unauthorized user access
@@ -89,10 +87,11 @@ def users_signup():
 def users_test():
     return {'message': "Test route"}
 
-# Edit user details
-# @user_routes.route('/', methods=['PUT'])
+# TO DO
+# Edit current user details
+# @user_routes.route('/current', methods=['PUT'])
 # @login_required
-# def update_user():
+# def users_update_current():
 #     # get current user
 #     current_user_update = User.query.get(current_user.get_id())
 
@@ -170,6 +169,7 @@ def users_test():
 
 # Delete user
 user_routes.route("/current", methods = ["DELETE"])
+@login_required
 def users_delete():
     current_user = User.query.get(current_user.get_id())
     if(current_user == None):
@@ -177,4 +177,4 @@ def users_delete():
 
     db.session.delete(current_user)
     db.session.commit()
-    return {"message": "Successfully deleted user {current_user.id}"}
+    return {"message": "Successfully deleted User {current_user.id}"}
