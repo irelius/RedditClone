@@ -91,6 +91,6 @@ def likes_update_to_post(post_id):
 # Update like status for a specific post
 @like_routes.route("/posts/<int:comment_id>")
 @login_required
-def likes_update_to_post(comment_id):
+def likes_update_to_comment(comment_id):
 
     return "Update like or dislike on a comment"

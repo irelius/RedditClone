@@ -9,6 +9,7 @@ class User(db.Model, UserMixin):
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
 
+
     id = db.Column(db.Integer, primary_key=True)
     user_name = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
