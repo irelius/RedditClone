@@ -1,0 +1,15 @@
+#navbar-main-container {
+    display: flex;
+    flex-direction: row;
+    height: 500px;
+    background-color: orange;
+}
+
+#test {
+    color: black;
+}
+
+#navbar-reddit-logo {
+
+    background-color: blue;
+}

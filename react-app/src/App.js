@@ -3,11 +3,13 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
-import NavBar from './components/NavBar';
+import NavBar from './components/NavBar/NavBar';
 import ProtectedRoute from './components/auth/ProtectedRoute';
-import UsersList from './components/UsersList';
-import User from './components/User';
+import UsersList from './components/Users/UsersList/UsersList';
+import User from './components/Users/Users/User';
 import { authenticate } from './store/session';
+
+import Test from "./components/Test"
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -28,7 +30,7 @@ function App() {
     <BrowserRouter>
       <NavBar />
       <Switch>
-        <Route path='/login' exact={true}>
+        {/* <Route path='/login' exact={true}>
           <LoginForm />
         </Route>
         <Route path='/sign-up' exact={true}>
@@ -42,6 +44,12 @@ function App() {
         </ProtectedRoute>
         <Route path='/' exact={true} >
           <h1>My Home Page</h1>
+        </Route> */}
+        <Route path="/" exact={true}>
+          <Test />
+        </Route>
+        <Route path='/test' exact={true}>
+          <Test />
         </Route>
       </Switch>
     </BrowserRouter>
