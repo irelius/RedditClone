@@ -9,10 +9,10 @@ class Post(db.Model):
 
 
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(255), nullable=False)
-    body = db.Column(db.String(5000), nullable=True)
-    image = db.Column(db.String(255), nullable=True)
-    video = db.Column(db.String(255), nullable=True)
+    title = db.Column(db.String(300), nullable=False)
+    body = db.Column(db.String, nullable=True)
+    image = db.Column(db.String, nullable=True)
+    video = db.Column(db.String, nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 

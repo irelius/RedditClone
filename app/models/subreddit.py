@@ -9,8 +9,9 @@ class Subreddit(db.Model):
 
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), unique=True, nullable=False)
-    description = db.Column(db.String(1000))
+    name = db.Column(db.String(21), unique=True, nullable=False)
+    # privacy_setting = db.Column(db.String, nullable=False) # Function to work on later
+    description = db.Column(db.String(500))
     created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
