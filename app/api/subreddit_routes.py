@@ -4,12 +4,23 @@ from app.models import db, Subreddit
 
 subreddit_routes = Blueprint('subreddits', __name__)
 
+# ------------------------------- Helper functions -------------------------------
+# --------------------------------------------------------------------------------
+# Return subreddits based on length
+def return_subreddits(subreddits):
+    if len(subreddits) > 0:
+        return {"subreddits": {subreddit.id: subreddit.to_dict() for subreddit in subreddits}}
+    return {"subreddits": "No subreddits"}, 404
+
+
+# --------------------------------------------------------------------------------
+
+
 # Get all subreddits
 @subreddit_routes.route("/")
 def subreddits_all():
     subreddits = Subreddit.query.all()
-    return {"subreddits": {subreddit.id: subreddit.to_dict() for subreddit in subreddits}}
-# return {'channel_messages':{channel_message.id: channel_message.to_dict() for channel_message in channel_messages}}
+    return return_subreddits(subreddits)
 
 
 # Get specific subreddit by id
@@ -33,10 +44,3 @@ def subreddits_create_new():
 def subreddits_update_specific(subreddit_id):
     # Requires the use of a subreddit creation form
     return "Update a subreddit with PUT method."
-
-
-# Test route
-@subreddit_routes.route("/test")
-def subreddits_test():
-    print("Subreddit Test Route")
-    return "Test Route"

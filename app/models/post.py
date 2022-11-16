@@ -9,12 +9,12 @@ class Post(db.Model):
     body = db.Column(db.String(5000), nullable=True)
     image = db.Column(db.String(255), nullable=True)
     video = db.Column(db.String(255), nullable=True)
-    likes_total = db.Column(db.Integer, nullable=False, default=0)
     created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
     # One to Many Relationships
     comments = db.relationship("Comment", backref="post")
+    likes_total = db.relationship("Like", backref="post")
 
     # Many to One Relationships
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))

@@ -5,28 +5,24 @@ def seed_posts():
         title = "Post One",
         user_id = 1,
         subreddit_id = 1,
-        likes_total = 1,
         body = "Body for post one."
     )
     post_two = Post(
         title = "Post Two",
         user_id = 2,
         subreddit_id = 2,
-        likes_total = 2,
         body = "Body for post two."
     )
     post_three = Post(
         title = "Post Three",
         user_id = 3,
         subreddit_id = 3,
-        likes_total = 3,
         body = "Body for post three."
     )
     post_four = Post(
         title = "Post Four",
         user_id = 4,
         subreddit_id = 4,
-        likes_total = 4,
         body = "Body for post four."
     )
     post_five = Post(

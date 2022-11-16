@@ -6,6 +6,7 @@ class Like(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     like_status = db.Column(db.String, nullable=False, default="neutral")
+    likes_total = db.Column(db.Integer, nullable=False, default=0)
     created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 

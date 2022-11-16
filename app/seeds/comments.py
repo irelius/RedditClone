@@ -5,8 +5,7 @@ def seed_comments():
         user_id = 1,
         post_id = 1,
         subreddit_id = 1,
-        body = "Hello my baby",
-        likes_total = 5,
+        body = "Hello my baby"
     )
     comment_two = Comment(
         user_id = 2,
@@ -14,67 +13,58 @@ def seed_comments():
         subreddit_id = 1,
         body = "Hello my darling",
         reply_to_id = 1,
-        likes_total = 7,
     )
     comment_three = Comment(
         user_id = 1,
         post_id = 1,
         subreddit_id = 1,
         reply_to_id = 2,
-        body = "Hello my rag time gal",
-        likes_total = 12,
+        body = "Hello my rag time gal"
     )
     comment_four = Comment(
         user_id = 4,
         post_id = 2,
         subreddit_id = 2,
-        body = "I wanna go fishing",
-        likes_total = 0,
+        body = "I wanna go fishing"
     )
     comment_five = Comment(
         user_id = 5,
         post_id = 2,
         subreddit_id = 2,
         reply_to_id = 4,
-        body = "i tried it, was pretty fun",
-        likes_total = 8,
+        body = "i tried it, was pretty fun"
     )
     comment_six = Comment(
         user_id = 6,
         post_id = 2,
         subreddit_id = 2,
         reply_to_id = 5,
-        body = "Not so much fun when a fish comes flying out and hits you in the face",
-        likes_total = -4,
+        body = "Not so much fun when a fish comes flying out and hits you in the face"
     )
     comment_seven = Comment(
         user_id = 7,
         post_id = 2,
         subreddit_id = 2,
         reply_to_id = 6,
-        body = "I disagree, that was hilarious",
-        likes_total = 20,
+        body = "I disagree, that was hilarious"
     )
     comment_eight = Comment(
         user_id = 2,
         post_id = 3,
         subreddit_id = 3,
-        body = "Is this true?",
-        likes_total = 2,
+        body = "Is this true?"
     )
     comment_nine = Comment(
         user_id = 3,
         post_id = 3,
         subreddit_id = 3,
-        body = "This is a fake article",
-        likes_total = 989,
+        body = "This is a fake article"
     )
     comment_ten = Comment(
         user_id = 2,
         post_id = 4,
         subreddit_id = 4,
-        body = "tax season is coming up",
-        likes_total = -50,
+        body = "tax season is coming up"
     )
     comment_eleven = Comment(
         user_id = 1,

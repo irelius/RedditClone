@@ -8,10 +8,9 @@ comment_routes = Blueprint("comments", __name__)
 # --------------------------------------------------------------------------------
 # Return comments based on length
 def return_comments(comments):
-    if len(comments) == 1:
-        return {"comments": {comments.id: comments.to_dict()}}
-    elif len(comments) > 1:
+    if len(comments) > 0:
         return {"comments": {comment.id: comment.to_dict() for comment in comments}}
+
     return {"comments": "No comments"}, 404
 
 
@@ -22,7 +21,7 @@ def return_comments(comments):
 @comment_routes.route("/")
 def comments_all():
     comments = Comment.query.all()
-    return {"comments": {comment.id: comment.to_dict() for comment in comments}}
+    return return_comments(comments)
 
 
 # Get specific comment by id
@@ -34,23 +33,24 @@ def comments_specific(comment_id):
 
 # Get comments made by current user
 @comment_routes.route("/current")
+@login_required
 def comments_by_current_user():
     current_user_id = current_user.get_id()
-    comments = Comment.query.filter("user_id" == current_user_id).all()
+    comments = Comment.query.filter(Comment.user_id == current_user_id).all()
     return return_comments(comments)
 
 
 # Get comments made by specific user
 @comment_routes.route("/users/<int:user_id>")
 def comments_by_specific_user(user_id):
-    comments = Comment.query.filter("user_id" == user_id).all()
+    comments = Comment.query.filter(Comment.user_id == user_id).all()
     return return_comments(comments)
 
 
 # Get comments made to a specific post
 @comment_routes.route("/posts/<int:post_id>")
 def comments_by_specific_post(post_id):
-    comments = Comment.query.filter("post_id" == post_id).all()
+    comments = Comment.query.filter(Comment.post_id == post_id).all()
     return return_comments(comments)
 
 
@@ -58,7 +58,7 @@ def comments_by_specific_post(post_id):
 # But I'll keep it just in case
 @comment_routes.route("/subreddits/<int:subreddit_id>")
 def comments_by_specific_subreddit(subreddit_id):
-    comments = Comment.query.filter("subreddit_id" == subreddit_id).all()
+    comments = Comment.query.filter(Comment.subreddit_id == subreddit_id).all()
     return return_comments(comments)
 
 

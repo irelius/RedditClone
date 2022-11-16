@@ -7,12 +7,11 @@ class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     reply_to_id = db.Column(db.Integer, nullable=True)
     body = db.Column(db.String(3000), nullable=False)
-    likes_total = db.Column(db.Integer, nullable=False, default=0)
     created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
     # One to Many Relationship
-    likes = db.relationship("Like", backref="comment")
+    likes_total = db.relationship("Like", backref="comment")
 
     # Many to One Relationship
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))

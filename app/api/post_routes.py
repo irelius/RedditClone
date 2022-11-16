@@ -8,9 +8,7 @@ post_routes = Blueprint("posts", __name__)
 # --------------------------------------------------------------------------------
 # Return posts based on length
 def return_posts(posts):
-    if len(posts) == 1:
-        return {"posts": {posts.id: posts.to_dict()}}
-    elif len(posts) > 1:
+    if len(posts) > 0:
         return {"posts": {post.id: post.to_dict() for post in posts}}
     return {"posts": "No posts"}, 404
 
@@ -22,7 +20,7 @@ def return_posts(posts):
 @post_routes.route("/")
 def posts_all():
     posts = Post.query.all()
-    return {"posts": {post.id: post.to_dict() for post in posts}}
+    return return_posts(posts)
 
 
 # Get specific post by id
@@ -37,22 +35,21 @@ def posts_specific(post_id):
 @login_required
 def posts_by_current_user():
     current_user_id = current_user.get_id()
-    print(current_user_id, "testing current user id")
-    posts = Post.query.filter("user_id" == current_user_id).all()
+    posts = Post.query.filter(Post.user_id == current_user_id).all()
     return return_posts(posts)
 
 
 # Get posts made by specific user
 @post_routes.route("/users/<int:user_id>")
 def posts_by_specific_user(user_id):
-    posts = Post.query.filter("user_id" == user_id).all()
+    posts = Post.query.filter(Post.user_id == user_id).all()
     return return_posts(posts)
 
 
 # Get posts for a specific subreddit
 @post_routes.route("/subreddits/<int:subreddit_id>")
 def posts_by_specific_subreddit(subreddit_id):
-    posts = Post.query.filter("subreddit_id" == subreddit_id).all()
+    posts = Post.query.filter(Post.subreddit_id == subreddit_id).all()
     return return_posts(posts)
 
 
