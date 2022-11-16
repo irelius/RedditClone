@@ -56,7 +56,9 @@ const NavBar = () => {
         </aside> */}
       </section>
       <section id="navbar-middle">
+        <section id="navbar-search-bar">
 
+        </section>
       </section>
       <section id="navbar-right">
 
