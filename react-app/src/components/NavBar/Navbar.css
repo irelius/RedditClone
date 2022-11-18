@@ -1,15 +1,190 @@
-#navbar-main-container {
-    display: flex;
-    flex-direction: row;
-    height: 500px;
+/* -----------------------------------------------------------------------*/
+
+/* Not Logged In (NLI) Navbar CSS */
+
+/* -----------------------------------------------------------------------*/
+/* NLI Navbar Main Container */
+
+#nli-navbar-main-container {
+    display: grid;
+    grid-template-columns: 1.5fr 3fr 1.5fr;
+    align-items: center;
+
+    position: absolute;
+    width: 100vw;
+    top: 0;
+    left: 0;
+
+    height: 49px;
     background-color: orange;
+    border-bottom: 1px solid black;
 }
 
-#test {
+
+/* -----------------------------------------------------------------------*/
+/* NLI Navbar Left Section */
+
+#nli-navbar-left {
+    display: flex;
+    text-decoration: none;
+}
+
+#nli-navlink {
+    text-decoration: none;
+}
+
+#nli-navbar-reddit {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    margin-left: 1vw;
+
+    height: 49px;
+}
+
+#nli-navbar-reddit-logo {
+    color: #ff4500;
+    margin-right: 3px;
+}
+
+#nli-navbar-reddit-text {
+    font-size: 22px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     color: black;
 }
 
-#navbar-reddit-logo {
 
-    background-color: blue;
+/* -----------------------------------------------------------------------*/
+/* NLI Navbar Middle Section */
+
+#nli-navbar-middle {
+    /* background-color: green; */
 }
+
+#nli-navbar-search-bar {
+    height: 35px;
+    width: 100%;
+
+    border: none;
+    border-radius: 50px;
+}
+
+#nli-navbar-search-bar:hover {
+    border: 1px solid blue;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* NLI Navbar Right Section */
+
+#nli-navbar-right {
+    display: flex;
+    flex-direction: row;
+
+    margin-right: 1vw;
+    justify-content: end;
+
+}
+
+#nli-right-buttons {
+    margin-left: 10px;
+}
+
+#nli-right-buttons>* {
+    height: 30px;
+    padding-left: 2vw;
+    padding-right: 2vw;
+
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+
+    border: none;
+    border-radius: 30px;
+}
+
+#nli-signup {
+    color: #0079D3;
+    border: 1px solid #0079D3;
+    background-color: white;
+}
+
+#nli-signup:hover {
+    cursor: pointer;
+}
+
+#nli-login {
+    color: white;
+    background-color: #0079D3
+}
+
+#nli-login:hover {
+    background-color: #1483D6;
+    cursor: pointer;
+}
+
+/* -----------------------------------------------------------------------*/
+
+
+
+
+
+/* hello :D */
+
+
+
+
+
+/* -----------------------------------------------------------------------*/
+
+/* Logged In (LI) Navbar CSS */
+
+/* -----------------------------------------------------------------------*/
+/* LI Navbar Main Container */
+
+#li-navbar-main-container {
+    display: grid;
+    grid-template-columns: 1.5fr 3fr 1.5fr;
+
+    align-items: center;
+
+    position: absolute;
+    width: 100vw;
+    top: 0;
+    left: 0;
+
+    height: 50px;
+    background-color: orange;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* LI Navbar Left Section */
+
+#li-navbar-left {
+    background-color: cyan;
+}
+
+#li-navbar-reddit {
+    display: flex;
+
+    flex-direction: row;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* LI Navbar Middle Section */
+
+#li-navbar-middle {
+    background-color: green;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* LI Navbar Right Section */
+
+#li-navbar-right {
+    background-color: cyan;
+}
+
+/* -----------------------------------------------------------------------*/

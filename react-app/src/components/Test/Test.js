@@ -23,9 +23,7 @@ const Test = () => {
                     Does that not matter?
                 </p>
             </section>
-            <section>
-                <i id='lock-test' className='fa-solid fa-lock lock-test'></i>
-            </section>
+
         </div>
     )
 }

@@ -7,6 +7,8 @@ import NavBar from './components/NavBar/NavBar';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/Users/UsersList/UsersList';
 import User from './components/Users/Users/User';
+import LPNotLoggedIn from './components/LandingPage/LPNotLoggedIn/LPNotLoggedIn';
+import LPLoggedIn from './components/LandingPage/LPLoggedIn';
 import { authenticate } from './store/session';
 
 import Test from "./components/Test"
@@ -16,7 +18,7 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    (async() => {
+    (async () => {
       await dispatch(authenticate());
       setLoaded(true);
     })();
@@ -30,23 +32,20 @@ function App() {
     <BrowserRouter>
       <NavBar />
       <Switch>
-        {/* <Route path='/login' exact={true}>
+        <Route path='/login' exact={true}>
           <LoginForm />
         </Route>
-        <Route path='/sign-up' exact={true}>
+        {/* <Route path='/sign-up' exact={true}>
           <SignUpForm />
-        </Route>
-        <ProtectedRoute path='/users' exact={true} >
-          <UsersList/>
-        </ProtectedRoute>
-        <ProtectedRoute path='/users/:userId' exact={true} >
-          <User />
-        </ProtectedRoute>
-        <Route path='/' exact={true} >
-          <h1>My Home Page</h1>
         </Route> */}
-        <Route path="/" exact={true}>
-          <Test />
+        {/* <ProtectedRoute path='/users' exact={true} >
+          <UsersList/>
+        </ProtectedRoute> */}
+        {/* <ProtectedRoute path='/users/:userId' exact={true} >
+          <User />
+        </ProtectedRoute> */}
+        <Route path='/' exact={true} >
+          <LPNotLoggedIn />
         </Route>
         <Route path='/test' exact={true}>
           <Test />
