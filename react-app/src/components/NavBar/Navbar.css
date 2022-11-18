@@ -16,8 +16,8 @@
     left: 0;
 
     height: 49px;
-    background-color: orange;
-    border-bottom: 1px solid black;
+    background-color: #1A1A1B;
+    border-bottom: 1px solid #343536;
 }
 
 
@@ -33,45 +33,64 @@
     text-decoration: none;
 }
 
-#nli-navbar-reddit {
+#nli-navbar-reddit-container {
     display: flex;
     flex-direction: row;
     align-items: center;
 
     margin-left: 1vw;
-
     height: 49px;
 }
 
+#nli-navbar-reddit-logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-right: 5px;
+    height: 35px;
+    width: 35px;
+
+    border-radius: 90px;
+    background-color: #ff4500;
+}
+
 #nli-navbar-reddit-logo {
-    color: #ff4500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     margin-right: 3px;
+    padding-left: 3px;
+
+    color: white;
 }
 
 #nli-navbar-reddit-text {
     font-size: 22px;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    color: black;
+    color: white;
 }
 
 
 /* -----------------------------------------------------------------------*/
 /* NLI Navbar Middle Section */
 
-#nli-navbar-middle {
-    /* background-color: green; */
-}
 
 #nli-navbar-search-bar {
     height: 35px;
     width: 100%;
 
-    border: none;
+    border: 0.1px solid #808283;
     border-radius: 50px;
+
+    color: #808283;
+    background-color: #272729;
 }
 
 #nli-navbar-search-bar:hover {
-    border: 1px solid blue;
+    background-color: #1A1A1B;
+    border: 1px solid white;
 }
 
 
@@ -104,9 +123,9 @@
 }
 
 #nli-signup {
-    color: #0079D3;
-    border: 1px solid #0079D3;
-    background-color: white;
+    color: #D7DADC;
+    border: 1px solid #D7DADC;
+    background-color: #1A1A1B;
 }
 
 #nli-signup:hover {
@@ -114,12 +133,12 @@
 }
 
 #nli-login {
-    color: white;
-    background-color: #0079D3
+    color: #1A1A1B;
+    background-color: #D7DADC;
 }
 
 #nli-login:hover {
-    background-color: #1483D6;
+    background-color: #C7CACC;
     cursor: pointer;
 }
 
@@ -145,7 +164,6 @@
 #li-navbar-main-container {
     display: grid;
     grid-template-columns: 1.5fr 3fr 1.5fr;
-
     align-items: center;
 
     position: absolute;
@@ -153,8 +171,9 @@
     top: 0;
     left: 0;
 
-    height: 50px;
-    background-color: orange;
+    height: 49px;
+    background-color: #1A1A1B;
+    border-bottom: 1px solid #343536;
 }
 
 
@@ -162,21 +181,71 @@
 /* LI Navbar Left Section */
 
 #li-navbar-left {
-    background-color: cyan;
+    display: flex;
+    text-decoration: none;
 }
 
-#li-navbar-reddit {
-    display: flex;
+#li-navlink {
+    text-decoration: none;
+}
 
+#li-navbar-reddit-container {
+    display: flex;
     flex-direction: row;
+    align-items: center;
+
+    margin-left: 1vw;
+    height: 49px;
+}
+
+#li-navbar-reddit-logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-right: 5px;
+    height: 35px;
+    width: 35px;
+
+    border-radius: 90px;
+    background-color: #ff4500;
+}
+
+#li-navbar-reddit-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-right: 3px;
+    padding-left: 3px;
+
+    color: white;
+}
+
+#li-navbar-reddit-text {
+    font-size: 22px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: white;
 }
 
 
 /* -----------------------------------------------------------------------*/
 /* LI Navbar Middle Section */
 
-#li-navbar-middle {
-    background-color: green;
+#li-navbar-search-bar {
+    height: 35px;
+    width: 100%;
+
+    border: 0.1px solid #808283;
+    border-radius: 50px;
+
+    color: #808283;
+    background-color: #272729;
+}
+
+#li-navbar-search-bar:hover {
+    background-color: #1A1A1B;
+    border: 1px solid white;
 }
 
 

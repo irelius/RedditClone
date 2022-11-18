@@ -46,9 +46,11 @@ const NavBar = () => {
       <div id="nli-navbar-main-container">
         <section id="nli-navbar-left">
           <NavLink id="nli-navlink" to="/">
-            <section id="nli-navbar-reddit">
-              <aside id="nli-navbar-reddit-logo">
-                <i id="nli-navbar-reddit-logo" className="fa-brands fa-reddit fa-2xl"></i>
+            <section id="nli-navbar-reddit-container">
+              <aside id="nli-navbar-reddit-logo-container">
+                <section id="nli-navbar-reddit-circle">
+                  <i id="nli-navbar-reddit-logo" className="fa-brands fa-reddit-alien fa-xl"></i>
+                </section>
               </aside>
               <aside id="nli-navbar-reddit-text">
                 reddit
@@ -75,8 +77,8 @@ const NavBar = () => {
           <aside id="nli-right-buttons">
             <button id="nli-login">Log In</button>
           </aside>
-        {/* TO DO: Bonus function of other options, like Dark Mode */}
-        {/* <aside>
+          {/* TO DO: Bonus function of other options, like Dark Mode */}
+          {/* <aside>
             <ul>
               <li>
 
@@ -91,10 +93,12 @@ const NavBar = () => {
     return (
       <div id="li-navbar-main-container">
         <section id="li-navbar-left">
-          <NavLink to="/">
-            <section id="li-navbar-reddit">
-              <aside id="li-navbar-reddit-logo">
-                <i id="li-navbar-reddit-logo" className="fa-brands fa-reddit-alien"></i>
+          <NavLink id="li-navlink" to="/">
+            <section id="li-navbar-reddit-container">
+              <aside id="li-navbar-reddit-logo-container">
+                <section id="li-navbar-reddit-circle">
+                  <i id="li-navbar-reddit-logo" className="fa-brands fa-reddit-alien"></i>
+                </section>
               </aside>
               <aside id="li-navbar-reddit-text">
                 reddit
@@ -103,16 +107,19 @@ const NavBar = () => {
           </NavLink>
           {/* TO DO: Drop down menu to select Home, Popular, or specific Subreddit communities */}
           {/* <aside>
-
-        </aside> */}
+          </aside> */}
         </section>
+
         <section id="li-navbar-middle">
-          <section id="li-navbar-search-bar">
+          <section id="li-navbar-search-bar-container">
             <form action="/test">
-              <input type="text" placeholder="Search..." name="search" />
+              <input id="li-navbar-search-bar" type="text" placeholder="Search..." name="search" />
             </form>
           </section>
         </section>
+
+
+        {/* TO DO: After setting up the login method */}
         <section id="li-navbar-right">
           right
         </section>
