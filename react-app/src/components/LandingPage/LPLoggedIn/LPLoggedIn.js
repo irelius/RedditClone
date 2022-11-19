@@ -3,7 +3,21 @@ import "./LPLoggedIn"
 const LPLoggedIn = () => {
     return (
         <div>
-            hello, you're logged in
+            <p>
+                hello, you're logged in
+            </p>
+            <p>
+                hello, you're logged in
+            </p>
+            <p>
+                hello, you're logged in
+            </p>
+            <p>
+                hello, you're logged in
+            </p>
+            <p>
+                hello, you're logged in
+            </p>
         </div>
     )
 

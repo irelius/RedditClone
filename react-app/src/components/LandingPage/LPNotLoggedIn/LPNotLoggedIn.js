@@ -4,7 +4,21 @@ import "./LPNotLoggedIn.css"
 const LPNotLoggedIn = () => {
     return (
         <div>
-            Hello, you're not logged in
+            <p>
+                Hello, you're not logged in
+            </p>
+            <p>
+                Hello, you're not logged in
+            </p>
+            <p>
+                Hello, you're not logged in
+            </p>
+            <p>
+                Hello, you're not logged in
+            </p>
+            <p>
+                Hello, you're not logged in
+            </p>
         </div>
     )
 }
