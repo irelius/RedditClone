@@ -1,6 +1,7 @@
 from flask import Blueprint
 from flask_login import current_user, login_required
 from app.models import db, Comment
+from app.forms import CommentForm
 
 comment_routes = Blueprint("comments", __name__)
 
@@ -10,7 +11,6 @@ comment_routes = Blueprint("comments", __name__)
 def return_comments(comments):
     if len(comments) > 0:
         return {"comments": {comment.id: comment.to_dict() for comment in comments}}
-
     return {"comments": "No comments"}, 404
 
 
@@ -67,9 +67,25 @@ def comments_by_specific_subreddit(subreddit_id):
 @comment_routes.route("/posts/<int:post_id>", methods=["POST"])
 @login_required
 def comments_create_new_to_post(post_id):
+    current_user_id = current_user.get_id()
+
+    if current_user_id == None:
+        return {"errors": "You must be logged in before leaving a comment"}, 401
+
+    form = CommentForm()
+
+    new_comment = Comment(
+        post_id = post_id,
+        user_id = current_user_id,
+        body = form.data["body"]
+    )
+
+    db.session.add(new_comment)
+    db.session.commit()
+
     # requires a form to create a new comment
         # add to subreddits?
-    return "Create a new comment on a post"
+    return new_comment.to_dict()
 
 
 # TO DO
@@ -77,10 +93,25 @@ def comments_create_new_to_post(post_id):
 @comment_routes.route("/comments/<int:comment_id>", methods=["POST"])
 @login_required
 def comments_create_new_to_comment(comment_id):
+    current_user_id = current_user.get_id()
+
+    if current_user_id == None:
+        return {"errors": "You must be logged in before leaving a comment"}, 401
+
+    form = CommentForm()
+
+    new_comment = Comment(
+        reply_to_id = comment_id,
+        user_id = current_user_id,
+        body = form.data["body"]
+    )
+
+    db.session.add(new_comment)
+    db.session.commit()
+
     # requires a form to create a new comment
-        # add to posts
         # add to subreddits?
-    return "Create a new comment on a comment"
+    return new_comment.to_dict()
 
 
 # TO DO
@@ -88,14 +119,27 @@ def comments_create_new_to_comment(comment_id):
 @comment_routes.route("/<int:comment_id>", methods=["PUT"])
 @login_required
 def comments_update_specific(comment_id):
-    # requires a form to create a new comment
-        # add to posts
-        # add to reply to id if necessary
-        # add to subreddits?
-    return "Update a specific comment"
+    current_user_id = int(current_user.get_id())
+    comment_to_edit = Comment.query.get(comment_id)
+
+    print("")
+    print(comment_to_edit.body)
+    print("")
+
+    if comment_to_edit.user_id != current_user_id:
+        return {"errors": "You do not have permission to edit this comment"}, 401
+
+    if current_user_id == None:
+        return {"errors": "You must be logged in before leaving a comment"}, 401
+
+    form = CommentForm()
+    comment_to_edit.body = form.data["body"]
+
+    db.session.commit()
+    return comment_to_edit.to_dict()
 
 
-# TO DO: test
+# TO DO: test delete
 # Delete a specific comment
 @comment_routes.route("<int:comment_id>", methods=["DELETE"])
 @login_required

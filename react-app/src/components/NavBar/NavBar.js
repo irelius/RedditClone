@@ -3,46 +3,20 @@ import React from 'react';
 import "./Navbar.css"
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import LoginFormModal from '../Modals/LoginFormModal';
 // import LogoutButton from '../auth/LogoutButton';
-
-// const NavBar = () => {
-//   return (
-//     <nav>
-//       <ul>
-//         <li>
-//           <NavLink to='/' exact={true} activeClassName='active'>
-//             Home
-//           </NavLink>
-//         </li>
-//         <li>
-//           <NavLink to='/login' exact={true} activeClassName='active'>
-//             Login
-//           </NavLink>
-//         </li>
-//         <li>
-//           <NavLink to='/sign-up' exact={true} activeClassName='active'>
-//             Sign Up
-//           </NavLink>
-//         </li>
-//         <li>
-//           <NavLink to='/users' exact={true} activeClassName='active'>
-//             Users
-//           </NavLink>
-//         </li>
-//         <li>
-//           <LogoutButton />
-//         </li>
-//       </ul>
-//     </nav>
-//   );
-// }
 
 const NavBar = () => {
   const sessionUser = useSelector(state => state.session.user)
+  console.log("")
+  console.log(sessionUser, "sessionUser")
+  console.log("")
 
+
+  let sessionLinks;
   // Navbar looks different whether there is a user logged in or not
-  if (sessionUser) {
-    return (
+  if (!sessionUser) {
+    sessionLinks = (
       <div id="nli-navbar-main-container">
         <section id="nli-navbar-left">
           <NavLink id="nli-navlink" to="/">
@@ -75,7 +49,7 @@ const NavBar = () => {
             <button id="nli-signup">Sign Up</button>
           </aside>
           <aside id="nli-right-buttons">
-            <button id="nli-login">Log In</button>
+            <LoginFormModal />
           </aside>
           {/* TO DO: Bonus function of other options, like Dark Mode */}
           {/* <aside>
@@ -90,7 +64,7 @@ const NavBar = () => {
       </div>
     )
   } else {
-    return (
+    sessionLinks = (
       <div id="li-navbar-main-container">
         <section id="li-navbar-left">
           <NavLink id="li-navlink" to="/">
@@ -126,6 +100,13 @@ const NavBar = () => {
       </div>
     )
   }
+
+
+  return (
+    <div>
+      {sessionLinks}
+    </div>
+  )
 }
 
 export default NavBar;

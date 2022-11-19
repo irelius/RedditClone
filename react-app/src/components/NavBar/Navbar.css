@@ -110,6 +110,10 @@
     margin-left: 10px;
 }
 
+#nli-right-buttons>*:hover {
+    cursor: pointer;
+}
+
 #nli-right-buttons>* {
     height: 30px;
     padding-left: 2vw;
@@ -122,14 +126,11 @@
     border-radius: 30px;
 }
 
+
 #nli-signup {
     color: #D7DADC;
     border: 1px solid #D7DADC;
     background-color: #1A1A1B;
-}
-
-#nli-signup:hover {
-    cursor: pointer;
 }
 
 #nli-login {

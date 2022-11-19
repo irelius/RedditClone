@@ -18,7 +18,7 @@ class Post(db.Model):
 
     # One to Many Relationships
     comments = db.relationship("Comment", backref="post")
-    likes_total = db.relationship("Like", backref="post")
+    # likes_total = db.relationship("Like", backref="post")
 
     # Many to One Relationships
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
@@ -34,7 +34,7 @@ class Post(db.Model):
             "body": self.body,
             "image": self.image,
             "video": self.video,
-            "likes_total": self.likes_total,
+            # "likes_total": self.likes_total,
             'created_at': self.created_at,
             'updated_at': self.updated_at
         }
