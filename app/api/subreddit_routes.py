@@ -1,6 +1,7 @@
 from flask import Blueprint
-from flask_login import login_required
-from app.models import db, Subreddit
+from flask_login import current_user, login_required
+from app.models import db, Subreddit, UserSubreddit
+from app.forms import SubredditForm
 
 subreddit_routes = Blueprint('subreddits', __name__)
 
@@ -30,12 +31,44 @@ def subreddits_specific(subreddit_id):
     return {"subreddits": {subreddit_id: subreddit.to_dict()}}
 
 
+# Get all users of subreddit
+@subreddit_routes.route("/<int:subreddit_id>/users")
+def subreddits_specific_users(subreddit_id):
+    users = UserSubreddit.query.filter((UserSubreddit.subreddit_id == subreddit_id)).all()
+    return return_subreddits(users)
+
+
 # Create a new subreddit
-@subreddit_routes.route("/", methods=["POST"])
+@subreddit_routes.route("", methods=["POST"])
 @login_required
 def subreddits_create_new():
-    # Requires the use of a subreddit creation form
-    return "Create new subreddit"
+    current_user_id = current_user.get_id()
+
+    if current_user_id == None:
+        return {"errors": "You must be logged in before creating a new subreddit"}, 401
+
+    form = SubredditForm()
+
+    new_subreddit = Subreddit(
+        name = form.data["name"],
+        description = form.data["description"],
+    )
+
+    db.session.add(new_subreddit)
+    db.session.commit()
+
+    new_user_subreddit = UserSubreddit(
+        subreddit_id = new_subreddit.id,
+        user_id = current_user_id,
+        admin_id = current_user_id
+    )
+
+    db.session.add(new_user_subreddit)
+
+    db.session.commit()
+
+
+    return new_subreddit.to_dict()
 
 
 # Update a subreddit by id

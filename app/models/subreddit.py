@@ -16,14 +16,16 @@ class Subreddit(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
     # One to Many Relationship
-    posts = db.relationship("Post", backref="subreddit")
-    comments = db.relationship("Comment", backref="subreddit")
+    posts = db.relationship("Post", backref="subreddit_posts")
+    comments = db.relationship("Comment", backref="subreddit_comments")
+    users = db.relationship("UserSubreddit", backref="subreddit_users")
 
     def to_dict(self):
         return {
             "id": self.id,
             "name": self.name,
             "description": self.description,
+            "user" : {user.id: user.to_dict() for user in self.users},
             'created_at': self.created_at,
             'updated_at': self.updated_at
         }

@@ -19,9 +19,10 @@ class User(db.Model, UserMixin):
     updated_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
     # One to Many Relationships
-    comments = db.relationship("Comment", backref="user")
-    posts = db.relationship("Post", backref="user")
-    likes = db.relationship("Like", backref="user")
+    comments = db.relationship("Comment", backref="user_comments")
+    posts = db.relationship("Post", backref="user_posts")
+    likes = db.relationship("Like", backref="user_likes")
+    subreddits = db.relationship("UserSubreddit", backref="user_subreddits")
 
     @property
     def password(self):
@@ -40,6 +41,7 @@ class User(db.Model, UserMixin):
             'user_name': self.user_name,
             'email': self.email,
             'profile_image': self.profile_image,
+            "subreddits": {subreddit.id: subreddit.to_dict() for subreddit in self.subreddits},
             'created_at': self.created_at,
             'updated_at': self.updated_at
         }

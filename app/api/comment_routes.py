@@ -62,7 +62,6 @@ def comments_by_specific_subreddit(subreddit_id):
     return return_comments(comments)
 
 
-# TO DO
 # Create a new comment on a post
 @comment_routes.route("/posts/<int:post_id>", methods=["POST"])
 @login_required
@@ -88,12 +87,12 @@ def comments_create_new_to_post(post_id):
     return new_comment.to_dict()
 
 
-# TO DO
 # Create a new comment on a comment
 @comment_routes.route("/comments/<int:comment_id>", methods=["POST"])
 @login_required
 def comments_create_new_to_comment(comment_id):
     current_user_id = current_user.get_id()
+    comment = Comment.query.get(comment_id)
 
     if current_user_id == None:
         return {"errors": "You must be logged in before leaving a comment"}, 401
@@ -101,30 +100,25 @@ def comments_create_new_to_comment(comment_id):
     form = CommentForm()
 
     new_comment = Comment(
+        body = form.data["body"],
+        post_id = comment.post_id,
         reply_to_id = comment_id,
+        subreddit_id = comment.subreddit_id,
         user_id = current_user_id,
-        body = form.data["body"]
     )
 
     db.session.add(new_comment)
     db.session.commit()
 
-    # requires a form to create a new comment
-        # add to subreddits?
     return new_comment.to_dict()
 
 
-# TO DO
 # Update a specific comment
 @comment_routes.route("/<int:comment_id>", methods=["PUT"])
 @login_required
 def comments_update_specific(comment_id):
     current_user_id = int(current_user.get_id())
     comment_to_edit = Comment.query.get(comment_id)
-
-    print("")
-    print(comment_to_edit.body)
-    print("")
 
     if comment_to_edit.user_id != current_user_id:
         return {"errors": "You do not have permission to edit this comment"}, 401
