@@ -8,18 +8,9 @@ class UserSubreddit(db.Model):
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
 
-    # id = db.Column(db.Integer, primary_key=True)
+    # id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     # admin_id = db.Column(db.Integer, nullable=False)
-    # subreddit_id = db.Column(db.ForeignKey("subreddits.id"), primary_key=True)
-    # user_id = db.Column(db.ForeignKey("users.id"), nullable=False, primary_key=True)
-
     # TO DO, try to figure out how to add mods to this
-    # mod_id = db.Column("mod_id", db.ForeignKey("users.id"), nullable=True) # This doesn't work as I already have a foreign key linking to the User table
-    # temp test
-    # mod_id = db.Column(db.Integer, nullable=True)
-
-    id = db.Column(db.Integer, primary_key=True)
-    admin_id = db.Column(db.Integer, nullable=False)
     # mod_id = db.Column(db.Integer, nullable=True)
     subreddit_id = db.Column(db.ForeignKey("subreddits.id"), nullable=False, primary_key=True)
     user_id = db.Column(db.ForeignKey("users.id"), nullable=False, primary_key=True)
@@ -33,9 +24,9 @@ class UserSubreddit(db.Model):
 
     def to_dict(self):
         return {
-            "id": self.id,
+            # "id": self.id,
             "subreddit_id": self.subreddit_id,
             "user_id": self.user_id,
-            "admin_id": self.admin_id,
+            # "admin_id": self.admin_id,
             # "mod_id": self.mod_id,
         }

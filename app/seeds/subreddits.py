@@ -3,18 +3,22 @@ from app.models import db, Subreddit
 def seed_subreddits():
     subreddit_one = Subreddit(
         name = "Subreddit 1",
-        description = "Subreddit 1 description"
+        description = "Subreddit 1 description",
+        admin_id = 1
     )
     subreddit_two = Subreddit(
         name = "Subreddit 2",
+        admin_id = 1,
         description = "Subreddit 2 description"
     )
     subreddit_three = Subreddit(
         name = "Subreddit 3",
+        admin_id = 5,
         description = "Subreddit 3 description"
     )
     subreddit_four = Subreddit(
         name = "Subreddit 4",
+        admin_id = 5,
         description = "Subreddit 4 description"
     )
 

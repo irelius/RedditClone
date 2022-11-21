@@ -11,7 +11,7 @@ class User(db.Model, UserMixin):
 
 
     id = db.Column(db.Integer, primary_key=True)
-    user_name = db.Column(db.String(40), nullable=False, unique=True)
+    username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
     profile_image = db.Column(db.String(255), nullable=True, default="https://www.redditstatic.com/avatars/avatar_default_01_A5A4A4.png")
@@ -43,7 +43,7 @@ class User(db.Model, UserMixin):
     def to_dict(self):
         return {
             'id': self.id,
-            'user_name': self.user_name,
+            'username': self.username,
             'email': self.email,
             'profile_image': self.profile_image,
             "subreddits": {subreddit.id: subreddit.to_dict() for subreddit in self.subreddits},

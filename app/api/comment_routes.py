@@ -35,7 +35,7 @@ def comments_specific(comment_id):
 @comment_routes.route("/current")
 @login_required
 def comments_by_current_user():
-    current_user_id = current_user.get_id()
+    current_user_id = int(current_user.get_id())
     comments = Comment.query.filter(Comment.user_id == current_user_id).all()
     return return_comments(comments)
 
@@ -66,7 +66,7 @@ def comments_by_specific_subreddit(subreddit_id):
 @comment_routes.route("/posts/<int:post_id>", methods=["POST"])
 @login_required
 def comments_create_new_to_post(post_id):
-    current_user_id = current_user.get_id()
+    current_user_id = int(current_user.get_id())
 
     if current_user_id == None:
         return {"errors": "You must be logged in before leaving a comment"}, 401
@@ -91,7 +91,7 @@ def comments_create_new_to_post(post_id):
 @comment_routes.route("/comments/<int:comment_id>", methods=["POST"])
 @login_required
 def comments_create_new_to_comment(comment_id):
-    current_user_id = current_user.get_id()
+    current_user_id = int(current_user.get_id())
     comment = Comment.query.get(comment_id)
 
     if current_user_id == None:
@@ -141,7 +141,7 @@ def comments_update_specific(comment_id):
 @comment_routes.route("<int:comment_id>", methods=["DELETE"])
 @login_required
 def comments_delete_specific(comment_id):
-    current_user_id = current_user.get_id()
+    current_user_id = int(current_user.get_id())
     comment_to_delete = Comment.query.get(comment_id)
 
     if comment_to_delete == None:

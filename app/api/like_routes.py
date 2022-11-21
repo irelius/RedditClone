@@ -25,7 +25,7 @@ def return_likes(id, likes, dislikes):
 @like_routes.route("/users/current")
 @login_required
 def likes_current_user():
-    current_user_id = current_user.get_id()
+    current_user_id = int(current_user.get_id())
     likes = Like.query.filter(Like.like_status == "like").filter(Like.user_id == current_user_id).all()
     dislikes = Like.query.filter(Like.like_status == "dislike").filter(Like.user_id == current_user_id).all()
 
@@ -63,7 +63,7 @@ def likes_specific_comment(comment_id):
 @like_routes.route("/posts/<int:post_id>", methods=["POST"])
 @login_required
 def likes_create_new_to_post(post_id):
-    current_user_id = current_user.get_id()
+    current_user_id = int(current_user.get_id())
 
     if current_user_id == None:
         return {"errors": "You must be logged in before liking a post"}, 401
@@ -86,7 +86,7 @@ def likes_create_new_to_post(post_id):
 @like_routes.route("/comments/<int:comment_id>", methods=["POST"])
 @login_required
 def likes_create_new_to_comment(comment_id):
-    current_user_id = current_user.get_id()
+    current_user_id = int(current_user.get_id())
 
     if current_user_id == None:
         return {"errors": "You must be logged in before liking a comment"}, 401

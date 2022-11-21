@@ -2,6 +2,13 @@ from flask_wtf import FlaskForm
 from wtforms import StringField
 from wtforms.validators import DataRequired, Email, ValidationError
 from app.models import User
+import re
+
+def check_valid_email(form, field):
+    EMAIL_REGEX = re.compile(r"[^@]+@[^@]+\.[^@]+")
+
+    if not EMAIL_REGEX.match(field.data):
+        raise ValidationError("Email entered is invalid.")
 
 
 def user_exists(form, field):
@@ -21,7 +28,6 @@ def username_exists(form, field):
 
 
 class SignUpForm(FlaskForm):
-    username = StringField(
-        'username', validators=[DataRequired(), username_exists])
-    email = StringField('email', validators=[DataRequired(), user_exists])
+    username = StringField('username', validators=[DataRequired(), username_exists])
+    email = StringField('email', validators=[DataRequired(), user_exists, check_valid_email])
     password = StringField('password', validators=[DataRequired()])

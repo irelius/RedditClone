@@ -19,12 +19,6 @@ def validation_error_message(validation_errors):
 @user_routes.route('/', methods=["GET"])
 def users_all():
     users = User.query.all()
-    print("")
-    for x in users:
-        print(x)
-    print("")
-    return users[0].to_dict()
-
     return {'users': {user.id: user.to_dict() for user in users}}
 
 
@@ -53,7 +47,7 @@ def users_unauthorized():
 @user_routes.route("/login", methods = ["POST"])
 def users_login():
     form = LoginForm()
-    form['csrf-token'].data = request.cookies['csrf_token']
+    form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         user = User.query.filter(User.email == form.data["email"].first())
         login_user(user)
@@ -72,11 +66,14 @@ def users_logout():
 @user_routes.route("/signup", methods=["POST"])
 def users_signup():
     form = SignUpForm()
-    form['csrf-token'].data = request.cookies['csrf_token']
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    username = form.data["username"].strip(" ")
+    username = username.replace(" ", "_")
 
     if form.validate_on_submit():
         user = User(
-            user_name = form.data["user_name"].strip() == "",
+            username = username,
             email = form.data["email"],
             password = form.data["password"]
         )
@@ -174,13 +171,13 @@ def users_test():
 
 
 # Delete user
-user_routes.route("/current", methods = ["DELETE"])
+@user_routes.route("/current", methods = ["DELETE"])
 @login_required
 def users_delete():
-    current_user = User.query.get(current_user.get_id())
-    if(current_user == None):
-        return {'errors': [f"User {current_user.get_id()} does not exist"]}, 404
+    current_user_id = User.query.get(current_user.get_id())
+    if(current_user_id == None):
+        return {'errors': [f"User {current_user_id} does not exist"]}, 404
 
-    db.session.delete(current_user)
+    db.session.delete(current_user_id)
     db.session.commit()
-    return {"message": "Successfully deleted User {current_user.id}"}
+    return {"message": f"Successfully deleted User {current_user.id}"}
