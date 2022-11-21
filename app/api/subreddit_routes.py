@@ -1,6 +1,6 @@
 from flask import Blueprint
 from flask_login import current_user, login_required
-from app.models import db, Subreddit, UserSubreddit
+from app.models import db, Subreddit, UserSubreddit, User
 from app.forms import SubredditForm
 
 subreddit_routes = Blueprint('subreddits', __name__)
@@ -39,7 +39,7 @@ def subreddits_specific_users(subreddit_id):
 
 
 # Create a new subreddit
-@subreddit_routes.route("", methods=["POST"])
+@subreddit_routes.route("/", methods=["POST"])
 @login_required
 def subreddits_create_new():
     current_user_id = current_user.get_id()
@@ -64,16 +64,41 @@ def subreddits_create_new():
     )
 
     db.session.add(new_user_subreddit)
-
     db.session.commit()
 
-
     return new_subreddit.to_dict()
+
+# Add a user to a subreddit
+@subreddit_routes.route("/<int:subreddit_id>/users/<int:user_id>", methods=["POST"])
+@login_required
+def subreddits_add_user(subreddit_id, user_id):
+    current_user_id = current_user.get_id()
+    subreddit = Subreddit.query.get(subreddit_id)
+    subreddit_users = UserSubreddit.query.filter(UserSubreddit.user_id).all()
+    user_to_add = User.query.get(user_id)
+
+    if current_user_id == None:
+        return {"errors": "You must be logged in before addings people to this subreddit"}, 401
+
+    if current_user_id
+
 
 
 # Update a subreddit by id
 @subreddit_routes.route("/<int:subreddit_id>", methods=["PUT"])
 @login_required
 def subreddits_update_specific(subreddit_id):
-    # Requires the use of a subreddit creation form
-    return "Update a subreddit with PUT method."
+    current_user_id = current_user.get_id()
+    subreddit_to_edit = Subreddit.query.get(subreddit_id)
+
+    if current_user_id == None:
+        return {"errors": "You must be logged in before editing this subreddit"}, 401
+
+    if subreddit_to_edit.admin_id != current_user_id:
+        return {"errors": "You do not have permission to edit this subreddit"}, 401
+
+    form = SubredditForm()
+    subreddit_to_edit.description = form.data["description"]
+
+    db.session.commit()
+    return subreddit_to_edit.to_dict()

@@ -120,11 +120,11 @@ def comments_update_specific(comment_id):
     current_user_id = int(current_user.get_id())
     comment_to_edit = Comment.query.get(comment_id)
 
-    if comment_to_edit.user_id != current_user_id:
-        return {"errors": "You do not have permission to edit this comment"}, 401
-
     if current_user_id == None:
         return {"errors": "You must be logged in before leaving a comment"}, 401
+
+    if comment_to_edit.user_id != current_user_id:
+        return {"errors": "You do not have permission to edit this comment"}, 401
 
     form = CommentForm()
     comment_to_edit.body = form.data["body"]
@@ -133,7 +133,10 @@ def comments_update_specific(comment_id):
     return comment_to_edit.to_dict()
 
 
-# TO DO: test delete
+# TO DO: test delete, what happens if post a comment (refer as Comment 2, id 2) as a reply to another comment (refer as Comment 1, id 1)
+# delete Comment 1, then post a new comment (refer as Comment 3)?
+    # Theoretically, Comment 3 will be assigned the id 1 because Comment 1 no longer exists. So Comment 2 will be a reply to Comment 3?
+# TO DO:  deleting a comment should return a "comment deleted by user" message, but deleting the comment seems to make this difficult
 # Delete a specific comment
 @comment_routes.route("<int:comment_id>", methods=["DELETE"])
 @login_required
