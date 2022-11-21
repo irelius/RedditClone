@@ -14,7 +14,7 @@ class Like(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
-    # Many to One Relationships
+    # Many to One Relationships, Undirection TO Like
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     post_id = db.Column(db.Integer, db.ForeignKey("posts.id"), nullable=True)
     comment_id = db.Column(db.Integer, db.ForeignKey("comments.id"), nullable=True)

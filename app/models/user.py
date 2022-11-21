@@ -18,11 +18,16 @@ class User(db.Model, UserMixin):
     created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
-    # One to Many Relationships
-    comments = db.relationship("Comment", backref="user_comments")
-    posts = db.relationship("Post", backref="user_posts")
-    likes = db.relationship("Like", backref="user_likes")
-    subreddits = db.relationship("UserSubreddit", backref="user_subreddits")
+    # One to Many Relationships, Unidirectional FROM User
+    comments = db.relationship("Comment")
+    posts = db.relationship("Post")
+    likes = db.relationship("Like")
+
+    # Many to Many Relationship. Bidirectional through join table UserSubreddit
+    subreddits = db.relationship("UserSubreddit", back_populates="users")
+
+
+
 
     @property
     def password(self):

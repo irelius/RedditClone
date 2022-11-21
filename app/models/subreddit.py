@@ -15,10 +15,12 @@ class Subreddit(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
-    # One to Many Relationship
-    posts = db.relationship("Post", backref="subreddit_posts")
-    comments = db.relationship("Comment", backref="subreddit_comments")
-    users = db.relationship("UserSubreddit", backref="subreddit_users")
+    # One to Many Relationship, Unidirectional FROM Subreddit
+    posts = db.relationship("Post")
+    comments = db.relationship("Comment")
+
+    # Many to Many Relationship. Bidirectional through join table UserSubreddit
+    users = db.relationship("UserSubreddit", back_populates="subreddits")
 
     def to_dict(self):
         return {

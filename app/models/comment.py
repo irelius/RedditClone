@@ -14,10 +14,10 @@ class Comment(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
-    # One to Many Relationship
-    # likes_total = db.relationship("Like", backref="comment")
+    # One to Many Relationship, Unidirectional FROM Comment
+    likes = db.relationship("Like")
 
-    # Many to One Relationship
+    # Many to One Relationship, Unidirectional TO Comment
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     post_id = db.Column(db.Integer, db.ForeignKey("posts.id"))
     subreddit_id = db.Column(db.Integer, db.ForeignKey("subreddits.id"))
@@ -30,7 +30,7 @@ class Comment(db.Model):
             "subreddit_id": self.subreddit_id,
             "reply_to_id": self.reply_to_id,
             "body": self.body,
-            # "likes_total": self.likes_total,
+            "likes": {like.id: like.to_dict() for like in self.likes},
             'created_at': self.created_at,
             'updated_at': self.updated_at
         }

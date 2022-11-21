@@ -8,19 +8,27 @@ class UserSubreddit(db.Model):
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
 
-    id = db.Column(db.Integer, primary_key=True)
-    admin_id = db.Column(db.Integer, nullable=False)
-    subreddit_id = db.Column(db.ForeignKey("subreddits.id"), primary_key=True)
-    user_id = db.Column(db.ForeignKey("users.id"), nullable=False, primary_key=True)
+    # id = db.Column(db.Integer, primary_key=True)
+    # admin_id = db.Column(db.Integer, nullable=False)
+    # subreddit_id = db.Column(db.ForeignKey("subreddits.id"), primary_key=True)
+    # user_id = db.Column(db.ForeignKey("users.id"), nullable=False, primary_key=True)
+
     # TO DO, try to figure out how to add mods to this
     # mod_id = db.Column("mod_id", db.ForeignKey("users.id"), nullable=True) # This doesn't work as I already have a foreign key linking to the User table
+    # temp test
+    # mod_id = db.Column(db.Integer, nullable=True)
 
+    id = db.Column(db.Integer, primary_key=True)
+    admin_id = db.Column(db.Integer, nullable=False)
+    # mod_id = db.Column(db.Integer, nullable=True)
+    subreddit_id = db.Column(db.ForeignKey("subreddits.id"), nullable=False, primary_key=True)
+    user_id = db.Column(db.ForeignKey("users.id"), nullable=False, primary_key=True)
     created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
-    # Relationship
-    users = db.relationship("User", backref="subreddit_users_join")
-    subreddits = db.relationship("Subreddit", backref="user_subreddits_join")
+    # Join Table association between User and Subreddit tables
+    users = db.relationship("User", back_populates="subreddits")
+    subreddits = db.relationship("Subreddit", back_populates="users")
 
 
     def to_dict(self):

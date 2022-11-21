@@ -68,6 +68,7 @@ def subreddits_create_new():
 
     return new_subreddit.to_dict()
 
+# TO DO: implement function to add users to a private subreddit (another to do) or join a subreddit if public
 # Add a user to a subreddit
 @subreddit_routes.route("/<int:subreddit_id>/users/<int:user_id>", methods=["POST"])
 @login_required
@@ -80,8 +81,7 @@ def subreddits_add_user(subreddit_id, user_id):
     if current_user_id == None:
         return {"errors": "You must be logged in before addings people to this subreddit"}, 401
 
-    if current_user_id
-
+    # if current_user_id
 
 
 # Update a subreddit by id

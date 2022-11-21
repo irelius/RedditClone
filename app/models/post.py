@@ -16,11 +16,11 @@ class Post(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
-    # One to Many Relationships
-    comments = db.relationship("Comment", backref="post")
-    # likes_total = db.relationship("Like", backref="post")
+    # One to Many Relationships, Unidirectional FROM Post
+    comments = db.relationship("Comment")
+    likes = db.relationship("Like")
 
-    # Many to One Relationships
+    # Many to One Relationships, Unidirectional TO Post
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     subreddit_id = db.Column(db.Integer, db.ForeignKey("subreddits.id"))
 
@@ -34,6 +34,7 @@ class Post(db.Model):
             "body": self.body,
             "image": self.image,
             "video": self.video,
+            "likes": {like.id: like.to_dict() for like in self.likes},
             # "likes_total": self.likes_total,
             'created_at': self.created_at,
             'updated_at': self.updated_at

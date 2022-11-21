@@ -19,6 +19,12 @@ def validation_error_message(validation_errors):
 @user_routes.route('/', methods=["GET"])
 def users_all():
     users = User.query.all()
+    print("")
+    for x in users:
+        print(x)
+    print("")
+    return users[0].to_dict()
+
     return {'users': {user.id: user.to_dict() for user in users}}
 
 
