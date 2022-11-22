@@ -46,7 +46,7 @@ class User(db.Model, UserMixin):
             'username': self.username,
             'email': self.email,
             'profile_image': self.profile_image,
-            "subreddits": {subreddit.id: subreddit.to_dict() for subreddit in self.subreddits},
+            # "subreddits": {subreddit.id: subreddit.to_dict() for subreddit in self.subreddits},
             'created_at': self.created_at,
             'updated_at': self.updated_at
         }

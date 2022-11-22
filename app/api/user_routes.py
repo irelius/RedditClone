@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 from flask_login import current_user, login_required, login_user, logout_user
 from app.forms import LoginForm, SignUpForm
-from app.models import db, User
+from app.models import db, User, UserSubreddit
 
 user_routes = Blueprint('users', __name__)
 
@@ -35,6 +35,23 @@ def users_current():
 def users_specific(user_id):
     user = User.query.get(user_id)
     return {"users": {user_id: user.to_dict()}}
+
+
+# Get all subreddits specific user is part of
+@user_routes.route("/<int:user_id>/subreddits")
+def users_subreddits(user_id):
+    subreddits = UserSubreddit.query.filter((UserSubreddit.user_id == user_id)).all()
+    return {
+        "users": {
+            user_id: {
+                "subreddit": {
+                    subreddit.subreddit_id: subreddit.to_dict() for subreddit in subreddits
+                }
+            }
+        }
+    }
+
+
 
 
 # Unauthorized user access
