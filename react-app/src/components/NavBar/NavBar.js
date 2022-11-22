@@ -15,6 +15,8 @@ const NavBar = () => {
 
   let sessionLinks;
   // Navbar looks different whether there is a user logged in or not
+
+  // If there is a session user, meaning user is logged in
   if (!sessionUser) {
     sessionLinks = (
       <div id="nli-navbar-main-container">
@@ -63,6 +65,8 @@ const NavBar = () => {
 
       </div>
     )
+
+  // There is no session user, meaning user is not logged in
   } else {
     sessionLinks = (
       <div id="li-navbar-main-container">
