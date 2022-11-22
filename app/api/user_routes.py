@@ -74,6 +74,7 @@ def users_login():
 
 # Logout user
 @user_routes.route("/logout", methods = ["POST"])
+@login_required
 def users_logout():
     logout_user()
     return {'message': "User has been successfully logged out"}

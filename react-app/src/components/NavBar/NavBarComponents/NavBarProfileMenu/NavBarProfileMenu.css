@@ -1,0 +1,45 @@
+/* -----------------------------------------------------------------------*/
+
+
+/* Nav Bar Profile Menu Button CSS */
+
+
+/* -----------------------------------------------------------------------*/
+#navbar-profile-menu-container {
+    display: flex;
+    justify-content: end;
+
+    margin-right: 10px;
+}
+
+#navbar-profile-menu-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    height: 40px;
+    width: 210px;
+
+    border: 1px solid #1A1A1B;
+    background-color: #1A1A1B;
+}
+
+#navbar-profile-menu-button:hover {
+    border: 1px solid #343536;
+    border-radius: 4px;
+}
+
+#navbar-profile-menu-button > * {
+    display: flex;
+    align-items: center;
+    color: #D7DADC;
+}
+
+#navbar-profile-menu-profile-pic {
+    margin: 3px;
+    margin-right: 5px;
+}
+
+#navbar-profile-menu-arrow {
+    color: #808283;
+}
