@@ -86,16 +86,15 @@ def subreddits_create_new():
 def subreddits_add_user(subreddit_id, user_id):
     # return "booba"
     current_user_id = int(current_user.get_id())
-    subreddit_users = UserSubreddit.query.filter((UserSubreddit.subreddit_id == subreddit_id), (UserSubreddit.user_id == current_user_id)).all()
 
     if current_user_id == None:
         return {"errors": "You must be logged in before addings people to this subreddit"}, 401
 
 
     # This would require a user to be added if the subreddit is set to private
+    # subreddit_users = UserSubreddit.query.filter((UserSubreddit.subreddit_id == subreddit_id), (UserSubreddit.user_id == current_user_id)).all()
     # if len(subreddit_users) == 0:
     #     return {"errors": "You do not have permission to add a user to this subreddit"}, 403
-
 
     new_subreddit_user = UserSubreddit(
         subreddit_id = subreddit_id,
