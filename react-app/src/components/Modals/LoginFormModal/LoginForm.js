@@ -14,7 +14,7 @@ const LoginForm = () => {
 
     const onLogin = async (e) => {
         e.preventDefault();
-        const data = dispatch(sessionActions.login(email, password));
+        const data = await dispatch(sessionActions.login(email, password));
         if (data) {
             setErrors(data);
         }
