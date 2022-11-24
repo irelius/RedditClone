@@ -5,7 +5,7 @@ import LoginForm from './components/Modals/LoginFormModal/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
 import NavBar from './components/NavBar/NavBar';
 import ProtectedRoute from './components/auth/ProtectedRoute';
-import UsersList from './components/Users/UsersList/UsersList';
+// import UsersList from './components/Users/UsersList/UsersList';
 import User from './components/Users/Users/User';
 import LandingPage from './components/LandingPage/LandingPage';
 import { authenticate } from './store/session';

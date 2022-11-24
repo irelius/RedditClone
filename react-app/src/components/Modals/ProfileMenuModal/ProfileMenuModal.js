@@ -2,7 +2,7 @@ import "./ProfileMenuModal.css"
 
 import * as sessionActions from "../../../store/session"
 import { useDispatch } from "react-redux"
-import { Redirect, useHistory } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
 
 const ProfileMenuModal = () => {

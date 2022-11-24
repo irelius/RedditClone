@@ -1,0 +1,172 @@
+/* -----------------------------------------------------------------------*/
+
+
+/* Login Modal Form CSS */
+
+
+/* -----------------------------------------------------------------------*/
+/* Modal Main Container */
+
+#login-modal-main-container {
+    display: flex;
+    flex-direction: column;
+
+    width: 400px;
+
+    border-radius: 10px;
+
+    background-color: white;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Form Modal Exit Container */
+
+#login-modal-exit-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#login-modal-exit-button {
+    margin: 10px;
+
+    border: none;
+
+    color: #878A8C;
+    background-color: inherit;
+}
+
+#login-modal-exit-button:hover {
+    cursor: pointer;
+}
+
+
+
+/* -----------------------------------------------------------------------*/
+/* Form Modal Main Container */
+
+#login-form-modal-main-container {
+    display: flex;
+    flex-direction: column;
+
+    margin: 50px;
+    margin-top: 15px;
+}
+
+#login-form-modal-text-container {
+    font-size: 14px;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Form Modal Email Section */
+
+#login-form-modal-email-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+
+    width: 100%;
+}
+
+#login-form-modal-email-input {
+    padding-left: 20px;
+
+    height: 35px;
+    width: 100%;
+
+    border: 1px solid white;
+    border-radius: 35px;
+
+    background-color: #F6F7F8;
+}
+
+#login-form-modal-email-input:hover {
+    border: 1px solid #C5C6C6;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Form Modal Password Section */
+
+#login-form-modal-password-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+
+    width: 100%;
+}
+
+#login-form-modal-password-input {
+    padding-left: 20px;
+
+    height: 35px;
+    width: 100%;
+
+    border: 1px solid white;
+    border-radius: 35px;
+
+    background-color: #F6F7F8;
+}
+
+#login-form-modal-password-input:hover{
+    border: 1px solid #C5C6C6;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Form Modal Demo User Login Section */
+
+#login-form-modal-demo-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+
+    width: 100%
+}
+
+#login-form-modal-demo-button {
+    height: 35px;
+    width: 100%;
+
+    border: none;
+    border-radius: 35px;
+
+    color: white;
+    background-color: #D93A00;
+}
+
+#login-form-modal-demo-button:hover {
+    cursor: pointer;
+
+    background-color: #DC4A14;
+}
+
+/* -----------------------------------------------------------------------*/
+/* Form Modal Login Section */
+
+#login-form-modal-login-container {
+    display: flex;
+    justify-content: center;
+
+    width: 100%;
+}
+
+#login-form-login-button {
+    height: 35px;
+    width: 100%;
+
+    border: none;
+    border-radius: 35px;
+
+    color: white;
+    background-color: #D93A00;
+}
+
+#login-form-login-button:hover {
+    cursor: pointer;
+
+    background-color: #DC4A14;
+}
+
+/* -----------------------------------------------------------------------*/
