@@ -1,13 +1,13 @@
 /* -----------------------------------------------------------------------*/
 
 
-/* Login Modal Form CSS */
+/* Sign Up Modal Form CSS */
 
 
 /* -----------------------------------------------------------------------*/
 /* Modal Main Container */
 
-#login-modal-main-container {
+#signup-modal-main-container {
     display: flex;
     flex-direction: column;
 
@@ -22,12 +22,12 @@
 /* -----------------------------------------------------------------------*/
 /* Form Modal Exit Container */
 
-#login-modal-exit-container {
+#signup-modal-exit-container {
     display: flex;
     justify-content: flex-end;
 }
 
-#login-modal-exit-button {
+#signup-modal-exit-button {
     margin: 10px;
 
     border: none;
@@ -36,7 +36,7 @@
     background-color: inherit;
 }
 
-#login-modal-exit-button:hover {
+#signup-modal-exit-button:hover {
     cursor: pointer;
 }
 
@@ -45,7 +45,7 @@
 /* -----------------------------------------------------------------------*/
 /* Form Modal Main Container */
 
-#login-form-modal-main-container {
+#signup-form-modal-main-container {
     display: flex;
     flex-direction: column;
 
@@ -53,7 +53,7 @@
     margin-top: 15px;
 }
 
-#login-form-modal-text-container {
+#signup-form-modal-text-container {
     font-size: 14px;
 }
 
@@ -61,7 +61,7 @@
 /* -----------------------------------------------------------------------*/
 /* Form Modal Email Section */
 
-#login-form-modal-email-container {
+#signup-form-modal-email-container {
     display: flex;
     justify-content: center;
     margin-bottom: 15px;
@@ -69,7 +69,7 @@
     width: 100%;
 }
 
-#login-form-modal-email-input {
+#signup-form-modal-email-input {
     padding-left: 20px;
 
     height: 35px;
@@ -81,7 +81,7 @@
     background-color: #F6F7F8;
 }
 
-#login-form-modal-email-input:hover {
+#signup-form-modal-email-input:hover {
     border: 1px solid #C5C6C6;
 }
 
@@ -89,15 +89,15 @@
 /* -----------------------------------------------------------------------*/
 /* Form Modal Password Section */
 
-#login-form-modal-password-container {
+#signup-form-modal-password-container {
     display: flex;
     justify-content: center;
-    margin-bottom: 40px;
+    margin-bottom: 10px;
 
     width: 100%;
 }
 
-#login-form-modal-password-input {
+#signup-form-modal-password-input {
     padding-left: 20px;
 
     height: 35px;
@@ -109,51 +109,50 @@
     background-color: #F6F7F8;
 }
 
-#login-form-modal-password-input:hover{
+#signup-form-modal-password-input:hover {
     border: 1px solid #C5C6C6;
 }
 
 
 /* -----------------------------------------------------------------------*/
-/* Form Modal Demo User Login Section */
+/* Form Modal Username Section */
 
-#login-form-modal-demo-container {
+#signup-form-modal-username-container {
     display: flex;
     justify-content: center;
-    margin-bottom: 10px;
+    margin-bottom: 40px;
 
     width: 100%
 }
 
-#login-form-modal-demo-button {
+#signup-form-modal-username-input {
+    padding-left: 20px;
+
     height: 35px;
     width: 100%;
 
-    border: none;
+    border: 1px solid white;
     border-radius: 35px;
 
-    color: white;
-    background-color: #D93A00;
+    background-color: #F6F7F8;
 }
 
-#login-form-modal-demo-button:hover {
-    cursor: pointer;
-
-    background-color: #DC4A14;
+#signup-form-modal-username-input:hover {
+    border: 1px solid #C5C6C6;
 }
 
 
 /* -----------------------------------------------------------------------*/
-/* Form Modal Login Section */
+/* Form Modal Sign Up Section */
 
-#login-form-modal-login-container {
+#signup-form-modal-signup-container {
     display: flex;
     justify-content: center;
 
     width: 100%;
 }
 
-#login-form-login-button {
+#signup-form-signup-button {
     height: 35px;
     width: 100%;
 
@@ -164,7 +163,7 @@
     background-color: #D93A00;
 }
 
-#login-form-login-button:hover {
+#signup-form-signup-button:hover {
     cursor: pointer;
 
     background-color: #DC4A14;

@@ -5,7 +5,7 @@ import * as sessionActions from '../../../store/session';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-const LoginForm = () => {
+const LoginForm = ({ setShowLoginModal }) => {
     const dispatch = useDispatch();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -27,12 +27,11 @@ const LoginForm = () => {
 
     return (
         <div id="login-modal-main-container">
-            {/* TO DO: Implement button to close login modal */}
-            {/* <section id="login-modal-exit-container">
-                <button onClick={setShowModal(false)} id="login-modal-exit-button">
+            <section id="login-modal-exit-container">
+                <button onClick={() => setShowLoginModal(false)} id="login-modal-exit-button">
                     <i className="fa-solid fa-xmark fa-lg"></i>
                 </button>
-            </section> */}
+            </section>
             <section>
                 <form onSubmit={onLogin} id="login-form-modal-main-container">
                     <div id="login-form-modal-errors-container">

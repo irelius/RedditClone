@@ -108,19 +108,7 @@
 
 }
 
-#nli-right-buttons {
-    margin-left: 10px;
-}
-
-#nli-right-buttons>*:hover {
-    cursor: pointer;
-}
-
-#nli-right-buttons>* {
-    height: 30px;
-    padding-left: 2vw;
-    padding-right: 2vw;
-
+#nli-navbar-right * {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-weight: bold;
 
@@ -129,18 +117,26 @@
 }
 
 
-#nli-signup {
+#nli-navbar-right *:hover {
+    cursor: pointer;
+}
+
+#nli-right-button-login>* {
+    height: 30px;
+    padding-left: 2vw;
+    padding-right: 2vw;
+}
+
+#nli-right-button-login {
+    margin-left: 10px;
+}
+
+#nli-right-button-signup>* {
+    height: 30px;
+    padding-left: 2vw;
+    padding-right: 2vw;
+
     color: #D7DADC;
     border: 1px solid #D7DADC;
     background-color: #1A1A1B;
-}
-
-#nli-login {
-    color: #1A1A1B;
-    background-color: #D7DADC;
-}
-
-#nli-login:hover {
-    background-color: #C7CACC;
-    cursor: pointer;
 }
