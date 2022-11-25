@@ -1,24 +1,11 @@
 import "./LPNotLoggedIn.css"
 
+import Post from "../../Post/Post"
 
 const LPNotLoggedIn = () => {
     return (
-        <div>
-            <p>
-                Hello, you're not logged in
-            </p>
-            <p>
-                Hello, you're not logged in
-            </p>
-            <p>
-                Hello, you're not logged in
-            </p>
-            <p>
-                Hello, you're not logged in
-            </p>
-            <p>
-                Hello, you're not logged in
-            </p>
+        <div id="LPNotLoggedIn-main-container">
+            <Post />
         </div>
     )
 }

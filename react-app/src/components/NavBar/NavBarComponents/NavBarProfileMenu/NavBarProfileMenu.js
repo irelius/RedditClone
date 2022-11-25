@@ -8,8 +8,8 @@ const NavBarProfileMenu = () => {
     const [showProfileMenu, setShowProfileMenu] = useState(false)
 
     return (
-        <div id="navbar-profile-menu-container">
-            <section id="test">
+        <div id="navbar-profile-main-container">
+            <section id="navbar-profile-menu-container">
                 <button id="navbar-profile-menu-button" onClick={() => setShowProfileMenu(true)}>
                     <aside>
                         <aside id="navbar-profile-menu-profile-pic">

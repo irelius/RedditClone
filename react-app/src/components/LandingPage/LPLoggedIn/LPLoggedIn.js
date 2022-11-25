@@ -1,23 +1,10 @@
-import "./LPLoggedIn"
+import "./LPLoggedIn.css"
+import Post from "../../Post/Post"
 
 const LPLoggedIn = () => {
     return (
-        <div>
-            <p>
-                hello, you're logged in
-            </p>
-            <p>
-                hello, you're logged in
-            </p>
-            <p>
-                hello, you're logged in
-            </p>
-            <p>
-                hello, you're logged in
-            </p>
-            <p>
-                hello, you're logged in
-            </p>
+        <div id="LPLoggedIn-main-container">
+            <Post />
         </div>
     )
 

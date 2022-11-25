@@ -13,6 +13,7 @@ const SignUpForm = ({ setShowSignUpModal }) => {
     const [errors, setErrors] = useState([]);
     const user = useSelector(state => state.session.user);
 
+
     const onSignup = async (e) => {
         e.preventDefault();
         const data = await dispatch(sessionActions.signUp(username, email, password));
