@@ -1,5 +1,5 @@
 import "./LPLoggedIn.css"
-import Post from "../../Post/Post"
+import Post from "../../Post/AllPosts/AllPosts"
 
 const LPLoggedIn = () => {
     return (

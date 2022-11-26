@@ -1,0 +1,160 @@
+#post-main-container {
+    display: grid;
+    grid-template-columns: 1fr 14fr;
+
+    margin-top: 10px;
+
+    width: 650px;
+
+    border: 1px solid #343536;
+    border-radius: 8px;
+}
+
+#post-main-container:hover {
+    cursor: pointer;
+    border: 1px solid #818384;
+}
+
+#post-left-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+
+    padding-top: 10px;
+    background-color: #151516;
+}
+
+#post-upvote-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#post-upvote-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 25px;
+    height: 25px;
+
+    color: #7E8184;
+}
+
+#post-upvote-button:hover {
+    color: #CC3700;
+    background-color: #2A2A2B;
+}
+
+#post-downvote-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 25px;
+    height: 25px;
+
+    color: #7E8184;
+}
+
+#post-downvote-button:hover {
+    color: #5A75CC;
+    background-color: #2A2A2B;
+}
+
+#post-vote-counter {
+    display: flex;
+
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    font-size: 13px;
+    font-weight: bold;
+
+    color: #D7DADC;
+}
+
+#post-right-container {
+    display: flex;
+    flex-direction: column;
+
+    padding-left: 5px;
+    background-color: #1A1A1B;
+
+}
+
+#post-header-container {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+#post-header-post-information {
+    font-size: small;
+    color: #818384;
+}
+
+#post-body-container {
+    display: flex;
+    flex-direction: column;
+
+    margin-top: 5px;
+    margin-bottom: 20px;
+
+    color: #D7DADC;
+}
+
+#post-title {
+    display: flex;
+    align-items: center;
+
+    font-size: larger;
+    font-weight: bolder;
+
+    color: #D7DADC;
+}
+
+#post-body {
+    display: flex;
+    align-items: center;
+
+    margin-top: 5px;
+
+}
+
+#post-footer-container>* {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    padding-left: 10px;
+    padding-right: 10px;
+
+    height: 40px;
+    width: fit-content;
+
+    color: #818384;
+}
+
+
+#post-footer-comments {
+    font-weight: bold;
+    font-size: 13px;
+}
+
+#post-footer-comments:hover {
+    background-color: #2D2D2F;
+}
+
+#post-footer-comments-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-right: 5px;
+    margin-top: 2px;
+}

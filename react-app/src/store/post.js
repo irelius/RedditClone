@@ -40,16 +40,22 @@ export const deletePost = (postId) => {
 // ------------------------------- THUNKS ------------------------------- //
 
 // Thunk action to load a specific post
-export const loadPostThunk = (id) => async (dispatch) => {
-    const res = await fetch(`/api/posts/${id}`)
+export const loadPostThunk = (postId) => async (dispatch) => {
+    const res = await fetch(`/api/posts/${postId}`)
+    const test = await fetch(`/api/likes/posts/${postId}`)
+
+    const test2 = await test.json()
+    console.log("test thunk", test2)
 
     if (res.ok) {
         const post = await res.json();
+        console.log("post", post)
         dispatch(loadPost(post))
         return post
     }
 }
 
+// Thunk action to load all posts
 export const loadPostsThunk = () => async (dispatch) => {
     const res = await fetch(`/api/posts`)
 
@@ -63,7 +69,7 @@ export const loadPostsThunk = () => async (dispatch) => {
 
 // ------------------------- SELECTOR FUNCTIONS ------------------------- //
 
-export const loadAllPosts = (state) => Object.values(state.post);
+export const loadAllPosts = (state) => state.post;
 
 
 
