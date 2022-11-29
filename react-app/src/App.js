@@ -11,7 +11,6 @@ import User from './components/Users/Users/User';
 import LandingPage from './components/LandingPage/LandingPage';
 import { authenticate } from './store/session';
 
-import Test from "./components/Test"
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -47,9 +46,6 @@ function App() {
         <ProtectedRoute path='/users/:userId' exact={true} >
           <User />
         </ProtectedRoute>
-        <Route path='/test' exact={true}>
-          <Test />
-        </Route>
       </Switch>
     </BrowserRouter>
   );

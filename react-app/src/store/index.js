@@ -3,11 +3,13 @@ import thunk from 'redux-thunk';
 import sessionReducer from './session';
 import postReducer from './post';
 import likesReducer from './like';
+import subredditReducer from './subreddit';
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   post: postReducer,
   likes: likesReducer,
+  subreddits: subredditReducer,
 });
 
 

@@ -40,48 +40,45 @@ const AllPosts = () => {
             Array.isArray(postsToLoad) && postsToLoad.map(el => {
 
                 return (
-                    <div id="test">
-
-                        <div id="post-main-container">
-                            <aside id="post-left-container">
-                                <section id="post-upvote-container">
-                                    <aside id="post-upvote-button">
-                                        <i className="fa-solid fa-up-long fa-lg" />
-                                    </aside>
-                                    <aside id="post-vote-counter">{calculatePostLikes(el)}</aside>
-                                    <aside id="post-downvote-button">
-                                        <i className="fa-solid fa-down-long fa-lg" />
-                                    </aside>
-                                </section>
-                            </aside>
-                            <aside id="post-right-container">
-                                <section id="post-header-container">
-                                    <aside id="post-header-post-information">
-                                        Post Header
-                                    </aside>
-                                    {/* <aside id="post-header-join-container">
+                    <div id="post-main-container">
+                        <aside id="post-left-container">
+                            <section id="post-upvote-container">
+                                <aside id="post-upvote-button">
+                                    <i className="fa-solid fa-up-long fa-lg" />
+                                </aside>
+                                <aside id="post-vote-counter">{calculatePostLikes(el)}</aside>
+                                <aside id="post-downvote-button">
+                                    <i className="fa-solid fa-down-long fa-lg" />
+                                </aside>
+                            </section>
+                        </aside>
+                        <aside id="post-right-container">
+                            <section id="post-header-container">
+                                <aside id="post-header-post-information">
+                                    Post Header
+                                </aside>
+                                {/* <aside id="post-header-join-container">
                                 </aside> */}
+                            </section>
+                            <section id="post-body-container">
+                                <section id="post-title">
+                                    {el.title}
                                 </section>
-                                <section id="post-body-container">
-                                    <section id="post-title">
-                                        {el.title}
-                                    </section>
-                                    <section id="post-body">
-                                        {el.body}
-                                    </section>
+                                <section id="post-body">
+                                    {el.body}
                                 </section>
-                                <section id="post-footer-container">
-                                    <aside id="post-footer-comments">
-                                        <aside>
-                                            <i id="post-footer-comments-icon" className="fa-regular fa-message fa-lg" />
-                                        </aside>
-                                        <aside>
-                                            Comments
-                                        </aside>
+                            </section>
+                            <section id="post-footer-container">
+                                <aside id="post-footer-comments">
+                                    <aside>
+                                        <i id="post-footer-comments-icon" className="fa-regular fa-message fa-lg" />
                                     </aside>
-                                </section>
-                            </aside>
-                        </div>
+                                    <aside>
+                                        Comments
+                                    </aside>
+                                </aside>
+                            </section>
+                        </aside>
                     </div>
                 )
             })
@@ -94,7 +91,7 @@ const AllPosts = () => {
         </div>
     ) : (
         <div>
-            "booba"
+            Please wait
         </div>
     )
 

@@ -52,7 +52,7 @@
     align-items: center;
 
     margin-right: 5px;
-    height: 40px;
+    height: 35px;
     width: 35px;
 
     border-radius: 90px;
@@ -81,7 +81,7 @@
 /* LI Navbar Middle Section */
 
 #li-navbar-search-bar {
-    height: 40px;
+    height: 35px;
     width: 100%;
 
     border: 0.1px solid #808283;
@@ -96,12 +96,5 @@
     border: 1px solid white;
 }
 
-
-/* -----------------------------------------------------------------------*/
-/* LI Navbar Right Section */
-
-#li-navbar-right {
-    background-color: cyan;
-}
 
 /* -----------------------------------------------------------------------*/

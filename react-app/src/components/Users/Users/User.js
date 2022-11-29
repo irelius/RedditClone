@@ -1,9 +1,11 @@
+import "./User.css"
+
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 function User() {
   const [user, setUser] = useState({});
-  const { userId }  = useParams();
+  const { userId } = useParams();
 
   useEffect(() => {
     if (!userId) {
@@ -21,17 +23,19 @@ function User() {
   }
 
   return (
-    <ul>
-      <li>
-        <strong>User Id</strong> {userId}
-      </li>
-      <li>
-        <strong>Username</strong> {user.username}
-      </li>
-      <li>
-        <strong>Email</strong> {user.email}
-      </li>
-    </ul>
+    <div id="user-main-container">
+      <ul>
+        <li>
+          <strong>User Id</strong> {userId}
+        </li>
+        <li>
+          <strong>Username</strong> {user.username}
+        </li>
+        <li>
+          <strong>Email</strong> {user.email}
+        </li>
+      </ul>
+    </div>
   );
 }
 export default User;
