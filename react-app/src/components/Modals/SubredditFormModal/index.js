@@ -2,16 +2,16 @@ import React, { useState } from 'react';
 import { Modal } from '../../../context/Modal';
 import SubredditForm from "./SubredditForm";
 
+
 function SubredditFormModal() {
-    const [showSubredditModal, setShowSubredditModal] = useState(false)
+    const [showCreateSubredditModal, setShowCreateSubredditModal] = useState(false)
 
     return (
-
         <>
-            <button onClick={() => setShowSubredditModal(true)}>Create a community</button>
-            {showSubredditModal && (
+            <button onClick={() => setShowCreateSubredditModal(true)}>Create a community</button>
+            {showCreateSubredditModal && (
                 <Modal>
-                    <LoginForm setShowSubredditModal={setShowSubredditModal} />
+                    <SubredditForm setShowCreateSubredditModal={setShowCreateSubredditModal} />
                 </Modal>
             )}
         </>

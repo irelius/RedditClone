@@ -1,6 +1,6 @@
-import "./CreateSubredditModal.css"
+import "./SubredditForm.css"
 
-const SubredditForm = () => {
+const SubredditForm = ({ setShowCreateSubredditModal }) => {
     return (
         <div id="subreddit-modal-main-container">
             <section id="header-container">
@@ -8,7 +8,9 @@ const SubredditForm = () => {
                     Create a community
                 </aside>
                 <aside id="header-exit">
-
+                    <button onClick={() => setShowCreateSubredditModal(false)} id="create-subreddit-modal-exit-button">
+                        <i className="fa-solid fa-xmark fa-lg"></i>
+                    </button>
                 </aside>
             </section>
             <section id="name-container">
