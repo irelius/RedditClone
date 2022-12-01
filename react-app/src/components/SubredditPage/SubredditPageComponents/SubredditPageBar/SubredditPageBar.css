@@ -1,0 +1,101 @@
+/* -----------------------------------------------------------------------*/
+
+
+/* SubredditPageBar CSS */
+
+
+/* -----------------------------------------------------------------------*/
+/* Subreddit Page Bar Main Container */
+
+#subreddit-bar-main-container {
+    display: flex;
+    flex-direction: column;
+
+    /* height: 250px; */
+    width: 285px;
+
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 15px;
+
+    border: 1px solid #474748;
+    border-radius: 5px;
+
+    background-color: #1A1A1B;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Subreddit Page Bar Header Container */
+
+#subreddit-bar-header-container {
+    height: 35px;
+}
+
+#subreddit-bar-header {
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif ;
+    font-size: 15px;
+    font-weight: bold;
+    color: #818384;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Subredit Page Bar Description Container */
+
+#subreddit-bar-description-container {
+    display: flex;
+
+
+    padding-top: 15px;
+    /* margin-bottom: 10px; */
+    padding-bottom: 15px;
+    border-bottom: 1px solid #343536;
+
+    color: white;
+}
+
+#subreddit-bar-description-body {
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Subreddit Page Bar Create Post Container */
+
+#subreddit-bar-create-post-container {
+    display: flex;
+    justify-content: center;
+
+    margin-top: 15px;
+    margin-bottom: 10px;
+
+    /* border-bottom: 1px solid #343536; */
+
+}
+
+#subreddit-bar-create-post-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 35px;
+    width: 100%;
+
+    border: none;
+    border-radius: 35px;
+
+    font-weight: bold;
+    font-size: 14px;
+
+    color: #1A1A1B;
+    background-color: #D7DADC;
+}
+
+#subreddit-bar-create-post-button:hover {
+    cursor: pointer;
+    background-color: #C8CBCD;
+}

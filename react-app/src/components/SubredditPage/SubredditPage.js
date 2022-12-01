@@ -1,47 +1,22 @@
-import { useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { useParams } from "react-router-dom"
+import "./SubredditPage.css"
 
-import * as subredditActions from "../../store/subreddit"
-import * as postActions from "../../store/post"
-
-import PostLikes from "../Likes/PostLikes"
+import SubredditPagePosts from "./SubredditPageComponents/SubredditPosts"
+import SubredditPageBar from "./SubredditPageComponents/SubredditPageBar/SubredditPageBar"
 
 
 const SubredditPage = () => {
-    const dispatch = useDispatch()
-
-    useEffect(() => {
-        const currentSubredditName = window.location.href.split("/")[4]
-        dispatch(subredditActions.loadCurrentSubredditThunk(currentSubredditName))
-        dispatch(postActions.loadCurrentSubredditPostsThunk(currentSubredditName))
-    }, [dispatch])
-
-    // const currentSubreddit = Object.values(useSelector((subredditActions.loadAllSubreddit)))
-    // const currentSubredditPosts = Object.values((useSelector((postActions.loadAllPosts))).posts)
-
-
-
     return (
-        <div id="temporary">
-            <section>
-                temp
-            </section>
-            <section>
-                temp
-            </section>
-            <section>
-                temp
-            </section>
-            <section>
-                temp
-            </section>
-            <section>
-                {/* <PostLikes /> */}
-            </section>
-
+        <div id="subreddit-page-main-container">
+            <aside id="subreddit-page-posts-main-container">
+                <SubredditPagePosts />
+            </aside>
+            <aside id="subreddit-page-bar-main-container">
+                <SubredditPageBar />
+            </aside>
         </div>
     )
+
+
 }
 
 export default SubredditPage

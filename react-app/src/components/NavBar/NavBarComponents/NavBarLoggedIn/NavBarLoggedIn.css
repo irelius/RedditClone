@@ -1,7 +1,7 @@
 /* -----------------------------------------------------------------------*/
 
 
-/* Logged In (LI) Navbar CSS */
+/* NavBarLoggedIn (LI) Navbar CSS */
 
 
 /* -----------------------------------------------------------------------*/
@@ -14,7 +14,7 @@
     grid-template-columns: 1.5fr 3fr 1.5fr;
     align-items: center;
 
-    position: absolute;
+    position: fixed;
     width: 100%;
     top: 0;
     left: 0;

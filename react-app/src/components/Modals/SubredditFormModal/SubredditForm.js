@@ -28,6 +28,7 @@ const SubredditForm = ({ setShowCreateSubredditModal }) => {
         if(data) {
             setErrors(data)
         }
+        setShowCreateSubredditModal(false)
         return history.push(`/r/${subredditName}`)
     }
 

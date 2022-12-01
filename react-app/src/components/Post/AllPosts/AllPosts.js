@@ -3,37 +3,41 @@ import "./AllPosts.css"
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as postActions from "../../../store/post"
-import PostLikes from "../../Likes/PostLikes";
 
+
+// helper function
+const calculatePostLikes = (post) => {
+    let likes = 0;
+    let dislikes = 0;
+
+    let likesArray = [];
+    if (post.likes) {
+        likesArray = Object.values(post.likes)
+    }
+
+    if (likesArray.length > 0) {
+        likesArray.forEach(el => {
+            if (el.like_status === "like") {
+                likes++
+            }
+            else if (el.like_status === "dislike") {
+                dislikes++
+            }
+        })
+        return likes - dislikes
+    }
+    return likes
+}
 
 const AllPosts = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(postActions.loadPostsThunk())
+        return () => dispatch(postActions.clearPost())
     }, [dispatch])
 
-    const calculatePostLikes = (post) => {
-        let likes = 0;
-        let dislikes = 0;
-
-        let likesArray = Object.values(post.likes)
-
-        if (likesArray.length > 0) {
-            likesArray.forEach(el => {
-                if (el.like_status === "like") {
-                    likes++
-                }
-                else if (el.like_status === "dislike") {
-                    dislikes++
-                }
-            })
-            return likes - dislikes
-        } else {
-            return "Vote"
-        }
-    }
-
     const allPosts = Object.values(useSelector(postActions.loadAllPosts))
+
 
     const loadAllPosts = () => {
         const postsToLoad = Object.values(allPosts[0])
@@ -44,7 +48,13 @@ const AllPosts = () => {
                 return (
                     <div id="post-main-container">
                         <aside id="post-left-container">
-                            <PostLikes post={el}/>
+                            <aside id="post-upvote-button">
+                                <i className="fa-solid fa-up-long fa-lg" />
+                            </aside>
+                            <aside id="post-vote-counter">{calculatePostLikes(el)}</aside>
+                            <aside id="post-downvote-button">
+                                <i className="fa-solid fa-down-long fa-lg" />
+                            </aside>
                         </aside>
                         <aside id="post-right-container">
                             <section id="post-header-container">

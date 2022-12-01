@@ -1,15 +1,16 @@
 // ------------------------------- ACTIONS ------------------------------- //
 const LOAD_SUBREDDIT = '/subreddits/LOAD_SUBREDDIT'
 const LOAD_SUBREDDITS = '/subreddits/LOAD_SUBREDDITS'
-const PUT_SUBREDDIT = '/subreddits/PUT_SUBREDDIT'
+// const PUT_SUBREDDIT = '/subreddits/PUT_SUBREDDIT'
 const CREATE_SUBREDDIT = '/subreddits/CREATE_SUBREDDIT'
-const DELETE_SUBREDDIT = '/subreddits/DELETE_SUBREDDIT'
+// const DELETE_SUBREDDIT = '/subreddits/DELETE_SUBREDDIT'
+const CLEAR_SUBREDDIT = '/subreddits/CLEAR_SUBREDDIT'
 
 // Get one subreddit
-export const loadSubreddit = (subredditId) => {
+export const loadSubreddit = (subreddit) => {
     return {
         type: LOAD_SUBREDDIT,
-        subredditId
+        subreddit
     }
 }
 
@@ -28,6 +29,11 @@ export const createSubreddit = (subreddit) => {
     }
 }
 
+export const clearSubreddit = () => {
+    return {
+        type: CLEAR_SUBREDDIT
+    }
+}
 
 // ------------------------------- THUNKS ------------------------------- //
 
@@ -48,8 +54,7 @@ export const loadCurrentSubredditThunk = (subredditName) => async (dispatch) => 
 
     if (res.ok) {
         const subreddit = await res.json()
-        dispatch(loadSubreddit(subreddit))
-        return subreddit
+        return dispatch(loadSubreddit(subreddit))
     }
 }
 
@@ -107,13 +112,16 @@ const subredditReducer = (state = initialState, action) => {
 
     switch(action.type) {
         case LOAD_SUBREDDIT:
-            return Object.assign({}, newState, action.subreddts)
+            return Object.assign({}, newState, action.subreddit)
 
         case LOAD_SUBREDDITS:
             return Object.assign({}, newState, action.subreddits)
 
         case CREATE_SUBREDDIT:
             return Object.assign({}, newState, action.subreddits)
+
+        case CLEAR_SUBREDDIT:
+            return initialState
 
         default:
             return newState;

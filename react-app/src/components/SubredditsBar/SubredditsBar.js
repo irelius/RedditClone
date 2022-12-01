@@ -2,7 +2,7 @@ import "./SubredditsBar.css"
 
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
-import { Redirect, useHistory } from "react-router-dom"
+import { useHistory } from "react-router-dom"
 import * as subredditActions from "../../store/subreddit"
 
 const SubredditsBar = () => {
@@ -10,6 +10,7 @@ const SubredditsBar = () => {
     const history = useHistory();
     useEffect(() => {
         dispatch(subredditActions.loadSubredditsThunk())
+        return () => dispatch(subredditActions.clearSubreddit())
     }, [dispatch])
 
     const handlePush = (id, name) => {

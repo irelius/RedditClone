@@ -3,6 +3,7 @@ const LOAD_POST = '/posts/LOAD_POST'
 const LOAD_POSTS = '/posts/LOAD_POSTS'
 const CREATE_POST = '/posts/CREATE_POST'
 const DELETE_POST = '/posts/DELETE_POST'
+const CLEAR_POST = "/posts/CLEAR_POST"
 
 // Get one post
 export const loadPost = (postId) => {
@@ -33,6 +34,12 @@ export const deletePost = (postId) => {
     return {
         type: DELETE_POST,
         postId
+    }
+}
+
+export const clearPost = () => {
+    return {
+        type: CLEAR_POST,
     }
 }
 
@@ -67,8 +74,7 @@ export const loadCurrentSubredditPostsThunk = (subredditName) => async (dispatch
 
     if (res.ok) {
         const posts = await res.json();
-        dispatch(loadPosts(posts))
-        return posts
+        return dispatch(loadPosts(posts))
     }
 }
 
@@ -76,7 +82,6 @@ export const loadCurrentSubredditPostsThunk = (subredditName) => async (dispatch
 // ------------------------- SELECTOR FUNCTIONS ------------------------- //
 
 export const loadAllPosts = (state) => state.post;
-
 
 
 
@@ -93,9 +98,11 @@ const postReducer = (state = initialState, action) => {
         case LOAD_POSTS:
             const allPosts = {"posts": {}};
             const postsArray = Object.values(action.posts.posts)
+
             postsArray.forEach(el => {
                 allPosts["posts"][el.id] = el
             })
+
             return allPosts
 
             // return Object.assign({}, newState, action.posts);
@@ -103,6 +110,9 @@ const postReducer = (state = initialState, action) => {
         // case CREATE_POST:
 
         // case DELETE_POST:
+
+        case CLEAR_POST:
+            return initialState;
 
         default:
             return newState
