@@ -21,6 +21,12 @@ export const loadSubreddits = (subreddits) => {
     }
 }
 
+export const createSubreddit = (subreddit) => {
+    return {
+        type: CREATE_SUBREDDIT,
+        subreddit
+    }
+}
 
 
 // ------------------------------- THUNKS ------------------------------- //
@@ -28,6 +34,17 @@ export const loadSubreddits = (subreddits) => {
 // Thunk action to load a specific subreddit
 export const loadSubredditThunk = (subredditId) => async (dispatch) => {
     const res = await fetch (`/api/subreddits/${subredditId}`)
+
+    if (res.ok) {
+        const subreddit = await res.json()
+        dispatch(loadSubreddit(subreddit))
+        return subreddit
+    }
+}
+
+// Thunk action to load subreddit detail matching name
+export const loadCurrentSubredditThunk = (subredditName) => async (dispatch) => {
+    const res = await fetch(`/api/subreddits/${subredditName}`)
 
     if (res.ok) {
         const subreddit = await res.json()
@@ -47,9 +64,32 @@ export const loadSubredditsThunk = () => async (dispatch) => {
     }
 }
 
+
+
 // export const loadPopularSubredditsThunk = () => async (dispatch) => {
 //     const res = await fetch ("/api/subreddits")
 // }
+
+
+// Thunk action to create subreddit
+export const createSubredditThunk = (subredditInfo) => async (dispatch) => {
+    const res = await fetch(`/api/subreddits/new`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(subredditInfo),
+    })
+
+    if (res.ok) {
+        const data = await res.json();
+        dispatch(createSubreddit(data))
+        return data;
+    }
+
+    return null
+}
+
 
 
 // ------------------------- SELECTOR FUNCTIONS ------------------------- //
@@ -67,9 +107,14 @@ const subredditReducer = (state = initialState, action) => {
 
     switch(action.type) {
         case LOAD_SUBREDDIT:
-            return Object.assign({}, newState, action.subreddits)
+            return Object.assign({}, newState, action.subreddts)
+
         case LOAD_SUBREDDITS:
             return Object.assign({}, newState, action.subreddits)
+
+        case CREATE_SUBREDDIT:
+            return Object.assign({}, newState, action.subreddits)
+
         default:
             return newState;
     }

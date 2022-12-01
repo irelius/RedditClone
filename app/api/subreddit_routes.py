@@ -26,9 +26,16 @@ def subreddits_all():
 
 # Get specific subreddit by id
 @subreddit_routes.route("/<int:subreddit_id>")
-def subreddits_specific(subreddit_id):
+def subreddits_specific_id(subreddit_id):
     subreddit = Subreddit.query.get(subreddit_id)
     return {"subreddits": {subreddit_id: subreddit.to_dict()}}
+
+
+# Get specific subreddit by name
+@subreddit_routes.route("/<string:subreddit_name>")
+def subreddits_specific_name(subreddit_name):
+    subreddit = Subreddit.query.filter((Subreddit.name == subreddit_name)).first()
+    return {"subreddits": {subreddit.id: subreddit.to_dict()}}
 
 
 # Get all users of subreddit
@@ -47,7 +54,7 @@ def subreddits_specific_users(subreddit_id):
 
 
 # Create a new subreddit
-@subreddit_routes.route("/", methods=["POST"])
+@subreddit_routes.route("/new", methods=["POST"])
 @login_required
 def subreddits_create_new():
     current_user_id = int(current_user.get_id())
@@ -84,7 +91,6 @@ def subreddits_create_new():
 @subreddit_routes.route("/<int:subreddit_id>/users/<int:user_id>", methods=["PUT"])
 @login_required
 def subreddits_add_user(subreddit_id, user_id):
-    # return "booba"
     current_user_id = int(current_user.get_id())
 
     if current_user_id == None:

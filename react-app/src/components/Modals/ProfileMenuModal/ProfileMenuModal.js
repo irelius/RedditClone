@@ -3,9 +3,6 @@ import "./ProfileMenuModal.css"
 import * as sessionActions from "../../../store/session"
 import { useDispatch, useSelector } from "react-redux"
 import { Redirect, useHistory } from "react-router-dom";
-import { useEffect } from "react";
-import { useState } from "react";
-import { Modal } from "../../../context/Modal";
 import SubredditFormModal from "../SubredditFormModal";
 
 
@@ -55,7 +52,7 @@ const ProfileMenuModal = () => {
             </section>
             <section id="li-navbar-right-part-four" onClick={handleLogout}>
                 <aside id="navbar-logout-icon">
-                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    <i className="fa-solid fa-arrow-right-from-bracket" />
                 </aside>
                 <aside id="navbar-right-logout">Logout</aside>
             </section>

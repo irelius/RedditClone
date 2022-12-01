@@ -1,8 +1,38 @@
 import "./SubredditForm.css"
 
+import { useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { useHistory } from "react-router-dom"
+import * as subredditActions from "../../../store/subreddit"
+
+
 const SubredditForm = ({ setShowCreateSubredditModal }) => {
+    const dispatch = useDispatch()
+    const history = useHistory()
+
+    const [subredditName, setSubredditName] = useState("")
+    const [subredditDescription, setSubredditDescription] = useState("")
+    const [errors, setErrors] = useState([])
+
+    const currentUser = useSelector(state => state.session.user)
+
+    const createSubreddit = async (e) => {
+        let subredditInfo = {
+            name: subredditName,
+            description: subredditDescription,
+            admin_id: currentUser.id
+        }
+
+        e.preventDefault();
+        const data = await dispatch(subredditActions.createSubredditThunk(subredditInfo))
+        if(data) {
+            setErrors(data)
+        }
+        return history.push(`/r/${subredditName}`)
+    }
+
     return (
-        <div id="subreddit-modal-main-container">
+        <form onSubmit={createSubreddit} id="subreddit-modal-main-container">
             <section id="header-container">
                 <aside id="header-title">
                     Create a community
@@ -17,20 +47,29 @@ const SubredditForm = ({ setShowCreateSubredditModal }) => {
                 <section>Name</section>
                 <section>Community names including capitalization cannot be changed.</section>
             </section>
-            <input id="subreddit-name-input-container">
-
-            </input>
-            <input id="subreddit-description-input-container">
-            </input>
+            <input id="subreddit-name-input-container"
+                name="name"
+                type="text"
+                maxLength={21}
+                value={subredditName}
+                onChange={(e) => setSubredditName(e.target.value)}
+            />
+            <input id="subreddit-description-input-container"
+                name="description"
+                type="text"
+                maxLength={500}
+                value={subredditDescription}
+                onChange={(e) => setSubredditDescription(e.target.value)}
+            />
             <section id="footer-container">
-                <button id="footer-create-subreddit-button">
+                <button id="footer-create-subreddit-button" type="submit">
                     Create Community
                 </button>
-                <button id="footer-cancel-button">
+                <button onClick={() => setShowCreateSubredditModal(false)} id="footer-cancel-button">
                     Cancel
                 </button>
             </section>
-        </div>
+        </form>
     )
 }
 

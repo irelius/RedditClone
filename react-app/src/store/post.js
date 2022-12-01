@@ -42,14 +42,9 @@ export const deletePost = (postId) => {
 // Thunk action to load a specific post
 export const loadPostThunk = (postId) => async (dispatch) => {
     const res = await fetch(`/api/posts/${postId}`)
-    const test = await fetch(`/api/likes/posts/${postId}`)
-
-    const test2 = await test.json()
-    console.log("test thunk", test2)
 
     if (res.ok) {
         const post = await res.json();
-        console.log("post", post)
         dispatch(loadPost(post))
         return post
     }
@@ -58,6 +53,17 @@ export const loadPostThunk = (postId) => async (dispatch) => {
 // Thunk action to load all posts
 export const loadPostsThunk = () => async (dispatch) => {
     const res = await fetch(`/api/posts`)
+
+    if (res.ok) {
+        const posts = await res.json();
+        dispatch(loadPosts(posts))
+        return posts
+    }
+}
+
+// Thunk action to load all posts by name
+export const loadCurrentSubredditPostsThunk = (subredditName) => async (dispatch) => {
+    const res = await fetch(`/api/posts/subreddits/${subredditName}`)
 
     if (res.ok) {
         const posts = await res.json();
@@ -83,12 +89,17 @@ const postReducer = (state = initialState, action) => {
 
     switch(action.type) {
         case LOAD_POST:
-            // const test = action.posts
-
             return Object.assign({}, newState, action.posts);
-            // return test;
         case LOAD_POSTS:
-            return Object.assign({}, newState, action.posts);
+            const allPosts = {"posts": {}};
+            const postsArray = Object.values(action.posts.posts)
+            postsArray.forEach(el => {
+                allPosts["posts"][el.id] = el
+            })
+            return allPosts
+
+            // return Object.assign({}, newState, action.posts);
+
         // case CREATE_POST:
 
         // case DELETE_POST:

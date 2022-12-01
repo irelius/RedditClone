@@ -4,18 +4,18 @@ const CREATE_LIKES = '/likes/CREATE_LIKES'
 const PUT_LIKES = '/likes/PUT_LIKES'
 
 // Get likes for a post
-export const loadLikesPost = (post) => {
+export const loadLikesPost = (likes) => {
     return {
         type: LOAD_LIKES,
-        post
+        likes
     }
 }
 
 // Get likes for a comment
-export const loadLikesComment = (commentId) => {
+export const loadLikesComment = (likes) => {
     return {
         type: LOAD_LIKES,
-        commentId
+        likes
     }
 }
 
@@ -63,6 +63,7 @@ export const loadLikes = (state) => state.likes;
 export const loadLikesPostThunk = (postId) => async (dispatch) => {
     const res = await fetch(`/api/likes/posts/${postId}`)
 
+
     if (res.ok) {
         const likes = await res.json()
         dispatch(loadLikesPost(likes))
@@ -83,6 +84,10 @@ export const loadLikesCommentThunk = (commentId) => async (dispatch) => {
     }
 }
 
+
+// ------------------------- SELECTOR FUNCTIONS ------------------------- //
+
+export const loadPostLikes = (state) => state.likes;
 
 
 // ------------------------------ REDUCERS ------------------------------ //

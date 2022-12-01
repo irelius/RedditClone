@@ -11,6 +11,7 @@ import User from './components/Users/Users/User';
 import LandingPage from './components/LandingPage/LandingPage';
 import { authenticate } from './store/session';
 
+import SubredditPage from './components/SubredditPage';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -39,6 +40,9 @@ function App() {
         </Route>
         <Route path='/sign-up' exact={true}>
           <SignUpForm />
+        </Route>
+        <Route path="/r/">
+          <SubredditPage />
         </Route>
         {/* <ProtectedRoute path='/users' exact={true} >
           <UsersList/>

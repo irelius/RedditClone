@@ -25,56 +25,7 @@
 
     padding-top: 10px;
     background-color: #151516;
-}
 
-#post-upvote-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-#post-upvote-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    width: 25px;
-    height: 25px;
-
-    color: #7E8184;
-}
-
-#post-upvote-button:hover {
-    color: #CC3700;
-    background-color: #2A2A2B;
-}
-
-#post-downvote-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    width: 25px;
-    height: 25px;
-
-    color: #7E8184;
-}
-
-#post-downvote-button:hover {
-    color: #5A75CC;
-    background-color: #2A2A2B;
-}
-
-#post-vote-counter {
-    display: flex;
-
-    margin-top: 10px;
-    margin-bottom: 10px;
-
-    font-size: 13px;
-    font-weight: bold;
-
-    color: #D7DADC;
 }
 
 #post-right-container {

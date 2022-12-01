@@ -1,6 +1,6 @@
 from flask import Blueprint
 from flask_login import current_user, login_required
-from app.models import db, Post
+from app.models import db, Post, Subreddit
 from app.forms import PostForm
 
 post_routes = Blueprint("posts", __name__)
@@ -47,11 +47,20 @@ def posts_by_specific_user(user_id):
     return return_posts(posts)
 
 
-# Get posts for a specific subreddit
+# Get posts for a specific subreddit by id
 @post_routes.route("/subreddits/<int:subreddit_id>")
-def posts_by_specific_subreddit(subreddit_id):
+def posts_by_specific_subreddit_id(subreddit_id):
     posts = Post.query.filter(Post.subreddit_id == subreddit_id).all()
     return return_posts(posts)
+
+
+# Get posts for a specific subreddit by name
+@post_routes.route("/subreddits/<string:subreddit_name>")
+def posts_by_specific_subreddit_name(subreddit_name):
+    subreddit_id = (Subreddit.query.filter(Subreddit.name == subreddit_name).first()).to_dict()["id"]
+    posts = Post.query.filter(Post.subreddit_id == subreddit_id).all()
+    return return_posts(posts)
+
 
 
 # Create a post for a specific subreddit
