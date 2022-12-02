@@ -1,5 +1,6 @@
 import "./SubredditPage.css"
 
+import SubredditPageBanner from "./SubredditPageComponents/SubredditPageBanner"
 import SubredditPagePosts from "./SubredditPageComponents/SubredditPosts"
 import SubredditPageBar from "./SubredditPageComponents/SubredditPageBar/SubredditPageBar"
 
@@ -7,12 +8,17 @@ import SubredditPageBar from "./SubredditPageComponents/SubredditPageBar/Subredd
 const SubredditPage = () => {
     return (
         <div id="subreddit-page-main-container">
-            <aside id="subreddit-page-posts-main-container">
-                <SubredditPagePosts />
-            </aside>
-            <aside id="subreddit-page-bar-main-container">
-                <SubredditPageBar />
-            </aside>
+            <section id="subreddit-page-banner-container">
+                <SubredditPageBanner />
+            </section>
+            <section id="subreddit-page-body-container">
+                <aside id="subreddit-page-posts-main-container">
+                    <SubredditPagePosts />
+                </aside>
+                <aside id="subreddit-page-bar-main-container">
+                    <SubredditPageBar />
+                </aside>
+            </section>
         </div>
     )
 

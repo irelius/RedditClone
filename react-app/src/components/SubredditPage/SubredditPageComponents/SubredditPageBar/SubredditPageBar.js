@@ -43,7 +43,7 @@ const SubredditPageBar = () => {
 
     return currentSubreddit.length > 0 && load ? (
         <div>
-            {LoadSubredditPageBar(currentSubreddit)}
+            { LoadSubredditPageBar()}
         </div>
     ) : (
         <div></div>
