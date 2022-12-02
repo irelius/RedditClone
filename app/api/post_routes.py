@@ -130,4 +130,4 @@ def posts_delete_specific(post_id):
     db.session.delete(post_to_delete)
     db.session.commit()
 
-    return {"message": f"Successfully delete Post {post_id}"}
+    return {"message": f"Successfully deleted Post {post_id}"}

@@ -3,7 +3,7 @@ const LOAD_SUBREDDIT = '/subreddits/LOAD_SUBREDDIT'
 const LOAD_SUBREDDITS = '/subreddits/LOAD_SUBREDDITS'
 // const PUT_SUBREDDIT = '/subreddits/PUT_SUBREDDIT'
 const CREATE_SUBREDDIT = '/subreddits/CREATE_SUBREDDIT'
-// const DELETE_SUBREDDIT = '/subreddits/DELETE_SUBREDDIT'
+const DELETE_SUBREDDIT = '/subreddits/DELETE_SUBREDDIT'
 const CLEAR_SUBREDDIT = '/subreddits/CLEAR_SUBREDDIT'
 
 // Get one subreddit
@@ -26,6 +26,13 @@ export const createSubreddit = (subreddit) => {
     return {
         type: CREATE_SUBREDDIT,
         subreddit
+    }
+}
+
+export const deleteSubreddit = (subredditId) => {
+    return {
+        type: DELETE_SUBREDDIT,
+        subredditId
     }
 }
 
@@ -96,6 +103,21 @@ export const createSubredditThunk = (subredditInfo) => async (dispatch) => {
 }
 
 
+// Thunk action to delete subreddit
+export const deleteSubredditThunk = (subreddit) => async (dispatch) => {
+    console.log("delete thunk entered", subreddit.id)
+
+    const res = await fetch(`/api/subreddits/${subreddit.id}`, {
+        method: "DELETE",
+    })
+
+    if(res.ok) {
+        dispatch(deleteSubreddit(subreddit.id))
+    }
+
+    return null
+}
+
 
 // ------------------------- SELECTOR FUNCTIONS ------------------------- //
 
@@ -119,6 +141,13 @@ const subredditReducer = (state = initialState, action) => {
 
         case CREATE_SUBREDDIT:
             return Object.assign({}, newState, action.subreddits)
+
+        case DELETE_SUBREDDIT:
+            console.log(action.subredditId, "thunker hello")
+
+            const deletedSubreddit  = {...newState};
+            delete deletedSubreddit[action.subredditd]
+            return deletedSubreddit
 
         case CLEAR_SUBREDDIT:
             return initialState

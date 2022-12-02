@@ -24,7 +24,7 @@ class User(db.Model, UserMixin):
     likes = db.relationship("Like")
 
     # Many to Many Relationship. Bidirectional through join table UserSubreddit
-    subreddits = db.relationship("UserSubreddit", back_populates="users")
+    subreddits = db.relationship("UserSubreddit", back_populates="users", cascade="all, delete")
 
 
     @property

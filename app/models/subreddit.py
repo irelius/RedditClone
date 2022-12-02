@@ -22,7 +22,7 @@ class Subreddit(db.Model):
     comments = db.relationship("Comment")
 
     # Many to Many Relationship. Bidirectional through join table UserSubreddit
-    users = db.relationship("UserSubreddit", back_populates="subreddits")
+    users = db.relationship("UserSubreddit", back_populates="subreddits", cascade="all, delete")
 
     def to_dict(self):
         return {

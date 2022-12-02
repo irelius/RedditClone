@@ -131,3 +131,23 @@ def subreddits_update_specific(subreddit_id):
 
     db.session.commit()
     return subreddit_to_edit.to_dict()
+
+
+# Delete a subreddit. Techically, this is not a function that is readily available to users of Reddit, but it is implemented
+# in this project to demonstrate full CRUD functionality
+@subreddit_routes.route("/<int:subreddit_id>", methods=["DELETE"])
+@login_required
+def subreddits_delete_specific(subreddit_id):
+    current_user_id = int(current_user.get_id())
+    subreddit_to_delete = Subreddit.query.get(subreddit_id)
+
+    if current_user_id == None:
+        return {"errors": "You must be logged in before deleting this subreddit"}, 401
+
+    if(subreddit_to_delete.admin_id != current_user_id):
+        return {"errors": "You do not have permission to delete this subreddit"}, 401
+
+    db.session.delete(subreddit_to_delete)
+    db.session.commit()
+
+    return {"message": f"Successfully deleted Subreddit {subreddit_id}"}
