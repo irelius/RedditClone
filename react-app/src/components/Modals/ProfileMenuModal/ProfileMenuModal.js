@@ -3,7 +3,7 @@ import "./ProfileMenuModal.css"
 import * as sessionActions from "../../../store/session"
 import { useDispatch, useSelector } from "react-redux"
 import { Redirect, useHistory } from "react-router-dom";
-import SubredditFormModal from "../SubredditFormModal";
+import SubredditCreateModal from "../SubredditCreateModal";
 
 
 const ProfileMenuModal = () => {
@@ -47,7 +47,7 @@ const ProfileMenuModal = () => {
                     <i className="fa-brands fa-ravelry" />
                 </aside>
                 <aside id="navbar-right-community">
-                    <SubredditFormModal />
+                    <SubredditCreateModal />
                 </aside>
             </section>
             <section id="li-navbar-right-part-four" onClick={handleLogout}>

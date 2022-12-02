@@ -1,7 +1,7 @@
 // ------------------------------- ACTIONS ------------------------------- //
 const LOAD_SUBREDDIT = '/subreddits/LOAD_SUBREDDIT'
 const LOAD_SUBREDDITS = '/subreddits/LOAD_SUBREDDITS'
-// const PUT_SUBREDDIT = '/subreddits/PUT_SUBREDDIT'
+const PUT_SUBREDDIT = '/subreddits/PUT_SUBREDDIT'
 const CREATE_SUBREDDIT = '/subreddits/CREATE_SUBREDDIT'
 const DELETE_SUBREDDIT = '/subreddits/DELETE_SUBREDDIT'
 const CLEAR_SUBREDDIT = '/subreddits/CLEAR_SUBREDDIT'
@@ -25,6 +25,13 @@ export const loadSubreddits = (subreddits) => {
 export const createSubreddit = (subreddit) => {
     return {
         type: CREATE_SUBREDDIT,
+        subreddit
+    }
+}
+
+export const updateSubreddit = (subreddit) => {
+    return {
+        type: PUT_SUBREDDIT,
         subreddit
     }
 }
@@ -76,8 +83,7 @@ export const loadSubredditsThunk = () => async (dispatch) => {
     }
 }
 
-
-
+// TO DO: Get Subreddits based on number of members?
 // export const loadPopularSubredditsThunk = () => async (dispatch) => {
 //     const res = await fetch ("/api/subreddits")
 // }
@@ -103,10 +109,29 @@ export const createSubredditThunk = (subredditInfo) => async (dispatch) => {
 }
 
 
+// Thunk action to edit subreddit (currently only updates description)
+// TO DO: think of more properties of subreddits that could be changed (e.g. privacy, banner, etc.)
+export const putSubredditThunk = (subredditInfo, subreddit) => async (dispatch) => {
+    const res = await fetch(`/api/subreddits/${subreddit.id}`, {
+        method: "PUT",
+        headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(subredditInfo),
+    })
+
+    if(res.ok) {
+        const data = await res.json();
+        dispatch(updateSubreddit(data))
+        return data
+    }
+
+    return null
+}
+
+
 // Thunk action to delete subreddit
 export const deleteSubredditThunk = (subreddit) => async (dispatch) => {
-    console.log("delete thunk entered", subreddit.id)
-
     const res = await fetch(`/api/subreddits/${subreddit.id}`, {
         method: "DELETE",
     })
@@ -142,9 +167,10 @@ const subredditReducer = (state = initialState, action) => {
         case CREATE_SUBREDDIT:
             return Object.assign({}, newState, action.subreddits)
 
-        case DELETE_SUBREDDIT:
-            console.log(action.subredditId, "thunker hello")
+        case PUT_SUBREDDIT:
+            return Object.assign({}, newState, action.subreddits)
 
+        case DELETE_SUBREDDIT:
             const deletedSubreddit  = {...newState};
             delete deletedSubreddit[action.subredditd]
             return deletedSubreddit

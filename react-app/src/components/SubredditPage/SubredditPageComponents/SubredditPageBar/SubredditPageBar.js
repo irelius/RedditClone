@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useHistory } from "react-router-dom"
 import * as subredditActions from "../../../../store/subreddit"
-
+import SubredditEditModal from "../../../Modals/SubredditEditModal"
 
 const SubredditPageBar = () => {
     const dispatch = useDispatch()
@@ -23,7 +23,6 @@ const SubredditPageBar = () => {
 
     const handleSubredditDelete = () => {
         const subredditToDelete = Object.values(currentSubreddit[0])[0]
-        console.log("hello", subredditToDelete)
 
         const confirmDelete = prompt(
             `Are you sure you want to delete Subreddit ${Object.values(currentSubreddit[0])[0].name}?`, "Yes"
@@ -37,11 +36,19 @@ const SubredditPageBar = () => {
 
     const loadDeleteButton = () => {
 
-        if(currentUser.id === Object.values(currentSubreddit[0])[0].admin_id) {
+        if (currentUser.id === Object.values(currentSubreddit[0])[0].admin_id) {
             return (
                 <button onClick={handleSubredditDelete}>
                     Delete Subreddit
                 </button>
+            )
+        }
+    }
+
+    const loadEditButton = () => {
+        if (currentUser.id === Object.values(currentSubreddit[0])[0].admin_id) {
+            return (
+                <SubredditEditModal />
             )
         }
     }
@@ -53,6 +60,9 @@ const SubredditPageBar = () => {
                 <section id="subreddit-bar-header-container">
                     <section id="subreddit-bar-header">
                         About Community
+                    </section>
+                    <section id="subreddit-bar-edit-container">
+                        {loadEditButton()}
                     </section>
                 </section>
                 <section id="subreddit-bar-description-container">

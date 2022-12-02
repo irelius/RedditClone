@@ -29,16 +29,47 @@
 /* Subreddit Page Bar Header Container */
 
 #subreddit-bar-header-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
     height: 35px;
 }
 
 #subreddit-bar-header {
+    margin-top: 5px;
+
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif ;
     font-size: 15px;
     font-weight: bold;
     color: #818384;
 }
 
+#subreddit-bar-edit-container {
+    display: flex;
+    align-items: flex-start;
+}
+
+#subreddit-bar-edit-button {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+
+    padding: 5px;
+
+    border: 2px solid #1A1A1B;
+
+    color: white;
+    background-color: #1A1A1B;
+}
+
+#subreddit-bar-edit-button:hover {
+    padding: 5px;
+
+    border: 2px solid white;
+    border-radius: 3px;
+    cursor: pointer
+}
 
 /* -----------------------------------------------------------------------*/
 /* Subredit Page Bar Description Container */

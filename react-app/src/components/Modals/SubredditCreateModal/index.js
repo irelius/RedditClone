@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Modal } from '../../../context/Modal';
-import SubredditForm from "./SubredditForm";
+import SubredditCreateForm from "./SubredditCreateForm";
 
 
-function SubredditFormModal() {
+function SubredditCreateModal() {
     const [showCreateSubredditModal, setShowCreateSubredditModal] = useState(false)
 
     return (
@@ -11,7 +11,7 @@ function SubredditFormModal() {
             <button onClick={() => setShowCreateSubredditModal(true)}>Create a community</button>
             {showCreateSubredditModal && (
                 <Modal>
-                    <SubredditForm setShowCreateSubredditModal={setShowCreateSubredditModal} />
+                    <SubredditCreateForm setShowCreateSubredditModal={setShowCreateSubredditModal} />
                 </Modal>
             )}
         </>
@@ -19,4 +19,4 @@ function SubredditFormModal() {
 }
 
 
-export default SubredditFormModal;
+export default SubredditCreateModal;

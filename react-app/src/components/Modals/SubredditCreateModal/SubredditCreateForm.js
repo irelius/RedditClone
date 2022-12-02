@@ -1,4 +1,4 @@
-import "./SubredditForm.css"
+import "./SubredditCreateForm.css"
 
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom"
 import * as subredditActions from "../../../store/subreddit"
 
 
-const SubredditForm = ({ setShowCreateSubredditModal }) => {
+const SubredditCreateForm = ({ setShowCreateSubredditModal }) => {
     const dispatch = useDispatch()
     const history = useHistory()
 
@@ -74,4 +74,4 @@ const SubredditForm = ({ setShowCreateSubredditModal }) => {
     )
 }
 
-export default SubredditForm;
+export default SubredditCreateForm;
