@@ -41,7 +41,6 @@ const LoginForm = ({ setShowLoginModal }) => {
                     </div>
                     <div id="login-form-modal-text-container">
                         <h2>Log In</h2>
-                        {/* TO DO: Set up a link to the User Agreement and Privacy Policy? */}
                         <p>By continuing, you agree are setting up a Reddit account and gree to our User Agreement and Privacy Policy.</p>
                     </div>
                     <div id="login-form-modal-email-container">

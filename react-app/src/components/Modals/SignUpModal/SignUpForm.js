@@ -42,7 +42,6 @@ const SignUpForm = ({ setShowSignUpModal }) => {
                     </div>
                     <div id="signup-form-modal-text-container">
                         <h2>Sign Up</h2>
-                        {/* TO DO: Set up a link to the User Agreement and Privacy Policy? */}
                         <p>By continuing, you are setting up a Reddit account and agree to our user Agreement and Privacy Policy.</p>
                     </div>
                     <div id="signup-form-modal-email-container">

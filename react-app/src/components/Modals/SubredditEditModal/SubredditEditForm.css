@@ -1,0 +1,137 @@
+/* -----------------------------------------------------------------------*/
+
+
+/* SubredditEditForm CSS */
+
+
+/* -----------------------------------------------------------------------*/
+/* Modal Button CSS for index.js */
+
+#subreddit-bar-edit-button-container {
+    border: none;
+    background-color: #1A1A1B;
+    margin-top: -1px;
+    padding: 5px;
+    padding-top: 5px;
+    border: 1px solid #1A1A1B;
+}
+
+#subreddit-bar-edit-button-container:hover {
+    cursor: pointer;
+    border: 1px solid white;
+    border-radius: 3px;
+}
+
+#subreddit-bar-edit-button {
+    color: white;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* SubredditEditForm Modal CSS */
+
+#modal {
+    position: absolute;
+
+    top: -60px;
+    left: 678px;
+}
+
+#edit-subreddit-main-container {
+    height: 200px;
+    width: 300px;
+
+    border-radius: 5px;
+    background-color: #1A1A1B;
+    border: 1px solid #C8CBCD;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Subreddit Edit Form Main Container */
+
+#edit-subreddit-main-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Subreddit Edit Form Description Container */
+
+#edit-subreddit-description-container {
+    display: flex;
+
+    width: 100%;
+    margin: 10px;
+}
+
+#edit-subreddit-description-input {
+    resize: none;
+    outline: none;
+
+    padding: 10px;
+    width: 255px;
+    height: 100px;
+
+    border: 2px solid white;
+    border-radius: 5px;
+
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+    color: white;
+    background-color: #1A1A1B;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Subreddit Edit Form Footer Container */
+
+#edit-subreddit-footer-container{
+    display: flex;
+    flex-direction: row;
+
+    justify-content: space-between;
+}
+
+#edit-subreddit-details-container {
+    display: flex;
+    margin: 10px;
+}
+
+#edit-subreddit-details {
+    font-size: 12px;
+    color: #C8CBCD;
+}
+
+#edit-subreddit-buttons-container {
+    display: flex;
+    margin: 10px;
+}
+
+#edit-subreddit-buttons-container>* {
+    margin-left: 5px;
+}
+
+#edit-subreddit-cancel {
+    border: none;
+
+    font-size: 11px;
+    font-weight: bold;
+    color: red;
+    background-color: transparent;
+
+    cursor: pointer
+}
+
+#edit-subreddit-save {
+    border: none;
+
+    font-size: 11px;
+    font-weight: bold;
+    color: white;
+    background-color: transparent;
+
+    cursor: pointer;
+}

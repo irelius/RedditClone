@@ -50,26 +50,6 @@
     align-items: flex-start;
 }
 
-#subreddit-bar-edit-button {
-    display: flex;
-    align-items: flex-end;
-    justify-content: flex-end;
-
-    padding: 5px;
-
-    border: 2px solid #1A1A1B;
-
-    color: white;
-    background-color: #1A1A1B;
-}
-
-#subreddit-bar-edit-button:hover {
-    padding: 5px;
-
-    border: 2px solid white;
-    border-radius: 3px;
-    cursor: pointer
-}
 
 /* -----------------------------------------------------------------------*/
 /* Subredit Page Bar Description Container */
@@ -77,9 +57,7 @@
 #subreddit-bar-description-container {
     display: flex;
 
-
     padding-top: 15px;
-    /* margin-bottom: 10px; */
     padding-bottom: 15px;
     border-bottom: 1px solid #343536;
 
@@ -87,10 +65,16 @@
 }
 
 #subreddit-bar-description-body {
-    display: flex;
+    display: inline-block;
     align-items: center;
 
-    width: 100%;
+    height: 100%;
+    width: 280px;
+
+    overflow-wrap: break-word;
+
+    color: white;
+    background-color: #1A1A1B;
 }
 
 
@@ -103,9 +87,6 @@
 
     margin-top: 15px;
     margin-bottom: 10px;
-
-    /* border-bottom: 1px solid #343536; */
-
 }
 
 #subreddit-bar-create-post-button {
@@ -127,6 +108,41 @@
 }
 
 #subreddit-bar-create-post-button:hover {
+    cursor: pointer;
+    background-color: #C8CBCD;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Subreddit Page Bar Delete Subreddit Container */
+
+#subreddit-bar-delete-subreddit-container {
+    display: flex;
+    justify-content: center;
+
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+#subreddit-bar-delete-subreddit-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 35px;
+    width: 100%;
+
+    border: none;
+    border-radius: 35px;
+
+    font-weight: bold;
+    font-size: 14px;
+
+    color: #1A1A1B;
+    background-color: #D7DADC;
+}
+
+#subreddit-bar-delete-subreddit-button:hover {
     cursor: pointer;
     background-color: #C8CBCD;
 }

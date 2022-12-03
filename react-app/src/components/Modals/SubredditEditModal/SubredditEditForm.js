@@ -6,11 +6,12 @@ import { useHistory } from "react-router-dom"
 
 import * as subredditActions from "../../../store/subreddit"
 
-const SubredditEditForm = () => {
+const SubredditEditForm = ({ setShowEditSubredditModal }) => {
     const dispatch = useDispatch()
     const history = useHistory()
 
     const [newSubredditDescription, setNewSubredditDescription] = useState("")
+    const [descriptionLength, setDescriptionLength] = useState(0)
     const [errors, setErrors] = useState([])
 
     const [load, setLoad] = useState(false)
@@ -24,46 +25,56 @@ const SubredditEditForm = () => {
     const currentSubreddit = Object.values(useSelector(subredditActions.loadAllSubreddit))
 
 
-    // const editSubreddit = async (e) => {
-    //     const subredditToEdit = Object.values(currentSubreddit[0])[0]
-    //     console.log("hello", subredditToEdit)
+    const editSubreddit = async (e) => {
+        e.preventDefault();
 
-    //     let subredditInfo = {
-    //         name: subredditToEdit.name,
-    //         description: newSubredditDescription,
-    //         admin_id: subredditToEdit.admin_id
-    //     }
+        const subredditToEdit = Object.values(currentSubreddit[0])[0]
 
-    //     e.preventDefault();
+        let subredditInfo = {
+            name: subredditToEdit.name,
+            description: newSubredditDescription,
+            admin_id: subredditToEdit.admin_id
+        }
 
-    //     return "testtest"
-    // }
+        dispatch(subredditActions.putSubredditThunk(subredditInfo, subredditToEdit))
+        setShowEditSubredditModal(false)
+        // TO DO IMPORTANT: Component doesn't properly udpate after the edit form is submitted
+    }
+
+    const loadInputLength = () => {
+        return `${500 - descriptionLength} Characters remaining`
+    }
 
     const editSubredditForm = () => {
         const subredditToEdit = Object.values(currentSubreddit[0])[0]
-        console.log("hello", subredditToEdit)
 
         return (
-            <form id="edit-subreddit-main-container">
+            <form onSubmit={editSubreddit} id="edit-subreddit-main-container">
                 <section id="edit-subreddit-description-container">
-                    <input
+                    <textarea id ="edit-subreddit-description-input"
                         name="description"
                         type="text"
+                        placeholder={subredditToEdit.description}
                         maxLength={500}
-                        value={subredditToEdit.description}
-                        onChange={(e) => setNewSubredditDescription(e.target.value)}
+                        value={newSubredditDescription}
+                        onChange={(e) => {
+                            setDescriptionLength(e.target.value.length)
+                            setNewSubredditDescription(e.target.value)
+                        }}
                     >
-                    </input>
+                    </textarea>
                 </section>
                 <section id="edit-subreddit-footer-container">
                     <aside id="edit-subreddit-details-container">
-
+                        <section id="edit-subreddit-details">
+                            {loadInputLength()}
+                        </section>
                     </aside>
-                    <aside id="edit-subreddit-buttons">
-                        <button>
+                    <aside id="edit-subreddit-buttons-container">
+                        <button id="edit-subreddit-cancel" onClick={() => setShowEditSubredditModal(false)}>
                             Cancel
                         </button>
-                        <button type="submit">
+                        <button id="edit-subreddit-save" type="submit">
                             Save
                         </button>
                     </aside>

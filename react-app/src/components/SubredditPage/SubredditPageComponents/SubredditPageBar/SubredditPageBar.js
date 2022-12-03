@@ -3,6 +3,7 @@ import "./SubredditPageBar.css"
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useHistory } from "react-router-dom"
+
 import * as subredditActions from "../../../../store/subreddit"
 import SubredditEditModal from "../../../Modals/SubredditEditModal"
 
@@ -11,15 +12,14 @@ const SubredditPageBar = () => {
     const history = useHistory()
     const [load, setLoad] = useState(false)
 
+    const currentSubreddit = Object.values(useSelector(subredditActions.loadAllSubreddit))
+    const currentUser = useSelector(state => state.session.user) || -1
 
     useEffect(() => {
         const currentSubredditName = window.location.href.split("/")[4]
         dispatch(subredditActions.loadCurrentSubredditThunk(currentSubredditName))
         setLoad(true)
     }, [dispatch])
-
-    const currentSubreddit = Object.values(useSelector(subredditActions.loadAllSubreddit))
-    const currentUser = useSelector(state => state.session.user)
 
     const handleSubredditDelete = () => {
         const subredditToDelete = Object.values(currentSubreddit[0])[0]
@@ -35,10 +35,9 @@ const SubredditPageBar = () => {
     }
 
     const loadDeleteButton = () => {
-
         if (currentUser.id === Object.values(currentSubreddit[0])[0].admin_id) {
             return (
-                <button onClick={handleSubredditDelete}>
+                <button id="subreddit-bar-delete-subreddit-button" onClick={handleSubredditDelete}>
                     Delete Subreddit
                 </button>
             )
@@ -55,6 +54,7 @@ const SubredditPageBar = () => {
 
     const LoadSubredditPageBar = () => {
         const subredditToLoad = Object.values(currentSubreddit[0])[0]
+
         return (
             <div id="subreddit-bar-main-container">
                 <section id="subreddit-bar-header-container">

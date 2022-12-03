@@ -2,7 +2,6 @@ import "./NavBarLoggedIn.css"
 
 import { NavLink } from 'react-router-dom';
 import NavBarProfileMenu from "../NavBarProfileMenu/NavBarProfileMenu";
-// import ProfileModal
 
 const NavBarLoggedIn = () => {
     return (

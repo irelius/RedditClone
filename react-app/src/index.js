@@ -5,6 +5,7 @@ import { ModalProvider } from './context/Modal';
 import './index.css';
 import App from './App';
 import configureStore from './store';
+import SubredditProvider from './context/SubredditContext';
 
 const store = configureStore();
 
@@ -12,7 +13,9 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <ModalProvider>
-        <App />
+        <SubredditProvider>
+          <App />
+        </SubredditProvider>
       </ModalProvider>
     </Provider>
   </React.StrictMode>,
