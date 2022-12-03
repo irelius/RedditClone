@@ -3,6 +3,9 @@ import "./SubredditPageBar.css"
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useHistory } from "react-router-dom"
+import { Modal } from "../../../../context/Modal";
+import SubredditEditForm from "../../../Modals/SubredditEditModal/SubredditEditForm";
+
 
 import * as subredditActions from "../../../../store/subreddit"
 import SubredditEditModal from "../../../Modals/SubredditEditModal"
@@ -12,6 +15,7 @@ const SubredditPageBar = () => {
     const history = useHistory()
     const [load, setLoad] = useState(false)
 
+    const [showEditSubredditModal, setShowEditSubredditModal] = useState(false)
     const currentSubreddit = Object.values(useSelector(subredditActions.loadAllSubreddit))
     const currentUser = useSelector(state => state.session.user) || -1
 
@@ -47,7 +51,17 @@ const SubredditPageBar = () => {
     const loadEditButton = () => {
         if (currentUser.id === Object.values(currentSubreddit[0])[0].admin_id) {
             return (
-                <SubredditEditModal />
+                // <SubredditEditModal />
+                <div>
+                    <button id="subreddit-bar-edit-button-container" onClick={() => setShowEditSubredditModal(true)}>
+                        <i id="subreddit-bar-edit-button" className="fa-regular fa-pen-to-square fa-lg" />
+                    </button>
+                    {showEditSubredditModal && (
+                        <Modal>
+                            <SubredditEditForm setShowEditSubredditModal={setShowEditSubredditModal} />
+                        </Modal>
+                    )}
+                </div>
             )
         }
     }

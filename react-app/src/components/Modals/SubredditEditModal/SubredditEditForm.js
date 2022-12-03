@@ -49,7 +49,10 @@ const SubredditEditForm = ({ setShowEditSubredditModal }) => {
         const subredditToEdit = Object.values(currentSubreddit[0])[0]
 
         return (
-            <form onSubmit={editSubreddit} id="edit-subreddit-main-container">
+            <form onSubmit={editSubreddit} id="edit-subreddit-form-container">
+                <section id="edit-subreddit-header">
+                    Edit {subredditToEdit.name}'s description.
+                </section>
                 <section id="edit-subreddit-description-container">
                     <textarea id ="edit-subreddit-description-input"
                         name="description"
@@ -87,7 +90,7 @@ const SubredditEditForm = ({ setShowEditSubredditModal }) => {
     // const [subredditDescription, setSubredditDescription] = useState("")
 
     return currentSubreddit.length > 0 && load ? (
-        <div>
+        <div id="edit-subreddit-main-container">
             {editSubredditForm()}
         </div>
     ) : (

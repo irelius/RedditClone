@@ -28,17 +28,14 @@
 
 
 /* -----------------------------------------------------------------------*/
-/* SubredditEditForm Modal CSS */
+/* Subreddit Edit Form Container */
 
-#modal {
-    position: absolute;
+#edit-subreddit-form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
-    top: -60px;
-    left: 678px;
-}
-
-#edit-subreddit-main-container {
-    height: 200px;
+    height: 100%;
     width: 300px;
 
     border-radius: 5px;
@@ -48,12 +45,16 @@
 
 
 /* -----------------------------------------------------------------------*/
-/* Subreddit Edit Form Main Container */
+/* Subreddit Edit Form Description Container */
 
-#edit-subreddit-main-container {
+#edit-subreddit-header {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+
+    margin: 10px;
+
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 14px;
+    color: white;
 }
 
 
@@ -91,8 +92,9 @@
 #edit-subreddit-footer-container{
     display: flex;
     flex-direction: row;
-
     justify-content: space-between;
+
+    margin-bottom: 5px;
 }
 
 #edit-subreddit-details-container {
