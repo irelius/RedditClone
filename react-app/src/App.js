@@ -12,6 +12,7 @@ import LandingPage from './components/LandingPage/LandingPage';
 import { authenticate } from './store/session';
 
 import SubredditPage from './components/SubredditPage';
+import CreatePostPage from './components/CreatePostPage';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -40,6 +41,9 @@ function App() {
         </Route>
         <Route path='/sign-up' exact={true}>
           <SignUpForm />
+        </Route>
+        <Route path="/r/:subreddit_name/new">
+          <CreatePostPage />
         </Route>
         <Route path="/r/">
           <SubredditPage />

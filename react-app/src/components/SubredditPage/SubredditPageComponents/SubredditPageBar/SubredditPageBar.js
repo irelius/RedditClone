@@ -66,6 +66,11 @@ const SubredditPageBar = () => {
         }
     }
 
+    const redirectPost = (subredditToLoad) => {
+        return history.push(`/r/${subredditToLoad.name}/new`)
+    }
+
+
     const LoadSubredditPageBar = () => {
         const subredditToLoad = Object.values(currentSubreddit[0])[0]
 
@@ -85,7 +90,7 @@ const SubredditPageBar = () => {
                     </section>
                 </section>
                 <section id="subreddit-bar-create-post-container">
-                    <button id="subreddit-bar-create-post-button">
+                    <button onClick={() => redirectPost(subredditToLoad)} id="subreddit-bar-create-post-button">
                         Create Post
                     </button>
                 </section>

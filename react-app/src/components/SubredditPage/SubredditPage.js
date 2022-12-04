@@ -3,6 +3,7 @@ import "./SubredditPage.css"
 import SubredditPageBanner from "./SubredditPageComponents/SubredditPageBanner"
 import SubredditPagePosts from "./SubredditPageComponents/SubredditPosts"
 import SubredditPageBar from "./SubredditPageComponents/SubredditPageBar/SubredditPageBar"
+import CreatePostSection from "./SubredditPageComponents/CreatePost"
 
 
 const SubredditPage = () => {
@@ -13,6 +14,7 @@ const SubredditPage = () => {
             </section>
             <section id="subreddit-page-body-container">
                 <aside id="subreddit-page-posts-main-container">
+                    <CreatePostSection />
                     <SubredditPagePosts />
                 </aside>
                 <aside id="subreddit-page-bar-main-container">
