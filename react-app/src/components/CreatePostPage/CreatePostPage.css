@@ -79,11 +79,10 @@
 
     font-size: 14px;
     color: white;
-    background-color: #1A1A1B
+    background-color: #1A1A1B;
 }
 
 #create-post-form-title:focus {
-    style: none;
     border: 1px solid white;
     border-radius: 5px;
 }
@@ -165,10 +164,79 @@
 
 
 /* -----------------------------------------------------------------------*/
-/* Create Post Bar Container */
+/* Create Post Bar Main Container */
 
-#create-post-bar-container {
-    border: 1px solid white;
+#create-post-bar-main-container {
+    display: flex;
+    flex-direction: column;
 
+    height: fit-content;
     width: 300px;
+
+    border: 1px solid #343536;
+    border-radius: 5px;
+
+    background-color: #1A1A1B
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Create Post Bar Banner Container */
+
+#create-post-bar-banner {
+    height: 35px;
+
+    background-color: #FF4500;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Create Post Bar Header Container */
+
+#create-post-bar-header-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#subreddit-bar-icon {
+    display: flex;
+    justify-content: center;
+
+    margin: 10px;
+
+    height: 39px;
+    width: 39px;
+
+    border: 5px solid white;
+    border-radius: 100%;
+
+    font-size: xx-large;
+    font-weight: bold;
+
+    color: white;
+    background-color: #ff4500;
+}
+
+#subreddit-bar-header {
+    margin-bottom: 1px;
+
+    font-size: 16px;
+    font-weight: lighter;
+    color: white;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Create Post Bar Description Container */
+
+#subreddit-bar-details-container > *{
+    margin-bottom: 10px;
+    margin-left: 10px;
+
+    font-size: 16px;
+}
+
+#subreddit-bar-date {
+    color: #818384;
 }

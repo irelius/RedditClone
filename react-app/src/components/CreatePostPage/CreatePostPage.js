@@ -40,7 +40,7 @@ const CreatePostPage = () => {
         }
 
         const data = await dispatch(postActions.createPostThunk(postInfo))
-        if(data) {
+        if (data) {
             setErrors(data)
         }
 
@@ -49,13 +49,16 @@ const CreatePostPage = () => {
 
 
     const loadCreatePostForm = () => {
-        const subredditToEdit = Object.values(currentSubreddit[0])[0]
+        const currentSubredditInfo = Object.values(currentSubreddit[0])[0]
+        let subredditDate = currentSubredditInfo.created_at.split(" ")
+        subredditDate = subredditDate[2] + " " + subredditDate[1] + ", " + subredditDate[3]
+
         return (
             <div id="create-post-page-main-container">
                 <aside id="create-post-container">
                     <section id="create-post-header-container">
                         <aside id="create-post-header">
-                            Create a post for r/{subredditToEdit.name}
+                            Create a post for r/{currentSubredditInfo.name}
                         </aside>
                     </section>
                     <section id="create-post-form-container">
@@ -92,8 +95,29 @@ const CreatePostPage = () => {
                         </form>
                     </section>
                 </aside>
-                <aside id="create-post-bar-container">
-                    booba
+                <aside id="create-post-bar-main-container">
+                    <section id="create-post-bar-banner">
+                    </section>
+                    <section id="create-post-bar-header-container">
+                        <aside id="subreddit-bar-icon">
+                            r/
+                        </aside>
+                        <aside id="subreddit-bar-header">
+                            r/{currentSubredditInfo.name}
+                        </aside>
+                    </section>
+                    <section id="subreddit-bar-details-container">
+                        <section id="subreddit-bar-details-body">
+                            {currentSubredditInfo.description}
+                        </section>
+                        <section id="subreddit-bar-date">
+                            Created {subredditDate}
+                        </section>
+                    </section>
+                    {/* TO DO: details about the subreddit
+                    <section >
+
+                    </section> */}
                 </aside>
             </div>
         )
