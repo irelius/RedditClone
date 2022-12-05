@@ -45,7 +45,7 @@ function App() {
         <Route path="/r/:subreddit_name/new">
           <CreatePostPage />
         </Route>
-        <Route path="/r/">
+        <Route path="/r">
           <SubredditPage />
         </Route>
         {/* <ProtectedRoute path='/users' exact={true} >

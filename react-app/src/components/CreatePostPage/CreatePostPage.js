@@ -1,19 +1,21 @@
 import "./CreatePostPage.css"
 
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory, useParams, Redirect } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as subredditActions from "../../store/subreddit"
+import * as postActions from "../../store/post"
 
 const CreatePostPage = () => {
     const dispatch = useDispatch()
     const history = useHistory()
 
     const [load, setLoad] = useState(false)
+    const [errors, setErrors] = useState([])
     const [postTitle, setPostTitle] = useState("")
-    const [postBody, setPostBody] = useState("")
-    const [postImage, setPostImage] = useState("")
-    const [postVideo, setPostVideo] = useState("")
+    const [postBody, setPostBody] = useState(null)
+    const [postImage, setPostImage] = useState(null)
+    const [postVideo, setPostVideo] = useState(null)
 
     useEffect(() => {
         const currentSubredditName = window.location.href.split("/")[4]
@@ -22,6 +24,29 @@ const CreatePostPage = () => {
     }, [])
 
     const currentSubreddit = Object.values(useSelector(subredditActions.loadAllSubreddit))
+
+    const createPost = async (e) => {
+        e.preventDefault();
+
+        const currentSubredditInfo = Object.values(currentSubreddit[0])[0]
+        console.log(currentSubredditInfo)
+
+        let postInfo = {
+            subreddit_id: currentSubredditInfo.id,
+            title: postTitle,
+            body: postBody,
+            image: postImage,
+            video: postVideo
+        }
+
+        const data = await dispatch(postActions.createPostThunk(postInfo))
+        if(data) {
+            setErrors(data)
+        }
+
+        return history.push(`/r/${currentSubredditInfo.name}`)
+    }
+
 
     const loadCreatePostForm = () => {
         const subredditToEdit = Object.values(currentSubreddit[0])[0]
@@ -34,7 +59,7 @@ const CreatePostPage = () => {
                         </aside>
                     </section>
                     <section id="create-post-form-container">
-                        <form id="create-post-form">
+                        <form onSubmit={createPost} id="create-post-form">
                             <section id="create-post-form-title-container">
                                 <aside>
                                     <input id="create-post-form-title"

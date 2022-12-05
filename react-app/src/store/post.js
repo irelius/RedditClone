@@ -78,6 +78,25 @@ export const loadCurrentSubredditPostsThunk = (subredditName) => async (dispatch
     }
 }
 
+// Thunk action to creat a new post
+export const createPostThunk = (postInfo) => async (dispatch) => {
+    const res = await fetch(`/api/posts/subreddits/${postInfo.subreddit_id}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(postInfo),
+    })
+
+    if (res.ok) {
+        const data = await res.json();
+        dispatch(createPost(data))
+        return data
+    }
+
+    return null
+}
+
 
 // ------------------------- SELECTOR FUNCTIONS ------------------------- //
 
