@@ -3,7 +3,7 @@ import "./SubredditPage.css"
 import SubredditPageBanner from "./SubredditPageComponents/SubredditPageBanner"
 import SubredditPagePosts from "./SubredditPageComponents/SubredditPosts"
 import SubredditPageBar from "./SubredditPageComponents/SubredditPageBar/SubredditPageBar"
-import CreatePostSection from "./SubredditPageComponents/CreatePost"
+import CreatePostSection from "./SubredditPageComponents/CreatePostSection"
 
 
 const SubredditPage = () => {
