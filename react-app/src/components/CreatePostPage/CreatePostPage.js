@@ -29,7 +29,6 @@ const CreatePostPage = () => {
         e.preventDefault();
 
         const currentSubredditInfo = Object.values(currentSubreddit[0])[0]
-        console.log(currentSubredditInfo)
 
         let postInfo = {
             subreddit_id: currentSubredditInfo.id,
@@ -64,16 +63,14 @@ const CreatePostPage = () => {
                     <section id="create-post-form-container">
                         <form onSubmit={createPost} id="create-post-form">
                             <section id="create-post-form-title-container">
-                                <aside>
-                                    <input id="create-post-form-title"
-                                        name="title"
-                                        type="text"
-                                        placeholder="Title"
-                                        maxLength={300}
-                                        value={postTitle}
-                                        onChange={(e) => setPostTitle(e.target.value)}
-                                    />
-                                </aside>
+                                <input id="create-post-form-title"
+                                    name="title"
+                                    type="text"
+                                    placeholder="Title"
+                                    maxLength={300}
+                                    value={postTitle}
+                                    onChange={(e) => setPostTitle(e.target.value)}
+                                />
                                 <aside id="create-post-form-title-counter">
                                     {postTitle.length}/300
                                 </aside>

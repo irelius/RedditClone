@@ -73,6 +73,8 @@ const SubredditPageBar = () => {
 
     const LoadSubredditPageBar = () => {
         const subredditToLoad = Object.values(currentSubreddit[0])[0]
+        let subredditDate = subredditToLoad.created_at.split(" ")
+        subredditDate = subredditDate[2] + " " + subredditDate[1] + ", " + subredditDate[3]
 
         return (
             <div id="subreddit-bar-main-container">
@@ -87,6 +89,11 @@ const SubredditPageBar = () => {
                 <section id="subreddit-bar-description-container">
                     <section id="subreddit-bar-description-body">
                         {subredditToLoad.description}
+                    </section>
+                </section>
+                <section id="subreddit-bar-date-container">
+                    <section id="subreddit-bar-date">
+                        Created {subredditDate}
                     </section>
                 </section>
                 <section id="subreddit-bar-create-post-container">

@@ -59,9 +59,18 @@
 
     padding-top: 15px;
     padding-bottom: 15px;
-    border-bottom: 1px solid #343536;
 
     color: white;
+}
+
+#subreddit-bar-date-container {
+    display: flex;
+
+    padding-bottom: 15px;
+
+    border-bottom: 1px solid #343536;
+
+    color: #818384;
 }
 
 #subreddit-bar-description-body {

@@ -186,6 +186,9 @@
 #create-post-bar-banner {
     height: 35px;
 
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+
     background-color: #FF4500;
 }
 

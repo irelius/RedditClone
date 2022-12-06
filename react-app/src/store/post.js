@@ -6,10 +6,10 @@ const DELETE_POST = '/posts/DELETE_POST'
 const CLEAR_POST = "/posts/CLEAR_POST"
 
 // Get one post
-export const loadPost = (postId) => {
+export const loadPost = (post) => {
     return {
         type: LOAD_POST,
-        postId
+        post
     }
 }
 
@@ -113,7 +113,7 @@ const postReducer = (state = initialState, action) => {
 
     switch(action.type) {
         case LOAD_POST:
-            return Object.assign({}, newState, action.posts);
+            return Object.assign({}, newState, action.post.posts);
         case LOAD_POSTS:
             const allPosts = {"posts": {}};
             const postsArray = Object.values(action.posts.posts)

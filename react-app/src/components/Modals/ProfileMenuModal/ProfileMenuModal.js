@@ -21,7 +21,7 @@ const ProfileMenuModal = () => {
     const handleLogout = (e) => {
         e.preventDefault()
         dispatch(sessionActions.logout())
-        return Redirect("/")
+        return <Redirect to="/" />
     }
 
     return (

@@ -36,7 +36,7 @@ const NavBarNotLoggedIn = () => {
 
       <section id="nli-navbar-right">
         <aside id="nli-right-button-signup">
-            <SignUpFormModal />
+          <SignUpFormModal />
         </aside>
         <aside id="nli-right-button-login">
           <LoginFormModal />

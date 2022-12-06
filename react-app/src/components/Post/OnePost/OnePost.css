@@ -1,0 +1,270 @@
+/* -----------------------------------------------------------------------*/
+
+
+/* OnePost CSS */
+
+
+
+/* -----------------------------------------------------------------------*/
+/* Post Page Background */
+
+#post-page-background {
+    display: flex;
+    justify-content: center;
+    height:100vh;
+
+    background-color: #191919;
+}
+
+#post-page-asdf {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; */
+
+    height: 100vh;
+    width: 1300px;
+
+    background-color: #030303;
+}
+
+#post-page-close-button-container {
+    display: flex;
+    justify-content: flex-end;
+
+    margin-top: 60px;
+    margin-right: 250px;
+
+    width: 100%;
+}
+
+#post-page-close-button {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+    height: 25px;
+    width: 75px;
+
+    border: none;
+
+    color: white;
+    background-color: transparent;
+}
+
+#post-page-close-button:hover {
+    border-radius: 20px;
+    background-color: #141414;
+}
+
+/* -----------------------------------------------------------------------*/
+/* Post Page Main Container */
+
+#post-page-main-container {
+    margin-top: 25px;
+
+    width: 1050px;
+
+    background-color: #030303;
+    background-color: white;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Post Page Main Container */
+
+#post-page-main-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    background-color: #030303;
+
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Post Page Post Main Container */
+
+#post-page-post-main-container {
+    display: flex;
+    flex-direction: row;
+
+    margin-right: 10px;
+
+    width: 750px;
+
+    background-color: #191919;
+    /* border: 1px solid black; */
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Post Page Left Container */
+
+#post-page-post-left-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    margin-top: 10px;
+
+    width: 50px;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Post Page Right Container */
+
+#post-page-post-right-container {
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Post Page Header Container */
+
+#post-page-post-header-container {
+    display: flex;
+    flex-direction: row;
+
+    margin: 10px;
+    margin-left: 0px;
+    margin-bottom: 5px;
+
+    font-size: small;
+}
+
+#post-page-post-header {
+    margin-right: 10px;
+
+    font-weight: bold;
+    color: white;
+}
+
+#post-page-post-header:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+#post-page-post-poster {
+    color: #707172;
+}
+
+#post-page-post-poster-decoration-text {
+    margin-right: 3px;
+    color: #707172;
+}
+
+#post-page-post-poster:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+/* -----------------------------------------------------------------------*/
+/* Post Page Title Container */
+
+#post-page-post-title-container {
+    font-size: larger;
+    font-weight: bold;
+
+    margin: 5px;
+    margin-left: 0px;
+
+    color: white;
+}
+
+/* -----------------------------------------------------------------------*/
+/* Post Page Body Container */
+
+#post-page-post-body {
+    margin: 5px;
+    margin-left: 0px;
+    margin-bottom: 15px;
+
+    color: white;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Post Page Footer Container */
+
+#post-page-post-footer-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    height: 40px;
+    width: 100%;
+
+
+}
+
+#post-page-post-footer-container > * {
+    display: flex;
+    justify-content: center;
+
+    height: 100%;
+
+    color: #707172;
+}
+
+#post-page-post-footer-container *:hover {
+    cursor: pointer;
+    background-color: #2D2E2F;
+}
+
+#post-page-post-button-icon {
+    margin-right: 5px;
+}
+
+#post-page-post-edit-container {
+    display: flex;
+    align-items: center;
+
+    padding-left: 10px;
+}
+
+#post-page-post-edit-button {
+    margin-right: 5px;
+
+    border: none;
+
+    font-size: 11px;
+    font-weight: bold;
+    color: #707172;
+    background-color: transparent;
+}
+
+#post-page-post-delete-container {
+    display: flex;
+    align-items: center;
+
+    padding-left: 10px;
+}
+
+#post-page-post-delete-button {
+    border: none;
+
+    font-size: 11px;
+    font-weight: bold;
+    color: #707172;
+    background-color: transparent;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Post Page Bar Main Container */
+
+#post-page-bar-main-container {
+    display: flex;
+    justify-content: flex-start;
+
+    width: 325px;
+
+    border: 1px solid black;
+
+    background-color: orange;
+}

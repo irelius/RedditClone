@@ -13,6 +13,7 @@ import { authenticate } from './store/session';
 
 import SubredditPage from './components/SubredditPage';
 import CreatePostPage from './components/CreatePostPage';
+import OnePost from './components/Post/OnePost';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -44,6 +45,9 @@ function App() {
         </Route>
         <Route path="/r/:subreddit_name/new">
           <CreatePostPage />
+        </Route>
+        <Route path="/r/:subreddit_name/:post_id">
+          <OnePost />
         </Route>
         <Route path="/r">
           <SubredditPage />
