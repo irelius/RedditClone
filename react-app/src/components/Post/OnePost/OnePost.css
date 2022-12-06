@@ -260,11 +260,74 @@
 
 #post-page-bar-main-container {
     display: flex;
+    flex-direction: column;
     justify-content: flex-start;
 
+    max-width: 325px;
     width: 325px;
 
-    border: 1px solid black;
+    border: 1px solid #474748;
+    border-radius: 5px;
+}
 
-    background-color: orange;
+#post-page-bar-main-container:hover {
+    cursor: pointer;
+}
+
+#post-page-bar-banner {
+    height: 35px;
+
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+
+    background-color: #FF4500;
+}
+
+#post-page-bar-header-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#post-page-bar-icon {
+    display: flex;
+    justify-content: center;
+
+    margin: 10px;
+
+    height: 39px;
+    width: 39px;
+
+    border: 5px solid white;
+    border-radius: 100%;
+
+    font-size: xx-large;
+    font-weight: bold;
+
+    color: white;
+    background-color: #ff4500;
+}
+
+#post-page-bar-header {
+    margin-bottom: 1px;
+
+    font-size: 16px;
+    font-weight: lighter;
+    color: white;
+}
+
+
+#post-page-bar-details-container > *{
+    margin-bottom: 10px;
+    margin-left: 10px;
+
+    font-size: 16px;
+}
+
+#post-page-bar-details-body {
+    color: white;
+}
+
+#post-page-bar-date {
+    color: #818384;
 }

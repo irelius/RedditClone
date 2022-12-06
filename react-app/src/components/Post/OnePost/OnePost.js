@@ -46,17 +46,61 @@ const OnePost = () => {
 
     const currentPost = Object.values(useSelector(postActions.loadAllPosts))
     const currentSubreddit = Object.values(useSelector(subredditActions.loadAllSubreddit))
+    const currentUser = Object.values(useSelector(state => state.session))
 
     const redirectToSubreddit = (subredditToLoad) => {
         history.push(`/r/${subredditToLoad.name}`)
     }
 
+    const loadFooter = (userToLoad, postToLoad, subredditToLoad) => {
+        console.log(subredditToLoad, "subredditToLoad")
+        if (userToLoad.id === postToLoad.user_id) {
+            return (
+                <section id="post-page-post-footer-container">
+                    <aside id="post-page-post-edit-container">
+                        <aside id="post-page-post-button-icon">
+                            <i className="fa-regular fa-pen-to-square fa-lg" />
+                        </aside>
+                        <button id="post-page-post-edit-button">
+                            Edit Post
+                        </button>
+                    </aside>
+                    <aside id="post-page-post-delete-container">
+                        <aside id="post-page-post-button-icon">
+                            <i className="fa-solid fa-trash-can fa-lg" />
+                        </aside>
+                        <button id="post-page-post-delete-button">
+                            Delete Post
+                        </button>
+                    </aside>
+                </section>
+            )
+        }
+
+        if (userToLoad.id === subredditToLoad.admin_id) {
+            return (
+                <section id="post-page-post-footer-container">
+                    <aside id="post-page-post-delete-container">
+                        <aside id="post-page-post-button-icon">
+                            <i className="fa-solid fa-ban fa-lg" />
+                        </aside>
+                        <button id="post-page-post-delete-button">
+                            Remove Post
+                        </button>
+                    </aside>
+                </section>
+            )
+        }
+
+    }
+
     const LoadOnePost = () => {
         const postToLoad = currentPost[0]
         const subredditToLoad = Object.values(currentSubreddit[0])[0]
+        const userToLoad = currentUser[0]
+        let subredditDate = subredditToLoad.created_at.split(" ")
+        subredditDate = subredditDate[2] + " " + subredditDate[1] + ", " + subredditDate[3]
 
-        console.log('test1', postToLoad)
-        console.log("test2", subredditToLoad)
         return (
             <div id="post-page-asdf">
                 <div id="post-page-close-button-container">
@@ -85,7 +129,7 @@ const OnePost = () => {
                                     Posted by
                                 </aside>
                                 <aside id="post-page-post-poster">
-                                    u/
+                                    u/{userToLoad.username}
                                 </aside>
                             </section>
                             <section id="post-page-post-title-container">
@@ -98,28 +142,28 @@ const OnePost = () => {
                                     {postToLoad.body}
                                 </section>
                             </section>
-                            <section id="post-page-post-footer-container">
-                                <aside id="post-page-post-edit-container">
-                                    <aside id="post-page-post-button-icon">
-                                        <i className="fa-regular fa-pen-to-square fa-lg" />
-                                    </aside>
-                                    <button id="post-page-post-edit-button">
-                                        Edit Post
-                                    </button>
-                                </aside>
-                                <aside id="post-page-post-delete-container">
-                                    <aside id="post-page-post-button-icon">
-                                        <i className="fa-solid fa-trash-can fa-lg" />
-                                    </aside>
-                                    <button id="post-page-post-delete-button">
-                                        Delete Post
-                                    </button>
-                                </aside>
-                            </section>
+                            {loadFooter(userToLoad, postToLoad, subredditToLoad)}
                         </aside>
                     </aside>
-                    <aside id="post-page-bar-main-container">
-                        booba bar
+                    <aside onClick={() => redirectToSubreddit(subredditToLoad)} id="post-page-bar-main-container">
+                        <section id="post-page-bar-banner">
+                        </section>
+                        <section id="post-page-bar-header-container">
+                            <aside id="post-page-bar-icon">
+                                r/
+                            </aside>
+                            <aside id="post-page-bar-header">
+                                r/{subredditToLoad.name}
+                            </aside>
+                        </section>
+                        <section id="post-page-bar-details-container">
+                            <section id="post-page-bar-details-body">
+                                {subredditToLoad.description}
+                            </section>
+                            <section id="post-page-bar-date">
+                                Created {subredditDate}
+                            </section>
+                        </section>
                     </aside>
                 </div>
                 <div id="post-page-comments-main-container">
@@ -131,7 +175,7 @@ const OnePost = () => {
     }
 
 
-    return currentPost.length > 0 && currentSubreddit.length > 0 && load ? (
+    return currentPost.length > 0 && currentSubreddit.length > 0 && currentUser.length > 0 && load ? (
         <div id="post-page-background">
             {LoadOnePost()}
         </div>
