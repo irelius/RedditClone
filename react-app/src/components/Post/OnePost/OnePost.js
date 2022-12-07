@@ -45,6 +45,7 @@ const OnePost = () => {
         dispatch(postActions.loadPostThunk(post_id))
         dispatch(subredditActions.loadCurrentSubredditThunk(subreddit_name))
         setLoad(true)
+        dispatch(subredditActions.clearSubreddit())
         return () => dispatch(postActions.clearPost())
     }, [dispatch, setLoadEditComponent])
 
@@ -59,7 +60,6 @@ const OnePost = () => {
 
     const handlePostDelete = () => {
         const postToDelete = currentPost[0]
-        console.log(postToDelete, "test")
 
         const confirmDelete = prompt(
             `Are you sure you want to delete your post? You can't undo this`, "Yes"
@@ -71,24 +71,29 @@ const OnePost = () => {
         }
     }
 
+    const handlePostRemove = () => {
+        const postToDelete = currentPost[0]
+        dispatch(postActions.deletePostThunk(postToDelete))
+        history.goBack();
+    }
 
     const loadFooter = (userToLoad, postToLoad, subredditToLoad) => {
         if (userToLoad.id === postToLoad.user_id) {
             return (
-                <section id="post-page-post-footer-container">
+                <section onClick={() => setLoadEditComponent(true)} id="post-page-post-footer-container">
                     <aside id="post-page-post-edit-container">
                         <aside id="post-page-post-button-icon">
                             <i className="fa-regular fa-pen-to-square fa-lg" />
                         </aside>
-                        <button onClick={() => setLoadEditComponent(true)} id="post-page-post-edit-button">
+                        <button id="post-page-post-edit-button">
                             Edit Post
                         </button>
                     </aside>
-                    <aside id="post-page-post-delete-container">
+                    <aside onClick={handlePostDelete} id="post-page-post-delete-container">
                         <aside id="post-page-post-button-icon">
                             <i className="fa-solid fa-trash-can fa-lg" />
                         </aside>
-                        <button onClick={handlePostDelete} id="post-page-post-delete-button">
+                        <button id="post-page-post-delete-button">
                             Delete Post
                         </button>
                     </aside>
@@ -99,7 +104,7 @@ const OnePost = () => {
         if (userToLoad.id === subredditToLoad.admin_id) {
             return (
                 <section id="post-page-post-footer-container">
-                    <aside id="post-page-post-delete-container">
+                    <aside onClick={handlePostRemove} id="post-page-post-delete-container">
                         <aside id="post-page-post-button-icon">
                             <i className="fa-solid fa-ban fa-lg" />
                         </aside>
@@ -131,14 +136,6 @@ const OnePost = () => {
         if (newPostBody === null && postToLoad.body) {
             setNewPostBody(postToLoad.body)
         }
-
-        const test = () => {
-            console.log("booba test")
-            return history.push("/")
-        }
-
-
-        const postBody = currentPost[0].body
 
         return (
             <form onSubmit={updatePost}>

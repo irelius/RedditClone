@@ -120,11 +120,12 @@ def posts_update_specific(post_id):
 def posts_delete_specific(post_id):
     current_user_id = int(current_user.get_id())
     post_to_delete = Post.query.get(post_id)
+    subreddit = Subreddit.query.get(post_to_delete.subreddit_id)
 
     if post_to_delete == None:
         return {"errors": f"Post {post_id} does not exist"}, 404
 
-    if post_to_delete.user_id != current_user_id:
+    if post_to_delete.user_id != current_user_id and subreddit.admin_id != current_user_id:
         return {"errors": f"User {current_user_id} does not have permission to delete Post {id}"}, 403
 
     db.session.delete(post_to_delete)
