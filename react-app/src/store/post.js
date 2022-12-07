@@ -2,6 +2,7 @@
 const LOAD_POST = '/posts/LOAD_POST'
 const LOAD_POSTS = '/posts/LOAD_POSTS'
 const CREATE_POST = '/posts/CREATE_POST'
+const PUT_POST = '/posts/PUT_POST'
 const DELETE_POST = '/posts/DELETE_POST'
 const CLEAR_POST = "/posts/CLEAR_POST"
 
@@ -25,6 +26,14 @@ export const loadPosts = (posts) => {
 export const createPost = (post) => {
     return {
         type: CREATE_POST,
+        post
+    }
+}
+
+// Update a post
+export const updatePost = (post) => {
+    return {
+        type: PUT_POST,
         post
     }
 }
@@ -78,7 +87,7 @@ export const loadCurrentSubredditPostsThunk = (subredditName) => async (dispatch
     }
 }
 
-// Thunk action to creat a new post
+// Thunk action to create a new post
 export const createPostThunk = (postInfo) => async (dispatch) => {
     const res = await fetch(`/api/posts/subreddits/${postInfo.subreddit_id}`, {
         method: "POST",
@@ -95,6 +104,38 @@ export const createPostThunk = (postInfo) => async (dispatch) => {
     }
 
     return null
+}
+
+// Thunk action to update an existing post
+export const putPostThunk = (postInfo, post) => async (dispatch) => {
+    const res = await fetch(`/api/posts/${post.id}`, {
+        method: "PUT",
+        headers: {
+			'Content-Type': 'application/json',
+		},
+        body: JSON.stringify(postInfo)
+    })
+
+    if (res.ok) {
+        const data = await res.json();
+        dispatch(updatePost(data))
+        return data
+    }
+
+    return null
+}
+
+// Thunk action to delete a post
+export const deletePostThunk = (post) => async (dispatch) => {
+    const res = await fetch(`/api/posts/${post.id}`, {
+        method: "DELETE"
+    })
+
+    if(res.ok) {
+        dispatch(deletePost(post.id))
+    }
+
+    return null;
 }
 
 

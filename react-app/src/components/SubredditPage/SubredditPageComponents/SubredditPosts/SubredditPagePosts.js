@@ -2,6 +2,7 @@ import "./SubredditPagePosts.css"
 
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom"
 import * as postActions from "../../../../store/post"
 
 // helper function
@@ -30,6 +31,7 @@ const calculatePostLikes = (post) => {
 
 const SubredditPagePosts = () => {
     const dispatch = useDispatch()
+    const history = useHistory()
 
     const [load, setLoad] = useState(false)
 
@@ -37,10 +39,18 @@ const SubredditPagePosts = () => {
         const currentSubredditName = window.location.href.split("/")[4]
         dispatch(postActions.loadCurrentSubredditPostsThunk(currentSubredditName))
         setLoad(true)
+        return () => dispatch(postActions.clearPost())
     }, [dispatch])
 
 
     const currentSubredditPosts = Object.values(useSelector(postActions.loadAllPosts));
+
+    const redirectToPostPage = (post) => {
+        const postId = post.id
+        const subredditName = window.location.href.split("/")[4]
+
+        history.push(`/r/${subredditName}/${postId}`)
+    }
 
 
     const LoadSubredditPagePosts = () => {
@@ -49,7 +59,7 @@ const SubredditPagePosts = () => {
         return (
             Array.isArray(subredditPostsToLoad) && subredditPostsToLoad.map(el => {
                 return (
-                    <div id="subreddit-post-main-container">
+                    <div onClick={() => redirectToPostPage(el)} id="subreddit-post-main-container">
                         <aside id="subreddit-post-left-container">
                             <aside id="subreddit-post-upvote-button">
                                 <i className="fa-solid fa-up-long fa-lg" />

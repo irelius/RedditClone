@@ -2,10 +2,12 @@ import "./OnePost.css"
 
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router-dom"
+import { Redirect, useHistory, useParams } from "react-router-dom"
 
 import * as subredditActions from "../../../store/subreddit"
 import * as postActions from "../../../store/post"
+
+import EditPostSection from "./OnePostComponents/EditPostSection/EditPostSection";
 
 // helper function
 const calculatePostLikes = (post) => {
@@ -35,6 +37,8 @@ const OnePost = () => {
     const dispatch = useDispatch()
     const history = useHistory()
     const [load, setLoad] = useState(false)
+    const [newPostBody, setNewPostBody] = useState(null)
+    const [loadEditComponent, setLoadEditComponent] = useState(false)
     const { subreddit_name, post_id } = useParams();
 
     useEffect(() => {
@@ -42,18 +46,33 @@ const OnePost = () => {
         dispatch(subredditActions.loadCurrentSubredditThunk(subreddit_name))
         setLoad(true)
         return () => dispatch(postActions.clearPost())
-    }, [dispatch])
+    }, [dispatch, setLoadEditComponent])
 
     const currentPost = Object.values(useSelector(postActions.loadAllPosts))
     const currentSubreddit = Object.values(useSelector(subredditActions.loadAllSubreddit))
     const currentUser = Object.values(useSelector(state => state.session))
 
+
     const redirectToSubreddit = (subredditToLoad) => {
         history.push(`/r/${subredditToLoad.name}`)
     }
 
+    const handlePostDelete = () => {
+        const postToDelete = currentPost[0]
+        console.log(postToDelete, "test")
+
+        const confirmDelete = prompt(
+            `Are you sure you want to delete your post? You can't undo this`, "Yes"
+        )
+
+        if (confirmDelete === "Yes") {
+            dispatch(postActions.deletePostThunk(postToDelete))
+            history.goBack();
+        }
+    }
+
+
     const loadFooter = (userToLoad, postToLoad, subredditToLoad) => {
-        console.log(subredditToLoad, "subredditToLoad")
         if (userToLoad.id === postToLoad.user_id) {
             return (
                 <section id="post-page-post-footer-container">
@@ -61,7 +80,7 @@ const OnePost = () => {
                         <aside id="post-page-post-button-icon">
                             <i className="fa-regular fa-pen-to-square fa-lg" />
                         </aside>
-                        <button id="post-page-post-edit-button">
+                        <button onClick={() => setLoadEditComponent(true)} id="post-page-post-edit-button">
                             Edit Post
                         </button>
                     </aside>
@@ -69,7 +88,7 @@ const OnePost = () => {
                         <aside id="post-page-post-button-icon">
                             <i className="fa-solid fa-trash-can fa-lg" />
                         </aside>
-                        <button id="post-page-post-delete-button">
+                        <button onClick={handlePostDelete} id="post-page-post-delete-button">
                             Delete Post
                         </button>
                     </aside>
@@ -91,7 +110,52 @@ const OnePost = () => {
                 </section>
             )
         }
+    }
 
+    const updatePost = async (e) => {
+        e.preventDefault();
+
+        const postToEdit = currentPost[0]
+        console.log(postToEdit, "test")
+
+        let postInfo = {
+            title: postToEdit.title,
+            body: newPostBody
+        }
+
+        dispatch(postActions.putPostThunk(postInfo, postToEdit))
+        setLoadEditComponent(false)
+    }
+
+    const loadEditPostSection = (postToLoad) => {
+        if (newPostBody === null && postToLoad.body) {
+            setNewPostBody(postToLoad.body)
+        }
+
+        const test = () => {
+            console.log("booba test")
+            return history.push("/")
+        }
+
+
+        const postBody = currentPost[0].body
+
+        return (
+            <form onSubmit={updatePost}>
+                <textarea
+                    type="text"
+                    value={newPostBody}
+                    onChange={(e) => setNewPostBody(e.target.value)}
+                >
+                </textarea>
+                <button onClick={() => setLoadEditComponent(false)}>
+                    Cancel
+                </button>
+                <button type="submit">
+                    Save
+                </button>
+            </form>
+        )
     }
 
     const LoadOnePost = () => {
@@ -138,9 +202,15 @@ const OnePost = () => {
                                 </section>
                             </section>
                             <section id="post-page-post-body-container">
-                                <section id="post-page-post-body">
-                                    {postToLoad.body}
-                                </section>
+                                {loadEditComponent ? (
+                                    <section>
+                                        {loadEditPostSection(postToLoad)}
+                                    </section>
+                                ) : (
+                                    <section id="post-page-post-body">
+                                        {postToLoad.body}
+                                    </section>
+                                )}
                             </section>
                             {loadFooter(userToLoad, postToLoad, subredditToLoad)}
                         </aside>
@@ -170,7 +240,7 @@ const OnePost = () => {
                     {/* TO DO: Implement a comments section component that will return a default "no messages yet" section or the comments, o boy, that's gunna be hard */}
                 </div>
 
-            </div>
+            </div >
         )
     }
 
