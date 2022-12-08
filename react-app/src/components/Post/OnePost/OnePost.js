@@ -139,19 +139,23 @@ const OnePost = () => {
         }
 
         return (
-            <form onSubmit={updatePost}>
-                <textarea
-                    type="text"
-                    value={newPostBody}
-                    onChange={(e) => setNewPostBody(e.target.value)}
-                >
-                </textarea>
-                <button onClick={() => setLoadEditComponent(false)}>
-                    Cancel
-                </button>
-                <button type="submit">
-                    Save
-                </button>
+            <form id="post-page-edit-main-container" onSubmit={updatePost}>
+                <section id="post-page-edit-input-container">
+                    <textarea id="post-page-edit-input"
+                        type="text"
+                        value={newPostBody}
+                        onChange={(e) => setNewPostBody(e.target.value)}
+                    >
+                    </textarea>
+                    <section id="post-page-edit-button-container">
+                        <button id="post-page-edit-cancel-button" onClick={() => setLoadEditComponent(false)}>
+                            Cancel
+                        </button>
+                        <button id="post-page-edit-save-button" type="submit">
+                            Save
+                        </button>
+                    </section>
+                </section>
             </form>
         )
     }

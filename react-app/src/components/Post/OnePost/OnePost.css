@@ -184,6 +184,77 @@
 
 
 /* -----------------------------------------------------------------------*/
+/* Post Page Body Edit Container */
+
+#post-page-edit-main-container {
+    display: flex;
+    flex-direction: column;
+
+    width: 660px;
+}
+
+#post-page-edit-input-container {
+
+}
+
+#post-page-edit-input {
+    width: 650px;
+
+    resize: vertical;
+    outline: none;
+
+    border: 1px solid #343536;
+    border-radius: 5px;
+
+    font-family: tre;
+    color: white;
+    background-color: #191919;
+}
+
+#post-page-edit-input:focus {
+    border: 1px solid white;
+}
+
+#post-page-edit-button-container {
+    display: flex;
+    justify-content: flex-end;
+
+    margin-right: 5px;
+    margin-top: 5px;
+}
+
+#post-page-edit-button-container>* {
+    margin-left: 5px;
+
+    height: 35px;
+    width: 90px;
+
+    border: none;
+    border-radius: 45px;
+
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 16px;
+    font-weight: bolder;
+}
+
+#post-page-edit-cancel-button {
+    color: white;
+    background-color: #191919;
+}
+
+#post-page-edit-cancel-button:hover {
+    cursor: pointer;
+    background-color: #29292A;
+}
+
+#post-page-edit-save-button:hover {
+    cursor: pointer;
+    background-color: #C8CBCD;
+}
+
+
+
+/* -----------------------------------------------------------------------*/
 /* Post Page Footer Container */
 
 #post-page-post-footer-container {
