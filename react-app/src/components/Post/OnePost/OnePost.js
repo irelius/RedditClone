@@ -47,7 +47,7 @@ const OnePost = () => {
         setLoad(true)
         dispatch(subredditActions.clearSubreddit())
         return () => dispatch(postActions.clearPost())
-    }, [dispatch, setLoadEditComponent])
+    }, [dispatch, setLoadEditComponent, setNewPostBody])
 
     const currentPost = Object.values(useSelector(postActions.loadAllPosts))
     const currentSubreddit = Object.values(useSelector(subredditActions.loadAllSubreddit))
@@ -121,7 +121,6 @@ const OnePost = () => {
         e.preventDefault();
 
         const postToEdit = currentPost[0]
-        console.log(postToEdit, "test")
 
         let postInfo = {
             title: postToEdit.title,
@@ -129,6 +128,8 @@ const OnePost = () => {
         }
 
         dispatch(postActions.putPostThunk(postInfo, postToEdit))
+        currentPost[0].body = postInfo.body
+
         setLoadEditComponent(false)
     }
 

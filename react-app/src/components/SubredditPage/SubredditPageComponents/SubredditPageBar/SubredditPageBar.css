@@ -88,6 +88,105 @@
 
 
 /* -----------------------------------------------------------------------*/
+/* Subredit Page Bar Edit Description */
+
+#subreddit-bar-edit-main-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    margin-bottom: 10px;
+
+    height: 100%;
+    width: 275px;
+
+    border-radius: 5px;
+    background-color: #1A1A1B;
+    border: 1px solid #C8CBCD;
+
+}
+
+#subreddit-bar-edit-input-container {
+    height: auto;
+}
+
+#subreddit-bar-edit-input {
+    margin: 10px;
+
+    height: 100px;
+    width: 250px;
+
+    overflow-y: scroll;
+    word-break: break-all;
+
+    outline: none;
+    border: none;
+    resize: none;
+
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 14px;
+    color: white;
+    background-color: #1A1A1B;
+}
+
+
+#subreddit-bar-edit-footer-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    margin: 10px;
+    margin-top: 0px;
+}
+
+
+#subreddit-bar-button-container {
+    display: flex;
+    flex-direction: row;
+}
+
+#subreddit-bar-button-container>* {
+    margin-left: 5px;
+}
+
+
+#subreddit-bar-edit-footer-length {
+    display: flex;
+    align-items: center;
+
+    font-size: 12px;
+    color: #C8CBCD;
+}
+
+#subreddit-bar-cancel-button {
+    border: none;
+
+    font-size: 11px;
+    font-weight: bold;
+    color: red;
+    background-color: transparent;
+
+    cursor: pointer
+}
+
+#subreddit-bar-save-button-container {
+    display: flex;
+    margin: 10px;
+}
+
+#subreddit-bar-save-button {
+    border: none;
+
+    font-size: 11px;
+    font-weight: bold;
+    color: white;
+    background-color: transparent;
+
+    cursor: pointer;
+}
+
+
+/* -----------------------------------------------------------------------*/
 /* Subreddit Page Bar Create Post Container */
 
 #subreddit-bar-create-post-container {
