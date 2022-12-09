@@ -88,7 +88,7 @@ def seed_users_subreddits():
     db.session.commit()
 
 def undo_users_subreddits():
-    if os.environment == "production":
+    if os.environ.get("FLASK_ENV") == "production":
         db.session.execute(f"TRUNCATE table {SCHEMA}.users_subreddits RESTART IDENTITY CASCADE;")
     else:
         db.session.execute("DELETE FROM users_subreddits")

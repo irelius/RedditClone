@@ -31,7 +31,7 @@ def seed_subreddits():
     db.session.commit()
 
 def undo_subreddits():
-    if os.environment == "production":
+    if os.environ.get("FLASK_ENV") == "production":
         db.session.execute(f"TRUNCATE table {SCHEMA}.subreddits RESTART IDENTITY CASCADE;")
     else:
         db.session.execute("DELETE FROM subreddits")

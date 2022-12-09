@@ -96,7 +96,7 @@ def seed_comments():
     db.session.commit()
 
 def undo_comments():
-    if os.environment == "production":
+    if os.environ.get("FLASK_ENV") == "production":
         db.session.execute(f"TRUNCATE table {SCHEMA}.comments RESTART IDENTITY CASCADE;")
     else:
         db.session.execute("DELETE FROM comments")

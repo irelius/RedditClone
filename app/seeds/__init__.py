@@ -1,6 +1,7 @@
 from flask.cli import AppGroup
 
 from app.models.db import db, environment, SCHEMA
+import os
 
 from .users import seed_users, undo_users
 from .subreddits import seed_subreddits, undo_subreddits
