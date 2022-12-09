@@ -29,7 +29,6 @@ def seed():
         db.session.execute(f"TRUNCATE table {SCHEMA}.likes RESTART IDENTITY CASCADE;")
         # Make sure to add all your other model's undo functions below
         db.session.commit()
-        undo_users()
     seed_users()
     seed_subreddits()
     seed_users_subreddits()
@@ -42,10 +41,10 @@ def seed():
 # Creates the `flask seed undo` command
 @seed_commands.command('undo')
 def undo():
-    undo_users()
+    undo_likes()
+    undo_comments()
+    undo_posts()
     undo_subreddits()
     undo_users_subreddits()
-    undo_posts()
-    undo_comments()
-    undo_likes()
+    undo_users()
     # Add other undo functions here

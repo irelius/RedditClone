@@ -1,4 +1,4 @@
-from app.models import db, UserSubreddit
+from app.models import db, UserSubreddit, environment, SCHEMA
 
 def seed_users_subreddits():
     subreddit_one_user_one = UserSubreddit(
@@ -87,4 +87,12 @@ def seed_users_subreddits():
 
 def undo_users_subreddits():
     db.session.execute("DELETE FROM users_subreddits;")
+    db.session.commit()
+
+def undo_users_subreddits():
+    if environment == "production":
+        db.session.execute(f"TRUNCATE table {SCHEMA}.users_subreddits RESTART IDENTITY CASCADE;")
+    else:
+        db.session.execute("DELETE FROM users_subreddits")
+
     db.session.commit()
