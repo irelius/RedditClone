@@ -81,6 +81,7 @@ const AllPosts = () => {
             Array.isArray(postsToLoad) && postsToLoad.map((el, i) => {
                 const posterId = el["user_id"]
                 const posterInfo = usersToLoad[posterId]
+
                 const subredditId = el["subreddit_id"]
                 const subredditInfo = subredditsToLoad[subredditId]
 
@@ -97,8 +98,16 @@ const AllPosts = () => {
                         </aside>
                         <aside id="post-right-container">
                             <section id="post-header-container">
-                                <aside id="post-header-subreddit-information" onClick={(e) => redirectToSubredditPage(subredditInfo.name, e)}>
-                                    r/{subredditInfo.name}
+                                <aside>
+                                    {subredditInfo ? (
+                                        <section id="post-header-subreddit-information" onClick={(e) => redirectToSubredditPage(subredditInfo.name, e)}>
+                                            r/{subredditInfo.name}
+                                        </section>
+                                    ) : (
+                                        <section id="post-header-no-subreddit">
+                                            Subreddit no longer exists.
+                                        </section>
+                                    )}
                                 </aside>
                                 <aside id="post-header-post-information">
                                     Posted by

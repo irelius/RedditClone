@@ -17,8 +17,8 @@ class Post(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
     # One to Many Relationships, Unidirectional FROM Post
-    comments = db.relationship("Comment")
-    likes = db.relationship("Like")
+    comments = db.relationship("Comment", cascade="all, delete")
+    likes = db.relationship("Like", cascade="all, delete")
 
     # Many to One Relationships, Unidirectional TO Post
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")))

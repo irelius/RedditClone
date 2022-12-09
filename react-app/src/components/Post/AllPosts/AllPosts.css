@@ -119,6 +119,19 @@
     text-decoration: underline;
 }
 
+#post-header-no-subreddit {
+    margin-right: 10px;
+
+    font-size: small;
+    font-weight: normal;
+    color: #818384;
+}
+
+#post-header-no-subreddit:hover {
+    /* cursor:  */
+    text-decoration: none;
+}
+
 #post-header-post-information {
     display: flex;
     flex-direction: row;
