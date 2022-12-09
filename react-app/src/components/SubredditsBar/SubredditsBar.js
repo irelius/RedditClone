@@ -22,9 +22,9 @@ const SubredditsBar = () => {
     const loadPopularSubreddits = () => {
         const subredditsToLoad = Object.values(popularSubreddits[0])
         return (
-            Array.isArray(subredditsToLoad) && subredditsToLoad.map(el => {
+            Array.isArray(subredditsToLoad) && subredditsToLoad.map((el, i) => {
                 return (
-                    <section id="subredditsbar-body-container">
+                    <section id="subredditsbar-body-container" key={i}>
                         <section id="subredditsbar-subreddit-container">
                             <section onClick={() => handlePush(el.id, el.name)} id="subredditsbar-subreddit-name">
                                 r/{el.name}

@@ -85,7 +85,7 @@ const AllPosts = () => {
                 const subredditInfo = subredditsToLoad[subredditId]
 
                 return (
-                    <div onClick={() => redirectToPostPage(el)} id="post-main-container">
+                    <div onClick={() => redirectToPostPage(el)} id="post-main-container" key={i}>
                         <aside id="post-left-container">
                             <aside id="post-upvote-button">
                                 <i className="fa-solid fa-up-long fa-lg" />
