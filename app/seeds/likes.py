@@ -41,7 +41,7 @@ def seed_likes():
     )
     like_eight = Like (
         like_status = "like",
-        user_id = 8,
+        user_id = 5,
         comment_id = 11
     )
 
