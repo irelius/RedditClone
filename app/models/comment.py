@@ -18,9 +18,9 @@ class Comment(db.Model):
     likes = db.relationship("Like")
 
     # Many to One Relationship, Unidirectional TO Comment
-    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-    post_id = db.Column(db.Integer, db.ForeignKey("posts.id"))
-    subreddit_id = db.Column(db.Integer, db.ForeignKey("subreddits.id"))
+    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")))
+    post_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("posts.id")))
+    subreddit_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("subreddits.id")))
 
     def to_dict(self):
         return {

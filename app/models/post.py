@@ -21,8 +21,8 @@ class Post(db.Model):
     likes = db.relationship("Like")
 
     # Many to One Relationships, Unidirectional TO Post
-    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-    subreddit_id = db.Column(db.Integer, db.ForeignKey("subreddits.id"))
+    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")))
+    subreddit_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("subreddits.id")))
 
 
     def to_dict(self):

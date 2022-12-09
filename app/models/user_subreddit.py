@@ -12,8 +12,8 @@ class UserSubreddit(db.Model):
     # admin_id = db.Column(db.Integer, nullable=False)
     # TO DO, try to figure out how to add mods to this
     # mod_id = db.Column(db.Integer, nullable=True)
-    subreddit_id = db.Column(db.ForeignKey("subreddits.id"), nullable=False, primary_key=True)
-    user_id = db.Column(db.ForeignKey("users.id"), nullable=False, primary_key=True)
+    subreddit_id = db.Column(db.ForeignKey(add_prefix_for_prod("subreddits.id")), nullable=False, primary_key=True)
+    user_id = db.Column(db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False, primary_key=True)
     created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
