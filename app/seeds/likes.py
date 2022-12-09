@@ -1,4 +1,6 @@
-from app.models import db, Like
+from app.models import db, Like, environment, SCHEMA
+import os
+
 
 def seed_likes():
     like_one = Like(
@@ -75,5 +77,9 @@ def seed_likes():
 
 
 def undo_likes():
-    db.session.execute("DELETE FROM likes")
+    if os.environment == "production":
+        db.session.execute(f"TRUNCATE table {SCHEMA}.likes RESTART IDENTITY CASCADE;")
+    else:
+        db.session.execute("DELETE FROM likes")
+
     db.session.commit()

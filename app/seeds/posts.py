@@ -1,4 +1,5 @@
 from app.models import db, Post, environment, SCHEMA
+import os
 
 def seed_posts():
     post_one = Post(
@@ -63,7 +64,7 @@ def seed_posts():
 
 
 def undo_posts():
-    if environment == "production":
+    if os.environment == "production":
         db.session.execute(f"TRUNCATE table {SCHEMA}.posts RESTART IDENTITY CASCADE;")
     else:
         db.session.execute("DELETE FROM posts")
