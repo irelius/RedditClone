@@ -43,6 +43,11 @@ function App() {
         <Route path='/sign-up' exact={true}>
           <SignUpForm />
         </Route>
+        <Route path="/users/:username">
+          <div>
+            booba
+          </div>
+        </Route>
         <Route path="/r/:subreddit_name/new">
           <CreatePostPage />
         </Route>

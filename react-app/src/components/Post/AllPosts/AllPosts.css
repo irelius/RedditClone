@@ -15,6 +15,8 @@
 
     width: 650px;
 
+    z-index: -1;
+
     border: 1px solid #343536;
     border-radius: 5px;
 }
@@ -22,6 +24,8 @@
 #post-main-container:hover {
     cursor: pointer;
     border: 1px solid #818384;
+
+    z-index: -1;
 }
 
 
@@ -100,6 +104,33 @@
 
     padding-left: 5px;
     background-color: #1A1A1B;
+}
+
+#post-header-subreddit-information {
+    margin-right: 10px;
+
+    font-size: small;
+    font-weight: bold;
+    color: white;
+}
+
+#post-header-subreddit-information:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+#post-header-post-information {
+    display: flex;
+    flex-direction: row;
+}
+
+#post-header-poster {
+    margin-left: 3px;
+}
+
+#post-header-poster:hover {
+    cursor: pointer;
+    text-decoration: underline;
 }
 
 /* -----------------------------------------------------------------------*/

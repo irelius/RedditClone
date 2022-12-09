@@ -102,7 +102,12 @@ export const createSubredditThunk = (subredditInfo) => async (dispatch) => {
     if (res.ok) {
         const data = await res.json();
         dispatch(createSubreddit(data))
-        return data;
+        return null;
+    } else if (res.status < 500) {
+        const data = await res.json()
+        if(data.errors) {
+            return data.errors
+        }
     }
 
     return null

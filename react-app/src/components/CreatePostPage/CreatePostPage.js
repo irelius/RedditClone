@@ -21,6 +21,7 @@ const CreatePostPage = () => {
         const currentSubredditName = window.location.href.split("/")[4]
         dispatch(subredditActions.loadCurrentSubredditThunk(currentSubredditName))
         setLoad(true)
+        return () => dispatch(subredditActions.clearSubreddit())
     }, [])
 
     const currentSubreddit = Object.values(useSelector(subredditActions.loadAllSubreddit))

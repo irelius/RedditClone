@@ -13,6 +13,7 @@ const SubredditPageBanner = () => {
         const currentSubredditName = window.location.href.split("/")[4]
         dispatch(subredditActions.loadCurrentSubredditThunk(currentSubredditName))
         setLoad(true)
+        return () => dispatch(subredditActions.clearSubreddit())
     }, [dispatch])
 
     const currentSubreddit = Object.values(useSelector(subredditActions.loadAllSubreddit))

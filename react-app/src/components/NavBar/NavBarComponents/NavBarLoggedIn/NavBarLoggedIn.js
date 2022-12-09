@@ -26,7 +26,7 @@ const NavBarLoggedIn = () => {
 
       <section id="li-navbar-middle">
         <section id="li-navbar-search-bar-container">
-          <form action="/test">
+          <form>
             <input id="li-navbar-search-bar" type="text" placeholder="Search..." name="search" />
           </form>
         </section>

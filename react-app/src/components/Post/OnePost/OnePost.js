@@ -53,7 +53,6 @@ const OnePost = () => {
     const currentSubreddit = Object.values(useSelector(subredditActions.loadAllSubreddit))
     const currentUser = Object.values(useSelector(state => state.session))
 
-
     const redirectToSubreddit = (subredditToLoad) => {
         history.push(`/r/${subredditToLoad.name}`)
     }
@@ -163,7 +162,7 @@ const OnePost = () => {
     const LoadOnePost = () => {
         const postToLoad = currentPost[0]
         const subredditToLoad = Object.values(currentSubreddit[0])[0]
-        const userToLoad = currentUser[0]
+        const userToLoad = currentUser[0] || -1
         let subredditDate = subredditToLoad.created_at.split(" ")
         subredditDate = subredditDate[2] + " " + subredditDate[1] + ", " + subredditDate[3]
 

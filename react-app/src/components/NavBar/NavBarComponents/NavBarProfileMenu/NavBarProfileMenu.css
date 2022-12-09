@@ -25,6 +25,8 @@
 }
 
 #navbar-profile-menu-button:hover {
+    cursor: pointer;
+
     border: 1px solid #343536;
     border-radius: 4px;
 }
@@ -35,11 +37,27 @@
     color: #D7DADC;
 }
 
-#navbar-profile-menu-profile-pic {
+#navbar-profile-menu-profile-pic-container {
+    display: flex;
+    align-items: center;
+
     margin: 3px;
     margin-right: 5px;
 }
 
+#navbar-profile-menu-profile-pic {
+    border-radius: 45px;
+}
+
 #navbar-profile-menu-arrow {
     color: #808283;
+}
+
+#navbar-profile-menu-name {
+    display: flex;
+    align-items: center;
+
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
 }

@@ -3,7 +3,9 @@ import "./SubredditPagePosts.css"
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom"
+
 import * as postActions from "../../../../store/post"
+import * as sessionActions from "../../../../store/session"
 
 // helper function
 const calculatePostLikes = (post) => {
@@ -38,12 +40,15 @@ const SubredditPagePosts = () => {
     useEffect(() => {
         const currentSubredditName = window.location.href.split("/")[4]
         dispatch(postActions.loadCurrentSubredditPostsThunk(currentSubredditName))
+        dispatch(sessionActions.loadAllUserThunk())
         setLoad(true)
         return () => dispatch(postActions.clearPost())
     }, [dispatch])
 
 
     const currentSubredditPosts = Object.values(useSelector(postActions.loadAllPosts));
+    const allUsers = Object.values(useSelector(sessionActions.loadAllUsers))
+
 
     const redirectToPostPage = (post) => {
         const postId = post.id
@@ -52,12 +57,33 @@ const SubredditPagePosts = () => {
         history.push(`/r/${subredditName}/${postId}`)
     }
 
+    const noPostsToLoad = () => {
+        const subredditName = window.location.href.split("/")[4]
+
+        return (
+            <div id="subreddit-no-posts-main-container">
+                <section id="subreddit-no-post-title">
+                    r/{subredditName} doesn't have any posts
+                    <i id="subreddit-no-post-unhappy-face" className="fa-regular fa-face-frown fa-lg" />
+                </section>
+                <section id="subreddit-no-post-body">
+                    Why don't you fix that?
+                    <i id="subreddit-no-post-wink-face" className="fa-regular fa-face-smile-wink fa-lg" />
+                </section>
+            </div>
+        )
+    }
+
 
     const LoadSubredditPagePosts = () => {
         const subredditPostsToLoad = Object.values(currentSubredditPosts[0])
+        const usersToLoad = allUsers[1]
 
         return (
             Array.isArray(subredditPostsToLoad) && subredditPostsToLoad.map(el => {
+                const posterId = el["user_id"]
+                const posterInfo = usersToLoad[posterId]
+
                 return (
                     <div onClick={() => redirectToPostPage(el)} id="subreddit-post-main-container">
                         <aside id="subreddit-post-left-container">
@@ -71,8 +97,9 @@ const SubredditPagePosts = () => {
                         </aside>
                         <aside id="subreddit-post-right-container">
                             <section id="subreddit-post-header-container">
+                                Posted by
                                 <aside id="subreddit-post-header-subreddit-post-information">
-                                    Post Header
+                                    u/{posterInfo.username}
                                 </aside>
                                 {/* <aside id="subreddit-post-header-join-container">
                             </aside> */}
@@ -102,12 +129,14 @@ const SubredditPagePosts = () => {
         )
     }
 
-    return currentSubredditPosts.length > 0 && load ? (
+    return currentSubredditPosts.length > 0 && allUsers.length > 1 && load ? (
         <div>
             {LoadSubredditPagePosts()}
         </div>
     ) : (
-        <div></div>
+        <div>
+            {noPostsToLoad()}
+        </div>
     )
 }
 

@@ -10,18 +10,21 @@ def subreddit_exists(form, field):
         raise ValidationError("This subreddit name is already in use.")
 
 def check_subreddit_length(form, field):
-    name = field.data
+    name = form.data["name"]
+    if len(name) == 0:
+        raise ValidationError("A subreddit name is required.")
+
     if len(name) > 21:
         raise ValidationError("Subreddit name is too long. Please limit to 21 characters.")
 
 def check_description_length(form, field):
-    description = field.data
+    description = form.data["description"]
     if len(description) > 500:
         raise ValidationError("Subreddit description is too long. Please limit to 500 characters.")
 
 
 class SubredditForm(FlaskForm):
-    name = StringField("name", validators=[DataRequired(), subreddit_exists, check_subreddit_length])
+    name = StringField("name", validators=[DataRequired(), check_subreddit_length, subreddit_exists])
     # admin_id = IntegerField("admin_id", validators=[DataRequired()])
     # mod_id = IntegerField("mod_id")
     # privacy_setting = SelectField("privacy_setting", choices=["Public", "Restricted", "Private"], validators=[DataRequired()])

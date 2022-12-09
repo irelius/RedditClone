@@ -51,3 +51,8 @@
 
     background-color: #1A1A1B;
 }
+
+#subredditsbar-subreddit-name:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}

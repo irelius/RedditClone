@@ -2,9 +2,10 @@ import "./AllPosts.css"
 
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom"
+import { Redirect, useHistory } from "react-router-dom"
 import * as postActions from "../../../store/post"
 import * as subredditActions from "../../../store/subreddit"
+import * as sessionActions from "../../../store/session"
 
 // helper function
 const calculatePostLikes = (post) => {
@@ -41,27 +42,47 @@ const AllPosts = () => {
     useEffect(() => {
         dispatch(postActions.loadPostsThunk())
         dispatch(subredditActions.loadSubredditsThunk())
+        dispatch(sessionActions.loadAllUserThunk())
         setLoad(true)
+        dispatch(subredditActions.clearSubreddit())
         return () => dispatch(postActions.clearPost())
     }, [])
 
     const allPosts = Object.values(useSelector(postActions.loadAllPosts))
     const allSubreddits = Object.values(useSelector(subredditActions.loadAllSubreddit))
-
+    const allUsers = Object.values(useSelector(sessionActions.loadAllUsers))
 
     const redirectToPostPage = (post) => {
+
         const postId = post.id
         const subredditName = allSubreddits[0][post.subreddit_id]["name"]
 
         history.push(`/r/${subredditName}/${postId}`)
     }
 
+    const redirectToUserPage = (username, e) => {
+        e.stopPropagation();
+
+        history.push(`/users/${username}`)
+    }
+
+    const redirectToSubredditPage = (name, e) => {
+        e.stopPropagation();
+
+        history.push(`/r/${name}`)
+    }
 
     const loadAllPosts = () => {
         const postsToLoad = Object.values(allPosts[0])
+        const usersToLoad = allUsers[1]
+        const subredditsToLoad = allSubreddits[0]
 
         return (
-            Array.isArray(postsToLoad) && postsToLoad.map(el => {
+            Array.isArray(postsToLoad) && postsToLoad.map((el, i) => {
+                const posterId = el["user_id"]
+                const posterInfo = usersToLoad[posterId]
+                const subredditId = el["subreddit_id"]
+                const subredditInfo = subredditsToLoad[subredditId]
 
                 return (
                     <div onClick={() => redirectToPostPage(el)} id="post-main-container">
@@ -76,8 +97,14 @@ const AllPosts = () => {
                         </aside>
                         <aside id="post-right-container">
                             <section id="post-header-container">
+                                <aside id="post-header-subreddit-information" onClick={(e) => redirectToSubredditPage(subredditInfo.name, e)}>
+                                    r/{subredditInfo.name}
+                                </aside>
                                 <aside id="post-header-post-information">
-                                    Post Header
+                                    Posted by
+                                    <section id="post-header-poster" onClick={(e) => redirectToUserPage(posterInfo.username, e)}>
+                                        u/{posterInfo.username}
+                                    </section>
                                 </aside>
                                 {/* <aside id="post-header-join-container">
                                 </aside> */}
@@ -110,7 +137,7 @@ const AllPosts = () => {
         )
     }
 
-    return allPosts.length > 0 && load ? (
+    return allPosts.length > 0 && allUsers.length > 1 && allSubreddits.length > 0 && load ? (
         <div>
             {loadAllPosts()}
         </div>

@@ -220,6 +220,13 @@
     background-color: #C8CBCD;
 }
 
+#subreddit-bar-create-post-empty {
+    margin-top: 10px;
+
+    font-size: smaller;
+    color: #818384;
+}
+
 
 /* -----------------------------------------------------------------------*/
 /* Subreddit Page Bar Delete Subreddit Container */

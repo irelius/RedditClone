@@ -21,11 +21,11 @@ const SubredditPageBar = () => {
         const currentSubredditName = window.location.href.split("/")[4]
         dispatch(subredditActions.loadCurrentSubredditThunk(currentSubredditName))
         setLoad(true)
-        dispatch(subredditActions.clearSubreddit())
+        return () => dispatch(subredditActions.clearSubreddit())
     }, [dispatch, setLoadEditComponent, setNewSubredditDescription])
 
     const currentSubreddit = Object.values(useSelector(subredditActions.loadAllSubreddit))
-    const currentUser = useSelector(state => state.session.user) || -1
+    const currentUser = useSelector(state => state.session.user) || {}
 
     const redirectPost = (subredditToLoad) => {
         return history.push(`/r/${subredditToLoad.name}/new`)
@@ -153,14 +153,22 @@ const SubredditPageBar = () => {
                         Created {subredditDate}
                     </section>
                 </section>
-                <section id="subreddit-bar-create-post-container">
-                    <button onClick={() => redirectPost(subredditToLoad)} id="subreddit-bar-create-post-button">
-                        Create Post
-                    </button>
-                </section>
-                <section id="subreddit-bar-delete-subreddit-container">
-                    {loadDeleteButton()}
-                </section>
+                {currentUser.id ? (
+                    <>
+                        <section id="subreddit-bar-create-post-container">
+                            <button onClick={() => redirectPost(subredditToLoad)} id="subreddit-bar-create-post-button">
+                                Create Post
+                            </button>
+                        </section>
+                        <section id="subreddit-bar-delete-subreddit-container">
+                            {loadDeleteButton()}
+                        </section>
+                    </>
+                ) : (
+                    <div id="subreddit-bar-create-post-empty">
+                        Log in to create a post to this subreddit
+                    </div>
+                )}
             </div>
         )
     }

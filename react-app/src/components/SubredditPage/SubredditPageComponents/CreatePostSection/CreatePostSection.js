@@ -16,6 +16,7 @@ const CreatePostSection = () => {
         const currentSubredditName = window.location.href.split("/")[4]
         dispatch(subredditActions.loadCurrentSubredditThunk(currentSubredditName))
         setLoad(true)
+        return () => dispatch(subredditActions.clearSubreddit())
     }, [dispatch])
 
     const currentSubreddit = Object.values(useSelector(subredditActions.loadAllSubreddit))
@@ -28,7 +29,7 @@ const CreatePostSection = () => {
     const LoadCreatePost = () => {
         const subredditToLoad = Object.values(currentSubreddit[0])[0]
 
-        return (
+        return currentUser ? (
             <section id="create-post-main-container">
                 <aside id="create-post-user-profile-container">
                     <img id="create-post-user-profile-pic" src={currentUser.profile_image}
@@ -42,7 +43,10 @@ const CreatePostSection = () => {
                     </button>
                 </aside>
             </section>
+        ) : (
+            <div></div>
         )
+
     }
 
 

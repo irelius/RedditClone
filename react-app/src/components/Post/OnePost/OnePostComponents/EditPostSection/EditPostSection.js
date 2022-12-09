@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux"
 import { Redirect, useHistory } from "react-router-dom"
 import * as postActions from "../../../../../store/post"
 
+// This file is uncessary?
+
 
 const EditPostSection = (post) => {
     const dispatch = useDispatch()
@@ -12,6 +14,7 @@ const EditPostSection = (post) => {
 
     useEffect(() => {
         dispatch(postActions.loadPostThunk(postToLoad.id))
+        return () => dispatch(postActions.clearPost())
     }, [dispatch])
 
     const postToLoad = post.post
@@ -20,15 +23,6 @@ const EditPostSection = (post) => {
     urlRedirect = urlRedirect[3] + "/" + urlRedirect[4] + "/" + urlRedirect[5]
 
     const [edit, setEdit] = useState(postToLoad.body)
-
-    const test = () => {
-        history.push("/")
-    }
-
-    const handleSubmit = () => {
-        return history.push("/r/Subreddit_1")
-        // return <Redirect to="/" />
-    }
 
     return (
         <div id="edit-post-main-container" >
@@ -44,9 +38,6 @@ const EditPostSection = (post) => {
                 </textarea>
             </section>
             <section id="edit-post-buttons-container">
-                <button onClick={() => test}>
-                    test
-                </button>
                 <aside id="edit-post-cancel-button-container">
                     <button id="edit-post-cancel-button">
                         Cancel

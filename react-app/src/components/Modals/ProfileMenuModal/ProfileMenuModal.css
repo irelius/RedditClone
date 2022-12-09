@@ -1,4 +1,17 @@
 /* -----------------------------------------------------------------------*/
+
+
+/* ProfileMenuModal CSS */
+
+
+/* -----------------------------------------------------------------------*/
+/* Modal CSS */
+
+#modal-background {
+    background-color: transparent;
+}
+
+/* -----------------------------------------------------------------------*/
 /* LI Navbar Right Section */
 
 #li-navbar-right {
@@ -54,6 +67,7 @@
 }
 
 #navbar-right-profile:hover {
+    cursor: pointer;
     background-color: #232324;
 }
 
@@ -70,6 +84,7 @@
 }
 
 #li-navbar-right-part-three:hover {
+    cursor: pointer;
     background-color: #232324;
 }
 
@@ -79,7 +94,9 @@
     padding-right: 15px;
 }
 
-
+#navbar-right-community {
+    border: none;
+}
 
 #li-navbar-right-part-four {
     display: flex;
@@ -91,18 +108,22 @@
 }
 
 #li-navbar-right-part-four:hover {
+    cursor: pointer;
     background-color: #232324;
 }
 
 #navbar-logout-icon {
-    color: #787C7E;
     padding-right: 20px;
+
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 16px;
+    color: #787C7E;
 }
 
 
 #li-navbar-footer {
+    padding: 5px;
     padding-left: 20px;
-    padding-bottom: 20px;
 
     font-size: x-small;
     color: #787C7E;

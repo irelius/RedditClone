@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint, request
 from flask_login import current_user, login_required
 from app.models import db, Subreddit, UserSubreddit, User
 from app.forms import SubredditForm
@@ -12,6 +12,14 @@ def return_subreddits(subreddits):
     # if len(subreddits) > 0:
     return {"subreddits": {subreddit.id: subreddit.to_dict() for subreddit in subreddits}}
     # return {"subreddits": "No subreddits"}, 404
+
+#Validation error function
+def validation_error_message(validation_errors):
+    error_messages = []
+    for field in validation_errors:
+        for error in validation_errors[field]:
+            error_messages.append(f'{field} : {error}')
+    return error_messages
 
 
 # --------------------------------------------------------------------------------
@@ -63,27 +71,29 @@ def subreddits_create_new():
         return {"errors": "You must be logged in before creating a new subreddit"}, 401
 
     form = SubredditForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
     name = form.data["name"].strip(" ")
     name = name.replace(" ", "_")
 
-    new_subreddit = Subreddit(
-        name = name,
-        description = form.data["description"],
-        admin_id = current_user_id
-    )
+    if form.validate_on_submit():
+        new_subreddit = Subreddit(
+            name = name,
+            description = form.data["description"],
+            admin_id = current_user_id
+        )
 
-    db.session.add(new_subreddit)
-    db.session.commit()
+        db.session.add(new_subreddit)
+        db.session.commit()
 
-    new_subreddit_user = UserSubreddit(
-        subreddit_id = new_subreddit.id,
-        user_id = current_user_id,
-    )
+        new_subreddit_user = UserSubreddit(
+            subreddit_id = new_subreddit.id,
+            user_id = current_user_id,
+        )
 
-    db.session.add(new_subreddit_user)
-    db.session.commit()
-
-    return new_subreddit.to_dict()
+        db.session.add(new_subreddit_user)
+        db.session.commit()
+        return new_subreddit.to_dict()
+    return {"errors": validation_error_message(form.errors)}, 401
 
 
 # TO DO: implement function to add users to a private subreddit (another TO DO in the subreddit) or join a subreddit if public (this part is done for now)

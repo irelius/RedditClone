@@ -5,8 +5,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { Redirect, useHistory } from "react-router-dom";
 import SubredditCreateModal from "../SubredditCreateModal";
 
-
-const ProfileMenuModal = () => {
+const ProfileMenuModal = ({setShowProfileMenu}) => {
     const dispatch = useDispatch()
     const history = useHistory()
     const currentUser = useSelector(state => state.session.user)
@@ -14,6 +13,7 @@ const ProfileMenuModal = () => {
     // Redirect to User's Profile page
     const profileRedirect = (e) => {
         e.preventDefault()
+        setShowProfileMenu(false)
         history.push(`/users/${currentUser.id}`)
     }
 
@@ -47,7 +47,7 @@ const ProfileMenuModal = () => {
                     <i className="fa-brands fa-ravelry" />
                 </aside>
                 <aside id="navbar-right-community">
-                    <SubredditCreateModal />
+                    <SubredditCreateModal setShowProfileMenu={setShowProfileMenu}/>
                 </aside>
             </section>
             <section id="li-navbar-right-part-four" onClick={handleLogout}>
