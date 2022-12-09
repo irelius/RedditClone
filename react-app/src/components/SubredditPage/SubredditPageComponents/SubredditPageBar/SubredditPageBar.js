@@ -3,9 +3,6 @@ import "./SubredditPageBar.css"
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useHistory } from "react-router-dom"
-import { Modal } from "../../../../context/Modal";
-import SubredditEditForm from "../../../Modals/SubredditEditModal/SubredditEditForm";
-
 
 import * as subredditActions from "../../../../store/subreddit"
 

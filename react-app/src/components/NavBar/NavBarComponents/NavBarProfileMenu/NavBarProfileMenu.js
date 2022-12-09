@@ -3,11 +3,9 @@ import "./NavBarProfileMenu.css"
 import ProfileMenuModal from "../../../Modals/ProfileMenuModal/ProfileMenuModal";
 import { Modal } from "../../../../context/Modal";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 const NavBarProfileMenu = () => {
-    const dispatch = useDispatch()
-
     const [showProfileMenu, setShowProfileMenu] = useState(false)
 
     const currentUser = useSelector(state => state.session.user)
@@ -22,6 +20,7 @@ const NavBarProfileMenu = () => {
                             <img id="navbar-profile-menu-profile-pic" src={currentUser.profile_image}
                                 width={30}
                                 height={30}
+                                alt="currentUserProfileImage"
                             />
                         </aside>
                         <aside id="navbar-profile-menu-name">

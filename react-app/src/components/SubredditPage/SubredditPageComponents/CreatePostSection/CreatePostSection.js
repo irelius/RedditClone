@@ -35,6 +35,7 @@ const CreatePostSection = () => {
                     <img id="create-post-user-profile-pic" src={currentUser.profile_image}
                         width={40}
                         height={40}
+                        alt="currentUserProfileImage"
                     />
                 </aside>
                 <aside id="create-post-input-container">

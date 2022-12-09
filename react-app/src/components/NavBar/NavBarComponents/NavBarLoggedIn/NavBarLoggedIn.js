@@ -1,6 +1,6 @@
 import "./NavBarLoggedIn.css"
 
-import { NavLink, Redirect } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import NavBarProfileMenu from "../NavBarProfileMenu/NavBarProfileMenu";
 
 const NavBarLoggedIn = () => {

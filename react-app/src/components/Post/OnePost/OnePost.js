@@ -2,12 +2,10 @@ import "./OnePost.css"
 
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect, useHistory, useParams } from "react-router-dom"
+import { useHistory, useParams } from "react-router-dom"
 
 import * as subredditActions from "../../../store/subreddit"
 import * as postActions from "../../../store/post"
-
-import EditPostSection from "./OnePostComponents/EditPostSection/EditPostSection";
 
 // helper function
 const calculatePostLikes = (post) => {

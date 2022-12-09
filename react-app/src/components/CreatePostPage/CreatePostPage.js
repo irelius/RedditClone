@@ -1,6 +1,6 @@
 import "./CreatePostPage.css"
 
-import { useHistory, useParams, Redirect } from "react-router-dom";
+import { useHistory} from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as subredditActions from "../../store/subreddit"
@@ -22,7 +22,7 @@ const CreatePostPage = () => {
         dispatch(subredditActions.loadCurrentSubredditThunk(currentSubredditName))
         setLoad(true)
         return () => dispatch(subredditActions.clearSubreddit())
-    }, [])
+    }, [dispatch])
 
     const currentSubreddit = Object.values(useSelector(subredditActions.loadAllSubreddit))
 

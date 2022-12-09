@@ -12,7 +12,6 @@ const SubredditEditForm = ({ setShowEditSubredditModal }) => {
 
     const [newSubredditDescription, setNewSubredditDescription] = useState("")
     const [descriptionLength, setDescriptionLength] = useState(0)
-    const [errors, setErrors] = useState([])
 
     const [load, setLoad] = useState(false)
 

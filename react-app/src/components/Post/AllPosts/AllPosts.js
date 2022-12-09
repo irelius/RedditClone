@@ -2,7 +2,7 @@ import "./AllPosts.css"
 
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect, useHistory } from "react-router-dom"
+import { useHistory } from "react-router-dom"
 import * as postActions from "../../../store/post"
 import * as subredditActions from "../../../store/subreddit"
 import * as sessionActions from "../../../store/session"
@@ -46,7 +46,7 @@ const AllPosts = () => {
         setLoad(true)
         dispatch(subredditActions.clearSubreddit())
         return () => dispatch(postActions.clearPost())
-    }, [])
+    }, [dispatch])
 
     const allPosts = Object.values(useSelector(postActions.loadAllPosts))
     const allSubreddits = Object.values(useSelector(subredditActions.loadAllSubreddit))
