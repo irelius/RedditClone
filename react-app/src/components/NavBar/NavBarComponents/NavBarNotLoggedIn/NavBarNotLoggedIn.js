@@ -19,6 +19,7 @@ const NavBarNotLoggedIn = () => {
             <aside id="nli-navbar-reddit-text">
               reddit
             </aside>
+
           </section>
         </NavLink>
         {/* TO DO: Drop down menu to select Home, Popular, or specific Subreddit communities */}

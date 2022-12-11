@@ -76,6 +76,32 @@
     color: white;
 }
 
+#li-navbar-about-links {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#li-navbar-about-links>* {
+    margin-left: 10px;
+}
+
+#li-navbar-about-links-github:hover {
+    cursor: pointer;
+}
+
+#li-navbar-github-icon {
+    color: white;
+}
+
+#li-navbar-about-links-linkedin {
+    color: pointer;
+}
+
+#li-navbar-linked-icon {
+    color: white;
+}
+
 
 /* -----------------------------------------------------------------------*/
 /* LI Navbar Middle Section */

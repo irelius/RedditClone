@@ -1,9 +1,12 @@
 import "./NavBarLoggedIn.css"
 
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink, Redirect, useHistory } from 'react-router-dom';
 import NavBarProfileMenu from "../NavBarProfileMenu/NavBarProfileMenu";
 
 const NavBarLoggedIn = () => {
+  const history = useHistory()
+
+
   return (
     <div id="li-navbar-main-container">
       <section id="li-navbar-left">
@@ -16,6 +19,18 @@ const NavBarLoggedIn = () => {
             </aside>
             <aside id="li-navbar-reddit-text">
               reddit
+            </aside>
+            <aside id="li-navbar-about-links">
+              <NavLink id="li-navbar-about-links-github" to="/" onClick={() => {
+                return window.open("https://github.com/irelius/RedditClone")
+              }}>
+                <i id="li-navbar-github-icon" className="fa-brands fa-github fa-lg" />
+              </NavLink>
+              <NavLink id="li-navbar-about-links-linkedin" to="/" onClick={() => {
+                return window.open("https://www.linkedin.com/in/sbkihongbae/")
+              }}>
+                <i id="li-navbar-linked-icon" className="fa-brands fa-linkedin fa-lg" />
+              </NavLink>
             </aside>
           </section>
         </NavLink>
