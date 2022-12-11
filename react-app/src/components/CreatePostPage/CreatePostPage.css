@@ -137,11 +137,21 @@
 
 #create-post-form-button-container {
     display: flex;
+    flex-direction: row;
     justify-content: flex-end;
+    align-items: center;
 
     margin: 10px;
     margin-top: 15px;
 }
+
+#create-post-error-container {
+    margin-right: 15px;
+
+    font-size: 12px;
+    color: #FF0000;
+}
+
 
 #create-post-form-button {
     height: 35px;

@@ -1,6 +1,6 @@
 import "./CreatePostPage.css"
 
-import { useHistory} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as subredditActions from "../../store/subreddit"
@@ -44,7 +44,11 @@ const CreatePostPage = () => {
             setErrors(data)
         }
 
-        return history.push(`/r/${currentSubredditInfo.name}`)
+        console.log(data, "test")
+
+        if (data === null) {
+            return history.push(`/r/${currentSubredditInfo.name}`)
+        }
     }
 
 
@@ -68,6 +72,7 @@ const CreatePostPage = () => {
                                     name="title"
                                     type="text"
                                     placeholder="Title"
+                                    minLength={1}
                                     maxLength={300}
                                     value={postTitle}
                                     onChange={(e) => setPostTitle(e.target.value)}
@@ -86,6 +91,11 @@ const CreatePostPage = () => {
                                 />
                             </section>
                             <section id="create-post-form-button-container">
+                                <aside id="create-post-error-container">
+                                    {errors.map((error, ind) => (
+                                        <div key={ind}>{error}</div>
+                                    ))}
+                                </aside>
                                 <button type="submit" id="create-post-form-button">
                                     Post
                                 </button>

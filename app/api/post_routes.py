@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint, request
 from flask_login import current_user, login_required
 from app.models import db, Post, Subreddit
 from app.forms import PostForm
@@ -12,6 +12,14 @@ def return_posts(posts):
     if len(posts) > 0:
         return {"posts": {post.id: post.to_dict() for post in posts}}
     return {"posts": "No posts"}, 404
+
+#Validation error function
+def validation_error_message(validation_errors):
+    error_messages = []
+    for field in validation_errors:
+        for error in validation_errors[field]:
+            error_messages.append(f'{field} : {error}')
+    return error_messages
 
 
 # --------------------------------------------------------------------------------
@@ -73,22 +81,25 @@ def posts_create_new(subreddit_id):
         return {"errors": "You must be logged in before creating a post"}, 401
 
     form = PostForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
 
-    new_post = Post(
-        user_id = current_user_id,
-        subreddit_id = subreddit_id,
-        title = form.data["title"],
-        body = form.data["body"],
-        image = form.data["image"],
-        video = form.data["video"],
-    )
+    if form.validate_on_submit():
+        new_post = Post(
+            user_id = current_user_id,
+            subreddit_id = subreddit_id,
+            title = form.data["title"],
+            body = form.data["body"],
+            image = form.data["image"],
+            video = form.data["video"],
+        )
 
-    # TO DO: by default, creator of a post or comment auto likes their own post/comment
+        # TO DO: by default, creator of a post or comment auto likes their own post/comment
 
-    db.session.add(new_post)
-    db.session.commit()
+        db.session.add(new_post)
+        db.session.commit()
 
-    return new_post.to_dict()
+        return new_post.to_dict()
+    return {"errors": validation_error_message(form.errors)}, 401
 
 
 # Update a post by id

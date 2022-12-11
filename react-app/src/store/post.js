@@ -100,7 +100,12 @@ export const createPostThunk = (postInfo) => async (dispatch) => {
     if (res.ok) {
         const data = await res.json();
         dispatch(createPost(data))
-        return data
+        return null
+    } else if (res.status < 500) {
+        const data = await res.json()
+        if(data.errors) {
+            return data.errors
+        }
     }
 
     return null
