@@ -1,6 +1,6 @@
 # Reddit Clone Project
 
-Render Link: https://RedditClone.herokuapp.com/
+Render Link: https://irelius-reddit-clone.onrender.com/
 
 GitHub Link: https://github.com/irelius/RedditClone
 
