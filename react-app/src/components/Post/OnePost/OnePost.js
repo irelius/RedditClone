@@ -172,10 +172,9 @@ const OnePost = () => {
         const postToLoad = currentPost[0]
         const subredditToLoad = Object.values(currentSubreddit[0])[0]
         const userToLoad = allUsers[1][postToLoad["user_id"]]
-        const currentUser = allUsers[0]
+        const currentUser = allUsers[0] || -1
         let subredditDate = subredditToLoad.created_at.split(" ")
         subredditDate = subredditDate[2] + " " + subredditDate[1] + ", " + subredditDate[3]
-
 
         return (
             <div id="post-page-asdf">

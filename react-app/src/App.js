@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 import { authenticate } from './store/session';
 import LoginForm from './components/Modals/LoginFormModal/LoginForm';
 import SignUpForm from './components/Modals/SignUpModal/SignUpForm';
-import ProtectedRoute from './components/auth/ProtectedRoute';
 import NavBar from './components/NavBar/NavBar';
 import UsersPage from './components/Users/UsersPage';
 import LandingPage from './components/LandingPage/LandingPage';
@@ -53,9 +52,6 @@ function App() {
         <Route path="/r">
           <SubredditPage />
         </Route>
-        {/* <ProtectedRoute path='/users' exact={true} >
-          <UsersList/>
-        </ProtectedRoute> */}
       </Switch>
     </BrowserRouter>
   );

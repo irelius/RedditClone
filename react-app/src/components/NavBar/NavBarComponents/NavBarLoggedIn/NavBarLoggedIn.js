@@ -1,11 +1,9 @@
 import "./NavBarLoggedIn.css"
 
-import { Link, NavLink, Redirect, useHistory } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import NavBarProfileMenu from "../NavBarProfileMenu/NavBarProfileMenu";
 
 const NavBarLoggedIn = () => {
-  const history = useHistory()
-
 
   return (
     <div id="li-navbar-main-container">
