@@ -106,7 +106,6 @@ const OnePost = () => {
                 </section>
             )
         } else if (currentUser.id === subredditToLoad.admin_id) {
-            console.log("test2")
             return (
                 <section id="post-page-post-footer-container">
                     <aside onClick={handlePostRemove} id="post-page-post-delete-container">
