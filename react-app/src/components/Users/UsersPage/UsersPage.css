@@ -1,13 +1,35 @@
 /* -----------------------------------------------------------------------*/
 
 
-/* AllPosts CSS */
+/* UsersPage CSS */
 
 
 /* -----------------------------------------------------------------------*/
-/* All Posts Main Container */
+/* Main */
 
-#post-main-container {
+#users-posts {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+#user-posts-user {
+    display: flex;
+    justify-content: center;
+
+    margin-top: 75px;
+    margin-bottom: 10px;
+
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: x-large;
+    color: white;
+}
+
+/* -----------------------------------------------------------------------*/
+/* Users Posts Main Container */
+
+#user-posts-main-container {
     display: grid;
     grid-template-columns: 1fr 14fr;
 
@@ -19,16 +41,16 @@
     border-radius: 5px;
 }
 
-#post-main-container:hover {
+#user-posts-main-container:hover {
     cursor: pointer;
     border: 1px solid #818384;
 }
 
 
 /* -----------------------------------------------------------------------*/
-/* All Posts Left Container */
+/* Users Post Left Container */
 
-#post-left-container {
+#user-posts-left-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -39,7 +61,6 @@
 
     padding-top: 10px;
     background-color: #151516;
-
 }
 
 #post-upvote-button {
@@ -87,11 +108,10 @@
 }
 
 
-
 /* -----------------------------------------------------------------------*/
-/* All Posts Right Container */
+/* Users Post Right Container */
 
-#post-right-container {
+#user-posts-right-container {
     display: flex;
     flex-direction: column;
 
@@ -102,11 +122,10 @@
     background-color: #1A1A1B;
 }
 
-
 /* -----------------------------------------------------------------------*/
-/* All Posts Header Container */
+/* User Posts Header Container */
 
-#post-header-container {
+#user-posts-header-container {
     display: flex;
     flex-direction: row;
 
@@ -116,7 +135,7 @@
     margin-bottom: 5px;
 }
 
-#post-header-subreddit-information {
+#user-posts-header-subreddit-information {
     margin-right: 10px;
 
     font-size: small;
@@ -124,12 +143,12 @@
     color: white;
 }
 
-#post-header-subreddit-information:hover {
+#user-posts-header-subreddit-information:hover {
     cursor: pointer;
     text-decoration: underline;
 }
 
-#post-header-no-subreddit {
+#user-posts-header-no-subreddit {
     margin-right: 10px;
 
     font-size: small;
@@ -137,32 +156,31 @@
     color: #818384;
 }
 
-#post-header-no-subreddit:hover {
+#user-posts-header-no-subreddit:hover {
     text-decoration: none;
 }
 
-#post-header-poster-information {
+#user-posts-header-poster-container {
     display: flex;
     flex-direction: row;
     font-size: small;
     color: #818384;
 }
 
-#post-header-poster {
+#user-post-header-poster {
     margin-left: 3px;
 }
 
-#post-header-poster:hover {
+#user-post-header-poster:hover {
     cursor: pointer;
     text-decoration: underline;
 }
 
 
 /* -----------------------------------------------------------------------*/
-/* All Posts Body Container */
+/* User Posts Body Container */
 
-
-#post-body-container {
+#user-posts-post-container {
     display: flex;
     flex-direction: column;
 
@@ -172,7 +190,7 @@
     color: #D7DADC;
 }
 
-#post-title {
+#user-post-title {
     display: flex;
     align-items: center;
 
@@ -182,7 +200,7 @@
     color: #D7DADC;
 }
 
-#post-body {
+#user-post-body {
     display: flex;
     align-items: center;
 
@@ -194,14 +212,14 @@
 
 
 /* -----------------------------------------------------------------------*/
-/* All Posts Footer Container */
+/* User Posts Footer Container */
 
-#post-footer-container {
+#user-posts-footer-container {
     display: flex;
     flex-direction: row;
 }
 
-#post-footer-container>* {
+#user-posts-footer-container>* {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -215,17 +233,16 @@
     color: #818384;
 }
 
-
-#post-footer-comments-container {
+#user-post-footer-comments-container{
     font-weight: bold;
     font-size: 13px;
 }
 
-#post-footer-comments-container:hover {
+#user-post-footer-comments-container:hover {
     background-color: #2D2D2F;
 }
 
-#post-footer-comments-icon {
+#user-post-footer-comments-icon {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -234,11 +251,11 @@
     margin-top: 2px;
 }
 
-#post-footer-dots-container:hover {
+#user-post-footer-dots-container:hover {
     background-color: #2D2D2F;
 }
 
-#post-footer-dots-icon {
+#user-post-footer-dots-icon {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -246,5 +263,3 @@
     margin-right: 5px;
     margin-top: 2px;
 }
-
-/* -----------------------------------------------------------------------*/

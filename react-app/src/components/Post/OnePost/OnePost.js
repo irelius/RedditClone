@@ -6,6 +6,7 @@ import { useHistory, useParams } from "react-router-dom"
 
 import * as subredditActions from "../../../store/subreddit"
 import * as postActions from "../../../store/post"
+import * as userActions from "../../../store/session"
 
 // helper function
 const calculatePostLikes = (post) => {
@@ -42,6 +43,7 @@ const OnePost = () => {
     useEffect(() => {
         dispatch(postActions.loadPostThunk(post_id))
         dispatch(subredditActions.loadCurrentSubredditThunk(subreddit_name))
+        dispatch(userActions.loadAllUserThunk())
         setLoad(true)
         dispatch(subredditActions.clearSubreddit())
         return () => dispatch(postActions.clearPost())
@@ -49,7 +51,7 @@ const OnePost = () => {
 
     const currentPost = Object.values(useSelector(postActions.loadAllPosts))
     const currentSubreddit = Object.values(useSelector(subredditActions.loadAllSubreddit))
-    const currentUser = Object.values(useSelector(state => state.session))
+    const allUsers = Object.values(useSelector(state => state.session))
 
     const redirectToSubreddit = (subredditToLoad) => {
         history.push(`/r/${subredditToLoad.name}`)
@@ -67,6 +69,13 @@ const OnePost = () => {
             history.goBack();
         }
     }
+
+    const redirectToUserPage = (username, e) => {
+        e.stopPropagation();
+
+        history.push(`/users/${username}`)
+    }
+
 
     const handlePostRemove = () => {
         const postToDelete = currentPost[0]
@@ -160,9 +169,10 @@ const OnePost = () => {
     const LoadOnePost = () => {
         const postToLoad = currentPost[0]
         const subredditToLoad = Object.values(currentSubreddit[0])[0]
-        const userToLoad = currentUser[0] || -1
+        const userToLoad = allUsers[1][postToLoad["user_id"]]
         let subredditDate = subredditToLoad.created_at.split(" ")
         subredditDate = subredditDate[2] + " " + subredditDate[1] + ", " + subredditDate[3]
+
 
         return (
             <div id="post-page-asdf">
@@ -175,13 +185,14 @@ const OnePost = () => {
                 <div id="post-page-main-container">
                     <aside id="post-page-post-main-container">
                         <aside id="post-page-post-left-container">
-                            <aside id="post-upvote-button">
+                            {/* COMMENT IN: Like function */}
+                            {/* <aside id="post-upvote-button">
                                 <i className="fa-solid fa-up-long fa-lg" />
                             </aside>
                             <aside id="post-vote-counter">{calculatePostLikes(postToLoad)}</aside>
                             <aside id="post-downvote-button">
                                 <i className="fa-solid fa-down-long fa-lg" />
-                            </aside>
+                            </aside> */}
                         </aside>
                         <aside id="post-page-post-right-container">
                             <section id="post-page-post-header-container">
@@ -191,7 +202,7 @@ const OnePost = () => {
                                 <aside id="post-page-post-poster-decoration-text">
                                     Posted by
                                 </aside>
-                                <aside id="post-page-post-poster">
+                                <aside id="post-page-post-poster" onClick={(e) => redirectToUserPage(userToLoad.username, e)}>
                                     u/{userToLoad.username}
                                 </aside>
                             </section>
@@ -244,7 +255,7 @@ const OnePost = () => {
     }
 
 
-    return currentPost.length > 0 && currentSubreddit.length > 0 && currentUser.length > 0 && load ? (
+    return currentPost.length > 0 && currentSubreddit.length > 0 && allUsers.length > 1 && load ? (
         <div id="post-page-background">
             {LoadOnePost()}
         </div>

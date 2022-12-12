@@ -87,6 +87,17 @@ export const loadCurrentSubredditPostsThunk = (subredditName) => async (dispatch
     }
 }
 
+
+// Thunk action to load all posts by specific username
+export const loadUserPostsThunk = (username) => async (dispatch) => {
+    const res = await fetch(`/api/posts/users/${username}`)
+
+    if (res.ok) {
+        const posts = await res.json()
+        return dispatch(loadPosts(posts))
+    }
+}
+
 // Thunk action to create a new post
 export const createPostThunk = (postInfo) => async (dispatch) => {
     const res = await fetch(`/api/posts/subreddits/${postInfo.subreddit_id}`, {
@@ -103,7 +114,7 @@ export const createPostThunk = (postInfo) => async (dispatch) => {
         return null
     } else if (res.status < 500) {
         const data = await res.json()
-        if(data.errors) {
+        if (data.errors) {
             return data.errors
         }
     }
@@ -116,8 +127,8 @@ export const putPostThunk = (postInfo, post) => async (dispatch) => {
     const res = await fetch(`/api/posts/${post.id}`, {
         method: "PUT",
         headers: {
-			'Content-Type': 'application/json',
-		},
+            'Content-Type': 'application/json',
+        },
         body: JSON.stringify(postInfo)
     })
 
@@ -136,7 +147,7 @@ export const deletePostThunk = (post) => async (dispatch) => {
         method: "DELETE"
     })
 
-    if(res.ok) {
+    if (res.ok) {
         dispatch(deletePost(post.id))
     }
 
@@ -157,11 +168,11 @@ const initialState = {};
 const postReducer = (state = initialState, action) => {
     const newState = { ...state };
 
-    switch(action.type) {
+    switch (action.type) {
         case LOAD_POST:
             return Object.assign({}, newState, action.post.posts);
         case LOAD_POSTS:
-            const allPosts = {"posts": {}};
+            const allPosts = { "posts": {} };
             const postsArray = Object.values(action.posts.posts)
 
             postsArray.forEach(el => {
@@ -170,7 +181,7 @@ const postReducer = (state = initialState, action) => {
 
             return allPosts
 
-            // return Object.assign({}, newState, action.posts);
+        // return Object.assign({}, newState, action.posts);
 
         // case CREATE_POST:
 

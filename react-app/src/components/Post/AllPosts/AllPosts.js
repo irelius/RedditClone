@@ -52,7 +52,8 @@ const AllPosts = () => {
     const allSubreddits = Object.values(useSelector(subredditActions.loadAllSubreddit))
     const allUsers = Object.values(useSelector(sessionActions.loadAllUsers))
 
-    const redirectToPostPage = (post) => {
+    const redirectToPostPage = (post, e) => {
+        e.stopPropagation();
 
         const postId = post.id
         const subredditName = allSubreddits[0][post.subreddit_id]["name"]
@@ -86,15 +87,16 @@ const AllPosts = () => {
                 const subredditInfo = subredditsToLoad[subredditId]
 
                 return (
-                    <div onClick={() => redirectToPostPage(el)} id="post-main-container" key={i}>
+                    <div onClick={(e) => redirectToPostPage(el, e)} id="post-main-container" key={i}>
                         <aside id="post-left-container">
-                            <aside id="post-upvote-button">
+                            {/* COMMENT IN: Like functions */}
+                            {/* <aside id="post-upvote-button">
                                 <i className="fa-solid fa-up-long fa-lg" />
                             </aside>
                             <aside id="post-vote-counter">{calculatePostLikes(el)}</aside>
                             <aside id="post-downvote-button">
                                 <i className="fa-solid fa-down-long fa-lg" />
-                            </aside>
+                            </aside> */}
                         </aside>
                         <aside id="post-right-container">
                             <section id="post-header-container">
@@ -109,7 +111,7 @@ const AllPosts = () => {
                                         </section>
                                     )}
                                 </aside>
-                                <aside id="post-header-post-information">
+                                <aside id="post-header-poster-information">
                                     Posted by
                                     <section id="post-header-poster" onClick={(e) => redirectToUserPage(posterInfo.username, e)}>
                                         u/{posterInfo.username}

@@ -50,6 +50,17 @@
     align-items: flex-start;
 }
 
+#subreddit-bar-edit-button-container {
+    border: none;
+
+    color: white;
+    background-color: transparent;
+}
+
+#subreddit-bar-edit-button-container:hover {
+    cursor: pointer;
+    /* background-color: ; */
+}
 
 /* -----------------------------------------------------------------------*/
 /* Subredit Page Bar Description Container */

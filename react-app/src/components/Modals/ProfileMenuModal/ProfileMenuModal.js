@@ -14,7 +14,7 @@ const ProfileMenuModal = ({setShowProfileMenu}) => {
     const profileRedirect = (e) => {
         e.preventDefault()
         setShowProfileMenu(false)
-        history.push(`/users/${currentUser.id}`)
+        history.push(`/users/${currentUser.username}`)
     }
 
     // Handle Logout

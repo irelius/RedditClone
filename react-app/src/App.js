@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import LoginForm from './components/Modals/LoginFormModal/LoginForm';
-// import SignUpForm from './components/auth/SignUpForm';
-import SignUpForm from './components/Modals/SignUpModal/SignUpForm';
-import NavBar from './components/NavBar/NavBar';
-import ProtectedRoute from './components/auth/ProtectedRoute';
-// import UsersList from './components/Users/UsersList/UsersList';
-import User from './components/Users/Users/User';
-import LandingPage from './components/LandingPage/LandingPage';
 import { authenticate } from './store/session';
+import LoginForm from './components/Modals/LoginFormModal/LoginForm';
+import SignUpForm from './components/Modals/SignUpModal/SignUpForm';
+import ProtectedRoute from './components/auth/ProtectedRoute';
+import NavBar from './components/NavBar/NavBar';
+import UsersPage from './components/Users/UsersPage';
+import LandingPage from './components/LandingPage/LandingPage';
 
 import SubredditPage from './components/SubredditPage';
 import CreatePostPage from './components/CreatePostPage';
@@ -43,10 +41,8 @@ function App() {
         <Route path='/sign-up' exact={true}>
           <SignUpForm />
         </Route>
-        <Route path="/users/:username">
-          <div>
-            booba
-          </div>
+        <Route path='/users/:username' exact={true} >
+          <UsersPage />
         </Route>
         <Route path="/r/:subreddit_name/new">
           <CreatePostPage />
@@ -60,9 +56,6 @@ function App() {
         {/* <ProtectedRoute path='/users' exact={true} >
           <UsersList/>
         </ProtectedRoute> */}
-        <ProtectedRoute path='/users/:userId' exact={true} >
-          <User />
-        </ProtectedRoute>
       </Switch>
     </BrowserRouter>
   );
