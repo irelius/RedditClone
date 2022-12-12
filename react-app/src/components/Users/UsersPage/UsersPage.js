@@ -45,9 +45,6 @@ const UsersPage = () => {
     const loadUsersPage = () => {
         const postsToLoad = Object.values(currentUserPosts[0])
         const subredditsToLoad = allSubreddits[0]
-
-        // console.log("test", subredditsToLoad)
-
         // TO DO: Create a tabs section? to view overview, posts, subreddits, etc?
 
 
@@ -55,9 +52,6 @@ const UsersPage = () => {
             Array.isArray(postsToLoad) && postsToLoad.map((el, i) => {
                 const subredditId = el["subreddit_id"]
                 const subredditInfo = subredditsToLoad[subredditId]
-
-                console.log("test", subredditInfo)
-                console.log("test2", postsToLoad)
 
                 return (
                     <div id="user-posts-main-container" onClick={() => redirectToPostPage(el)}>

@@ -44,8 +44,6 @@ const CreatePostPage = () => {
             setErrors(data)
         }
 
-        console.log(data, "test")
-
         if (data === null) {
             return history.push(`/r/${currentSubredditInfo.name}`)
         }

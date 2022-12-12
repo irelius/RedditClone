@@ -83,8 +83,8 @@ const OnePost = () => {
         history.goBack();
     }
 
-    const loadFooter = (userToLoad, postToLoad, subredditToLoad) => {
-        if (userToLoad.id === postToLoad.user_id) {
+    const loadFooter = (userToLoad, currentUser, postToLoad, subredditToLoad) => {
+        if (currentUser.id === postToLoad.user_id) {
             return (
                 <section onClick={() => setLoadEditComponent(true)} id="post-page-post-footer-container">
                     <aside id="post-page-post-edit-container">
@@ -105,9 +105,8 @@ const OnePost = () => {
                     </aside>
                 </section>
             )
-        }
-
-        if (userToLoad.id === subredditToLoad.admin_id) {
+        } else if (currentUser.id === subredditToLoad.admin_id) {
+            console.log("test2")
             return (
                 <section id="post-page-post-footer-container">
                     <aside onClick={handlePostRemove} id="post-page-post-delete-container">
@@ -119,6 +118,10 @@ const OnePost = () => {
                         </button>
                     </aside>
                 </section>
+            )
+        } else {
+            return (
+                <div></div>
             )
         }
     }
@@ -170,6 +173,7 @@ const OnePost = () => {
         const postToLoad = currentPost[0]
         const subredditToLoad = Object.values(currentSubreddit[0])[0]
         const userToLoad = allUsers[1][postToLoad["user_id"]]
+        const currentUser = allUsers[0]
         let subredditDate = subredditToLoad.created_at.split(" ")
         subredditDate = subredditDate[2] + " " + subredditDate[1] + ", " + subredditDate[3]
 
@@ -222,7 +226,7 @@ const OnePost = () => {
                                     </section>
                                 )}
                             </section>
-                            {loadFooter(userToLoad, postToLoad, subredditToLoad)}
+                            {loadFooter(userToLoad, currentUser, postToLoad, subredditToLoad)}
                         </aside>
                     </aside>
                     <aside onClick={() => redirectToSubreddit(subredditToLoad)} id="post-page-bar-main-container">
