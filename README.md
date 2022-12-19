@@ -4,6 +4,20 @@ Render Link: https://irelius-reddit-clone.onrender.com/
 
 GitHub Link: https://github.com/irelius/RedditClone
 
+___
+## Technologies/Languages Used:
+- JavaScript
+- Python
+- React / Redux
+- Flask
+- SQLAlchemy
+<br>
+Future technologies that may be utilized are Text Editors (e.g. Lexical) and AWS to allow users to post images and videos.
+<br>
+<br>
+
+
+___
 ## Setup Directions:
 1. Clone from GitHub repository
    1. Run `pipenv install` in the  `RedditClone` directory
@@ -88,18 +102,6 @@ Users are able to delete their posts. As posts can only be made to Subreddit pag
 
 <br>
 <br>
-
-___
-
-## Technologies Used:
-This Reddit Clone utilizes:
-   1. React and Redux to manage reducers, actions, and the store to reduce the amount of times the webpage must be refreshed
-   2. Flask, SQLAlchemy, and FlaskForm to manage the database and allow users to interact with the web application
-<br>
-Future technologies that may be utilized are Text Editors (e.g. Lexical) and AWS to allow users to post images and videos.
-<br>
-<br>
-
 
 ___
 
