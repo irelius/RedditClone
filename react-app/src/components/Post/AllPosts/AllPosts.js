@@ -89,14 +89,13 @@ const AllPosts = () => {
                 return (
                     <div onClick={(e) => redirectToPostPage(el, e)} id="post-main-container" key={i}>
                         <aside id="post-left-container">
-                            {/* COMMENT IN: Like functions */}
-                            {/* <aside id="post-upvote-button">
+                            <aside id="post-upvote-button">
                                 <i className="fa-solid fa-up-long fa-lg" />
                             </aside>
                             <aside id="post-vote-counter">{calculatePostLikes(el)}</aside>
                             <aside id="post-downvote-button">
                                 <i className="fa-solid fa-down-long fa-lg" />
-                            </aside> */}
+                            </aside>
                         </aside>
                         <aside id="post-right-container">
                             <section id="post-header-container">

@@ -187,14 +187,13 @@ const OnePost = () => {
                 <div id="post-page-main-container">
                     <aside id="post-page-post-main-container">
                         <aside id="post-page-post-left-container">
-                            {/* COMMENT IN: Like function */}
-                            {/* <aside id="post-upvote-button">
+                            <aside id="post-upvote-button">
                                 <i className="fa-solid fa-up-long fa-lg" />
                             </aside>
                             <aside id="post-vote-counter">{calculatePostLikes(postToLoad)}</aside>
                             <aside id="post-downvote-button">
                                 <i className="fa-solid fa-down-long fa-lg" />
-                            </aside> */}
+                            </aside>
                         </aside>
                         <aside id="post-page-post-right-container">
                             <section id="post-page-post-header-container">

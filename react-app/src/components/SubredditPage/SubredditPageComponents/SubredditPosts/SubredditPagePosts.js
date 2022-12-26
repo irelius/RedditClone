@@ -87,14 +87,13 @@ const SubredditPagePosts = () => {
                 return (
                     <div onClick={() => redirectToPostPage(el)} id="subreddit-post-main-container">
                         <aside id="subreddit-post-left-container">
-                            {/* COMMENT IN: Likes function */}
-                            {/* <aside id="subreddit-post-upvote-button">
+                            <aside id="subreddit-post-upvote-button">
                                 <i className="fa-solid fa-up-long fa-lg" />
                             </aside>
                             <aside id="subreddit-post-vote-counter">{calculatePostLikes(el)}</aside>
                             <aside id="subreddit-post-downvote-button">
                                 <i className="fa-solid fa-down-long fa-lg" />
-                            </aside> */}
+                            </aside>
                         </aside>
                         <aside id="subreddit-post-right-container">
                             <section id="subreddit-post-header-container">

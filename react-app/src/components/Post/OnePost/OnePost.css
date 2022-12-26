@@ -52,6 +52,7 @@
 }
 
 #post-page-close-button:hover {
+    cursor: pointer;
     border-radius: 20px;
     background-color: #141414;
 }

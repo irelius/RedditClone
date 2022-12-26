@@ -7,6 +7,30 @@ import { useHistory, useParams } from "react-router-dom";
 import * as postActions from "../../../store/post"
 import * as subredditActions from "../../../store/subreddit"
 
+const calculatePostLikes = (post) => {
+    let likes = 0;
+    let dislikes = 0;
+
+    let likesArray = [];
+
+    if (post && post.likes) {
+        likesArray = Object.values(post.likes)
+    }
+
+    if (likesArray.length > 0) {
+        likesArray.forEach(el => {
+            if (el.like_status === "like") {
+                likes++
+            }
+            else if (el.like_status === "dislike") {
+                dislikes++
+            }
+        })
+        return likes - dislikes
+    }
+    return likes
+}
+
 const UsersPage = () => {
     const username = (useParams()).username;
     const dispatch = useDispatch()
@@ -56,14 +80,13 @@ const UsersPage = () => {
                 return (
                     <div id="user-posts-main-container" onClick={() => redirectToPostPage(el)}>
                         <aside id="user-posts-left-container">
-                            {/* COMMENT IN: Like functions */}
-                            {/* <aside id="post-upvote-button">
+                            <aside id="post-upvote-button">
                                 <i className="fa-solid fa-up-long fa-lg" />
                             </aside>
                             <aside id="post-vote-counter">{calculatePostLikes(el)}</aside>
                             <aside id="post-downvote-button">
                                 <i className="fa-solid fa-down-long fa-lg" />
-                            </aside> */}
+                            </aside>
                         </aside>
                         <aside id="user-posts-right-container">
                             <section id="user-posts-header-container">
