@@ -19,7 +19,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* justify-content: center; */
 
     height: 100vh;
     width: 1300px;
@@ -79,8 +78,8 @@
 /* Post Page Post Main Container */
 
 #post-page-post-main-container {
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 1fr 19fr;
 
     margin-right: 10px;
 
@@ -102,8 +101,14 @@
     align-items: center;
 
     margin-top: 10px;
+}
 
-    width: 50px;
+#post-upvote-button:hover {
+    cursor: pointer;
+}
+
+#post-downvote-button:hover {
+    cursor: pointer;
 }
 
 
@@ -177,7 +182,7 @@
     margin-left: 0px;
     margin-bottom: 15px;
 
-    word-break: break-all;
+    word-break: normal;
 
     color: white;
 }
@@ -193,9 +198,7 @@
     width: 660px;
 }
 
-#post-page-edit-input-container {
-
-}
+#post-page-edit-input-container {}
 
 #post-page-edit-input {
     width: 650px;
@@ -285,6 +288,15 @@
 #post-page-post-button-icon {
     margin-right: 5px;
 }
+
+#post-like-status-like {
+    color: #CC3700;
+}
+
+#post-dislike-status-dislike {
+    color: #5A75CC;
+}
+
 
 #post-page-post-edit-container {
     display: flex;

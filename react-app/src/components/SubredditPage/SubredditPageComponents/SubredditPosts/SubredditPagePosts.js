@@ -7,29 +7,7 @@ import { useHistory } from "react-router-dom"
 import * as postActions from "../../../../store/post"
 import * as sessionActions from "../../../../store/session"
 
-// helper function
-const calculatePostLikes = (post) => {
-    let likes = 0;
-    let dislikes = 0;
-
-    let likesArray = [];
-    if (post.likes) {
-        likesArray = Object.values(post.likes)
-    }
-
-    if (likesArray.length > 0) {
-        likesArray.forEach(el => {
-            if (el.like_status === "like") {
-                likes++
-            }
-            else if (el.like_status === "dislike") {
-                dislikes++
-            }
-        })
-        return likes - dislikes
-    }
-    return likes
-}
+import calculatePostLikes from "../../../HelperFunctions/calculatePostLikes";
 
 const SubredditPagePosts = () => {
     const dispatch = useDispatch()

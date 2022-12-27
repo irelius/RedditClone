@@ -18,10 +18,10 @@ const ProfileMenuModal = ({setShowProfileMenu}) => {
     }
 
     // Handle Logout
-    const handleLogout = (e) => {
+    const handleLogout = async e => {
         e.preventDefault()
-        dispatch(sessionActions.logout())
-        history.push('/')
+        await dispatch(sessionActions.logout())
+        return window.location.reload();
     }
 
     return (

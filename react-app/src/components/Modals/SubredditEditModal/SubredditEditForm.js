@@ -38,7 +38,6 @@ const SubredditEditForm = ({ setShowEditSubredditModal }) => {
 
         dispatch(subredditActions.putSubredditThunk(subredditInfo, subredditToEdit))
         setShowEditSubredditModal(false)
-        // TO DO IMPORTANT: Component doesn't properly udpate after the edit form is submitted
     }
 
     const loadInputLength = () => {

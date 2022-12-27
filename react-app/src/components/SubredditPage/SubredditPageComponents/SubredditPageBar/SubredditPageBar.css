@@ -128,7 +128,7 @@
     width: 250px;
 
     overflow-y: scroll;
-    word-break: break-all;
+    word-break: normal;
 
     outline: none;
     border: none;
