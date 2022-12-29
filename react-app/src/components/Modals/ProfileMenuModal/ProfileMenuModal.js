@@ -2,7 +2,7 @@ import "./ProfileMenuModal.css"
 
 import * as sessionActions from "../../../store/session"
 import { useDispatch, useSelector } from "react-redux"
-import { Redirect, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import SubredditCreateModal from "../SubredditCreateModal";
 
 const ProfileMenuModal = ({setShowProfileMenu}) => {

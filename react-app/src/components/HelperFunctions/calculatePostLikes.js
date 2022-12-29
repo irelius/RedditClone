@@ -19,7 +19,6 @@ const calculatePostLikes = (post) => {
         })
         return likes - dislikes
     }
-
     return likes
 }
 

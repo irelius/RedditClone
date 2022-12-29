@@ -9,7 +9,7 @@ import * as postActions from "../../../store/post"
 import * as userActions from "../../../store/session"
 import * as likeActions from "../../../store/like"
 
-import calculatePostLikes from "../../HelperFunctions/calculatePostLikes";
+// import calculatePostLikes from "../../HelperFunctions/calculatePostLikes";
 
 const OnePost = () => {
     const dispatch = useDispatch()
@@ -24,9 +24,9 @@ const OnePost = () => {
     const { subreddit_name, post_id } = useParams();
 
     useEffect(() => {
-        dispatch(postActions.loadPostThunk(post_id))
         dispatch(likeActions.loadLikesPostThunk(post_id))
         dispatch(subredditActions.loadCurrentSubredditThunk(subreddit_name))
+        dispatch(postActions.loadPostThunk(post_id))
         dispatch(userActions.loadAllUserThunk())
         setLoad(true)
         dispatch(subredditActions.clearSubreddit())
@@ -34,17 +34,17 @@ const OnePost = () => {
         return () => dispatch(postActions.clearPost())
     }, [dispatch, setLoadEditComponent, setNewPostBody])
 
+    const currentPostLikes = Object.values(useSelector(likeActions.loadPostLikes))
     const currentPost = Object.values(useSelector(postActions.loadAllPosts))
     const currentSubreddit = Object.values(useSelector(subredditActions.loadAllSubreddit))
-    const currentPostLikes = Object.values(useSelector(likeActions.loadPostLikes))
     const allUsers = Object.values(useSelector(state => state.session))
 
     useEffect(() => {
-        const currentUser = allUsers[0] || -1
-
-        if (currentPost.length > 0 && currentSubreddit.length > 0 && allUsers.length > 1 && currentPostLikes.length > 0 && load) {
+        if (currentPostLikes.length > 0 && load) {
+            const currentUser = allUsers[0] || -1
             const likesArray = Object.values(currentPostLikes[0]["likes"])
             const dislikesArray = Object.values(currentPostLikes[0]["dislikes"])
+
             likesArray.forEach(el => {
                 if (el["user_id"] === currentUser.id) {
                     setPostLikedStatus("post-like-status-like")
@@ -55,12 +55,6 @@ const OnePost = () => {
                     setPostDislikedStatus("post-dislike-status-dislike")
                 }
             })
-        }
-    }, [dispatch, currentPostLikes])
-
-
-    useEffect(() => {
-        if (currentPostLikes.length > 0 && load) {
             setLikeTotal(currentPostLikes[0]["likes_total"])
         }
     }, [dispatch, currentPostLikes])
@@ -70,7 +64,6 @@ const OnePost = () => {
     const redirectToSubreddit = (subredditToLoad) => {
         history.push(`/r/${subredditToLoad.name}`)
     }
-
     const redirectToUserPage = (username, e) => {
         e.stopPropagation();
 
@@ -118,45 +111,62 @@ const OnePost = () => {
     }
     //
 
-    // Like Handling
+
+    // Like/Dislike Handling
     const likePost = async (postToLoad) => {
         // error handling to undo dislike if it exists
+        let likeInfo = {
+            like_status: "like"
+        }
+
         if (postDislikedStatus === "post-dislike-status-dislike") {
             setPostDislikedStatus("post-dislike-status-neutral")
+            setPostLikedStatus("post-like-status-like")
+
             dispatch(likeActions.deleteLikePostThunk(postToLoad.id))
+            dispatch(likeActions.createLikePostThunk(likeInfo, postToLoad.id))
+            setLikeTotal(currentPostLikes[0]["likes_total"])
+        } else if (postLikedStatus === "post-like-status-neutral") {
+            setPostDislikedStatus("post-dislike-status-neutral")
+            setPostLikedStatus("post-like-status-like")
+
+            dispatch(likeActions.createLikePostThunk(likeInfo, postToLoad.id))
+            setLikeTotal(currentPostLikes[0]["likes_total"])
+        } else if (postLikedStatus === "post-like-status-like") {
+            setPostDislikedStatus("post-dislike-status-neutral")
+            setPostLikedStatus("post-like-status-neutral")
+
+            dispatch(likeActions.deleteLikePostThunk(postToLoad.id))
+            setLikeTotal(currentPostLikes[0]["likes_total"])
         }
 
-        if (postLikedStatus === "post-like-status-neutral") {
-            let likeInfo = {
-                like_status: "like"
-            }
-            setPostLikedStatus("post-like-status-like")
-            dispatch(likeActions.createLikePostThunk(likeInfo, postToLoad.id))
-        }
-        if (postLikedStatus === "post-like-status-like") {
-            setPostLikedStatus("post-like-status-neutral")
-            dispatch(likeActions.deleteLikePostThunk(postToLoad.id))
-        }
     }
 
-    const dislikePost = (postToLoad) => {
+    const dislikePost = async (postToLoad) => {
         // error handling to undo like if it exists
-        if (postLikedStatus === "post-like-status-like") {
-            setPostLikedStatus("post-like-status-neutral")
-            dispatch(likeActions.deleteLikePostThunk(postToLoad.id))
+        let likeInfo = {
+            like_status: "dislike"
         }
 
-        if (postDislikedStatus === "post-dislike-status-neutral") {
-            let dislikeInfo = {
-                like_status: "dislike"
-            }
+        if (postLikedStatus === "post-like-status-like") {
+            setPostLikedStatus("post-like-status-neutral")
             setPostDislikedStatus("post-dislike-status-dislike")
-            dispatch(likeActions.createDislikePostThunk(dislikeInfo, postToLoad.id))
-        }
-        if (postDislikedStatus === "post-dislike-status-dislike") {
-            console.log("hello booba")
-            setPostLikedStatus("post-dislike-status-neutral")
+
             dispatch(likeActions.deleteLikePostThunk(postToLoad.id))
+            dispatch(likeActions.createDislikePostThunk(likeInfo, postToLoad.id))
+            setLikeTotal(currentPostLikes[0]["likes_total"])
+        } else if (postDislikedStatus === "post-dislike-status-neutral") {
+            setPostLikedStatus("post-like-status-neutral")
+            setPostDislikedStatus("post-dislike-status-dislike")
+
+            dispatch(likeActions.createDislikePostThunk(likeInfo, postToLoad.id))
+            setLikeTotal(currentPostLikes[0]["likes_total"])
+        } else if (postDislikedStatus === "post-dislike-status-dislike") {
+            setPostLikedStatus("post-like-status-neutral")
+            setPostDislikedStatus("post-dislike-status-neutral")
+
+            dispatch(likeActions.deleteLikePostThunk(postToLoad.id))
+            setLikeTotal(currentPostLikes[0]["likes_total"])
         }
     }
     //
@@ -244,7 +254,6 @@ const OnePost = () => {
         const subredditToLoad = Object.values(currentSubreddit[0])[0]
         let subredditDate = subredditToLoad.created_at.split(" ")
         subredditDate = subredditDate[2] + " " + subredditDate[1] + ", " + subredditDate[3]
-
 
         return (
             <div id="post-page-asdf">

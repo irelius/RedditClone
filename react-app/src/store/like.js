@@ -138,8 +138,6 @@ export const createLikeCommentThunk = (likeInfo, commentId) => async (dispatch) 
 
 
 export const updateLikePostThunk = (likeInfo, postId) => async (dispatch) => {
-    console.log("update like thunk entered test")
-
     const res = await fetch(`/api/likes/posts/${postId}`, {
         method: "PUT",
         headers: {
@@ -149,14 +147,12 @@ export const updateLikePostThunk = (likeInfo, postId) => async (dispatch) => {
     })
 
     if (res.ok) {
-        console.log("update like thunk res ok test")
         const like = await res.json()
         dispatch(putLikesPost(like))
         return like
-    } else if(res.status < 500) {
-        console.log('update like thunk res not test')
+    } else if (res.status < 500) {
         const data = res.json()
-        if(data.errors) {
+        if (data.errors) {
             return data.errors
         }
     }
@@ -169,12 +165,14 @@ export const deleteLikePostThunk = (postId) => async (dispatch) => {
         method: "DELETE"
     })
 
-    if(res.ok) {
+    if (res.ok) {
         dispatch(deleteLikePost(postId))
+        return true;
     }
 
     return null;
 }
+
 
 // ------------------------- SELECTOR FUNCTIONS ------------------------- //
 
@@ -193,14 +191,10 @@ const likesReducer = (state = initialState, action) => {
             return Object.assign({}, newState, action.likes);
 
         case CREATE_LIKES:
-            console.log(action.likes, "booba like create")
             return Object.assign({}, newState, action.likes);
-            return newState
 
         case DELETE_LIKES:
-            console.log(action, "booba like delete")
             return Object.assign({}, newState, action.likes);
-            return newState
 
         case CLEAR_LIKES:
             return initialState
