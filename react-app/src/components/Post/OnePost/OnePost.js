@@ -9,7 +9,6 @@ import * as postActions from "../../../store/post"
 import * as userActions from "../../../store/session"
 import * as likeActions from "../../../store/like"
 
-// import calculatePostLikes from "../../HelperFunctions/calculatePostLikes";
 
 const OnePost = () => {
     const dispatch = useDispatch()
