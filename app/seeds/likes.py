@@ -23,7 +23,6 @@ def seed_likes():
         user_id = 4,
         post_id = 5,
     )
-
     like_five = Like(
         like_status = "dislike",
         user_id = 5,
@@ -42,16 +41,15 @@ def seed_likes():
     like_eight = Like (
         like_status = "like",
         user_id = 5,
-        comment_id = 11
+        comment_id = 12
     )
-
     like_nine = Like(
-        like_status = "neutral",
+        like_status = "dislike",
         user_id = 1,
         comment_id = 12
     )
     like_ten = Like(
-        like_status = "neutral",
+        like_status = "dislike",
         user_id = 2,
         comment_id = 12
     )
