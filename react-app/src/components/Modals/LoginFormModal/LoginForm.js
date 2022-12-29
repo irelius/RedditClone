@@ -17,6 +17,8 @@ const LoginForm = ({ setShowLoginModal }) => {
         const data = await dispatch(sessionActions.login(email, password));
         if (data) {
             setErrors(data);
+        } else {
+            return window.location.reload();
         }
     };
 

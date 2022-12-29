@@ -27,13 +27,12 @@ const NavBarNotLoggedIn = () => {
           </aside> */}
       </section>
 
-      {/* COMMENT IN: Navbar search function */}
       <section id="nli-navbar-middle">
-        {/* <section id="nli-navbar-search-bar-container">
+        <section id="nli-navbar-search-bar-container">
           <form action="/test">
             <input id="nli-navbar-search-bar" type="text" placeholder="Search Reddit" name="search" />
           </form>
-        </section> */}
+        </section>
       </section>
 
       <section id="nli-navbar-right">

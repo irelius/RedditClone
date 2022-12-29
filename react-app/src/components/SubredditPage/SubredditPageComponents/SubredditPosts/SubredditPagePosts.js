@@ -7,29 +7,7 @@ import { useHistory } from "react-router-dom"
 import * as postActions from "../../../../store/post"
 import * as sessionActions from "../../../../store/session"
 
-// helper function
-const calculatePostLikes = (post) => {
-    let likes = 0;
-    let dislikes = 0;
-
-    let likesArray = [];
-    if (post.likes) {
-        likesArray = Object.values(post.likes)
-    }
-
-    if (likesArray.length > 0) {
-        likesArray.forEach(el => {
-            if (el.like_status === "like") {
-                likes++
-            }
-            else if (el.like_status === "dislike") {
-                dislikes++
-            }
-        })
-        return likes - dislikes
-    }
-    return likes
-}
+import calculatePostLikes from "../../../HelperFunctions/calculatePostLikes";
 
 const SubredditPagePosts = () => {
     const dispatch = useDispatch()
@@ -87,14 +65,13 @@ const SubredditPagePosts = () => {
                 return (
                     <div onClick={() => redirectToPostPage(el)} id="subreddit-post-main-container">
                         <aside id="subreddit-post-left-container">
-                            {/* COMMENT IN: Likes function */}
-                            {/* <aside id="subreddit-post-upvote-button">
+                            <aside id="subreddit-post-upvote-button">
                                 <i className="fa-solid fa-up-long fa-lg" />
                             </aside>
                             <aside id="subreddit-post-vote-counter">{calculatePostLikes(el)}</aside>
                             <aside id="subreddit-post-downvote-button">
                                 <i className="fa-solid fa-down-long fa-lg" />
-                            </aside> */}
+                            </aside>
                         </aside>
                         <aside id="subreddit-post-right-container">
                             <section id="subreddit-post-header-container">

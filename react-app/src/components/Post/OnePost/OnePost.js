@@ -7,30 +7,8 @@ import { useHistory, useParams } from "react-router-dom"
 import * as subredditActions from "../../../store/subreddit"
 import * as postActions from "../../../store/post"
 import * as userActions from "../../../store/session"
+import * as likeActions from "../../../store/like"
 
-// helper function
-const calculatePostLikes = (post) => {
-    let likes = 0;
-    let dislikes = 0;
-
-    let likesArray = [];
-    if (post.likes) {
-        likesArray = Object.values(post.likes)
-    }
-
-    if (likesArray.length > 0) {
-        likesArray.forEach(el => {
-            if (el.like_status === "like") {
-                likes++
-            }
-            else if (el.like_status === "dislike") {
-                dislikes++
-            }
-        })
-        return likes - dislikes
-    }
-    return likes
-}
 
 const OnePost = () => {
     const dispatch = useDispatch()
@@ -38,51 +16,163 @@ const OnePost = () => {
     const [load, setLoad] = useState(false)
     const [newPostBody, setNewPostBody] = useState(null)
     const [loadEditComponent, setLoadEditComponent] = useState(false)
+    const [postLikedStatus, setPostLikedStatus] = useState("post-like-status-neutral")
+    const [postDislikedStatus, setPostDislikedStatus] = useState("post-dislike-status-neutral")
+    const [likeTotal, setLikeTotal] = useState(0)
+
     const { subreddit_name, post_id } = useParams();
 
     useEffect(() => {
-        dispatch(postActions.loadPostThunk(post_id))
+        dispatch(likeActions.loadLikesPostThunk(post_id))
         dispatch(subredditActions.loadCurrentSubredditThunk(subreddit_name))
+        dispatch(postActions.loadPostThunk(post_id))
         dispatch(userActions.loadAllUserThunk())
         setLoad(true)
         dispatch(subredditActions.clearSubreddit())
+        dispatch(likeActions.clearLikes())
         return () => dispatch(postActions.clearPost())
     }, [dispatch, setLoadEditComponent, setNewPostBody])
 
+    const currentPostLikes = Object.values(useSelector(likeActions.loadPostLikes))
     const currentPost = Object.values(useSelector(postActions.loadAllPosts))
     const currentSubreddit = Object.values(useSelector(subredditActions.loadAllSubreddit))
     const allUsers = Object.values(useSelector(state => state.session))
 
+    useEffect(() => {
+        if (currentPostLikes.length > 0 && load) {
+            const currentUser = allUsers[0] || -1
+            const likesArray = Object.values(currentPostLikes[0]["likes"])
+            const dislikesArray = Object.values(currentPostLikes[0]["dislikes"])
+
+            likesArray.forEach(el => {
+                if (el["user_id"] === currentUser.id) {
+                    setPostLikedStatus("post-like-status-like")
+                }
+            })
+            dislikesArray.forEach(el => {
+                if (el["user_id"] === currentUser.id) {
+                    setPostDislikedStatus("post-dislike-status-dislike")
+                }
+            })
+            setLikeTotal(currentPostLikes[0]["likes_total"])
+        }
+    }, [dispatch, currentPostLikes])
+
+
+    // Redirection
     const redirectToSubreddit = (subredditToLoad) => {
         history.push(`/r/${subredditToLoad.name}`)
     }
+    const redirectToUserPage = (username, e) => {
+        e.stopPropagation();
 
-    const handlePostDelete = () => {
+        history.push(`/users/${username}`)
+    }
+    //
+
+
+    // Post Update
+    const updatePost = async (e) => {
+        e.preventDefault();
+
+        const postToEdit = currentPost[0]
+
+        let postInfo = {
+            title: postToEdit.title,
+            body: newPostBody
+        }
+
+        dispatch(postActions.putPostThunk(postInfo, postToEdit))
+        currentPost[0].body = postInfo.body
+
+        setLoadEditComponent(false)
+    }
+    //
+
+
+    // Post Removal/Deletion
+    const handlePostDelete = (e) => {
+        e.stopPropagation()
         const postToDelete = currentPost[0]
-
         const confirmDelete = prompt(
             `Are you sure you want to delete your post? You can't undo this`, "Yes"
         )
 
         if (confirmDelete === "Yes") {
             dispatch(postActions.deletePostThunk(postToDelete))
-            history.goBack();
+            history.goBack()
         }
     }
-
-    const redirectToUserPage = (username, e) => {
-        e.stopPropagation();
-
-        history.push(`/users/${username}`)
-    }
-
-
     const handlePostRemove = () => {
         const postToDelete = currentPost[0]
         dispatch(postActions.deletePostThunk(postToDelete))
         history.goBack();
     }
+    //
 
+
+    // Like/Dislike Handling
+    const likePost = async (postToLoad) => {
+        // error handling to undo dislike if it exists
+        let likeInfo = {
+            like_status: "like"
+        }
+
+        if (postDislikedStatus === "post-dislike-status-dislike") {
+            setPostDislikedStatus("post-dislike-status-neutral")
+            setPostLikedStatus("post-like-status-like")
+
+            dispatch(likeActions.deleteLikePostThunk(postToLoad.id))
+            dispatch(likeActions.createLikePostThunk(likeInfo, postToLoad.id))
+            setLikeTotal(currentPostLikes[0]["likes_total"])
+        } else if (postLikedStatus === "post-like-status-neutral") {
+            setPostDislikedStatus("post-dislike-status-neutral")
+            setPostLikedStatus("post-like-status-like")
+
+            dispatch(likeActions.createLikePostThunk(likeInfo, postToLoad.id))
+            setLikeTotal(currentPostLikes[0]["likes_total"])
+        } else if (postLikedStatus === "post-like-status-like") {
+            setPostDislikedStatus("post-dislike-status-neutral")
+            setPostLikedStatus("post-like-status-neutral")
+
+            dispatch(likeActions.deleteLikePostThunk(postToLoad.id))
+            setLikeTotal(currentPostLikes[0]["likes_total"])
+        }
+
+    }
+
+    const dislikePost = async (postToLoad) => {
+        // error handling to undo like if it exists
+        let likeInfo = {
+            like_status: "dislike"
+        }
+
+        if (postLikedStatus === "post-like-status-like") {
+            setPostLikedStatus("post-like-status-neutral")
+            setPostDislikedStatus("post-dislike-status-dislike")
+
+            dispatch(likeActions.deleteLikePostThunk(postToLoad.id))
+            dispatch(likeActions.createDislikePostThunk(likeInfo, postToLoad.id))
+            setLikeTotal(currentPostLikes[0]["likes_total"])
+        } else if (postDislikedStatus === "post-dislike-status-neutral") {
+            setPostLikedStatus("post-like-status-neutral")
+            setPostDislikedStatus("post-dislike-status-dislike")
+
+            dispatch(likeActions.createDislikePostThunk(likeInfo, postToLoad.id))
+            setLikeTotal(currentPostLikes[0]["likes_total"])
+        } else if (postDislikedStatus === "post-dislike-status-dislike") {
+            setPostLikedStatus("post-like-status-neutral")
+            setPostDislikedStatus("post-dislike-status-neutral")
+
+            dispatch(likeActions.deleteLikePostThunk(postToLoad.id))
+            setLikeTotal(currentPostLikes[0]["likes_total"])
+        }
+    }
+    //
+
+
+
+    // Components
     const loadFooter = (userToLoad, currentUser, postToLoad, subredditToLoad) => {
         if (currentUser.id === postToLoad.user_id) {
             return (
@@ -124,23 +214,6 @@ const OnePost = () => {
             )
         }
     }
-
-    const updatePost = async (e) => {
-        e.preventDefault();
-
-        const postToEdit = currentPost[0]
-
-        let postInfo = {
-            title: postToEdit.title,
-            body: newPostBody
-        }
-
-        dispatch(postActions.putPostThunk(postInfo, postToEdit))
-        currentPost[0].body = postInfo.body
-
-        setLoadEditComponent(false)
-    }
-
     const loadEditPostSection = (postToLoad) => {
         if (newPostBody === null && postToLoad.body) {
             setNewPostBody(postToLoad.body)
@@ -167,12 +240,17 @@ const OnePost = () => {
             </form>
         )
     }
+    //
 
+
+    // Main Component
     const LoadOnePost = () => {
         const postToLoad = currentPost[0]
-        const subredditToLoad = Object.values(currentSubreddit[0])[0]
+
         const userToLoad = allUsers[1][postToLoad["user_id"]]
         const currentUser = allUsers[0] || -1
+
+        const subredditToLoad = Object.values(currentSubreddit[0])[0]
         let subredditDate = subredditToLoad.created_at.split(" ")
         subredditDate = subredditDate[2] + " " + subredditDate[1] + ", " + subredditDate[3]
 
@@ -187,14 +265,13 @@ const OnePost = () => {
                 <div id="post-page-main-container">
                     <aside id="post-page-post-main-container">
                         <aside id="post-page-post-left-container">
-                            {/* COMMENT IN: Like function */}
-                            {/* <aside id="post-upvote-button">
-                                <i className="fa-solid fa-up-long fa-lg" />
+                            <aside onClick={() => likePost(postToLoad)} id="post-upvote-button">
+                                <i id={postLikedStatus} className="fa-solid fa-up-long fa-lg" />
                             </aside>
-                            <aside id="post-vote-counter">{calculatePostLikes(postToLoad)}</aside>
-                            <aside id="post-downvote-button">
-                                <i className="fa-solid fa-down-long fa-lg" />
-                            </aside> */}
+                            <aside id="post-vote-counter">{likeTotal}</aside>
+                            <aside onClick={() => dislikePost(postToLoad)} id="post-downvote-button">
+                                <i id={postDislikedStatus} className="fa-solid fa-down-long fa-lg" />
+                            </aside>
                         </aside>
                         <aside id="post-page-post-right-container">
                             <section id="post-page-post-header-container">
@@ -256,8 +333,7 @@ const OnePost = () => {
         )
     }
 
-
-    return currentPost.length > 0 && currentSubreddit.length > 0 && allUsers.length > 1 && load ? (
+    return currentPost.length > 0 && currentSubreddit.length > 0 && allUsers.length > 1 && currentPostLikes.length > 0 && load ? (
         <div id="post-page-background">
             {LoadOnePost()}
         </div>

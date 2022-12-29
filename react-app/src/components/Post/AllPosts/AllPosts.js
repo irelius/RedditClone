@@ -7,30 +7,8 @@ import * as postActions from "../../../store/post"
 import * as subredditActions from "../../../store/subreddit"
 import * as sessionActions from "../../../store/session"
 
-// helper function
-const calculatePostLikes = (post) => {
-    let likes = 0;
-    let dislikes = 0;
+import calculatePostLikes from "../../HelperFunctions/calculatePostLikes";
 
-    let likesArray = [];
-
-    if (post && post.likes) {
-        likesArray = Object.values(post.likes)
-    }
-
-    if (likesArray.length > 0) {
-        likesArray.forEach(el => {
-            if (el.like_status === "like") {
-                likes++
-            }
-            else if (el.like_status === "dislike") {
-                dislikes++
-            }
-        })
-        return likes - dislikes
-    }
-    return likes
-}
 
 const AllPosts = () => {
     const dispatch = useDispatch();
@@ -89,14 +67,13 @@ const AllPosts = () => {
                 return (
                     <div onClick={(e) => redirectToPostPage(el, e)} id="post-main-container" key={i}>
                         <aside id="post-left-container">
-                            {/* COMMENT IN: Like functions */}
-                            {/* <aside id="post-upvote-button">
+                            <aside id="post-upvote-button">
                                 <i className="fa-solid fa-up-long fa-lg" />
                             </aside>
                             <aside id="post-vote-counter">{calculatePostLikes(el)}</aside>
                             <aside id="post-downvote-button">
                                 <i className="fa-solid fa-down-long fa-lg" />
-                            </aside> */}
+                            </aside>
                         </aside>
                         <aside id="post-right-container">
                             <section id="post-header-container">

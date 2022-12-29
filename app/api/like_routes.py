@@ -66,10 +66,9 @@ def likes_create_new_to_post(post_id):
     current_user_id = int(current_user.get_id())
 
     if current_user_id == None:
-        return {"errors": "You must be logged in before liking a post"}, 401
+        return {"errors": "You must be logged in before liking/disliking a post"}, 401
 
     form = LikeForm()
-
     new_like = Like(
         like_status = form.data["like_status"],
         post_id = post_id,
@@ -89,10 +88,9 @@ def likes_create_new_to_comment(comment_id):
     current_user_id = int(current_user.get_id())
 
     if current_user_id == None:
-        return {"errors": "You must be logged in before liking a comment"}, 401
+        return {"errors": "You must be logged in before liking/disliking a comment"}, 401
 
     form = LikeForm()
-
     new_like = Like(
         like_status = form.data["like_status"],
         comment_id = comment_id,
@@ -105,7 +103,7 @@ def likes_create_new_to_comment(comment_id):
     return new_like.to_dict()
 
 
-# Update like status for a specific post
+# Update specific post like status to neutral
 @like_routes.route("/posts/<int:post_id>", methods=["PUT"])
 @login_required
 def likes_update_to_post(post_id):
@@ -113,17 +111,16 @@ def likes_update_to_post(post_id):
     like_to_edit_post = Like.query.filter((Like.post_id == int(post_id)), (Like.user_id == current_user_id)).all()[0]
 
     if current_user_id == None:
-        return {"errors": "You must be logged in before liking a post"}, 401
+        return {"errors": "You must be logged in before liking/disliking a post"}, 401
 
-    form = LikeForm()
-    like_to_edit_post.like_status = form.data["like_status"]
+    like_to_edit_post.like_status = "neutral"
 
     db.session.commit()
 
     return like_to_edit_post.to_dict()
 
 
-# Update like status for a specific comment
+# Update specific comment like status to neutral
 @like_routes.route("/comments/<int:comment_id>", methods=["PUT"])
 @login_required
 def likes_update_to_comment(comment_id):
@@ -131,11 +128,29 @@ def likes_update_to_comment(comment_id):
     like_to_edit_comment = Like.query.filter((Like.comment_id == int(comment_id)), (Like.user_id == current_user_id)).all()[0]
 
     if current_user_id == None:
-        return {"errors": "You must be logged in before liking a comment"}, 401
+        return {"errors": "You must be logged in before liking/disliking a comment"}, 401
 
-    form = LikeForm()
-    like_to_edit_comment.like_status = form.data["like_status"]
+    like_to_edit_comment.like_status = "neutral"
 
     db.session.commit()
 
     return like_to_edit_comment.to_dict()
+
+
+# Delete likes/dislikes to posts
+@like_routes.route("/posts/<int:post_id>", methods=["DELETE"])
+@login_required
+def likes_delete_to_post(post_id):
+    current_user_id = int(current_user.get_id())
+    like_to_delete_post = Like.query.filter((Like.post_id == int(post_id)), (Like.user_id == current_user_id)).all()[0]
+
+    if current_user_id == None:
+        return {"errors": "You must be logged in before liking/disliking a comment"}, 401
+
+    if like_to_delete_post == None:
+        return {"errors": "This post is not liked or disliked by user"}, 403
+
+    db.session.delete(like_to_delete_post)
+    db.session.commit()
+
+    return {"message": "Like/dislike successfully deleted"}

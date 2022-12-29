@@ -183,9 +183,13 @@ const postReducer = (state = initialState, action) => {
 
         // return Object.assign({}, newState, action.posts);
 
-        // case CREATE_POST:
+        case CREATE_POST:
+            return newState
 
-        // case DELETE_POST:
+        case DELETE_POST:
+            const deletedPost = {...newState}
+            delete deletedPost[action.postId]
+            return deletedPost
 
         case CLEAR_POST:
             return initialState;

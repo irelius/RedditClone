@@ -197,7 +197,7 @@
     resize: none;
 
 
-    word-break: break-all;
+    word-break: normal;
 
     color: #818384;
     background-color: inherit;
