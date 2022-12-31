@@ -1,0 +1,43 @@
+
+
+
+
+{
+    status: "liked" "disliked" "neutral" // same shit, one of these
+    vote: 2  // load from server
+}
+
+<html>
+    <div>
+        <arrow>  if status === "liked", highlight : no highlight
+                onClick: if status === "liked" ? un-like : like
+        <span>{{votes - modifier}}</span>
+        <arrow>  if status === "disliked", highlight : no highlight
+                onClick: dislikeHandler()
+    </div>
+
+function handler(str) {
+    if (str === "dislike") {
+        // check state
+            // do onething
+    } else {
+
+    }
+}
+
+undislike: vote++
+unlike: vote--
+
+like: vote++
+dislike: vote--
+
+modifier: 1 0 -1  // like => 1,  neutral => 0,
+
+
+
+
+
+you click the up arrow
+
+if you disliked =>  you now like it
+if you're netural

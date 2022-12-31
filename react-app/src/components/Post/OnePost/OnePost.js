@@ -18,6 +18,10 @@ const OnePost = () => {
     const [loadEditComponent, setLoadEditComponent] = useState(false)
     const [postLikedStatus, setPostLikedStatus] = useState("post-like-status-neutral")
     const [postDislikedStatus, setPostDislikedStatus] = useState("post-dislike-status-neutral")
+
+    const [test, setTest] = useState("neutral")
+    const [modifier, setModifier] = useState(0)
+
     const [likeTotal, setLikeTotal] = useState(0)
 
     const { subreddit_name, post_id } = useParams();
@@ -47,11 +51,13 @@ const OnePost = () => {
             likesArray.forEach(el => {
                 if (el["user_id"] === currentUser.id) {
                     setPostLikedStatus("post-like-status-like")
+                    setTest('like')
                 }
             })
             dislikesArray.forEach(el => {
                 if (el["user_id"] === currentUser.id) {
                     setPostDislikedStatus("post-dislike-status-dislike")
+                    setTest('dislike')
                 }
             })
             setLikeTotal(currentPostLikes[0]["likes_total"])
@@ -112,62 +118,114 @@ const OnePost = () => {
 
 
     // Like/Dislike Handling
-    const likePost = async (postToLoad) => {
-        // error handling to undo dislike if it exists
+
+    const likeHandler = (postToLoad, test) => {
+        console.log("booba handler entered", test)
         let likeInfo = {
             like_status: "like"
         }
 
-        if (postDislikedStatus === "post-dislike-status-dislike") {
-            setPostDislikedStatus("post-dislike-status-neutral")
-            setPostLikedStatus("post-like-status-like")
+        if(test === "like") {
+            dispatch(likeActions.deleteLikePostThunk(postToLoad.id))
 
+            setTest("neutral")
+            setModifier(0)
+        } else {
             dispatch(likeActions.deleteLikePostThunk(postToLoad.id))
             dispatch(likeActions.createLikePostThunk(likeInfo, postToLoad.id))
-            setLikeTotal(currentPostLikes[0]["likes_total"])
-        } else if (postLikedStatus === "post-like-status-neutral") {
-            setPostDislikedStatus("post-dislike-status-neutral")
-            setPostLikedStatus("post-like-status-like")
 
-            dispatch(likeActions.createLikePostThunk(likeInfo, postToLoad.id))
-            setLikeTotal(currentPostLikes[0]["likes_total"])
-        } else if (postLikedStatus === "post-like-status-like") {
-            setPostDislikedStatus("post-dislike-status-neutral")
-            setPostLikedStatus("post-like-status-neutral")
-
-            dispatch(likeActions.deleteLikePostThunk(postToLoad.id))
-            setLikeTotal(currentPostLikes[0]["likes_total"])
+            setTest("like")
+            setModifier(1)
         }
 
     }
 
-    const dislikePost = async (postToLoad) => {
-        // error handling to undo like if it exists
+    const dislikeHandler = (postToLoad, test) => {
         let likeInfo = {
             like_status: "dislike"
         }
 
-        if (postLikedStatus === "post-like-status-like") {
-            setPostLikedStatus("post-like-status-neutral")
-            setPostDislikedStatus("post-dislike-status-dislike")
+        if(test === "dislike") {
+            dispatch(likeActions.deleteLikePostThunk(postToLoad.id))
 
+            setTest("neutral")
+            setModifier(0)
+        } else {
             dispatch(likeActions.deleteLikePostThunk(postToLoad.id))
             dispatch(likeActions.createDislikePostThunk(likeInfo, postToLoad.id))
-            setLikeTotal(currentPostLikes[0]["likes_total"])
-        } else if (postDislikedStatus === "post-dislike-status-neutral") {
-            setPostLikedStatus("post-like-status-neutral")
-            setPostDislikedStatus("post-dislike-status-dislike")
 
-            dispatch(likeActions.createDislikePostThunk(likeInfo, postToLoad.id))
-            setLikeTotal(currentPostLikes[0]["likes_total"])
-        } else if (postDislikedStatus === "post-dislike-status-dislike") {
-            setPostLikedStatus("post-like-status-neutral")
-            setPostDislikedStatus("post-dislike-status-neutral")
-
-            dispatch(likeActions.deleteLikePostThunk(postToLoad.id))
-            setLikeTotal(currentPostLikes[0]["likes_total"])
+            setTest('dislike')
+            setModifier(-1)
         }
+
     }
+
+    // const likePost = async (postToLoad) => {
+    //     // error handling to undo dislike if it exists
+    //     let likeInfo = {
+    //         like_status: "like"
+    //     }
+
+    //     if (postDislikedStatus === "post-dislike-status-dislike") {
+    //         setPostDislikedStatus("post-dislike-status-neutral")
+    //         setPostLikedStatus("post-like-status-like")
+
+    //         dispatch(likeActions.deleteLikePostThunk(postToLoad.id))
+    //         dispatch(likeActions.createLikePostThunk(likeInfo, postToLoad.id))
+    //         // ????
+    //         setLikeTotal(currentPostLikes[0]["likes_total"])
+    //         return
+    //     }
+    //     if (postLikedStatus === "post-like-status-neutral") {
+    //         setPostDislikedStatus("post-dislike-status-neutral")
+    //         setPostLikedStatus("post-like-status-like")
+
+    //         dispatch(likeActions.createLikePostThunk(likeInfo, postToLoad.id))
+    //         setLikeTotal(currentPostLikes[0]["likes_total"])
+    //         return
+    //     }
+    //     if (postLikedStatus === "post-like-status-like") {
+    //         setPostDislikedStatus("post-dislike-status-neutral")
+    //         setPostLikedStatus("post-like-status-neutral")
+
+    //         dispatch(likeActions.deleteLikePostThunk(postToLoad.id))
+    //         setLikeTotal(currentPostLikes[0]["likes_total"])
+    //         return
+    //     }
+    // }
+
+    // const dislikePost = async (postToLoad) => {
+    //     // error handling to undo like if it exists
+    //     let likeInfo = {
+    //         like_status: "dislike"
+    //     }
+
+    //     if (postLikedStatus === "post-like-status-like") {
+    //         setPostLikedStatus("post-like-status-neutral")
+    //         setPostDislikedStatus("post-dislike-status-dislike")
+
+    //         dispatch(likeActions.deleteLikePostThunk(postToLoad.id))
+    //         dispatch(likeActions.createDislikePostThunk(likeInfo, postToLoad.id))
+    //         setLikeTotal(currentPostLikes[0]["likes_total"])
+    //         return
+    //     }
+    //      if (postDislikedStatus === "post-dislike-status-neutral") {
+    //         setPostLikedStatus("post-like-status-neutral")
+    //         setPostDislikedStatus("post-dislike-status-dislike")
+
+    //         dispatch(likeActions.createDislikePostThunk(likeInfo, postToLoad.id))
+    //         setLikeTotal(currentPostLikes[0]["likes_total"])
+    //         return
+    //     }
+    //      if (postDislikedStatus === "post-dislike-status-dislike") {
+    //         setPostLikedStatus("post-like-status-neutral")
+    //         setPostDislikedStatus("post-dislike-status-neutral")
+
+    //         dispatch(likeActions.deleteLikePostThunk(postToLoad.id))
+    //         setLikeTotal(currentPostLikes[0]["likes_total"])
+    //         return
+    //     }
+    // }
     //
 
 
@@ -265,12 +323,19 @@ const OnePost = () => {
                 <div id="post-page-main-container">
                     <aside id="post-page-post-main-container">
                         <aside id="post-page-post-left-container">
-                            <aside onClick={() => likePost(postToLoad)} id="post-upvote-button">
+                            {/* <aside onClick={() => likePost(postToLoad)} id="post-upvote-button">
                                 <i id={postLikedStatus} className="fa-solid fa-up-long fa-lg" />
                             </aside>
                             <aside id="post-vote-counter">{likeTotal}</aside>
                             <aside onClick={() => dislikePost(postToLoad)} id="post-downvote-button">
                                 <i id={postDislikedStatus} className="fa-solid fa-down-long fa-lg" />
+                            </aside> */}
+                            <aside onClick={() => likeHandler(postToLoad, test)} id="post-upvote-button">
+                                <i id={'post-like-status-'+test} className="fa-solid fa-up-long fa-lg" />
+                            </aside>
+                            <aside id="post-vote-counter">{likeTotal + modifier}</aside>
+                            <aside onClick={() => dislikeHandler(postToLoad, test)} id="post-downvote-button">
+                                <i id={'post-dislike-status-'+test} className="fa-solid fa-down-long fa-lg" />
                             </aside>
                         </aside>
                         <aside id="post-page-post-right-container">
