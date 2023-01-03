@@ -10,7 +10,8 @@ import * as subredditActions from "../../../store/subreddit"
 import calculatePostLikes from "../../HelperFunctions/calculatePostLikes";
 
 const UsersPage = () => {
-    const username = (useParams()).username;
+    const username = useParams().username;
+    console.log("booba", username)
     const dispatch = useDispatch()
     const history = useHistory()
     const [load, setLoad] = useState(false)

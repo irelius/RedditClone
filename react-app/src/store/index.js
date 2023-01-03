@@ -2,6 +2,7 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import sessionReducer from './session';
 import postReducer from './post';
+import commentReducer from './comment';
 import likesReducer from './like';
 import subredditReducer from './subreddit';
 
@@ -10,6 +11,7 @@ const rootReducer = combineReducers({
   post: postReducer,
   likes: likesReducer,
   subreddits: subredditReducer,
+  comments: commentReducer
 });
 
 

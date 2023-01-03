@@ -8,7 +8,9 @@ import * as subredditActions from "../../../store/subreddit"
 import * as postActions from "../../../store/post"
 import * as userActions from "../../../store/session"
 import * as likeActions from "../../../store/like"
+import * as commentActions from "../../../store/comment"
 
+import PostComments from "../PostComments/PostComments";
 
 const OnePost = () => {
     const dispatch = useDispatch()
@@ -24,19 +26,22 @@ const OnePost = () => {
     const { subreddit_name, post_id } = useParams();
 
     useEffect(() => {
-        dispatch(likeActions.loadLikesPostThunk(post_id))
+        dispatch(userActions.loadAllUserThunk())
         dispatch(subredditActions.loadCurrentSubredditThunk(subreddit_name))
         dispatch(postActions.loadPostThunk(post_id))
-        dispatch(userActions.loadAllUserThunk())
+        dispatch(commentActions.loadPostCommentsThunk(post_id))
+        dispatch(likeActions.loadLikesPostThunk(post_id))
         setLoad(true)
         dispatch(subredditActions.clearSubreddit())
         dispatch(likeActions.clearLikes())
+        dispatch(commentActions.clearComment())
         return () => dispatch(postActions.clearPost())
     }, [dispatch, setLoadEditComponent, setNewPostBody])
 
     const currentPostLikes = Object.values(useSelector(likeActions.loadPostLikes))
     const currentPost = Object.values(useSelector(postActions.loadAllPosts))
     const currentSubreddit = Object.values(useSelector(subredditActions.loadAllSubreddit))
+    const currentComments = Object.values(useSelector(commentActions.loadAllComments))
     const allUsers = Object.values(useSelector(state => state.session))
 
     useEffect(() => {
@@ -58,9 +63,9 @@ const OnePost = () => {
             setLikeTotal(currentPostLikes[0]["likes_total"])
         }
 
-        console.log("booba liketotal", likeTotal)
-        console.log("booba modifier", modifier)
-        console.log("booba status", postLikeStatus)
+        // console.log("booba liketotal", likeTotal)
+        // console.log("booba modifier", modifier)
+        // console.log("booba status", postLikeStatus)
 
     }, [dispatch, currentPostLikes])
 
@@ -126,7 +131,7 @@ const OnePost = () => {
         if (postLikeStatus === "like") {
             dispatch(likeActions.deleteLikePostThunk(postToLoad.id))
 
-            await setPostLikeStatus("neutral")
+            setPostLikeStatus("neutral")
             setModifier(0)
         } else {
             dispatch(likeActions.deleteLikePostThunk(postToLoad.id))
@@ -317,6 +322,8 @@ const OnePost = () => {
                     </aside>
                 </div>
                 <div id="post-page-comments-main-container">
+                    {/* {loadCommentsSection(currentComments)} */}
+                    {PostComments(currentComments, allUsers)}
                     {/* TO DO: Implement a comments section component that will return a default "no messages yet" section or the comments, o boy, that's gunna be hard */}
                 </div>
 
