@@ -83,7 +83,8 @@ export const loadCurrentSubredditPostsThunk = (subredditName) => async (dispatch
 
     if (res.ok) {
         const posts = await res.json();
-        return dispatch(loadPosts(posts))
+        dispatch(loadPosts(posts))
+        return posts
     }
 }
 
@@ -94,7 +95,8 @@ export const loadUserPostsThunk = (username) => async (dispatch) => {
 
     if (res.ok) {
         const posts = await res.json()
-        return dispatch(loadPosts(posts))
+        dispatch(loadPosts(posts))
+        return posts
     }
 }
 
@@ -111,7 +113,7 @@ export const createPostThunk = (postInfo) => async (dispatch) => {
     if (res.ok) {
         const data = await res.json();
         dispatch(createPost(data))
-        return null
+        return data
     } else if (res.status < 500) {
         const data = await res.json()
         if (data.errors) {
@@ -136,6 +138,11 @@ export const putPostThunk = (postInfo, post) => async (dispatch) => {
         const data = await res.json();
         dispatch(updatePost(data))
         return data
+    } else if (res.status < 500) {
+        const data = await res.json()
+        if (data.errors) {
+            return data.errors
+        }
     }
 
     return null
@@ -187,7 +194,7 @@ const postReducer = (state = initialState, action) => {
             return newState
 
         case DELETE_POST:
-            const deletedPost = {...newState}
+            const deletedPost = { ...newState }
             delete deletedPost[action.postId]
             return deletedPost
 

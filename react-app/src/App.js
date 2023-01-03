@@ -12,6 +12,8 @@ import SubredditPage from './components/SubredditPage';
 import CreatePostPage from './components/CreatePostPage';
 import OnePost from './components/Post/OnePost';
 
+import TestPage from './components/TestPage/TestPage';
+
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
@@ -51,6 +53,9 @@ function App() {
         </Route>
         <Route path="/r">
           <SubredditPage />
+        </Route>
+        <Route path="/test">
+          <TestPage />
         </Route>
       </Switch>
     </BrowserRouter>

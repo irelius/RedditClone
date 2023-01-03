@@ -8,7 +8,9 @@ import * as subredditActions from "../../../store/subreddit"
 import * as postActions from "../../../store/post"
 import * as userActions from "../../../store/session"
 import * as likeActions from "../../../store/like"
+import * as commentActions from "../../../store/comment"
 
+import PostComments from "../PostComments/PostComments";
 
 const OnePost = () => {
     const dispatch = useDispatch()
@@ -16,46 +18,55 @@ const OnePost = () => {
     const [load, setLoad] = useState(false)
     const [newPostBody, setNewPostBody] = useState(null)
     const [loadEditComponent, setLoadEditComponent] = useState(false)
-    const [postLikedStatus, setPostLikedStatus] = useState("post-like-status-neutral")
-    const [postDislikedStatus, setPostDislikedStatus] = useState("post-dislike-status-neutral")
+
     const [likeTotal, setLikeTotal] = useState(0)
+    const [modifier, setModifier] = useState(0)
+    const [postLikeStatus, setPostLikeStatus] = useState("neutral")
 
     const { subreddit_name, post_id } = useParams();
 
     useEffect(() => {
-        dispatch(likeActions.loadLikesPostThunk(post_id))
+        dispatch(userActions.loadAllUserThunk())
         dispatch(subredditActions.loadCurrentSubredditThunk(subreddit_name))
         dispatch(postActions.loadPostThunk(post_id))
-        dispatch(userActions.loadAllUserThunk())
+        dispatch(commentActions.loadPostCommentsThunk(post_id))
+        dispatch(likeActions.loadLikesPostThunk(post_id))
         setLoad(true)
         dispatch(subredditActions.clearSubreddit())
         dispatch(likeActions.clearLikes())
+        dispatch(commentActions.clearComment())
         return () => dispatch(postActions.clearPost())
     }, [dispatch, setLoadEditComponent, setNewPostBody])
 
     const currentPostLikes = Object.values(useSelector(likeActions.loadPostLikes))
     const currentPost = Object.values(useSelector(postActions.loadAllPosts))
     const currentSubreddit = Object.values(useSelector(subredditActions.loadAllSubreddit))
+    const currentComments = Object.values(useSelector(commentActions.loadAllComments))
     const allUsers = Object.values(useSelector(state => state.session))
 
     useEffect(() => {
-        if (currentPostLikes.length > 0 && load) {
+        if (currentPostLikes.length > 0) {
             const currentUser = allUsers[0] || -1
             const likesArray = Object.values(currentPostLikes[0]["likes"])
             const dislikesArray = Object.values(currentPostLikes[0]["dislikes"])
 
             likesArray.forEach(el => {
                 if (el["user_id"] === currentUser.id) {
-                    setPostLikedStatus("post-like-status-like")
+                    setPostLikeStatus('like')
                 }
             })
             dislikesArray.forEach(el => {
                 if (el["user_id"] === currentUser.id) {
-                    setPostDislikedStatus("post-dislike-status-dislike")
+                    setPostLikeStatus('dislike')
                 }
             })
             setLikeTotal(currentPostLikes[0]["likes_total"])
         }
+
+        // console.log("booba liketotal", likeTotal)
+        // console.log("booba modifier", modifier)
+        // console.log("booba status", postLikeStatus)
+
     }, [dispatch, currentPostLikes])
 
 
@@ -112,64 +123,49 @@ const OnePost = () => {
 
 
     // Like/Dislike Handling
-    const likePost = async (postToLoad) => {
-        // error handling to undo dislike if it exists
+    const likeHandler = async (postToLoad, postLikeStatus) => {
         let likeInfo = {
             like_status: "like"
         }
 
-        if (postDislikedStatus === "post-dislike-status-dislike") {
-            setPostDislikedStatus("post-dislike-status-neutral")
-            setPostLikedStatus("post-like-status-like")
+        if (postLikeStatus === "like") {
+            dispatch(likeActions.deleteLikePostThunk(postToLoad.id))
 
+            setPostLikeStatus("neutral")
+            setModifier(0)
+        } else {
             dispatch(likeActions.deleteLikePostThunk(postToLoad.id))
             dispatch(likeActions.createLikePostThunk(likeInfo, postToLoad.id))
-            setLikeTotal(currentPostLikes[0]["likes_total"])
-        } else if (postLikedStatus === "post-like-status-neutral") {
-            setPostDislikedStatus("post-dislike-status-neutral")
-            setPostLikedStatus("post-like-status-like")
 
-            dispatch(likeActions.createLikePostThunk(likeInfo, postToLoad.id))
-            setLikeTotal(currentPostLikes[0]["likes_total"])
-        } else if (postLikedStatus === "post-like-status-like") {
-            setPostDislikedStatus("post-dislike-status-neutral")
-            setPostLikedStatus("post-like-status-neutral")
-
-            dispatch(likeActions.deleteLikePostThunk(postToLoad.id))
-            setLikeTotal(currentPostLikes[0]["likes_total"])
+            setPostLikeStatus("like")
+            setModifier(1)
         }
+
+        // console.log("booba liketotal", likeTotal)
+        // console.log("booba modifier", modifier)
+        // console.log("booba asdf", postLikeStatus)
 
     }
 
-    const dislikePost = async (postToLoad) => {
-        // error handling to undo like if it exists
+    const dislikeHandler = (postToLoad, postLikeStatus) => {
         let likeInfo = {
             like_status: "dislike"
         }
 
-        if (postLikedStatus === "post-like-status-like") {
-            setPostLikedStatus("post-like-status-neutral")
-            setPostDislikedStatus("post-dislike-status-dislike")
+        if (postLikeStatus === "dislike") {
+            dispatch(likeActions.deleteLikePostThunk(postToLoad.id))
 
+            setPostLikeStatus("neutral")
+            setModifier(0)
+        } else {
             dispatch(likeActions.deleteLikePostThunk(postToLoad.id))
             dispatch(likeActions.createDislikePostThunk(likeInfo, postToLoad.id))
-            setLikeTotal(currentPostLikes[0]["likes_total"])
-        } else if (postDislikedStatus === "post-dislike-status-neutral") {
-            setPostLikedStatus("post-like-status-neutral")
-            setPostDislikedStatus("post-dislike-status-dislike")
 
-            dispatch(likeActions.createDislikePostThunk(likeInfo, postToLoad.id))
-            setLikeTotal(currentPostLikes[0]["likes_total"])
-        } else if (postDislikedStatus === "post-dislike-status-dislike") {
-            setPostLikedStatus("post-like-status-neutral")
-            setPostDislikedStatus("post-dislike-status-neutral")
-
-            dispatch(likeActions.deleteLikePostThunk(postToLoad.id))
-            setLikeTotal(currentPostLikes[0]["likes_total"])
+            setPostLikeStatus('dislike')
+            setModifier(-1)
         }
-    }
-    //
 
+    }
 
 
     // Components
@@ -265,12 +261,12 @@ const OnePost = () => {
                 <div id="post-page-main-container">
                     <aside id="post-page-post-main-container">
                         <aside id="post-page-post-left-container">
-                            <aside onClick={() => likePost(postToLoad)} id="post-upvote-button">
-                                <i id={postLikedStatus} className="fa-solid fa-up-long fa-lg" />
+                            <aside onClick={async () => await likeHandler(postToLoad, postLikeStatus)} id="post-upvote-button">
+                                <i id={'post-like-status-' + postLikeStatus} className="fa-solid fa-up-long fa-lg" />
                             </aside>
-                            <aside id="post-vote-counter">{likeTotal}</aside>
-                            <aside onClick={() => dislikePost(postToLoad)} id="post-downvote-button">
-                                <i id={postDislikedStatus} className="fa-solid fa-down-long fa-lg" />
+                            <aside id="post-vote-counter">{likeTotal + modifier}</aside>
+                            <aside onClick={async () => await dislikeHandler(postToLoad, postLikeStatus)} id="post-downvote-button">
+                                <i id={'post-dislike-status-' + postLikeStatus} className="fa-solid fa-down-long fa-lg" />
                             </aside>
                         </aside>
                         <aside id="post-page-post-right-container">
@@ -326,6 +322,8 @@ const OnePost = () => {
                     </aside>
                 </div>
                 <div id="post-page-comments-main-container">
+                    {/* {loadCommentsSection(currentComments)} */}
+                    {PostComments(currentComments, allUsers)}
                     {/* TO DO: Implement a comments section component that will return a default "no messages yet" section or the comments, o boy, that's gunna be hard */}
                 </div>
 

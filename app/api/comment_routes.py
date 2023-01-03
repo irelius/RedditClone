@@ -1,6 +1,6 @@
 from flask import Blueprint
 from flask_login import current_user, login_required
-from app.models import db, Comment
+from app.models import db, Comment, User
 from app.forms import CommentForm
 
 comment_routes = Blueprint("comments", __name__)
@@ -32,7 +32,7 @@ def comments_specific(comment_id):
 
 
 # Get comments made by current user
-@comment_routes.route("/current")
+@comment_routes.route("/users/current")
 @login_required
 def comments_by_current_user():
     current_user_id = int(current_user.get_id())
@@ -40,9 +40,17 @@ def comments_by_current_user():
     return return_comments(comments)
 
 
-# Get comments made by specific user
+# Get comments made by specific user by id number
 @comment_routes.route("/users/<int:user_id>")
-def comments_by_specific_user(user_id):
+def comments_by_specific_user_id(user_id):
+    comments = Comment.query.filter(Comment.user_id == user_id).all()
+    return return_comments(comments)
+
+
+# Get comments made by specific user by username
+@comment_routes.route("/users/<string:username>")
+def comments_by_specific_username(username):
+    user_id = User.query.filter(User.username == username).first().to_dict()["id"]
     comments = Comment.query.filter(Comment.user_id == user_id).all()
     return return_comments(comments)
 
