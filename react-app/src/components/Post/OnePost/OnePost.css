@@ -7,7 +7,7 @@
 /* -----------------------------------------------------------------------*/
 /* Post Page Background */
 
-#post-page-background {
+#post-page-background-1 {
     display: flex;
     justify-content: center;
     height: 100vh;
@@ -15,7 +15,7 @@
     background-color: #191919;
 }
 
-#post-page-asdf {
+#post-page-background-2 {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -341,11 +341,14 @@
     flex-direction: column;
     justify-content: flex-start;
 
+    height: fit-content;
     max-width: 325px;
     width: 325px;
 
     border: 1px solid #474748;
     border-radius: 5px;
+
+    background-color: #191919;
 }
 
 #post-page-bar-main-container:hover {
@@ -414,6 +417,18 @@
 /* -----------------------------------------------------------------------*/
 /* Post Page Comments Container */
 
-#test {
+/* #post-page-comments-main-container {
+    display: grid;
+    grid-template-columns: 1fr 19fr;
+
+    width: 1300px;
+
+    border: 2px solid white;
+} */
+
+#post-page-comments-section-container {
+    display: flex;
+    flex-direction: column;
+
     background-color: white;
 }
