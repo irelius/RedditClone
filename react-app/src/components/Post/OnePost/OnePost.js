@@ -251,7 +251,7 @@ const OnePost = () => {
         subredditDate = subredditDate[2] + " " + subredditDate[1] + ", " + subredditDate[3]
 
         return (
-            <div id="post-page-asdf">
+            <div id="post-page-background-2">
                 <div id="post-page-close-button-container">
                     <button onClick={() => history.goBack()} id="post-page-close-button">
                         <i className="fa-solid fa-xmark fa-lg" />
@@ -298,6 +298,12 @@ const OnePost = () => {
                                 )}
                             </section>
                             {loadFooter(userToLoad, currentUser, postToLoad, subredditToLoad)}
+                            <aside id="post-page-comments-form-container">
+                                test for comments form
+                            </aside>
+                            <aside id="post-page-comments-section-container">
+                                {PostComments(currentComments, allUsers)}
+                            </aside>
                         </aside>
                     </aside>
                     <aside onClick={() => redirectToSubreddit(subredditToLoad)} id="post-page-bar-main-container">
@@ -321,18 +327,12 @@ const OnePost = () => {
                         </section>
                     </aside>
                 </div>
-                <div id="post-page-comments-main-container">
-                    {/* {loadCommentsSection(currentComments)} */}
-                    {PostComments(currentComments, allUsers)}
-                    {/* TO DO: Implement a comments section component that will return a default "no messages yet" section or the comments, o boy, that's gunna be hard */}
-                </div>
-
             </div >
         )
     }
 
     return currentPost.length > 0 && currentSubreddit.length > 0 && allUsers.length > 1 && currentPostLikes.length > 0 && load ? (
-        <div id="post-page-background">
+        <div id="post-page-background-1">
             {LoadOnePost()}
         </div>
     ) : (

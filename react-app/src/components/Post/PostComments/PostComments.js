@@ -24,28 +24,25 @@ const PostComments = (currentComments, allUsers) => {
                 console.log("chooba", el)
 
                 return (
-                    <div id="test">
+                    <div id='comments-section-main-container'>
+                        <section id="comments-section-poster-container">
+                            <img id="comments-section-poster-profile-pic"
+                                src={commentPoster["profile_image"]}
+                                width={30}
+                                height={30}
+                                alt="commentPosterProfileImage"
+                            />
+                            <aside id="comments-section-poster-username">
+                                {commentPoster["username"]}
+                            </aside>
+                            <aside>
+                                {commentDate}
+                            </aside>
 
-                        <div id='comments-section-main-container'>
-                            <section id="comments-section-poster-container">
-                                <img id="comments-section-poster-profile-pic"
-                                    src={commentPoster["profile_image"]}
-                                    width={30}
-                                    height={30}
-                                    alt="commentPosterProfileImage"
-                                />
-                                <aside id="comments-section-poster-username">
-                                    {commentPoster["username"]}
-                                </aside>
-                                <aside>
-                                    {commentDate}
-                                </aside>
-
-                            </section>
-                            <section id="comments-section-comment">
-
-                            </section>
-                        </div>
+                        </section>
+                        <section id="comments-section-comment">
+                            {el["body"]}
+                        </section>
                     </div>
                 )
             })

@@ -37,21 +37,21 @@ export const createLikeComment = (commentId) => {
     }
 }
 
-// edit like for a post
-export const putLikesPost = (postId) => {
-    return {
-        type: PUT_LIKES,
-        postId
-    }
-}
+// // edit like for a post
+// export const putLikesPost = (postId) => {
+//     return {
+//         type: PUT_LIKES,
+//         postId
+//     }
+// }
 
-// edit like for a comment
-export const putLikesComment = (commentId) => {
-    return {
-        type: PUT_LIKES,
-        commentId
-    }
-}
+// // edit like for a comment
+// export const putLikesComment = (commentId) => {
+//     return {
+//         type: PUT_LIKES,
+//         commentId
+//     }
+// }
 
 // delete like for a post
 export const deleteLikePost = (postId) => {
@@ -137,28 +137,28 @@ export const createLikeCommentThunk = (likeInfo, commentId) => async (dispatch) 
 }
 
 
-export const updateLikePostThunk = (likeInfo, postId) => async (dispatch) => {
-    const res = await fetch(`/api/likes/posts/${postId}`, {
-        method: "PUT",
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(likeInfo)
-    })
+// export const updateLikePostThunk = (likeInfo, postId) => async (dispatch) => {
+//     const res = await fetch(`/api/likes/posts/${postId}`, {
+//         method: "PUT",
+//         headers: {
+//             'Content-Type': 'application/json',
+//         },
+//         body: JSON.stringify(likeInfo)
+//     })
 
-    if (res.ok) {
-        const like = await res.json()
-        dispatch(putLikesPost(like))
-        return like
-    } else if (res.status < 500) {
-        const data = res.json()
-        if (data.errors) {
-            return data.errors
-        }
-    }
+//     if (res.ok) {
+//         const like = await res.json()
+//         dispatch(putLikesPost(like))
+//         return like
+//     } else if (res.status < 500) {
+//         const data = res.json()
+//         if (data.errors) {
+//             return data.errors
+//         }
+//     }
 
-    return null
-}
+//     return null
+// }
 
 export const deleteLikePostThunk = (postId) => async (dispatch) => {
     const res = await fetch(`/api/likes/posts/${postId}`, {
@@ -166,7 +166,8 @@ export const deleteLikePostThunk = (postId) => async (dispatch) => {
     })
 
     if (res.ok) {
-        dispatch(deleteLikePost(postId))
+        const data = dispatch(deleteLikePost(postId))
+        console.log("hello 2", data)
         return true;
     }
 
@@ -194,7 +195,7 @@ const likesReducer = (state = initialState, action) => {
             return Object.assign({}, newState, action.likes);
 
         case DELETE_LIKES:
-            return Object.assign({}, newState, action.likes);
+            return Object.assign({}, newState, action.postId);
 
         case CLEAR_LIKES:
             return initialState
