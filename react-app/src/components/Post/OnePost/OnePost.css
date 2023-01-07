@@ -417,18 +417,118 @@
 /* -----------------------------------------------------------------------*/
 /* Post Page Comments Container */
 
-/* #post-page-comments-main-container {
-    display: grid;
-    grid-template-columns: 1fr 19fr;
-
-    width: 1300px;
-
-    border: 2px solid white;
-} */
-
 #post-page-comments-section-container {
     display: flex;
     flex-direction: column;
 
-    background-color: white;
+    margin-top: 10px;
+}
+
+/* -----------------------------------------------------------------------*/
+/* Comment Section Main Container */
+
+#comments-section-main-container {
+    display: flex;
+    flex-direction: column;
+
+    margin-bottom: 5px;
+
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: white;
+    background-color: #191919;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Comment Section Header Container */
+
+#comments-section-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+
+#comments-section-header>* {
+    margin-right: 10px;
+    font-size: 12px;
+    color: #818384;
+}
+
+
+#comments-section-poster-username:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+/* -----------------------------------------------------------------------*/
+/* Profile Picture */
+
+#comments-section-poster-profile-pic {
+    border-radius: 90%;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Comments Section Body Container */
+#comments-section-comment {
+    display: flex;
+    align-items: center;
+
+    margin-left: 40px;
+
+    height: 30px;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Comments Section Footer Container */
+#comments-section-footer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    margin-left: 35px;
+
+    height: 30px;
+
+    font-size: 14px;
+    color: #707172;
+
+}
+
+#comments-section-footer>* {
+    display: flex;
+    flex-direction: row;
+
+    padding: 10px;
+}
+
+#comments-section-footer>*:hover {
+    cursor: pointer;
+    background-color: #2C2C2E;
+}
+
+#comments-section-vote-container {
+    display: flex;
+    flex-direction: row;
+
+    margin-right: 10px;
+}
+
+.comments-footer-text {
+    margin-left: 5px;
+}
+
+/* -----------------------------------------------------------------------*/
+/* Comments Section No Comments */
+#comments-section-no-comments {
+    display: flex;
+    justify-content: center;
+
+    margin-top: 30px;
+    margin-bottom: 30px;
+
+    font-size: 16px;
+    color: white;
 }

@@ -167,7 +167,6 @@ export const deleteLikePostThunk = (postId) => async (dispatch) => {
 
     if (res.ok) {
         const data = dispatch(deleteLikePost(postId))
-        console.log("hello 2", data)
         return true;
     }
 

@@ -27,6 +27,7 @@ const NavBarNotLoggedIn = () => {
           </aside> */}
       </section>
 
+      {/* TO DO: create a search bar functionality */}
       <section id="nli-navbar-middle">
         <section id="nli-navbar-search-bar-container">
           <form action="/test">

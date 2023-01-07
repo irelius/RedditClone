@@ -11,7 +11,6 @@ import calculatePostLikes from "../../HelperFunctions/calculatePostLikes";
 
 const UsersPage = () => {
     const username = useParams().username;
-    console.log("booba", username)
     const dispatch = useDispatch()
     const history = useHistory()
     const [load, setLoad] = useState(false)

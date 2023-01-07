@@ -68,18 +68,20 @@ const OnePost = () => {
         // console.log("booba status", postLikeStatus)
 
     }, [dispatch, currentPostLikes])
+    //
 
+    const redirectToSubreddit = (subredditToLoad, e) => {
+        e.stopPropagation()
 
-    // Redirection
-    const redirectToSubreddit = (subredditToLoad) => {
         history.push(`/r/${subredditToLoad.name}`)
     }
+
+
     const redirectToUserPage = (username, e) => {
         e.stopPropagation();
 
         history.push(`/users/${username}`)
     }
-    //
 
 
     // Post Update
@@ -118,6 +120,27 @@ const OnePost = () => {
         const postToDelete = currentPost[0]
         dispatch(postActions.deletePostThunk(postToDelete))
         history.goBack();
+    }
+    //
+
+    // Comment Removal/Deletion
+    const handleCommentDelete = (el) => {
+        const confirmDelete = prompt(
+            `Are you sure you want to delete this comment? You can't undo this`, "Yes"
+        )
+
+        if (confirmDelete === "Yes") {
+            dispatch(commentActions.deleteCommentThunk(el))
+        }
+    }
+    const handleCommentRemoval = (el) => {
+        const confirmDelete = prompt(
+            `Are you sure you want to remove this comment? You can't undo this`, "Yes"
+        )
+
+        if (confirmDelete === "Yes") {
+            dispatch(commentActions.deleteCommentThunk(el))
+        }
     }
     //
 
@@ -169,8 +192,8 @@ const OnePost = () => {
 
 
     // Components
-    const loadFooter = (userToLoad, currentUser, postToLoad, subredditToLoad) => {
-        if (currentUser.id === postToLoad.user_id) {
+    const loadFooter = (currentUser, postToLoad, subredditToLoad) => {
+        if (currentUser.id === postToLoad["user_id"]) {
             return (
                 <section onClick={() => setLoadEditComponent(true)} id="post-page-post-footer-container">
                     <aside id="post-page-post-edit-container">
@@ -236,6 +259,68 @@ const OnePost = () => {
             </form>
         )
     }
+    const loadComments = (currentUser, subredditToLoad) => {
+        if (currentComments.length > 0) {
+            const commentsToLoad = Object.values(currentComments[0])
+            return (
+                Array.isArray(commentsToLoad) && commentsToLoad.map(el => {
+                    let commentPoster = allUsers[1][el["user_id"]]
+                    let commentDate = el["created_at"].split(" ")
+                    commentDate = commentDate[2] + " " + commentDate[1] + ", " + commentDate[3]
+
+                    return (
+                        <div id='comments-section-main-container'>
+                            <section id="comments-section-header">
+                                <img id="comments-section-poster-profile-pic"
+                                    src={commentPoster["profile_image"]}
+                                    width={30}
+                                    height={30}
+                                    alt="commentPosterProfileImage"
+                                />
+                                <aside onClick={(e) => redirectToUserPage(commentPoster.username, e)} id="comments-section-poster-username">
+                                    {commentPoster["username"]}
+                                </aside>
+                                <aside>
+                                    -
+                                </aside>
+                                <aside id="comments-section-date">
+                                    {commentDate}
+                                </aside>
+                            </section>
+                            <section id="comments-section-comment">
+                                {el["body"]}
+                            </section>
+                            <section id="comments-section-footer">
+                                {
+                                    currentUser["id"] === el["user_id"] ? (
+                                        <div id="comments-footer-delete-comment" onClick={() => handleCommentDelete(el)}>
+                                            <i className="fa-regular fa-trash-can"></i>
+                                            <aside className="comments-footer-text">
+                                                Delete Comment
+                                            </aside>
+                                        </div>
+                                    ) : (
+                                        <div id="comments-footer-remove-comment" onClick={() => handleCommentRemoval(el)}>
+                                            <i className="fa-solid fa-ban"></i>
+                                            <aside className="comments-footer-text">
+                                                Remove Comment
+                                            </aside>
+                                        </div>
+                                    )
+                                }
+                            </section>
+                        </div>
+                    )
+                })
+            )
+        } else {
+            return (
+                <div id='comments-section-no-comments'>
+                    There are no comments yet. Why don't you fix that?
+                </div>
+            )
+        }
+    }
     //
 
 
@@ -271,7 +356,7 @@ const OnePost = () => {
                         </aside>
                         <aside id="post-page-post-right-container">
                             <section id="post-page-post-header-container">
-                                <aside onClick={() => redirectToSubreddit(subredditToLoad)} id="post-page-post-header">
+                                <aside onClick={(e) => redirectToSubreddit(subredditToLoad, e)} id="post-page-post-header">
                                     r/{subredditToLoad.name}
                                 </aside>
                                 <aside id="post-page-post-poster-decoration-text">
@@ -297,16 +382,20 @@ const OnePost = () => {
                                     </section>
                                 )}
                             </section>
-                            {loadFooter(userToLoad, currentUser, postToLoad, subredditToLoad)}
+                            <section>
+                                {loadFooter(currentUser, postToLoad, subredditToLoad)}
+                            </section>
                             <aside id="post-page-comments-form-container">
                                 test for comments form
                             </aside>
                             <aside id="post-page-comments-section-container">
-                                {PostComments(currentComments, allUsers)}
+                                {loadComments(currentUser, subredditToLoad)}
+
+                                {/* {PostComments(currentComments, allUsers, currentUser, subredditToLoad)} */}
                             </aside>
                         </aside>
                     </aside>
-                    <aside onClick={() => redirectToSubreddit(subredditToLoad)} id="post-page-bar-main-container">
+                    <aside onClick={(e) => redirectToSubreddit(subredditToLoad, e)} id="post-page-bar-main-container">
                         <section id="post-page-bar-banner">
                         </section>
                         <section id="post-page-bar-header-container">
@@ -331,7 +420,7 @@ const OnePost = () => {
         )
     }
 
-    return currentPost.length > 0 && currentSubreddit.length > 0 && allUsers.length > 1 && currentPostLikes.length > 0 && load ? (
+    return currentPost.length > 0 && currentSubreddit.length > 0 && allUsers.length > 1 && currentPostLikes.length > 0 && currentComments.length > 0 && load ? (
         <div id="post-page-background-1">
             {LoadOnePost()}
         </div>
