@@ -25,24 +25,28 @@ const PostComments = (currentComments, allUsers) => {
 
                 return (
                     <div id='comments-section-main-container'>
-                        <section id="comments-section-poster-container">
+                        <aside id="comments-section-left-container">
                             <img id="comments-section-poster-profile-pic"
                                 src={commentPoster["profile_image"]}
                                 width={30}
                                 height={30}
                                 alt="commentPosterProfileImage"
                             />
-                            <aside id="comments-section-poster-username">
-                                {commentPoster["username"]}
-                            </aside>
-                            <aside>
-                                {commentDate}
-                            </aside>
+                        </aside>
+                        <aside id="comments-section-right-container">
+                            <section id="comments-section-poster-container">
+                                <aside id="comments-section-poster-username">
+                                    {commentPoster["username"]}
+                                </aside>
+                                <aside>
+                                    {commentDate}
+                                </aside>
 
-                        </section>
-                        <section id="comments-section-comment">
-                            {el["body"]}
-                        </section>
+                            </section>
+                            <section id="comments-section-comment">
+                                {el["body"]}
+                            </section>
+                        </aside>
                     </div>
                 )
             })

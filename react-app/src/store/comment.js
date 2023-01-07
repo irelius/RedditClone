@@ -1,11 +1,4 @@
 // ------------------------------- ACTIONS ------------------------------- //
-const LOAD_POST = '/posts/LOAD_POST'
-const LOAD_POSTS = '/posts/LOAD_POSTS'
-const CREATE_POST = '/posts/CREATE_POST'
-const PUT_POST = '/posts/PUT_POST'
-const DELETE_POST = '/posts/DELETE_POST'
-const CLEAR_POST = "/posts/CLEAR_POST"
-
 const LOAD_COMMENT = "/comments/LOAD_COMMENT"
 const LOAD_COMMENTS = "/comments/LOAD_COMMENTS"
 const CREATE_COMMENT = "/comments/CREATE_COMMENT"
