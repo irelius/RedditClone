@@ -12,29 +12,28 @@ const TestPage = () => {
     const dispatch = useDispatch()
     const [load, setLoad] = useState(false)
 
-    const subreddit_name = "Subreddit_1"
-    const post_id = 1
+    const [number, setNumber] = useState(1)
 
     useEffect(() => {
-        dispatch(commentActions.loadPostCommentsThunk(post_id))
+        dispatch(commentActions.loadCommentThunk(number))
         setLoad(true)
-    }, [dispatch])
+    }, [dispatch, number])
 
-    const testComments = useSelector(commentActions.loadAllComments)
-
-
-
+    const testComments = Object.values(useSelector(commentActions.loadAllComments))
 
     const LoadTestPage = () => {
+        console.log("booba", testComments[0][number])
         return (
             <div id="test">
-                hello
+                <button onClick={() => setNumber(number + 1)}>
+                    increase number {number}
+                </button>
             </div>
         )
     }
 
 
-    return load ? (
+    return testComments.length > 0 && testComments[0][number] && load ? (
         <div>
             {LoadTestPage()}
         </div>

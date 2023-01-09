@@ -72,7 +72,7 @@ export const loadCommentThunk = (commentId) => async (dispatch) => {
 
     if (res.ok) {
         const comment = await res.json();
-        dispatch(loadComment(comment))
+        dispatch(loadComments(comment))
         return comment
     }
 }

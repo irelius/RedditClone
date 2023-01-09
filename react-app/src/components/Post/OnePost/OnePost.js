@@ -10,14 +10,15 @@ import * as userActions from "../../../store/session"
 import * as likeActions from "../../../store/like"
 import * as commentActions from "../../../store/comment"
 
-import PostComments from "../PostComments/PostComments";
 
 const OnePost = () => {
     const dispatch = useDispatch()
     const history = useHistory()
     const [load, setLoad] = useState(false)
+    const [errors, setErrors] = useState([])
     const [newPostBody, setNewPostBody] = useState(null)
     const [loadEditComponent, setLoadEditComponent] = useState(false)
+    const [commentBody, setCommentBody] = useState("")
 
     const [likeTotal, setLikeTotal] = useState(0)
     const [modifier, setModifier] = useState(0)
@@ -67,7 +68,7 @@ const OnePost = () => {
         // console.log("booba modifier", modifier)
         // console.log("booba status", postLikeStatus)
 
-    }, [dispatch, currentPostLikes])
+    }, [dispatch, currentPostLikes, modifier, postLikeStatus])
     //
 
     const redirectToSubreddit = (subredditToLoad, e) => {
@@ -123,6 +124,24 @@ const OnePost = () => {
     }
     //
 
+    // Comment Creation
+    const createComment =  async (e) => {
+        e.preventDefault();
+
+        let commentInfo = {
+            body: commentBody
+        }
+
+        const data = await dispatch(commentActions.createCommentThunk(commentInfo, currentPost[0]["id"]))
+        if(data) {
+            setErrors(data)
+        }
+
+        if(data === null) {
+        }
+
+    }
+
     // Comment Removal/Deletion
     const handleCommentDelete = (el) => {
         const confirmDelete = prompt(
@@ -143,6 +162,7 @@ const OnePost = () => {
         }
     }
     //
+
 
 
     // Like/Dislike Handling
@@ -259,7 +279,7 @@ const OnePost = () => {
             </form>
         )
     }
-    const loadComments = (currentUser, subredditToLoad) => {
+    const loadComments = (currentUser) => {
         if (currentComments.length > 0) {
             const commentsToLoad = Object.values(currentComments[0])
             return (
@@ -320,6 +340,35 @@ const OnePost = () => {
                 </div>
             )
         }
+    }
+    const createCommentComponent = (currentUser) => {
+        return (
+            <div id="create-comment-main-container">
+                <section id="create-comment-commenter-container">
+                    <aside>
+                        Comment as
+                    </aside>
+                    <aside id="create-comment-commenter-name">
+                        {currentUser["username"]}
+                    </aside>
+                </section>
+                <section id="create-comment-form-container">
+                    <form onSubmit={createComment} id="create-comment-form">
+                        <textarea id="create-comment-form-body"
+                            type="text"
+                            placeholder="What are your thoughts?"
+                            minLength={1}
+                            value={commentBody}
+                            onChange={(e) => setCommentBody(e.target.value)}
+                        />
+                        <button type="submit">
+                            Comment
+                        </button>
+                    </form>
+
+                </section>
+            </div>
+        )
     }
     //
 
@@ -386,7 +435,7 @@ const OnePost = () => {
                                 {loadFooter(currentUser, postToLoad, subredditToLoad)}
                             </section>
                             <aside id="post-page-comments-form-container">
-                                test for comments form
+                                {createCommentComponent(currentUser)}
                             </aside>
                             <aside id="post-page-comments-section-container">
                                 {loadComments(currentUser, subredditToLoad)}
