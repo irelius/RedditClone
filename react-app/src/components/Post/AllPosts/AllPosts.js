@@ -22,8 +22,10 @@ const AllPosts = () => {
         dispatch(subredditActions.loadSubredditsThunk())
         dispatch(sessionActions.loadAllUserThunk())
         setLoad(true)
-        dispatch(subredditActions.clearSubreddit())
-        return () => dispatch(postActions.clearPost())
+        return (() => {
+            dispatch(subredditActions.clearSubreddit())
+            dispatch(postActions.clearPost())
+        })
     }, [dispatch])
 
     const allPosts = Object.values(useSelector(postActions.loadAllPosts))

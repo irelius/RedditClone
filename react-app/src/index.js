@@ -17,7 +17,7 @@ ReactDOM.render(
           <App />
         </SubredditProvider>
       </ModalProvider>
-    </Provider>
+    </Provider>,
   </React.StrictMode>,
   document.getElementById('root')
 );

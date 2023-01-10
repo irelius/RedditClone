@@ -95,6 +95,9 @@ export const loadLikesCommentThunk = (commentId) => async (dispatch) => {
 }
 
 
+// Thunk action to load likes from current user
+
+
 export const createLikePostThunk = (likeInfo, postId) => async (dispatch) => {
     const res = await fetch(`/api/likes/posts/${postId}`, {
         method: "POST",
