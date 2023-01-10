@@ -75,11 +75,6 @@ const OnePost = () => {
     }, [currentPostLikes])
     //
 
-    // test useeffect
-    useEffect(() => {
-        console.log("hello", postLikeStatus)
-    }, [postLikeStatus])
-
 
     const redirectToSubreddit = (subredditToLoad, e) => {
         e.stopPropagation()
