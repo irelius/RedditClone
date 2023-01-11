@@ -65,7 +65,7 @@ const OnePost = () => {
                 }
             })
 
-            if(likesArray.length === 0 && dislikesArray.length === 0) {
+            if (likesArray.length === 0 && dislikesArray.length === 0) {
                 setPostLikeStatus("neutral")
             }
 
@@ -368,16 +368,20 @@ const OnePost = () => {
                 </section>
                 <section id="create-comment-form-container">
                     <form onSubmit={createComment} id="create-comment-form">
-                        <textarea id="create-comment-form-body"
-                            type="text"
-                            placeholder="What are your thoughts?"
-                            minLength={1}
-                            value={commentBody}
-                            onChange={(e) => setCommentBody(e.target.value)}
-                        />
-                        <button type="submit">
-                            Comment
-                        </button>
+                        <section id="create-comment-form-body-container">
+                            <textarea id="create-comment-form-body"
+                                type="text"
+                                placeholder="What are your thoughts?"
+                                minLength={1}
+                                value={commentBody}
+                                onChange={(e) => setCommentBody(e.target.value)}
+                            />
+                        </section>
+                        <section id="create-comment-form-button-container">
+                            <button id="create-comment-submit-button" type="submit">
+                                Comment
+                            </button>
+                        </section>
                     </form>
 
                 </section>

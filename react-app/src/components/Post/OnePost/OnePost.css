@@ -198,8 +198,6 @@
     width: 660px;
 }
 
-#post-page-edit-input-container {}
-
 #post-page-edit-input {
     width: 650px;
 
@@ -415,7 +413,92 @@
 
 
 /* -----------------------------------------------------------------------*/
-/* Post Page Comments Container */
+/* Comment Create Section Main Container */
+
+#create-comment-main-container {
+    display: flex;
+    flex-direction: column;
+
+    margin: 10px;
+}
+
+#create-comment-commenter-container {
+    display: flex;
+    flex-direction: row;
+    font-size: small;
+
+    color: white;
+}
+
+#create-comment-commenter-name {
+    margin-left: 5px;
+
+    color: #3A7CA5;
+}
+
+#create-comment-commenter-name:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+#create-comment-form-container {
+    display: flex;
+    margin-top: 10px;
+}
+
+#create-comment-form {
+    display: flex;
+    flex-direction: column;
+}
+
+#create-comment-form-body-container {
+    margin-bottom: 5px;
+}
+
+
+#create-comment-form-body {
+    padding: 10px;
+
+    min-height: 100px;
+    width: 600px;
+
+    border: 1px solid #343536;
+    border-radius: 5px;
+
+    resize: vertical;
+
+    color: white;
+    background-color: #1A1A1B;
+}
+
+#create-comment-form-body:focus {
+    border: 1px solid white;
+    outline: none;
+}
+
+
+#create-comment-form-button-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#create-comment-submit-button {
+    border: none;
+    border-radius: 30px;
+
+    height: 25px;
+    width: 100px;
+
+    font-weight: bold;
+}
+
+#create-comment-submit-button:hover {
+    cursor: pointer;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Comment Section Main Container */
 
 #post-page-comments-section-container {
     display: flex;
@@ -423,9 +506,6 @@
 
     margin-top: 10px;
 }
-
-/* -----------------------------------------------------------------------*/
-/* Comment Section Main Container */
 
 #comments-section-main-container {
     display: flex;
