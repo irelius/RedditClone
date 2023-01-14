@@ -137,7 +137,6 @@ export const putCommentThunk = (commentInfo, comment) => async (dispatch) => {
     if (res.ok) {
         const data = await res.json();
         dispatch(updateComment(data))
-        return data
     } else if (res.status < 500) {
         const data = await res.json()
         if (data.errors) {

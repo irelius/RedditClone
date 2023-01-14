@@ -43,7 +43,7 @@ const LoginForm = ({ setShowLoginModal }) => {
                     </div>
                     <div id="login-form-modal-text-container">
                         <h2>Log In</h2>
-                        <p>By continuing, you agree are setting up a Reddit account and gree to our User Agreement and Privacy Policy.</p>
+                        <p>By continuing, you agree are setting up a Readdit account and gree to our User Agreement and Privacy Policy.</p>
                     </div>
                     <div id="login-form-modal-email-container">
                         {/* <label htmlFor='email'>Email</label> */}

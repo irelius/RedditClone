@@ -42,7 +42,7 @@ const SignUpForm = ({ setShowSignUpModal }) => {
                     </div>
                     <div id="signup-form-modal-text-container">
                         <h2>Sign Up</h2>
-                        <p>By continuing, you are setting up a Reddit account and agree to our user Agreement and Privacy Policy.</p>
+                        <p>By continuing, you are setting up a Readdit account and agree to our user Agreement and Privacy Policy.</p>
                     </div>
                     <div id="signup-form-modal-email-container">
                         <input id="signup-form-modal-email-input"
@@ -63,7 +63,7 @@ const SignUpForm = ({ setShowSignUpModal }) => {
                         />
                     </div>
                     <div id="signup-form-modal-text-container">
-                        <p>Reddit is anonymous, so your username is what you’ll go by here. Choose wisely—because once you get a name, you can’t change it.</p>
+                        <p>Readdit is anonymous, so your username is what you’ll go by here. Choose wisely—because once you get a name, you can’t change it.</p>
                     </div>
                     <div id="signup-form-modal-username-container">
                         <input id="signup-form-modal-username-input"

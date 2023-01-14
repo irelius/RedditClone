@@ -39,7 +39,7 @@ const SubredditsBar = () => {
     return popularSubreddits.length > 0 ? (
         <div id="subredditsbar-main-container">
             <section id="subredditsbar-header-container">
-                Reddit Communities
+                Readdit Communities
             </section>
             {loadPopularSubreddits()}
         </div>

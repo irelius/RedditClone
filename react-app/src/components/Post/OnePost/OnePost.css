@@ -574,7 +574,7 @@
 
 /* -----------------------------------------------------------------------*/
 /* Comments Section Footer Container */
-#comments-section-footer {
+#comments-remove-container {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -588,14 +588,14 @@
 
 }
 
-#comments-section-footer>* {
+#comments-remove-container>* {
     display: flex;
     flex-direction: row;
 
     padding: 10px;
 }
 
-#comments-section-footer>*:hover {
+#comments-remove-container>*:hover {
     cursor: pointer;
     background-color: #2C2C2E;
 }

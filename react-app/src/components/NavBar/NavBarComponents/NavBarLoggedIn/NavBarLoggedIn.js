@@ -16,7 +16,7 @@ const NavBarLoggedIn = () => {
               </section>
             </aside>
             <aside id="li-navbar-reddit-text">
-              reddit
+              readdit
             </aside>
             <aside id="li-navbar-about-links">
               <NavLink id="li-navbar-about-links-github" to="/" onClick={() => {

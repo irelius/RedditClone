@@ -57,7 +57,7 @@ const ProfileMenuModal = ({setShowProfileMenu}) => {
                 <aside id="navbar-right-logout">Logout</aside>
             </section>
             <section id="li-navbar-footer">
-                2022 Reddit, Clone.
+                2022 Readdit.
             </section>
         </section>
     )

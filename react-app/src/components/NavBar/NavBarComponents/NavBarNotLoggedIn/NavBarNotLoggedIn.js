@@ -17,7 +17,7 @@ const NavBarNotLoggedIn = () => {
               </section>
             </aside>
             <aside id="nli-navbar-reddit-text">
-              reddit
+              readdit
             </aside>
 
           </section>
@@ -31,7 +31,7 @@ const NavBarNotLoggedIn = () => {
       <section id="nli-navbar-middle">
         <section id="nli-navbar-search-bar-container">
           <form action="/test">
-            <input id="nli-navbar-search-bar" type="text" placeholder="Search Reddit" name="search" />
+            <input id="nli-navbar-search-bar" type="text" placeholder="Search Readdit" name="search" />
           </form>
         </section>
       </section>

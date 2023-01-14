@@ -143,7 +143,7 @@ def subreddits_update_specific(subreddit_id):
     return subreddit_to_edit.to_dict()
 
 
-# Delete a subreddit. Techically, this is not a function that is readily available to users of Reddit, but it is implemented
+# Delete a subreddit. Techically, this is not a function that is readily available to users of Readdit, but it is implemented
 # in this project to demonstrate full CRUD functionality
 @subreddit_routes.route("/<int:subreddit_id>", methods=["DELETE"])
 @login_required

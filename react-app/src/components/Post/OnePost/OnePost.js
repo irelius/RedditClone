@@ -17,7 +17,10 @@ const OnePost = () => {
     const [load, setLoad] = useState(false)
     const [errors, setErrors] = useState([])
     const [newPostBody, setNewPostBody] = useState(null)
-    const [loadEditComponent, setLoadEditComponent] = useState(false)
+    const [loadEditPostComponent, setLoadEditPostComponent] = useState(false)
+    const [newCommentBody, setNewCommentBody] = useState(null)
+    const [loadEditCommentComponent, setLoadEditCommentComponent] = useState(false)
+
     const [commentBody, setCommentBody] = useState("")
 
     const [likeTotal, setLikeTotal] = useState(0)
@@ -40,7 +43,7 @@ const OnePost = () => {
             dispatch(postActions.clearPost())
         })
 
-    }, [dispatch, setLoadEditComponent, setNewPostBody])
+    }, [dispatch, setLoadEditPostComponent, setNewPostBody, setLoadEditCommentComponent, setNewCommentBody])
 
     const currentPostLikes = Object.values(useSelector(likeActions.loadPostLikes))
     const currentPost = Object.values(useSelector(postActions.loadAllPosts))
@@ -104,7 +107,7 @@ const OnePost = () => {
         dispatch(postActions.putPostThunk(postInfo, postToEdit))
         currentPost[0].body = postInfo.body
 
-        setLoadEditComponent(false)
+        setLoadEditPostComponent(false)
     }
     //
 
@@ -145,7 +148,20 @@ const OnePost = () => {
         if (data === null) {
             dispatch(commentActions.loadPostCommentsThunk(post_id))
         }
+    }
 
+    // Comment Update
+    const updateComment = async (e, el) => {
+        e.preventDefault();
+
+        let commentInfo = {
+            body: newCommentBody
+        }
+
+        dispatch(commentActions.putCommentThunk(commentInfo, el))
+        el.body = commentInfo.body
+
+        setLoadEditCommentComponent(false)
     }
 
     // Comment Removal/Deletion
@@ -168,12 +184,6 @@ const OnePost = () => {
         }
     }
     //
-
-    // useEffect(() => {
-    //     if(postLikeStatus === "like") {
-
-    //     }
-    // })
 
 
     // Like/Dislike Handling
@@ -230,7 +240,7 @@ const OnePost = () => {
     const loadFooter = (currentUser, postToLoad, subredditToLoad) => {
         if (currentUser.id === postToLoad["user_id"]) {
             return (
-                <section onClick={() => setLoadEditComponent(true)} id="post-page-post-footer-container">
+                <section onClick={() => setLoadEditPostComponent(true)} id="post-page-post-footer-container">
                     <aside id="post-page-post-edit-container">
                         <aside id="post-page-post-button-icon">
                             <i className="fa-regular fa-pen-to-square fa-lg" />
@@ -278,12 +288,13 @@ const OnePost = () => {
                 <section id="post-page-edit-input-container">
                     <textarea id="post-page-edit-input"
                         type="text"
+                        minLength={1}
                         value={newPostBody}
                         onChange={(e) => setNewPostBody(e.target.value)}
                     >
                     </textarea>
                     <section id="post-page-edit-button-container">
-                        <button id="post-page-edit-cancel-button" onClick={() => setLoadEditComponent(false)}>
+                        <button id="post-page-edit-cancel-button" onClick={() => setLoadEditPostComponent(false)}>
                             Cancel
                         </button>
                         <button id="post-page-edit-save-button" type="submit">
@@ -294,6 +305,34 @@ const OnePost = () => {
             </form>
         )
     }
+
+    const loadEditCommentSection = (commentToLoad) => {
+        if(newCommentBody === null && commentToLoad.body) {
+            setNewCommentBody(commentToLoad.body)
+        }
+
+        return (
+            <form onSubmit={updateComment}>
+                <textarea
+                    type="text"
+                    minLength={1}
+                    value={newCommentBody}
+                    onChange = {(e) => setNewCommentBody(e.target.value)}
+                >
+                </textarea>
+                <section>
+                    <button onClick={() => setLoadEditCommentComponent(false)}>
+                        Cancel
+                    </button>
+                    <button type="submit">
+                        Save Edits
+                    </button>
+                </section>
+
+            </form>
+        )
+    }
+
     const loadComments = (currentUser) => {
         if (currentComments.length > 0) {
             const commentsToLoad = Object.values(currentComments[0])
@@ -302,6 +341,9 @@ const OnePost = () => {
                     let commentPoster = allUsers[1][el["user_id"]]
                     let commentDate = el["created_at"].split(" ")
                     commentDate = commentDate[2] + " " + commentDate[1] + ", " + commentDate[3]
+
+                    console.log("booba test commment el", currentUser)
+                    console.log("booba test currentuser", el)
 
                     return (
                         <div id='comments-section-main-container'>
@@ -323,26 +365,51 @@ const OnePost = () => {
                                 </aside>
                             </section>
                             <section id="comments-section-comment">
-                                {el["body"]}
+                                {loadEditCommentComponent ? (
+                                    <section>
+                                        {loadEditCommentSection(el)}
+                                    </section>
+                                ) : (
+                                    <section>
+                                        {el["body"]}
+                                    </section>
+                                )}
                             </section>
                             <section id="comments-section-footer">
-                                {
-                                    currentUser["id"] === el["user_id"] ? (
-                                        <div id="comments-footer-delete-comment" onClick={() => handleCommentDelete(el)}>
-                                            <i className="fa-regular fa-trash-can"></i>
-                                            <aside className="comments-footer-text">
-                                                Delete Comment
-                                            </aside>
-                                        </div>
-                                    ) : (
-                                        <div id="comments-footer-remove-comment" onClick={() => handleCommentRemoval(el)}>
-                                            <i className="fa-solid fa-ban"></i>
-                                            <aside className="comments-footer-text">
-                                                Remove Comment
-                                            </aside>
-                                        </div>
-                                    )
-                                }
+                                {/* TO DO: Implement a comment edit function */}
+                                {/* <aside onClick={() => setLoadEditCommentComponent(true)} id="comments-edit-container">
+                                    {
+                                        currentUser["id"] === el["user_id"] ? (
+                                            <div id="comments-footer-create-comment">
+                                                <i className="fa-solid fa-pen" />
+                                                <aside>
+                                                    Edit
+                                                </aside>
+                                            </div>
+                                        ) : (
+                                            <div></div>
+                                        )
+                                    }
+                                </aside> */}
+                                <aside id="comments-remove-container">
+                                    {
+                                        currentUser["id"] === el["user_id"] ? (
+                                            <div id="comments-footer-delete-comment" onClick={() => handleCommentDelete(el)}>
+                                                <i className="fa-regular fa-trash-can" />
+                                                <aside className="comments-footer-text">
+                                                    Delete Comment
+                                                </aside>
+                                            </div>
+                                        ) : (
+                                            <div id="comments-footer-remove-comment" onClick={() => handleCommentRemoval(el)}>
+                                                <i className="fa-solid fa-ban" />
+                                                <aside className="comments-footer-text">
+                                                    Remove Comment
+                                                </aside>
+                                            </div>
+                                        )
+                                    }
+                                </aside>
                             </section>
                         </div>
                     )
@@ -457,7 +524,7 @@ const OnePost = () => {
                                 </section>
                             </section>
                             <section id="post-page-post-body-container">
-                                {loadEditComponent ? (
+                                {loadEditPostComponent ? (
                                     <section>
                                         {loadEditPostSection(postToLoad)}
                                     </section>
