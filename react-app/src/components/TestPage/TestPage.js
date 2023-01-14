@@ -9,36 +9,20 @@ import * as userActions from "../../store/session"
 import * as likeActions from "../../store/like"
 
 const TestPage = () => {
-    const dispatch = useDispatch()
-    const [load, setLoad] = useState(false)
-
-    const [number, setNumber] = useState(1)
-
-    useEffect(() => {
-        dispatch(commentActions.loadCommentThunk(number))
-        setLoad(true)
-    }, [dispatch, number])
-
-    const testComments = Object.values(useSelector(commentActions.loadAllComments))
-
-    const LoadTestPage = () => {
-        console.log("booba", testComments[0][number])
-        return (
-            <div id="test">
-                <button onClick={() => setNumber(number + 1)}>
-                    increase number {number}
-                </button>
-            </div>
-        )
-    }
+    return (
+        <div id="error-page-container">
+            <h1 id="error-page-header">
+                Wuh oh.
+            </h1>
+            <p className="error-page-body">
+                Seems like you're trying to access a page that doesn't exist.
+            </p>
+            <p className="error-page-body">
+                Why don't you head back and try again? Thanks!
+            </p>
 
 
-    return testComments.length > 0 && testComments[0][number] && load ? (
-        <div>
-            {LoadTestPage()}
         </div>
-    ) : (
-        <div></div>
     )
 }
 

@@ -79,6 +79,7 @@ const OnePost = () => {
     //
 
 
+    // Redirection Functions
     const redirectToSubreddit = (subredditToLoad, e) => {
         e.stopPropagation()
 
@@ -91,6 +92,7 @@ const OnePost = () => {
 
         history.push(`/users/${username}`)
     }
+    //
 
 
     // Post Update
@@ -148,6 +150,8 @@ const OnePost = () => {
         if (data === null) {
             dispatch(commentActions.loadPostCommentsThunk(post_id))
         }
+
+        setCommentBody("")
     }
 
     // Comment Update
@@ -307,7 +311,7 @@ const OnePost = () => {
     }
 
     const loadEditCommentSection = (commentToLoad) => {
-        if(newCommentBody === null && commentToLoad.body) {
+        if (newCommentBody === null && commentToLoad.body) {
             setNewCommentBody(commentToLoad.body)
         }
 
@@ -317,7 +321,7 @@ const OnePost = () => {
                     type="text"
                     minLength={1}
                     value={newCommentBody}
-                    onChange = {(e) => setNewCommentBody(e.target.value)}
+                    onChange={(e) => setNewCommentBody(e.target.value)}
                 >
                 </textarea>
                 <section>
@@ -337,16 +341,13 @@ const OnePost = () => {
         if (currentComments.length > 0) {
             const commentsToLoad = Object.values(currentComments[0])
             return (
-                Array.isArray(commentsToLoad) && commentsToLoad.map(el => {
+                Array.isArray(commentsToLoad) && commentsToLoad.map((el, i) => {
                     let commentPoster = allUsers[1][el["user_id"]]
                     let commentDate = el["created_at"].split(" ")
                     commentDate = commentDate[2] + " " + commentDate[1] + ", " + commentDate[3]
 
-                    console.log("booba test commment el", currentUser)
-                    console.log("booba test currentuser", el)
-
                     return (
-                        <div id='comments-section-main-container'>
+                        <div id='comments-section-main-container' key={i}>
                             <section id="comments-section-header">
                                 <img id="comments-section-poster-profile-pic"
                                     src={commentPoster["profile_image"]}
@@ -393,7 +394,9 @@ const OnePost = () => {
                                 </aside> */}
                                 <aside id="comments-remove-container">
                                     {
-                                        currentUser["id"] === el["user_id"] ? (
+                                        currentUser === -1 ? (
+                                            <div></div>
+                                        ) : currentUser["id"] === el["user_id"] ? (
                                             <div id="comments-footer-delete-comment" onClick={() => handleCommentDelete(el)}>
                                                 <i className="fa-regular fa-trash-can" />
                                                 <aside className="comments-footer-text">
@@ -493,17 +496,23 @@ const OnePost = () => {
                     <aside id="post-page-post-main-container">
                         <aside id="post-page-post-left-container">
                             <aside onClick={(e) => {
-                                e.preventDefault()
-                                e.stopPropagation()
-                                likeHandler(postToLoad, postLikeStatus, e)
+                                if (currentUser === -1) {
+                                    e.stopPropagation()
+                                } else {
+                                    likeHandler(postToLoad, postLikeStatus, e)
+                                }
                             }} id="post-upvote-button">
-                                {/* <i id={'post-like-status-' + postLikeStatus} className="fa-solid fa-up-long fa-lg" /> */}
-                                <i id={'post-like-status-' + postLikeStatus} className="fa-solid fa-up-long fa-lg" />
+                                <i id={`post-like-status-${postLikeStatus}`} className="fa-solid fa-up-long fa-lg" />
                             </aside>
-                            {/* <aside id="post-vote-counter">{likeTotal + modifier}</aside> */}
                             <aside id="post-vote-counter">{likeTotal}</aside>
-                            <aside onClick={() => dislikeHandler(postToLoad, postLikeStatus)} id="post-downvote-button">
-                                <i id={'post-dislike-status-' + postLikeStatus} className="fa-solid fa-down-long fa-lg" />
+                            <aside onClick={(e) => {
+                                if (currentUser === -1) {
+                                    e.stopPropagation()
+                                } else {
+                                    dislikeHandler(postToLoad, postLikeStatus)
+                                }
+                            }} id="post-downvote-button">
+                                <i id={`post-dislike-status-${postLikeStatus}`} className="fa-solid fa-down-long fa-lg" />
                             </aside>
                         </aside>
                         <aside id="post-page-post-right-container">
@@ -538,12 +547,16 @@ const OnePost = () => {
                                 {loadFooter(currentUser, postToLoad, subredditToLoad)}
                             </section>
                             <aside id="post-page-comments-form-container">
-                                {createCommentComponent(currentUser)}
+                                {currentUser !== -1 ? (
+                                    <div>
+                                        {createCommentComponent(currentUser)}
+                                    </div>
+                                ) : (
+                                    <div></div>
+                                )}
                             </aside>
                             <aside id="post-page-comments-section-container">
                                 {loadComments(currentUser, subredditToLoad)}
-
-                                {/* {PostComments(currentComments, allUsers, currentUser, subredditToLoad)} */}
                             </aside>
                         </aside>
                     </aside>

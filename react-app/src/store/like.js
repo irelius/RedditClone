@@ -1,7 +1,7 @@
 // ------------------------------- ACTIONS ------------------------------- //
 const LOAD_LIKES = '/likes/LOAD_LIKES'
 const CREATE_LIKES = '/likes/CREATE_LIKES'
-const PUT_LIKES = '/likes/PUT_LIKES'
+// const PUT_LIKES = '/likes/PUT_LIKES'
 const DELETE_LIKES = '/likes/DELETE_LIKES'
 const CLEAR_LIKES = "/likes/CLEAR_LIKES"
 
@@ -15,6 +15,14 @@ export const loadLikesPost = (likes) => {
 
 // Get likes for a comment
 export const loadLikesComment = (likes) => {
+    return {
+        type: LOAD_LIKES,
+        likes
+    }
+}
+
+// Get likes from user
+export const loadUserLikes = (likes) => {
     return {
         type: LOAD_LIKES,
         likes
@@ -96,7 +104,15 @@ export const loadLikesCommentThunk = (commentId) => async (dispatch) => {
 
 
 // Thunk action to load likes from current user
+export const loadUserLikesThunk = () => async (dispatch) => {
+    const res = await fetch(`/api/likes/users/current`)
 
+    if(res.ok) {
+        const likes = await res.json()
+        dispatch(loadUserLikes(likes))
+        return likes
+    }
+}
 
 export const createLikePostThunk = (likeInfo, postId) => async (dispatch) => {
     const res = await fetch(`/api/likes/posts/${postId}`, {
@@ -169,7 +185,7 @@ export const deleteLikePostThunk = (postId) => async (dispatch) => {
     })
 
     if (res.ok) {
-        const data = dispatch(deleteLikePost(postId))
+        dispatch(deleteLikePost(postId))
         return true;
     }
 
@@ -179,6 +195,7 @@ export const deleteLikePostThunk = (postId) => async (dispatch) => {
 
 // ------------------------- SELECTOR FUNCTIONS ------------------------- //
 
+export const loadLikes = (state) => state.likes
 export const loadPostLikes = (state) => state.likes;
 
 

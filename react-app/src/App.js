@@ -45,16 +45,16 @@ function App() {
         <Route path='/users/:username' exact={true} >
           <UsersPage />
         </Route>
-        <Route path="/r/:subreddit_name/new">
+        <Route path="/r/:subreddit_name/new" exact={true}>
           <CreatePostPage />
         </Route>
-        <Route path="/r/:subreddit_name/:post_id">
+        <Route path="/r/:subreddit_name/:post_id" exact={true}>
           <OnePost />
         </Route>
-        <Route path="/r">
+        <Route path="/r/:subreddit_name" exact={true}>
           <SubredditPage />
         </Route>
-        <Route path="/test">
+        <Route path="">
           <TestPage />
         </Route>
       </Switch>

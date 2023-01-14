@@ -1,9 +1,7 @@
 import "./CreateCommentComponent.css"
 
-
+// TO DO: This is a redundant file, but may be useful when dividing up the OnePost.js file
 const CreateCommentComponent = (currentUser) => {
-    console.log(currentUser, "booba")
-
     return (
         <div id="create-comment-main-container">
             <section id="create-comment-commenter-container">

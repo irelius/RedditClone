@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom"
 import * as postActions from "../../../store/post"
 import * as subredditActions from "../../../store/subreddit"
 import * as sessionActions from "../../../store/session"
+import * as likeActions from "../../../store/like"
 
 import calculatePostLikes from "../../HelperFunctions/calculatePostLikes";
 
@@ -15,23 +16,32 @@ const AllPosts = () => {
     const history = useHistory();
 
     const [load, setLoad] = useState(false)
-
+    const [tempPostsLiked, setTempPostsLiked] = useState({})
 
     useEffect(() => {
         dispatch(postActions.loadPostsThunk())
         dispatch(subredditActions.loadSubredditsThunk())
         dispatch(sessionActions.loadAllUserThunk())
+        dispatch(likeActions.loadUserLikesThunk())
         setLoad(true)
+        setTempPostsLiked((tempPostsLiked) => ({
+            ...tempPostsLiked,
+            ...currentUserLikes[0],
+        }))
         return (() => {
             dispatch(subredditActions.clearSubreddit())
             dispatch(postActions.clearPost())
+            dispatch(likeActions.clearLikes())
         })
     }, [dispatch])
 
     const allPosts = Object.values(useSelector(postActions.loadAllPosts))
     const allSubreddits = Object.values(useSelector(subredditActions.loadAllSubreddit))
     const allUsers = Object.values(useSelector(sessionActions.loadAllUsers))
+    const currentUserLikes = Object.values(useSelector(likeActions.loadLikes))
 
+
+    // Redirection Functions
     const redirectToPostPage = (post, e) => {
         e.stopPropagation();
 
@@ -52,11 +62,94 @@ const AllPosts = () => {
 
         history.push(`/r/${name}`)
     }
+    //
 
-    const loadAllPosts = () => {
+    // Like/Dislike Handling
+    const likeHandler = (post, e) => {
+        e.preventDefault()
+        e.stopPropagation()
+
+        console.log("booba", tempPostsLiked)
+
+        let postId = post["id"]
+        let updateValue = {}
+
+        let likeInfo = {
+            like_status: "like"
+        }
+
+        if (tempPostsLiked[postId] === "like") {
+            dispatch(likeActions.deleteLikePostThunk(postId))
+            updateValue[postId] = "neutral"
+        } else {
+            dispatch(likeActions.deleteLikePostThunk(postId)).then(() => (
+                dispatch(likeActions.createLikePostThunk(likeInfo, postId))
+            ))
+            updateValue[postId] = "like"
+        }
+
+        setTempPostsLiked(tempPostsLiked => ({
+            ...tempPostsLiked,
+            ...updateValue
+        }))
+    }
+
+    const dislikeHandler = (post, e) => {
+        e.preventDefault()
+        e.stopPropagation()
+
+        let postId = post["id"]
+        let updateValue = {}
+
+        let likeInfo = {
+            like_status: "dislike"
+        }
+
+        if (tempPostsLiked[postId] === "dislike") {
+            dispatch(likeActions.deleteLikePostThunk(postId))
+            updateValue[postId] = "neutral"
+        } else {
+            dispatch(likeActions.deleteLikePostThunk(postId)).then(() => (
+                dispatch(likeActions.createDislikePostThunk(likeInfo, postId)))
+            )
+
+            updateValue[postId] = "dislike"
+        }
+
+        setTempPostsLiked(tempPostsLiked => ({
+            ...tempPostsLiked,
+            ...updateValue
+        }))
+    }
+    //
+
+
+    // Functions
+    const modifyLikeTotal = (post, likeTotal) => {
+        let postId = post["id"]
+        if (tempPostsLiked[postId] === "like") {
+            return likeTotal + 1
+        }
+        if (tempPostsLiked[postId] === "dislike") {
+            return likeTotal - 1
+        }
+
+        return likeTotal
+    }
+    //
+
+
+
+    // Main Component
+    const LoadAllPosts = () => {
         const postsToLoad = Object.values(allPosts[0])
         const usersToLoad = allUsers[1]
         const subredditsToLoad = allSubreddits[0]
+        const currentUser = allUsers[0] || -1
+
+        const postLikesToLoad = {}
+
+        console.log("booba 1", tempPostsLiked)
 
         return (
             Array.isArray(postsToLoad) && postsToLoad.map((el, i) => {
@@ -66,15 +159,49 @@ const AllPosts = () => {
                 const subredditId = el["subreddit_id"]
                 const subredditInfo = subredditsToLoad[subredditId]
 
+                let postLikeStatus = "neutral"
+                let postLikes = Object.values(el["likes"])
+                postLikes.forEach(el => {
+                    if (el["user_id"] === currentUser["id"] && el["like_status"] === "like") {
+                        postLikeStatus = "like"
+                        postLikesToLoad[el["id"]] = "like"
+                    }
+                    if (el["user_id"] === currentUser["id"] && el["like_status"] === "dislike") {
+                        postLikeStatus = "dislike"
+                        postLikesToLoad[el["id"]] = "dislike"
+                    }
+                })
+
+                const likeTotal = calculatePostLikes(el)
+
+                if (tempPostsLiked[el["id"]]) {
+                    postLikeStatus = tempPostsLiked[el["id"]]
+                }
+
+
                 return (
                     <div onClick={(e) => redirectToPostPage(el, e)} id="post-main-container" key={i}>
                         <aside id="post-left-container">
-                            <aside id="post-upvote-button">
-                                <i className="fa-solid fa-up-long fa-lg" />
+                            <aside id="post-upvote-button" onClick={(e) => {
+                                // TO DO: This is all wrong, fix this into separate React components. This is just to make it work for now
+                                if (currentUser === -1) {
+                                    e.stopPropagation()
+                                } else {
+                                    likeHandler(el, e)
+                                }
+                            }}>
+                                <i className="fa-solid fa-up-long fa-lg" id={`post-like-status-${postLikeStatus}`} />
                             </aside>
-                            <aside id="post-vote-counter">{calculatePostLikes(el)}</aside>
-                            <aside id="post-downvote-button">
-                                <i className="fa-solid fa-down-long fa-lg" />
+                            <aside id="post-vote-counter">{modifyLikeTotal(el, likeTotal)}</aside>
+                            <aside id="post-downvote-button" onClick={(e) => {
+                                // TO DO: This is all wrong, fix this into separate React components. This is just to make it work for now
+                                if (currentUser === -1) {
+                                    e.stopPropagation()
+                                } else {
+                                    dislikeHandler(el, e)
+                                }
+                            }}>
+                                <i className="fa-solid fa-down-long fa-lg" id={`post-dislike-status-${postLikeStatus}`} />
                             </aside>
                         </aside>
                         <aside id="post-right-container">
@@ -86,7 +213,7 @@ const AllPosts = () => {
                                         </section>
                                     ) : (
                                         <section id="post-header-no-subreddit">
-                                            Subreddit no longer exists.
+                                            Subreddit does not exist.
                                         </section>
                                     )}
                                 </aside>
@@ -129,7 +256,7 @@ const AllPosts = () => {
 
     return allPosts.length > 0 && allUsers.length > 1 && allSubreddits.length > 0 && load ? (
         <div>
-            {loadAllPosts()}
+            {LoadAllPosts()}
         </div>
     ) : (
         <div>

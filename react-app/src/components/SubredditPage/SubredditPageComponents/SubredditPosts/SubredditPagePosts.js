@@ -5,9 +5,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom"
 
 import * as postActions from "../../../../store/post"
+import * as subredditActions from "../../../../store/subreddit"
 import * as sessionActions from "../../../../store/session"
 
 import calculatePostLikes from "../../../HelperFunctions/calculatePostLikes";
+import TestPage from "../../../TestPage/TestPage";
 
 const SubredditPagePosts = () => {
     const dispatch = useDispatch()
@@ -18,6 +20,7 @@ const SubredditPagePosts = () => {
     useEffect(() => {
         const currentSubredditName = window.location.href.split("/")[4]
         dispatch(postActions.loadCurrentSubredditPostsThunk(currentSubredditName))
+        dispatch(subredditActions.loadCurrentSubredditThunk(currentSubredditName))
         dispatch(sessionActions.loadAllUserThunk())
         setLoad(true)
         return () => dispatch(postActions.clearPost())
@@ -25,8 +28,10 @@ const SubredditPagePosts = () => {
 
 
     const currentSubredditPosts = Object.values(useSelector(postActions.loadAllPosts));
+    const currentSubreddit = Object.values(useSelector(subredditActions.loadAllSubreddit))
     const allUsers = Object.values(useSelector(sessionActions.loadAllUsers))
 
+    console.log("booba", currentSubreddit)
 
     const redirectToPostPage = (post) => {
         const postId = post.id
@@ -65,7 +70,13 @@ const SubredditPagePosts = () => {
                 return (
                     <div onClick={() => redirectToPostPage(el)} id="subreddit-post-main-container">
                         <aside id="subreddit-post-left-container">
-                            <aside id="subreddit-post-upvote-button">
+                            <aside id="subreddit-post-upvote-button" onClick={(e) => {
+                                // if (currentUser === -1) {
+                                //     e.stopPropagation()
+                                // } else {
+                                //     likeHandler(el, e)
+                                // }
+                            }}>
                                 <i className="fa-solid fa-up-long fa-lg" />
                             </aside>
                             <aside id="subreddit-post-vote-counter">{calculatePostLikes(el)}</aside>
@@ -110,6 +121,10 @@ const SubredditPagePosts = () => {
     return currentSubredditPosts.length > 0 && allUsers.length > 1 && load ? (
         <div>
             {LoadSubredditPagePosts()}
+        </div>
+    ) : currentSubreddit.length === 0 ? (
+        <div>
+            {TestPage()}
         </div>
     ) : (
         <div>

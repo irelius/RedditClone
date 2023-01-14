@@ -73,14 +73,14 @@ const PostComments = (currentComments, allUsers, currentUser, subredditToLoad) =
     if (currentComments.length > 0) {
         currentComments = Object.values(currentComments[0])
         return (
-            Array.isArray(currentComments) && currentComments.map(el => {
+            Array.isArray(currentComments) && currentComments.map((el, i) => {
                 const commentPoster = allUsers[el["user_id"]]
                 let commentDate = el["created_at"].split(" ")
                 commentDate = commentDate[2] + " " + commentDate[1] + ", " + commentDate[3]
 
 
                 return (
-                    <div id='comments-section-main-container'>
+                    <div id='comments-section-main-container' key={i}>
                         <section id="comments-section-header">
                             <img id="comments-section-poster-profile-pic"
                                 src={commentPoster["profile_image"]}
