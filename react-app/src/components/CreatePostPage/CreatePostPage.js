@@ -26,6 +26,7 @@ const CreatePostPage = () => {
 
     const currentSubreddit = Object.values(useSelector(subredditActions.loadAllSubreddit))
 
+    // Creating Post Handler Function
     const createPost = async (e) => {
         e.preventDefault();
 
@@ -40,13 +41,12 @@ const CreatePostPage = () => {
         }
 
         const data = await dispatch(postActions.createPostThunk(postInfo))
-        if (data) {
+        if (data["id"]) {
+            return history.push(`/r/${currentSubredditInfo.name}`)
+        } else {
             setErrors(data)
         }
 
-        if (data === null) {
-            return history.push(`/r/${currentSubredditInfo.name}`)
-        }
     }
 
 

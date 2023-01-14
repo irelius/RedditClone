@@ -103,22 +103,7 @@ def comments_create_new_to_post(post_id):
     # requires a form to create a new comment
         # add to subreddits?
 
-
-        print("")
-        print("postId", post_id)
-        print('current user id', current_user_id)
-        print('body', form.data["body"])
-        print("")
-
-
         return new_comment.to_dict()
-
-        print("")
-        print("postId", post_id)
-        print('current user id', current_user_id)
-        print('errors', form.message)
-        print("")
-
 
     return {"errors": validation_error_message(form.errors)}, 401
 

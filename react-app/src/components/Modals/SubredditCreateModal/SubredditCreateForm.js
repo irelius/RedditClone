@@ -20,8 +20,11 @@ const SubredditCreateForm = ({ setShowCreateSubredditModal, setShowProfileMenu }
     const createSubreddit = async (e) => {
         e.preventDefault();
 
+        let prepSubredditName = subredditName.trim()
+        prepSubredditName = prepSubredditName.split(" ").join("_")
+
         let subredditInfo = {
-            name: subredditName,
+            name: prepSubredditName,
             description: subredditDescription,
             admin_id: currentUser.id
         }
@@ -34,7 +37,7 @@ const SubredditCreateForm = ({ setShowCreateSubredditModal, setShowProfileMenu }
         if (data === null) {
             setShowCreateSubredditModal(false)
             setShowProfileMenu(false)
-            return history.push(`/r/${subredditName}`)
+            return history.push(`/r/${prepSubredditName}`)
         }
     }
 

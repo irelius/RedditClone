@@ -392,11 +392,11 @@ const OnePost = () => {
                                         )
                                     }
                                 </aside> */}
-                                <aside id="comments-remove-container">
-                                    {
-                                        currentUser === -1 ? (
-                                            <div></div>
-                                        ) : currentUser["id"] === el["user_id"] ? (
+                                {currentUser === -1 ? (
+                                    <div id="comments-remove-no-user"></div>
+                                ) : (
+                                    <aside id="comments-remove-container">
+                                        {currentUser["id"] === el["user_id"] ? (
                                             <div id="comments-footer-delete-comment" onClick={() => handleCommentDelete(el)}>
                                                 <i className="fa-regular fa-trash-can" />
                                                 <aside className="comments-footer-text">
@@ -411,8 +411,9 @@ const OnePost = () => {
                                                 </aside>
                                             </div>
                                         )
-                                    }
-                                </aside>
+                                        }
+                                    </aside>
+                                )}
                             </section>
                         </div>
                     )
@@ -585,7 +586,7 @@ const OnePost = () => {
         )
     }
 
-    return currentPost.length > 0 && currentSubreddit.length > 0 && allUsers.length > 1 && currentPostLikes.length > 0 && currentComments.length > 0 && load ? (
+    return currentPost.length > 0 && currentSubreddit.length > 0 && allUsers.length > 1 && currentPostLikes.length > 0 && load ? (
         <div id="post-page-background-1">
             {LoadOnePost()}
         </div>

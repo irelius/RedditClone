@@ -46,6 +46,7 @@ const AllPosts = () => {
         e.stopPropagation();
 
         const postId = post.id
+        console.log("booba", postId)
         const subredditName = allSubreddits[0][post.subreddit_id]["name"]
 
         history.push(`/r/${subredditName}/${postId}`)
@@ -68,8 +69,6 @@ const AllPosts = () => {
     const likeHandler = (post, e) => {
         e.preventDefault()
         e.stopPropagation()
-
-        console.log("booba", tempPostsLiked)
 
         let postId = post["id"]
         let updateValue = {}
@@ -148,8 +147,6 @@ const AllPosts = () => {
         const currentUser = allUsers[0] || -1
 
         const postLikesToLoad = {}
-
-        console.log("booba 1", tempPostsLiked)
 
         return (
             Array.isArray(postsToLoad) && postsToLoad.map((el, i) => {

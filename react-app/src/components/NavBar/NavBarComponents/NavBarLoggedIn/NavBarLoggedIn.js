@@ -38,11 +38,11 @@ const NavBarLoggedIn = () => {
       </section>
 
       <section id="li-navbar-middle">
-        <section id="li-navbar-search-bar-container">
+        {/* <section id="li-navbar-search-bar-container">
           <form>
             <input id="li-navbar-search-bar" type="text" placeholder="Search..." name="search" />
           </form>
-        </section>
+        </section> */}
       </section>
 
 

@@ -600,6 +600,11 @@
     background-color: #2C2C2E;
 }
 
+#comments-remove-no-user>*hover {
+    cursor: auto;
+    background-color: transparent;
+}
+
 #comments-section-vote-container {
     display: flex;
     flex-direction: row;

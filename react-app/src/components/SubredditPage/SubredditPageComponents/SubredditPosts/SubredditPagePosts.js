@@ -31,8 +31,6 @@ const SubredditPagePosts = () => {
     const currentSubreddit = Object.values(useSelector(subredditActions.loadAllSubreddit))
     const allUsers = Object.values(useSelector(sessionActions.loadAllUsers))
 
-    console.log("booba", currentSubreddit)
-
     const redirectToPostPage = (post) => {
         const postId = post.id
         const subredditName = window.location.href.split("/")[4]
