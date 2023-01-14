@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint, request
 from flask_login import current_user, login_required
 from app.models import db, Comment, User
 from app.forms import CommentForm
@@ -13,6 +13,14 @@ def return_comments(comments):
         return {"comments": {comment.id: comment.to_dict() for comment in comments}}
     return {"comments": "No comments"}, 404
 
+
+# Validation error function
+def validation_error_message(validation_errors):
+    error_messages = []
+    for field in validation_errors:
+        for error in validation_errors[field]:
+            error_messages.append(f'{field} : {error}')
+    return error_messages
 
 # --------------------------------------------------------------------------------
 
@@ -80,19 +88,39 @@ def comments_create_new_to_post(post_id):
         return {"errors": "You must be logged in before leaving a comment"}, 401
 
     form = CommentForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
 
-    new_comment = Comment(
-        post_id = post_id,
-        user_id = current_user_id,
-        body = form.data["body"]
-    )
+    if form.validate_on_submit():
+        new_comment = Comment(
+            post_id = post_id,
+            user_id = current_user_id,
+            body = form.data["body"]
+        )
 
-    db.session.add(new_comment)
-    db.session.commit()
+        db.session.add(new_comment)
+        db.session.commit()
 
     # requires a form to create a new comment
         # add to subreddits?
-    return new_comment.to_dict()
+
+
+        print("")
+        print("postId", post_id)
+        print('current user id', current_user_id)
+        print('body', form.data["body"])
+        print("")
+
+
+        return new_comment.to_dict()
+
+        print("")
+        print("postId", post_id)
+        print('current user id', current_user_id)
+        print('errors', form.message)
+        print("")
+
+
+    return {"errors": validation_error_message(form.errors)}, 401
 
 
 # Create a new comment on a comment

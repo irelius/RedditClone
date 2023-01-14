@@ -143,6 +143,7 @@ const OnePost = () => {
         }
 
         if (data === null) {
+            dispatch(commentActions.loadPostCommentsThunk(post_id))
         }
 
     }
@@ -374,13 +375,24 @@ const OnePost = () => {
                                 placeholder="What are your thoughts?"
                                 minLength={1}
                                 value={commentBody}
-                                onChange={(e) => setCommentBody(e.target.value)}
+                                onChange={(e) => {
+                                    setCommentBody(e.target.value)
+                                    setErrors([])
+                                }}
                             />
                         </section>
                         <section id="create-comment-form-button-container">
-                            <button id="create-comment-submit-button" type="submit">
-                                Comment
-                            </button>
+                            <aside id="create-comment-error-container">
+                                {errors.map((error, ind) => (
+                                    <div key={ind}>{error}</div>
+                                ))}
+                            </aside>
+                            <aside>
+                                <button id="create-comment-submit-button" type="submit">
+                                    Comment
+                                </button>
+
+                            </aside>
                         </section>
                     </form>
 

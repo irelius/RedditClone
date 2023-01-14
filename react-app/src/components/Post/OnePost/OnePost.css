@@ -482,6 +482,16 @@
     justify-content: flex-end;
 }
 
+#create-comment-error-container {
+    display: flex;
+    align-items: center;
+
+    margin-right: 10px;
+
+    font-size: 12px;
+    color: #FF0000;
+}
+
 #create-comment-submit-button {
     border: none;
     border-radius: 30px;
