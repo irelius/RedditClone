@@ -1,19 +1,23 @@
+import "./LandingPage.css"
+
 import LPLoggedIn from "./LPLoggedIn";
 import LPNotLoggedIn from "./LPNotLoggedIn/LPNotLoggedIn";
 import { useSelector } from "react-redux";
 
-const LandingPage = () => {
-    const sessionUser = useSelector(state => state.session.user)
+import AllPosts from "../Post/AllPosts/AllPosts";
+import SubredditsBar from "../SubredditsBar/SubredditsBar";
 
-    if (sessionUser) {
-        return (
-            <LPLoggedIn />
-        )
-    } else {
-        return (
-            <LPNotLoggedIn />
-        )
-    }
+const LandingPage = () => {
+    return (
+        <div id="landing-page-main-container">
+            <aside id="landing-page-posts-container">
+                <AllPosts />
+            </aside>
+            <aside id="landing-page-subreddit-bar-container">
+                <SubredditsBar />
+            </aside>
+        </div>
+    )
 }
 
 export default LandingPage
