@@ -1,0 +1,172 @@
+/* -----------------------------------------------------------------------*/
+
+
+/* Navbar CSS */
+
+
+/* -----------------------------------------------------------------------*/
+
+
+/* Navbar Main Container */
+
+#navbar-main-container {
+    display: grid;
+    grid-template-columns: 1.5fr 3fr 1.5fr;
+    align-items: center;
+
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+
+    height: 49px;
+    background-color: #1A1A1B;
+    border-bottom: 1px solid #343536;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Navbar Left Section */
+
+#navbar-left-section {
+    display: flex;
+    text-decoration: none;
+}
+
+#navbar-navlink {
+    text-decoration: none;
+}
+
+#navbar-reddit-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    margin-left: 1vw;
+    height: 49px;
+}
+
+#navbar-reddit-logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-right: 5px;
+    height: 35px;
+    width: 35px;
+
+    border-radius: 90px;
+    background-color: #ff4500;
+}
+
+#navbar-reddit-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-right: 3px;
+    padding-left: 3px;
+
+    color: white;
+}
+
+#navbar-reddit-text {
+    font-size: 22px;
+    color: white;
+}
+
+#navbar-about-links {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#navbar-about-links>* {
+    margin-left: 10px;
+}
+
+#navbar-about-links-github:hover {
+    cursor: pointer;
+}
+
+#navbar-github-icon {
+    color: white;
+}
+
+#navbar-about-links-linkedin {
+    color: pointer;
+}
+
+#navbar-linked-icon {
+    color: white;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Navbar Middle Section */
+
+#navbar-search-bar {
+    height: 35px;
+    width: 100%;
+
+    border: 0.1px solid #808283;
+    border-radius: 50px;
+
+    color: #808283;
+    background-color: #272729;
+}
+
+#navbar-search-bar:hover {
+    background-color: #1A1A1B;
+    border: 1px solid white;
+}
+
+#navbar-search-bar:focus {
+    outline: none;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Navbar Right Section */
+
+#navbar-right {
+    display: flex;
+    flex-direction: row;
+
+    margin-right: 1vw;
+    justify-content: flex-end;
+
+}
+
+#navbar-right * {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: bold;
+
+    border: none;
+    border-radius: 30px;
+}
+
+
+#navbar-right *:hover {
+    cursor: pointer;
+}
+
+#navbar-right-button-login>* {
+    height: 30px;
+    padding-left: 2vw;
+    padding-right: 2vw;
+}
+
+#navbar-right-button-login {
+    margin-left: 10px;
+}
+
+#navbar-right-button-signup>* {
+    height: 30px;
+    padding-left: 2vw;
+    padding-right: 2vw;
+
+    color: #D7DADC;
+    border: 1px solid #D7DADC;
+    background-color: #1A1A1B;
+}
