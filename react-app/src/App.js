@@ -11,6 +11,7 @@ import LandingPage from './components/LandingPage/LandingPage';
 import SubredditPage from './components/SubredditPage';
 import CreatePostPage from './components/CreatePostPage';
 import OnePost from './components/Post/OnePost';
+import ErrorPage from './components/ErrorPage';
 
 import TestPage from './components/TestPage/TestPage';
 
@@ -54,8 +55,11 @@ function App() {
         <Route path="/r/:subreddit_name" exact={true}>
           <SubredditPage />
         </Route>
-        <Route path="">
+        <Route path="/test">
           <TestPage />
+        </Route>
+        <Route path="">
+          <ErrorPage />
         </Route>
       </Switch>
     </BrowserRouter>

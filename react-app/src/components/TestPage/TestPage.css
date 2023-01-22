@@ -1,10 +1,5 @@
-#error-page-container {
+#test-page-main-container {
     display: flex;
-    flex-direction: column;
-
-    margin-top: 10em;
-    margin-left: 5em;
-
+    margin-top: 60px;
     color: white;
-    font-size: large;
 }
