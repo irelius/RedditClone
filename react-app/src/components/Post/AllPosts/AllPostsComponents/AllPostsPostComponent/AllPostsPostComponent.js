@@ -2,6 +2,10 @@ import "./AllPostsPostComponent.css"
 
 import { useHistory } from "react-router-dom"
 
+import redirectToSubredditPage from "../../../../HelperFunctions/redirectToSubredditPage";
+import redirectToUserPage from "../../../../HelperFunctions/redirectToUserPage";
+import redirectToPostPage from "../../../../HelperFunctions/redirectToPostPage";
+
 const AllPostsPostComponent = (post, usersToLoad, subredditsToLoad) => {
     const history = useHistory();
 
@@ -10,28 +14,19 @@ const AllPostsPostComponent = (post, usersToLoad, subredditsToLoad) => {
     const postSubreddit = subredditsToLoad[post["subreddit_id"]]
     const postPoster = usersToLoad[post["user_id"]]
 
-    console.log('test', postPoster)
-
-
     return (
-        <aside id="individual-post-main-container">
+        <aside id="individual-post-main-container" onClick={(e) => redirectToPostPage(postSubreddit["name"], post["id"], history, e)}>
             <section id="individual-post-header-container">
                 <aside id="individual-post-header-subreddit-information">
-                    <section>
+                    <section id="post-header-subreddit-information" onClick={(e) => redirectToSubredditPage(postSubreddit["name"], history, e)}>
                         r/{postSubreddit["name"]}
                     </section>
-                    {/* <section id="post-header-subreddit-information" onClick={(e) => redirectToSubredditPage(subredditInfo.name, e)}>
-                        r/{subredditInfo.name}
-                    </section> */}
                 </aside>
                 <aside id="individual-post-header-poster-information">
                     Posted by
-                    <section id="individual-post-header-poster">
+                    <section id="individual-post-header-poster" onClick={(e) => redirectToUserPage(postPoster["username"], history, e)}>
                         u/{postPoster["username"]}
                     </section>
-                    {/* <section id="post-header-poster" onClick={(e) => redirectToUserPage(posterInfo.username, e)}>
-                        u/{posterInfo.username}
-                    </section> */}
                 </aside>
                 {/* <aside id="post-header-join -container">
                 </aside> */}

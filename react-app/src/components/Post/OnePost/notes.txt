@@ -3,7 +3,7 @@
 
 
 {
-    status: "liked" "disliked" "neutral" // same shit, one of these
+    status: "liked" "disliked" "neutral" // same thing, one of these
     vote: 2  // load from server
 }
 

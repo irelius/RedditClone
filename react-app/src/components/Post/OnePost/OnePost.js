@@ -37,10 +37,10 @@ const OnePost = () => {
         setLoad(true)
 
         return (() => {
-            dispatch(likeActions.clearLikes())
-            dispatch(commentActions.clearComment())
             dispatch(subredditActions.clearSubreddit())
             dispatch(postActions.clearPost())
+            dispatch(commentActions.clearComment())
+            dispatch(likeActions.clearLikes())
         })
 
     }, [dispatch, setLoadEditPostComponent, setNewPostBody, setLoadEditCommentComponent, setNewCommentBody])
@@ -53,6 +53,7 @@ const OnePost = () => {
 
     useEffect(() => {
         if (currentPostLikes.length > 0) {
+
             const currentUser = allUsers[0] || -1
             const likesArray = Object.values(currentPostLikes[0]["likes"])
             const dislikesArray = Object.values(currentPostLikes[0]["dislikes"])
