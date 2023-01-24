@@ -45,43 +45,34 @@ const AllPosts = () => {
 
 
     // Like/Dislike Handling
-    const likeHandler = async (post, postLikeStatus, e) => {
+    const likeHandler = (post, e) => {
         e.preventDefault()
         e.stopPropagation()
 
-        let updateValue = {
-            "like": {},
-            "dislike": {},
-            "neutral": {}
-        }
+        let postId = post["id"]
+        let updateValue = {}
 
         let likeInfo = {
             like_status: "like"
         }
 
-        if (postLikeStatus === "like") {
-            dispatch(likeActions.deleteLikePostThunk(post["id"])).then(() => (
-                dispatch(likeActions.loadLikesPostThunk(post["id"]))
-            ))
-
-            updateValue["neutral"][post['id']] = "neutral"
+        if (tempPostsLiked[postId] === "like") {
+            dispatch(likeActions.deleteLikePostThunk(postId))
+            updateValue[postId] = "neutral"
         } else {
-            dispatch(likeActions.deleteLikePostThunk(post["id"]))
-            dispatch(likeActions.createLikePostThunk(likeInfo, post["id"])).then(() => (
-                dispatch(likeActions.loadLikesPostThunk(post["id"]))
+            dispatch(likeActions.deleteLikePostThunk(postId)).then(() => (
+                dispatch(likeActions.createLikePostThunk(likeInfo, postId))
             ))
-            updateValue["like"][post['id']] = "like"
+            updateValue[postId] = "like"
         }
 
         setTempPostsLiked(tempPostsLiked => ({
             ...tempPostsLiked,
             ...updateValue
         }))
-
-        console.log('test', tempPostsLiked)
     }
 
-    const dislikeHandler = (post, postLikeStatus, e) => {
+    const dislikeHandler = (post, e) => {
         e.preventDefault()
         e.stopPropagation()
 
@@ -92,57 +83,34 @@ const AllPosts = () => {
             like_status: "dislike"
         }
 
-        if (postLikeStatus === "dislike") {
-            dispatch(likeActions.deleteLikePostThunk(post["id"]))
-            updateValue["neutral"][post['id']] = "neutral"
+        if (tempPostsLiked[postId] === "dislike") {
+            dispatch(likeActions.deleteLikePostThunk(postId))
+            updateValue[postId] = "neutral"
         } else {
-            dispatch(likeActions.deleteLikePostThunk(post["id"])).then(() => (
-                dispatch(likeActions.createDislikePostThunk(likeInfo, post["id"])))
+            dispatch(likeActions.deleteLikePostThunk(postId)).then(() => (
+                dispatch(likeActions.createDislikePostThunk(likeInfo, postId)))
             )
 
-            updateValue["dislike"][post['id']] = "dislike"
+            updateValue[postId] = "dislike"
         }
 
         setTempPostsLiked(tempPostsLiked => ({
             ...tempPostsLiked,
             ...updateValue
         }))
-
-        console.log('test', tempPostsLiked)
     }
     //
 
 
     // Functions
-    const modifyLikeTotal = (post, likeTotal, postLikeStatus) => {
+    const modifyLikeTotal = (post, likeTotal) => {
         let postId = post["id"]
-
-        // if (tempPostsLiked.keys().length > 0) {
-        //     if (tempPostsLiked["like"][postId] === "like") {
-        //         return likeTotal + 1
-        //     }
-        //     if (tempPostsLiked["dislike"][postId] === "like") {
-        //         return likeTotal + 1
-        //     }
-        // }
-
-        if (tempPostsLiked["like"] === undefined) {
-
-            if (tempPostsLiked[postId] === "like") {
-                return likeTotal + 1
-            }
-            if (tempPostsLiked[postId] === "dislike") {
-                return likeTotal - 1
-            }
-        } else {
-            if (tempPostsLiked["like"][postId] === "like") {
-                return likeTotal + 1
-            }
-            if (tempPostsLiked["dislike"][postId] === "like") {
-                return likeTotal + 1
-            }
+        if (tempPostsLiked[postId] === "like") {
+            return likeTotal + 1
         }
-
+        if (tempPostsLiked[postId] === "dislike") {
+            return likeTotal - 1
+        }
 
         return likeTotal
     }
@@ -165,7 +133,6 @@ const AllPosts = () => {
 
                 let postLikeStatus = "neutral"
                 let postLikes = Object.values(el["likes"])
-
                 postLikes.forEach(el => {
                     if (el["user_id"] === currentUser["id"] && el["like_status"] === "like") {
                         postLikeStatus = "like"
@@ -179,30 +146,9 @@ const AllPosts = () => {
 
                 const likeTotal = calculatePostLikes(el)
 
-                // if (tempPostsLiked["like"] !== undefined) {
-                //     // console.log("test", tempPostsLiked, el["id"])
-                //     if (tempPostsLiked["like"][el["id"] + 1]) {
-                //         postLikeStatus = "like"
-                //         return
-                //     }
-                //     if (tempPostsLiked["neutral"][el["id"] + 1]) {
-                //         postLikeStatus = "neutral"
-                //         return
-                //     }
-                //     if (tempPostsLiked["dislike"][el["id"] + 1]) {
-                //         postLikeStatus = "dislike"
-                //         return
-                //     }
-                // }
-
-                // if (tempPostsLiked["like"] === undefined) {
-                //     postLikeStatus = tempPostsLiked[el["id"]]
-                // } else {
-                //     if(postLikeStatus["like"][el["id"]]) {
-                //         console.log("test 3", postLikeStatus["like"][el["id"]])
-                //         postLikeStatus = "like"
-                //     }
-                // }
+                if (tempPostsLiked[el["id"]]) {
+                    postLikeStatus = tempPostsLiked[el["id"]]
+                }
 
                 return (
                     <div id="all-posts-main-container" onClick={(e) => redirectToPostPage(subredditInfo["name"], el["id"], history, e)}>
@@ -212,7 +158,7 @@ const AllPosts = () => {
                                 if (currentUser === -1) {
                                     e.stopPropagation()
                                 } else {
-                                    likeHandler(el, postLikeStatus, e)
+                                    likeHandler(el, e)
                                 }
                             }}>
                                 <i className="fa-solid fa-up-long fa-lg" id={`post-like-status-${postLikeStatus}`} />
@@ -224,7 +170,7 @@ const AllPosts = () => {
                                 if (currentUser === -1) {
                                     e.stopPropagation()
                                 } else {
-                                    dislikeHandler(el, postLikeStatus, e)
+                                    dislikeHandler(el, e)
                                 }
                             }}>
                                 <i className="fa-solid fa-down-long fa-lg" id={`post-dislike-status-${postLikeStatus}`} />
