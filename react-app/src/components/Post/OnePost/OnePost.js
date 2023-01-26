@@ -479,6 +479,8 @@ const OnePost = () => {
     const LoadOnePost = () => {
         const postToLoad = currentPost[0]
 
+        console.log("test", postToLoad)
+
         const userToLoad = allUsers[1][postToLoad["user_id"]]
         const currentUser = allUsers[0] || -1
 
@@ -533,6 +535,15 @@ const OnePost = () => {
                                 <section id="post-page-post-title">
                                     {postToLoad.title}
                                 </section>
+                            </section>
+                            <section id="post-page-post-image-container">
+                                {postToLoad["image"] !== undefined ? (
+                                    <img src={`${postToLoad["image"]}`}
+                                        width={650}
+                                    ></img>
+                                ) : (
+                                    <div></div>
+                                )}
                             </section>
                             <section id="post-page-post-body-container">
                                 {loadEditPostComponent ? (
