@@ -90,6 +90,14 @@
     color: #D7DADC;
 }
 
+#individual-post-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
 #individual-post-body {
     display: flex;
     align-items: center;

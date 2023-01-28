@@ -35,6 +35,15 @@ const AllPostsPostComponent = (post, usersToLoad, subredditsToLoad) => {
                 <section id="individual-post-title">
                     {postTitle}
                 </section>
+                <section id="individual-post-image">
+                    {post["image"] !== null ? (
+                        <img src={`${post["image"]}`}
+                            width={400}
+                        ></img>
+                    ) : (
+                        <div></div>
+                    )}
+                </section>
                 <section id="individual-post-body">
                     {postBody}
                 </section>
