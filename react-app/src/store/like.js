@@ -103,11 +103,35 @@ export const loadLikesCommentThunk = (commentId) => async (dispatch) => {
 }
 
 
+// Thunk action to load all likes made to posts
+export const loadAllLikesPostThunk = () => async (dispatch) => {
+    const res = await fetch(`/api/likes/all/posts`)
+
+    if (res.ok) {
+        const likes = await res.json()
+        dispatch(loadLikesPost(likes))
+        return likes
+    }
+}
+
+
+// Thunk action to load all likes made to comments
+export const loadAllLikesCommentThunk = () => async (dispatch) => {
+    const res = await fetch(`/api/likes/all/comments`)
+
+    if (res.ok) {
+        const likes = await res.json()
+        dispatch(loadLikesPost(likes))
+        return likes
+    }
+}
+
+
 // Thunk action to load likes from current user
 export const loadUserLikesThunk = () => async (dispatch) => {
     const res = await fetch(`/api/likes/users/current`)
 
-    if(res.ok) {
+    if (res.ok) {
         const likes = await res.json()
         dispatch(loadUserLikes(likes))
         return likes

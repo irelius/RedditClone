@@ -18,10 +18,8 @@ const AllPostsLikeComponent = (post, currentUser, currentUserLikes) => {
     // let postLikeStatus = "neutral"
     if (currentUserLikes[0]["likes"][post["id"]]) {
         // postLikeStatus = "like"
-        console.log("test2", post)
     } else if (currentUserLikes[0]["dislikes"][post["id"]]) {
         // postLikeStatus = "dislike"
-        console.log("test2", post)
     }
 
     // //Like/Dislike Handling

@@ -479,8 +479,6 @@ const OnePost = () => {
     const LoadOnePost = () => {
         const postToLoad = currentPost[0]
 
-        console.log("test", postToLoad)
-
         const userToLoad = allUsers[1][postToLoad["user_id"]]
         const currentUser = allUsers[0] || -1
 

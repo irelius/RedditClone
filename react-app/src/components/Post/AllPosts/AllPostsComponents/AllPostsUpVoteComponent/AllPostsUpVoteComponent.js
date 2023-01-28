@@ -3,12 +3,7 @@ import { LikesContext } from "../../../../../context/LikesContext"
 
 import * as sessionActions from "../../../../../store/session"
 
-const AllPostsUpVoteComponent = ({ dispatch }) => {
-    const { postLikeStatus } = useContext(LikesContext)
-
-    console.log("booba up vote", postLikeStatus)
-
-
+const AllPostsUpVoteComponent = () => {
     // const dispatch = useDispatch()
 
     // const likeHandler = (post, postLikeStatus, e) => {
