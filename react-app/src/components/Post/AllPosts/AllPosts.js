@@ -151,7 +151,7 @@ const AllPosts = () => {
                 }
 
                 return (
-                    <div id="all-posts-main-container" onClick={(e) => redirectToPostPage(subredditInfo["name"], el["id"], history, e)}>
+                    <div key={i} id="all-posts-main-container" onClick={(e) => redirectToPostPage(subredditInfo["name"], el["id"], history, e)}>
                         <aside id="all-posts-left-section">
                             <aside id="post-upvote-button" onClick={(e) => {
                                 // TO DO: try to separate this like functionality into separate React component

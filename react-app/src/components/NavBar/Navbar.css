@@ -30,6 +30,7 @@
 
 #navbar-left-section {
     display: flex;
+    align-items: center;
     text-decoration: none;
 }
 
@@ -83,23 +84,13 @@
 
 #navbar-about-links>* {
     margin-left: 10px;
-}
-
-#navbar-about-links-github:hover {
-    cursor: pointer;
-}
-
-#navbar-github-icon {
     color: white;
 }
 
-#navbar-about-links-linkedin {
-    color: pointer;
+#navbar-about-links>*:hover {
+    cursor:pointer;
 }
 
-#navbar-linked-icon {
-    color: white;
-}
 
 
 /* -----------------------------------------------------------------------*/
