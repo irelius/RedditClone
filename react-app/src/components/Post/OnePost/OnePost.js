@@ -537,7 +537,7 @@ const OnePost = () => {
                                 </section>
                             </section>
                             <section id="post-page-post-image-container">
-                                {postToLoad["image"] !== undefined ? (
+                                {postToLoad["image"] !== null ? (
                                     <img src={`${postToLoad["image"]}`}
                                         width={650}
                                     ></img>
