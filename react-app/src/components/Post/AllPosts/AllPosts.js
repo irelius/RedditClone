@@ -14,8 +14,8 @@ import redirectToPostPage from "../../HelperFunctions/redirectToPostPage";
 import AllPostsPostComponent from "./AllPostsComponents/AllPostsPostComponent/AllPostsPostComponent";
 
 const AllPosts = () => {
-    const dispatch = useDispatch();
     const history = useHistory();
+    const dispatch = useDispatch();
 
     const [load, setLoad] = useState(false)
     const [tempPostsLiked, setTempPostsLiked] = useState({})
