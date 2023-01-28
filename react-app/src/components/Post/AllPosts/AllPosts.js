@@ -1,8 +1,11 @@
 import "./AllPosts.css"
 
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom"
+
+import { LikesContext } from "../../../context/LikesContext";
+
 import * as postActions from "../../../store/post"
 import * as subredditActions from "../../../store/subreddit"
 import * as sessionActions from "../../../store/session"
@@ -10,27 +13,29 @@ import * as likeActions from "../../../store/like"
 
 import calculatePostLikes from "../../HelperFunctions/calculatePostLikes";
 import redirectToPostPage from "../../HelperFunctions/redirectToPostPage";
+import redirectToSubredditPage from "../../HelperFunctions/redirectToSubredditPage";
+import redirectToUserPage from "../../HelperFunctions/redirectToUserPage";
 
-import AllPostsPostComponent from "./AllPostsComponents/AllPostsPostComponent/AllPostsPostComponent";
 
 const AllPosts = () => {
     const history = useHistory();
     const dispatch = useDispatch();
 
     const [load, setLoad] = useState(false)
-    const [tempPostsLiked, setTempPostsLiked] = useState({})
+    const [initialPostLikes, setInitialPostLikes] = useState(true)
+    const [modifiedPostLikes, setModifiedPostLikes] = useState({})
+
+    const [test, setTest] = useState(0)
+
 
     useEffect(() => {
         dispatch(sessionActions.loadAllUserThunk())
         dispatch(subredditActions.loadSubredditsThunk())
         dispatch(postActions.loadPostsThunk())
         dispatch(likeActions.loadUserLikesThunk())
-        setTempPostsLiked((tempPostsLiked) => ({
-            ...tempPostsLiked,
-            ...currentUserLikes[0],
-        }))
 
         setLoad(true)
+
         return (() => {
             dispatch(subredditActions.clearSubreddit())
             dispatch(postActions.clearPost())
@@ -38,64 +43,93 @@ const AllPosts = () => {
         })
     }, [dispatch])
 
+
     const allPosts = Object.values(useSelector(postActions.loadAllPosts))
     const allSubreddits = Object.values(useSelector(subredditActions.loadAllSubreddit))
     const allUsers = Object.values(useSelector(sessionActions.loadAllUsers))
     const currentUserLikes = Object.values(useSelector(likeActions.loadLikes))
 
 
+
     // Like/Dislike Handling
-    const likeHandler = (post, e) => {
+    const initialTempPostsLiked = () => {
+        setInitialPostLikes(false)
+
+        let updateValue = {}
+
+        const allUserLikes = Object.values(currentUserLikes[0]["likes"])
+        const alluserDislikes = Object.values(currentUserLikes[0]["dislikes"])
+
+        allUserLikes.forEach(el => {
+            if (el["post_id"]) {
+                updateValue[el["post_id"]] = el["like_status"]
+            }
+        })
+
+        alluserDislikes.forEach(el => {
+            if (el["post_id"]) {
+                updateValue[el["post_id"]] = el["like_status"]
+            }
+        })
+
+        setModifiedPostLikes(modifiedPostLikes => ({
+            ...modifiedPostLikes,
+            ...updateValue
+        }))
+
+
+
+    }
+
+    const likeHandler = (post, postLikeStatus, e) => {
         e.preventDefault()
         e.stopPropagation()
-
-        let postId = post["id"]
-        let updateValue = {}
 
         let likeInfo = {
             like_status: "like"
         }
 
-        if (tempPostsLiked[postId] === "like") {
-            dispatch(likeActions.deleteLikePostThunk(postId))
-            updateValue[postId] = "neutral"
+        let updateValue = {}
+
+        console.log('booba', postLikeStatus)
+
+        if (postLikeStatus === "like") {
+            dispatch(likeActions.deleteLikePostThunk(post["id"]))
+            updateValue[post["id"]] = "neutral"
         } else {
-            dispatch(likeActions.deleteLikePostThunk(postId)).then(() => (
-                dispatch(likeActions.createLikePostThunk(likeInfo, postId))
-            ))
-            updateValue[postId] = "like"
+            dispatch(likeActions.deleteLikePostThunk(post["id"]))
+            dispatch(likeActions.createLikePostThunk(likeInfo, post["id"]))
+            updateValue[post["id"]] = "like"
         }
 
-        setTempPostsLiked(tempPostsLiked => ({
-            ...tempPostsLiked,
+        setModifiedPostLikes(modifiedPostLikes => ({
+            ...modifiedPostLikes,
             ...updateValue
         }))
+
     }
 
-    const dislikeHandler = (post, e) => {
+    const dislikeHandler = (post, postLikeStatus, e) => {
         e.preventDefault()
         e.stopPropagation()
-
-        let postId = post["id"]
-        let updateValue = {}
 
         let likeInfo = {
             like_status: "dislike"
         }
 
-        if (tempPostsLiked[postId] === "dislike") {
-            dispatch(likeActions.deleteLikePostThunk(postId))
-            updateValue[postId] = "neutral"
-        } else {
-            dispatch(likeActions.deleteLikePostThunk(postId)).then(() => (
-                dispatch(likeActions.createDislikePostThunk(likeInfo, postId)))
-            )
+        let updateValue = {}
 
-            updateValue[postId] = "dislike"
+        if (postLikeStatus === "dislike") {
+            dispatch(likeActions.deleteLikePostThunk(post["id"]))
+            updateValue[post["id"]] = "neutral"
+        } else {
+            dispatch(likeActions.deleteLikePostThunk(post["id"]))
+            dispatch(likeActions.createLikePostThunk(likeInfo, post["id"]))
+            updateValue[post["id"]] = "dislike"
         }
 
-        setTempPostsLiked(tempPostsLiked => ({
-            ...tempPostsLiked,
+        setModifiedPostLikes(modifiedPostLikes => ({
+            ...modifiedPostLikes,
             ...updateValue
         }))
     }
@@ -103,16 +137,15 @@ const AllPosts = () => {
 
 
     // Functions
-    const modifyLikeTotal = (post, likeTotal) => {
-        let postId = post["id"]
-        if (tempPostsLiked[postId] === "like") {
-            return likeTotal + 1
+    const modifyLikeTotal = (post) => {
+        console.log('booba', post['id'], modifiedPostLikes)
+        if(modifiedPostLikes[post["id"]] === "like") {
+            return 1
         }
-        if (tempPostsLiked[postId] === "dislike") {
-            return likeTotal - 1
+        if(modifiedPostLikes[post["id"]] === "dislike") {
+            return -1
         }
-
-        return likeTotal
+        return 0
     }
     //
 
@@ -125,12 +158,22 @@ const AllPosts = () => {
 
         const postLikesToLoad = {}
 
+        if (initialPostLikes) {
+            initialTempPostsLiked()
+        }
 
         return (
             Array.isArray(postsToLoad) && postsToLoad.map((el, i) => {
                 const subredditId = el["subreddit_id"]
                 const subredditInfo = subredditsToLoad[subredditId]
+                const postTitle = el["title"]
+                const postBody = el["body"]
+                const postSubreddit = subredditsToLoad[el["subreddit_id"]]
+                const postPoster = usersToLoad[el["user_id"]]
+                const postImage = el["image"]
+                const likeTotal = calculatePostLikes(el)
 
+                // figure out like status of each post on the front page
                 let postLikeStatus = "neutral"
                 let postLikes = Object.values(el["likes"])
                 postLikes.forEach(el => {
@@ -144,150 +187,89 @@ const AllPosts = () => {
                     }
                 })
 
-                const likeTotal = calculatePostLikes(el)
-
-                if (tempPostsLiked[el["id"]]) {
-                    postLikeStatus = tempPostsLiked[el["id"]]
+                if (modifiedPostLikes[el["id"]]) {
+                    postLikeStatus = modifiedPostLikes[el["id"]]
                 }
 
                 return (
-                    <div id="all-posts-main-container" onClick={(e) => redirectToPostPage(subredditInfo["name"], el["id"], history, e)}>
+                    <div key={i} id="all-posts-main-container" onClick={(e) => redirectToPostPage(subredditInfo["name"], el["id"], history, e)}>
                         <aside id="all-posts-left-section">
                             <aside id="post-upvote-button" onClick={(e) => {
-                                // TO DO: try to separate this like functionality into separate React component
                                 if (currentUser === -1) {
                                     e.stopPropagation()
+                                    // add in sign in modal here
                                 } else {
-                                    likeHandler(el, e)
+                                    likeHandler(el, postLikeStatus, e)
                                 }
                             }}>
                                 <i className="fa-solid fa-up-long fa-lg" id={`post-like-status-${postLikeStatus}`} />
                             </aside>
-                            <aside id="post-vote-counter">{modifyLikeTotal(el, likeTotal, postLikeStatus)}</aside>
-                            {/* <aside id="post-vote-counter">{likeTotal}</aside> */}
+                            <aside id="post-vote-counter">{modifyLikeTotal(el)}</aside>
                             <aside id="post-downvote-button" onClick={(e) => {
-                                // TO DO: try to separate this like functionality into separate React component
                                 if (currentUser === -1) {
                                     e.stopPropagation()
+                                    // add in sign in modal here
                                 } else {
-                                    dislikeHandler(el, e)
+                                    dislikeHandler(el, postLikeStatus, e)
                                 }
                             }}>
                                 <i className="fa-solid fa-down-long fa-lg" id={`post-dislike-status-${postLikeStatus}`} />
                             </aside>
                         </aside >
                         <aside id="all-posts-right-section">
-                            {AllPostsPostComponent(el, usersToLoad, subredditsToLoad)}
+                            <aside id="individual-post-main-container">
+                                <section id="individual-post-header-container">
+                                    <aside id="individual-post-header-subreddit-information">
+                                        <section id="post-header-subreddit-information" onClick={(e) => redirectToSubredditPage(postSubreddit["name"], history, e)}>
+                                            r/{postSubreddit["name"]}
+                                        </section>
+                                    </aside>
+                                    <aside id="individual-post-header-poster-information">
+                                        Posted by
+                                        <section id="individual-post-header-poster" onClick={(e) => redirectToUserPage(postPoster["username"], history, e)}>
+                                            u/{postPoster["username"]}
+                                        </section>
+                                    </aside>
+                                    {/* <aside id="post-header-join -container">
+                                     </aside> */}
+                                </section>
+                                <section id="individual-post-body-container">
+                                    <section id="individual-post-title">
+                                        {postTitle}
+                                    </section>
+                                    <section id="individual-post-image">
+                                        {postImage !== null ? (
+                                            <img src={`${postImage}`}
+                                                width={400}
+                                            ></img>
+                                        ) : (
+                                            <div></div>
+                                        )}
+                                    </section>
+                                    <section id="individual-post-body">
+                                        {postBody}
+                                    </section>
+                                </section>
+                                <section id="individual-post-footer-container">
+                                    <aside id="individual-post-footer-comments-container">
+                                        <aside>
+                                            <i id="individual-post-footer-comments-icon" className="fa-regular fa-message fa-lg" />
+                                        </aside>
+                                        <aside id="individual-post-footer-comments">
+                                            Comments
+                                        </aside>
+                                    </aside>
+                                    <aside id="individual-post-footer-dots-container">
+                                        <i id="individual-post-footer-dots-icon" className="fa-solid fa-ellipsis" />
+                                    </aside>
+                                </section>
+                            </aside>
                         </aside>
                     </div >
                 )
             })
         )
     }
-
-
-
-    // Old React component where everything was together
-    // return (
-    //     Array.isArray(postsToLoad) && postsToLoad.map((el, i) => {
-    //         const posterId = el["user_id"]
-    //         const posterInfo = usersToLoad[posterId]
-
-    //         const subredditId = el["subreddit_id"]
-    //         const subredditInfo = subredditsToLoad[subredditId]
-
-    //         let postLikeStatus = "neutral"
-    //         let postLikes = Object.values(el["likes"])
-    //         postLikes.forEach(el => {
-    //             if (el["user_id"] === currentUser["id"] && el["like_status"] === "like") {
-    //                 postLikeStatus = "like"
-    //                 postLikesToLoad[el["id"]] = "like"
-    //             }
-    //             if (el["user_id"] === currentUser["id"] && el["like_status"] === "dislike") {
-    //                 postLikeStatus = "dislike"
-    //                 postLikesToLoad[el["id"]] = "dislike"
-    //             }
-    //         })
-
-    //         const likeTotal = calculatePostLikes(el)
-
-    //         if (tempPostsLiked[el["id"]]) {
-    //             postLikeStatus = tempPostsLiked[el["id"]]
-    //         }
-    //         return (
-    //             <div onClick={(e) => redirectToPostPage(el, e)} id="post-main-container" key={i}>
-    //                 {/* Liking Section */}
-    //                 <aside id="post-left-container">
-    //                     <aside id="post-upvote-button" onClick={(e) => {
-    //                         // TO DO: This is all wrong, fix this into separate React components. This is just to make it work for now
-    //                         if (currentUser === -1) {
-    //                             e.stopPropagation()
-    //                         } else {
-    //                             likeHandler(el, e)
-    //                         }
-    //                     }}>
-    //                         <i className="fa-solid fa-up-long fa-lg" id={`post-like-status-${postLikeStatus}`} />
-    //                     </aside>
-    //                     <aside id="post-vote-counter">{modifyLikeTotal(el, likeTotal)}</aside>
-    //                     <aside id="post-downvote-button" onClick={(e) => {
-    //                         // TO DO: This is all wrong, fix this into separate React components. This is just to make it work for now
-    //                         if (currentUser === -1) {
-    //                             e.stopPropagation()
-    //                         } else {
-    //                             dislikeHandler(el, e)
-    //                         }
-    //                     }}>
-    //                         <i className="fa-solid fa-down-long fa-lg" id={`post-dislike-status-${postLikeStatus}`} />
-    //                     </aside>
-    //                 </aside>
-    //                 {/* Post Body Section */}
-    //                 <aside id="post-right-container">
-    //                     <section id="post-header-container">
-    //                         <aside>
-    //                             {subredditInfo ? (
-    //                                 <section id="post-header-subreddit-information" onClick={(e) => redirectToSubredditPage(subredditInfo.name, e)}>
-    //                                     r/{subredditInfo.name}
-    //                                 </section>
-    //                             ) : (
-    //                                 <section id="post-header-no-subreddit">
-    //                                     Subreddit does not exist.
-    //                                 </section>
-    //                             )}
-    //                         </aside>
-    //                         <aside id="post-header-poster-information">
-    //                             Posted by
-    //                             <section id="post-header-poster" onClick={(e) => redirectToUserPage(posterInfo.username, e)}>
-    //                                 u/{posterInfo.username}
-    //                             </section>
-    //                         </aside>
-    //                         {/* <aside id="post-header-join-container">
-    //                         </aside> */}
-    //                     </section>
-    //                     <section id="post-body-container">
-    //                         <section id="post-title">
-    //                             {el.title}
-    //                         </section>
-    //                         <section id="post-body">
-    //                             {el.body}
-    //                         </section>
-    //                     </section>
-    //                     <section id="post-footer-container">
-    //                         <aside id="post-footer-comments-container">
-    //                             <aside>
-    //                                 <i id="post-footer-comments-icon" className="fa-regular fa-message fa-lg" />
-    //                             </aside>
-    //                             <aside id="post-footer-comments">
-    //                                 Comments
-    //                             </aside>
-    //                         </aside>
-    //                         <aside id="post-footer-dots-container">
-    //                             <i id="post-footer-dots-icon" className="fa-solid fa-ellipsis" />
-    //                         </aside>
-    //                     </section>
-    //                 </aside>
-    //             </div>
-    //         )
-
 
     return allPosts.length > 0 && allUsers.length > 1 && allSubreddits.length > 0 && currentUserLikes.length > 0 && load ? (
         <div>

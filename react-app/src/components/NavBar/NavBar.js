@@ -17,30 +17,24 @@ const NavBar = () => {
         <NavLink id="navbar-navlink" to="/">
           <section id="navbar-reddit-container">
             <aside id="navbar-reddit-logo-container">
-              <section id="li-navbar-reddit-circle">
-                <i id="navbar-reddit-logo" className="fa-brands fa-reddit-alien"></i>
-              </section>
+              <i id="navbar-reddit-logo" className="fa-solid fa-glasses" />
             </aside>
             <aside id="navbar-reddit-text">
               readdit
             </aside>
-            <aside id="navbar-about-links">
-              <NavLink id="navbar-about-links-github" to="/" onClick={() => {
-                return window.open("https://github.com/irelius/RedditClone")
-              }}>
-                <i id="navbar-github-icon" className="fa-brands fa-github fa-lg" />
-              </NavLink>
-              <NavLink id="navbar-about-links-linkedin" to="/" onClick={() => {
-                return window.open("https://www.linkedin.com/in/sbkihongbae/")
-              }}>
-                <i id="navbar-linked-icon" className="fa-brands fa-linkedin fa-lg" />
-              </NavLink>
-            </aside>
           </section>
         </NavLink>
+        <section>
+          <aside id="navbar-about-links">
+            <section id="navbar-about-links-github" onClick={() => { return window.open("https://github.com/irelius/RedditClone") }}>
+              <i id="navbar-github-icon" className="fa-brands fa-github fa-lg" />
+            </section>
+            <section id="navbar-about-links-linkedin" onClick={() => { return window.open("https://www.linkedin.com/in/sbkihongbae/") }}>
+              <i id="navbar-linked-icon" className="fa-brands fa-linkedin fa-lg" />
+            </section>
+          </aside>
+        </section>
         {/* TO DO: Drop down menu to select Home, Popular, or specific Subreddit communities */}
-        {/* <aside>
-        </aside> */}
       </section>
 
       <section id="navbar-middle">

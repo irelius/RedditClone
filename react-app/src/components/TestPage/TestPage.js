@@ -9,16 +9,7 @@ import { useHistory, useParams } from "react-router-dom"
 // import * as likeActions from "../../store/like"
 
 const TestPage = () => {
-    const dispatch = useDispatch();
-    const history = useHistory()
-
-    useEffect(() => {
-        dispatch()
-
-
-    }, [dispatch])
-
-    return (
+      return (
         <div id="test-page-main-container">
             hello
 

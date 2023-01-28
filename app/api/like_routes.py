@@ -21,6 +21,41 @@ def return_likes(id, likes, dislikes):
 
 # --------------------------------------------------------------------------------
 
+# Get all likes and dislikes ever made
+@like_routes.route("/")
+@login_required
+def likes_total():
+    current_user_id = int(current_user.get_id())
+    likes = Like.query.filter(Like.like_status == "like").all()
+    dislikes = Like.query.filter(Like.like_status == "dislike").all()
+
+    return return_likes(current_user_id, likes, dislikes)
+
+
+# Get all likes and dislikes made to posts
+@like_routes.route("/all/posts")
+@login_required
+def likes_posts():
+    # return "test"
+    current_user_id = int(current_user.get_id())
+    likes = Like.query.filter(Like.like_status == "like").filter(Like.post_id.isnot(None)).all()
+    dislikes = Like.query.filter(Like.like_status == "dislike").filter(Like.post_id.isnot(None)).all()
+
+    return return_likes(current_user_id, likes, dislikes)
+
+
+# Get all likes and dislikes made to comments
+@like_routes.route("/all/comments")
+@login_required
+def likes_comments():
+    current_user_id = int(current_user.get_id())
+    likes = Like.query.filter(Like.like_status == "like").filter(Like.comment_id.isnot(None)).all()
+    dislikes = Like.query.filter(Like.like_status == "dislike").filter(Like.comment_id.isnot(None)).all()
+
+    return return_likes(current_user_id, likes, dislikes)
+
+
+
 # Get all likes and dislikes made by current user
 @like_routes.route("/users/current")
 @login_required
