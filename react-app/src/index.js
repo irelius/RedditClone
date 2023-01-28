@@ -6,6 +6,7 @@ import './index.css';
 import App from './App';
 import configureStore from './store';
 import SubredditProvider from './context/SubredditContext';
+import LikesProvider from './context/LikesContext';
 
 const store = configureStore();
 
@@ -14,7 +15,9 @@ ReactDOM.render(
     <Provider store={store}>
       <ModalProvider>
         <SubredditProvider>
-          <App />
+          <LikesProvider>
+            <App />
+          </LikesProvider>
         </SubredditProvider>
       </ModalProvider>
     </Provider>,

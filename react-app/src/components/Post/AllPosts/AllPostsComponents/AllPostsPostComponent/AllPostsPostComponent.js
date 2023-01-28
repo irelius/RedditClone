@@ -13,6 +13,7 @@ const AllPostsPostComponent = (post, usersToLoad, subredditsToLoad) => {
     const postBody = post["body"]
     const postSubreddit = subredditsToLoad[post["subreddit_id"]]
     const postPoster = usersToLoad[post["user_id"]]
+    const postImage = post["image"]
 
     return (
         <aside id="individual-post-main-container" onClick={(e) => redirectToPostPage(postSubreddit["name"], post["id"], history, e)}>
@@ -36,8 +37,8 @@ const AllPostsPostComponent = (post, usersToLoad, subredditsToLoad) => {
                     {postTitle}
                 </section>
                 <section id="individual-post-image">
-                    {post["image"] !== null ? (
-                        <img src={`${post["image"]}`}
+                    {postImage !== null ? (
+                        <img src={`${postImage}`}
                             width={400}
                         ></img>
                     ) : (

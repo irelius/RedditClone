@@ -1,17 +1,24 @@
 import "./AllPosts.css"
 
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom"
+
+import { LikesContext } from "../../../context/LikesContext";
+
 import * as postActions from "../../../store/post"
 import * as subredditActions from "../../../store/subreddit"
 import * as sessionActions from "../../../store/session"
 import * as likeActions from "../../../store/like"
 
+import AllPostsPostComponent from "./AllPostsComponents/AllPostsPostComponent/AllPostsPostComponent";
+import AllPostsUpVoteComponent from "./AllPostsComponents/AllPostsUpVoteComponent/AllPostsUpVoteComponent";
+import AllPostsDownVoteComponent from "./AllPostsComponents/AllPostsDownVoteComponent/AllPostsDownVoteComponent";
+
 import calculatePostLikes from "../../HelperFunctions/calculatePostLikes";
 import redirectToPostPage from "../../HelperFunctions/redirectToPostPage";
 
-import AllPostsPostComponent from "./AllPostsComponents/AllPostsPostComponent/AllPostsPostComponent";
+
 
 const AllPosts = () => {
     const dispatch = useDispatch();
@@ -19,6 +26,9 @@ const AllPosts = () => {
 
     const [load, setLoad] = useState(false)
     const [tempPostsLiked, setTempPostsLiked] = useState({})
+
+    const { postLikeStatus, setPostLikeStatus } = useContext(LikesContext)
+    const { postLikeID, setPostLikeID } = useContext(LikesContext)
 
     useEffect(() => {
         dispatch(sessionActions.loadAllUserThunk())
@@ -153,7 +163,7 @@ const AllPosts = () => {
                 return (
                     <div key={i} id="all-posts-main-container" onClick={(e) => redirectToPostPage(subredditInfo["name"], el["id"], history, e)}>
                         <aside id="all-posts-left-section">
-                            <aside id="post-upvote-button" onClick={(e) => {
+                            {/* <aside id="post-upvote-button" onClick={(e) => {
                                 // TO DO: try to separate this like functionality into separate React component
                                 if (currentUser === -1) {
                                     e.stopPropagation()
@@ -162,10 +172,9 @@ const AllPosts = () => {
                                 }
                             }}>
                                 <i className="fa-solid fa-up-long fa-lg" id={`post-like-status-${postLikeStatus}`} />
-                            </aside>
-                            <aside id="post-vote-counter">{modifyLikeTotal(el, likeTotal, postLikeStatus)}</aside>
-                            {/* <aside id="post-vote-counter">{likeTotal}</aside> */}
-                            <aside id="post-downvote-button" onClick={(e) => {
+                            </aside> */}
+                            {/* <aside id="post-vote-counter">{modifyLikeTotal(el, likeTotal, postLikeStatus)}</aside> */}
+                            {/* <aside id="post-downvote-button" onClick={(e) => {
                                 // TO DO: try to separate this like functionality into separate React component
                                 if (currentUser === -1) {
                                     e.stopPropagation()
@@ -174,11 +183,24 @@ const AllPosts = () => {
                                 }
                             }}>
                                 <i className="fa-solid fa-down-long fa-lg" id={`post-dislike-status-${postLikeStatus}`} />
+                            </aside> */}
+                            <aside id="post-upvote-button">
+                                {AllPostsUpVoteComponent({dispatch})}
+                            </aside>
+                            <aside>{likeTotal}</aside>
+                            <aside id="post-downvote-button">
+                                {AllPostsDownVoteComponent()}
                             </aside>
                         </aside >
                         <aside id="all-posts-right-section">
                             {AllPostsPostComponent(el, usersToLoad, subredditsToLoad)}
                         </aside>
+                        <button onClick={(e) => {
+                            e.stopPropagation()
+                            setPostLikeStatus("like")
+                        }}>
+                            test
+                        </button>
                     </div >
                 )
             })

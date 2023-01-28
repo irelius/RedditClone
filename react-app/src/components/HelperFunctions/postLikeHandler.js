@@ -9,13 +9,9 @@ const postLikeHandler = (post, dispatch, postLikeStatus, e) => {
         like_status: "like"
     }
 
-    console.log("test", post, postLikeStatus)
-
     if (postLikeStatus === "like") {
-        console.log('test if entered')
         dispatch(likeActions.deleteLikePostThunk(post["id"]))
     } else {
-        console.log('test else entered')
         dispatch(likeActions.deleteLikePost(post["id"])).then(() => {
             dispatch(likeActions.createLikePostThunk(likeInfo, post["id"]))
         })
