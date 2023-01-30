@@ -9,7 +9,6 @@ import * as subredditActions from "../../../store/subreddit"
 import * as sessionActions from "../../../store/session"
 import * as likeActions from "../../../store/like"
 
-import calculatePostLikes from "../../HelperFunctions/calculatePostLikes";
 import redirectToPostPage from "../../HelperFunctions/redirectToPostPage";
 import redirectToSubredditPage from "../../HelperFunctions/redirectToSubredditPage";
 import redirectToUserPage from "../../HelperFunctions/redirectToUserPage";
