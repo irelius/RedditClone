@@ -1,6 +1,6 @@
 # Readdit Clone Project
 
-Render Link: https://irelius-reddit-clone.onrender.com/
+Render Link: https://irelius-readdit-project.onrender.com/
 
 GitHub Link: https://github.com/irelius/RedditClone
 
