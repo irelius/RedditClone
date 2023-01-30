@@ -11,14 +11,15 @@ class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(300), nullable=False)
     body = db.Column(db.String, nullable=True)
-    image = db.Column(db.String, nullable=True)
-    video = db.Column(db.String, nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
     # One to Many Relationships, Unidirectional FROM Post
     comments = db.relationship("Comment", cascade="all, delete")
     likes = db.relationship("Like", cascade="all, delete")
+    images = db.relationship("Image", cascade="all, delete")
+    # videos = db.relationship("Video", cascade="all, delete")
+
 
     # Many to One Relationships, Unidirectional TO Post
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")))
@@ -32,8 +33,8 @@ class Post(db.Model):
             "subreddit_id": self.subreddit_id,
             "title": self.title,
             "body": self.body,
-            "image": self.image,
-            "video": self.video,
+            "images":  {image.id: image.to_dict() for image in self.images},
+            # "videos": {video.id: video.to_dict() for video in self.videos},
             "likes": {like.id: like.to_dict() for like in self.likes},
             # "likes_total": self.likes_total,
             'created_at': self.created_at,

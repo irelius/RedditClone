@@ -12,7 +12,6 @@ def seed_posts():
         title = "Post Two",
         user_id = 2,
         subreddit_id = 2,
-        image = "https://kb-readditbucket.s3.us-west-1.amazonaws.com/picture1.jpg",
         body = "Body for post two."
     )
     post_three = Post(
@@ -25,15 +24,12 @@ def seed_posts():
         title = "Post Four",
         user_id = 4,
         subreddit_id = 4,
-        image="https://kb-readditbucket.s3.us-west-1.amazonaws.com/picture2.jpg",
         body = "Body for post four."
     )
     post_five = Post(
         title = "Post Five",
         user_id = 5,
-        image="https://kb-readditbucket.s3.us-west-1.amazonaws.com/picture3.jpg",
         subreddit_id = 1,
-
         body = "Body for post five."
     )
     post_six = Post(

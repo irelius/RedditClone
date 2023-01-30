@@ -91,8 +91,6 @@ const AllPosts = () => {
 
         let updateValue = {}
 
-        console.log('booba', postLikeStatus)
-
         if (postLikeStatus === "like") {
             dispatch(likeActions.deleteLikePostThunk(post["id"]))
             updateValue[post["id"]] = "neutral"
@@ -138,11 +136,10 @@ const AllPosts = () => {
 
     // Functions
     const modifyLikeTotal = (post) => {
-        console.log('booba', post['id'], modifiedPostLikes)
-        if(modifiedPostLikes[post["id"]] === "like") {
+        if (modifiedPostLikes[post["id"]] === "like") {
             return 1
         }
-        if(modifiedPostLikes[post["id"]] === "dislike") {
+        if (modifiedPostLikes[post["id"]] === "dislike") {
             return -1
         }
         return 0
@@ -170,8 +167,9 @@ const AllPosts = () => {
                 const postBody = el["body"]
                 const postSubreddit = subredditsToLoad[el["subreddit_id"]]
                 const postPoster = usersToLoad[el["user_id"]]
-                const postImage = el["image"]
-                const likeTotal = calculatePostLikes(el)
+                const postImage = Object.values(el["images"])
+
+                console.log('booba', postImage)
 
                 // figure out like status of each post on the front page
                 let postLikeStatus = "neutral"
@@ -237,18 +235,23 @@ const AllPosts = () => {
                                     <section id="individual-post-title">
                                         {postTitle}
                                     </section>
-                                    <section id="individual-post-image">
-                                        {postImage !== null ? (
-                                            <img src={`${postImage}`}
+                                    {postImage.length > 0 ? (
+                                        <section id="individual-post-image">
+                                            <img src={`${postImage[0]["image_url"]}`}
                                                 width={400}
                                             ></img>
+                                        </section>
+                                    ) : (
+                                        <div></div>
+                                    )}
+                                    {/* {postImage !== null ? */}
+
+                                    {/* <section id="individual-post-image">
                                         ) : (
-                                            <div></div>
-                                        )}
-                                    </section>
-                                    <section id="individual-post-body">
-                                        {postBody}
-                                    </section>
+                                        )} */}
+                                </section>
+                                <section id="individual-post-body">
+                                    {postBody}
                                 </section>
                                 <section id="individual-post-footer-container">
                                     <aside id="individual-post-footer-comments-container">
