@@ -488,8 +488,6 @@ const OnePost = () => {
         subredditDate = subredditDate[2] + " " + subredditDate[1] + ", " + subredditDate[3]
 
 
-        console.log('booba', postImage[0]["image_url"])
-
         return (
             <div id="post-page-background-2">
                 <div id="post-page-close-button-container">
@@ -540,7 +538,7 @@ const OnePost = () => {
                             </section>
                             <section id="post-page-post-image-container">
                                 {postImage.length > 0 ? (
-                                    <img src={`${postImage[0]["image_url"]}`}
+                                    <img src={`${postImage["0"]["image_url"]}`}
                                         width={650}
                                     ></img>
                                 ) : (
