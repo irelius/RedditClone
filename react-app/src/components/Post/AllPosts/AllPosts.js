@@ -22,9 +22,6 @@ const AllPosts = () => {
     const [initialPostLikes, setInitialPostLikes] = useState(true)
     const [modifiedPostLikes, setModifiedPostLikes] = useState({})
 
-    const [test, setTest] = useState(0)
-
-
     useEffect(() => {
         dispatch(sessionActions.loadAllUserThunk())
         dispatch(subredditActions.loadSubredditsThunk())
