@@ -478,6 +478,7 @@ const OnePost = () => {
     // Main Component
     const LoadOnePost = () => {
         const postToLoad = currentPost[0]
+        const postImage = Object.values(postToLoad["images"])
 
         const userToLoad = allUsers[1][postToLoad["user_id"]]
         const currentUser = allUsers[0] || -1
@@ -485,6 +486,9 @@ const OnePost = () => {
         const subredditToLoad = Object.values(currentSubreddit[0])[0]
         let subredditDate = subredditToLoad.created_at.split(" ")
         subredditDate = subredditDate[2] + " " + subredditDate[1] + ", " + subredditDate[3]
+
+
+        console.log('booba', postImage[0]["image_url"])
 
         return (
             <div id="post-page-background-2">
@@ -535,8 +539,8 @@ const OnePost = () => {
                                 </section>
                             </section>
                             <section id="post-page-post-image-container">
-                                {postToLoad["image"] !== null ? (
-                                    <img src={`${postToLoad["image"]}`}
+                                {postImage.length > 0 ? (
+                                    <img src={`${postImage[0]["image_url"]}`}
                                         width={650}
                                     ></img>
                                 ) : (
