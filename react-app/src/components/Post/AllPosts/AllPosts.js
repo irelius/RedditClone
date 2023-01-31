@@ -13,13 +13,15 @@ import redirectToPostPage from "../../HelperFunctions/redirectToPostPage";
 import redirectToSubredditPage from "../../HelperFunctions/redirectToSubredditPage";
 import redirectToUserPage from "../../HelperFunctions/redirectToUserPage";
 
+import calculatePostLikes from "../../HelperFunctions/calculatePostLikes"
 
 const AllPosts = () => {
     const history = useHistory();
     const dispatch = useDispatch();
 
     const [load, setLoad] = useState(false)
-    const [initialPostLikes, setInitialPostLikes] = useState(true)
+    const [initialPostLikeStatus, setInitialPostLikeStatus] = useState(false)
+    const [initialPostLikes, setInitialPostLikes] = useState({})
     const [modifiedPostLikes, setModifiedPostLikes] = useState({})
 
     useEffect(() => {
@@ -47,7 +49,7 @@ const AllPosts = () => {
 
     // Like/Dislike Handling
     const initialTempPostsLiked = () => {
-        setInitialPostLikes(false)
+        setInitialPostLikeStatus(true)
 
         let updateValue = {}
 
@@ -66,13 +68,15 @@ const AllPosts = () => {
             }
         })
 
-        setModifiedPostLikes(modifiedPostLikes => ({
-            ...modifiedPostLikes,
+        setInitialPostLikes(initialPostLikes => ({
+            ...initialPostLikes,
             ...updateValue
         }))
 
-
-
+        // setModifiedPostLikes(modifiedPostLikes => ({
+        //     ...modifiedPostLikes,
+        //     ...updateValue
+        // }))
     }
 
     const likeHandler = (post, postLikeStatus, e) => {
@@ -130,11 +134,18 @@ const AllPosts = () => {
 
     // Functions
     const modifyLikeTotal = (post) => {
-        if (modifiedPostLikes[post["id"]] === "like") {
+        if(initialPostLikes[post["id"]] === "like" && modifiedPostLikes[post["id"]] === "neutral") {
+            return -1
+        }
+        if(initialPostLikes[post["id"]] === "like" && modifiedPostLikes[post["id"]] === "dislike") {
+            return -2
+        }
+
+        if(initialPostLikes[post["id"]] === "dislike" && modifiedPostLikes[post["id"]] === "neutral") {
             return 1
         }
-        if (modifiedPostLikes[post["id"]] === "dislike") {
-            return -1
+        if(initialPostLikes[post["id"]] === "dislike" && modifiedPostLikes[post["id"]] === "like") {
+            return 2
         }
         return 0
     }
@@ -149,9 +160,12 @@ const AllPosts = () => {
 
         const postLikesToLoad = {}
 
-        if (initialPostLikes) {
+        if (!initialPostLikeStatus) {
             initialTempPostsLiked()
         }
+
+        console.log('booba initialPostLikes', initialPostLikes)
+        console.log('booba modifiedPostLikes', modifiedPostLikes)
 
         return (
             Array.isArray(postsToLoad) && postsToLoad.map((el, i) => {
@@ -162,8 +176,6 @@ const AllPosts = () => {
                 const postSubreddit = subredditsToLoad[el["subreddit_id"]]
                 const postPoster = usersToLoad[el["user_id"]]
                 const postImage = Object.values(el["images"])
-
-                console.log('booba', postImage)
 
                 // figure out like status of each post on the front page
                 let postLikeStatus = "neutral"
@@ -196,7 +208,8 @@ const AllPosts = () => {
                             }}>
                                 <i className="fa-solid fa-up-long fa-lg" id={`post-like-status-${postLikeStatus}`} />
                             </aside>
-                            <aside id="post-vote-counter">{modifyLikeTotal(el)}</aside>
+                            <aside id="post-vote-counter">{calculatePostLikes(el) + modifyLikeTotal(el)}</aside>
+                            {/* <aside id="post-vote-counter">{modifyLikeTotal(el)}</aside> */}
                             <aside id="post-downvote-button" onClick={(e) => {
                                 if (currentUser === -1) {
                                     e.stopPropagation()
