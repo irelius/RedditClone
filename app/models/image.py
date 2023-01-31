@@ -9,7 +9,6 @@ class Image(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     image_url = db.Column(db.String, nullable=True)
-    video_url = db.Column(db.String, nullable=True)
 
     # Many to One Relationships, Unidirection TO Images
     post_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("posts.id")))
