@@ -7,79 +7,183 @@ import { useHistory } from "react-router-dom"
 import * as postActions from "../../../../store/post"
 import * as subredditActions from "../../../../store/subreddit"
 import * as sessionActions from "../../../../store/session"
+import * as likeActions from "../../../../store/like"
+
+import ErrorPage from "../../../ErrorPage";
+import redirectToPostPage from "../../../HelperFunctions/redirectToPostPage";
+import NoPostsToLoadComponent from "../../../NoPostsToLoadComponent";
 
 import calculatePostLikes from "../../../HelperFunctions/calculatePostLikes";
-import TestPage from "../../../TestPage/TestPage";
+import modifyLikeTotal from "../../../HelperFunctions/modifyLikeTotal";
+
 
 const SubredditPagePosts = () => {
     const dispatch = useDispatch()
     const history = useHistory()
 
     const [load, setLoad] = useState(false)
+    const [initialPostLikeStatus, setInitialPostLikeStatus] = useState(false)
+    const [initialPostLikes, setInitialPostLikes] = useState({})
+    const [modifiedPostLikes, setModifiedPostLikes] = useState({})
 
     useEffect(() => {
         const currentSubredditName = window.location.href.split("/")[4]
+        dispatch(sessionActions.loadAllUserThunk())
         dispatch(postActions.loadCurrentSubredditPostsThunk(currentSubredditName))
         dispatch(subredditActions.loadCurrentSubredditThunk(currentSubredditName))
-        dispatch(sessionActions.loadAllUserThunk())
-        setLoad(true)
-        return () => dispatch(postActions.clearPost())
-    }, [dispatch])
+        dispatch(likeActions.loadUserLikesThunk())
 
+        setLoad(true)
+        return () => {
+            dispatch(subredditActions.clearSubreddit())
+            dispatch(postActions.clearPost())
+            dispatch(likeActions.clearLikes())
+        }
+    }, [dispatch])
 
     const currentSubredditPosts = Object.values(useSelector(postActions.loadAllPosts));
     const currentSubreddit = Object.values(useSelector(subredditActions.loadAllSubreddit))
     const allUsers = Object.values(useSelector(sessionActions.loadAllUsers))
+    const currentUserLikes = Object.values(useSelector(likeActions.loadLikes))
 
-    const redirectToPostPage = (post) => {
-        const postId = post.id
-        const subredditName = window.location.href.split("/")[4]
+    // Like/Dislike Handling
+    const initialTempPostsLiked = () => {
+        setInitialPostLikeStatus(true)
 
-        history.push(`/r/${subredditName}/${postId}`)
+        let updateValue = {}
+
+        const allUserLikes = Object.values(currentUserLikes[0]["likes"])
+        const alluserDislikes = Object.values(currentUserLikes[0]["dislikes"])
+
+        allUserLikes.forEach(el => {
+            if (el["post_id"]) {
+                updateValue[el["post_id"]] = el["like_status"]
+            }
+        })
+
+        alluserDislikes.forEach(el => {
+            if (el["post_id"]) {
+                updateValue[el["post_id"]] = el["like_status"]
+            }
+        })
+
+        setInitialPostLikes(initialPostLikes => ({
+            ...initialPostLikes,
+            ...updateValue
+        }))
     }
 
-    const noPostsToLoad = () => {
-        const subredditName = window.location.href.split("/")[4]
+    const likeHandler = (post, postLikeStatus, e) => {
+        e.preventDefault()
+        e.stopPropagation()
 
-        return (
-            <div id="subreddit-no-posts-main-container">
-                <section id="subreddit-no-post-title">
-                    r/{subredditName} doesn't have any posts
-                    <i id="subreddit-no-post-unhappy-face" className="fa-regular fa-face-frown fa-lg" />
-                </section>
-                <section id="subreddit-no-post-body">
-                    Why don't you fix that?
-                    <i id="subreddit-no-post-wink-face" className="fa-regular fa-face-smile-wink fa-lg" />
-                </section>
-            </div>
-        )
+        let likeInfo = {
+            like_status: "like"
+        }
+
+        let updateValue = {}
+
+        if (postLikeStatus === "like") {
+            dispatch(likeActions.deleteLikePostThunk(post["id"]))
+            updateValue[post["id"]] = "neutral"
+        } else {
+            dispatch(likeActions.deleteLikePostThunk(post["id"]))
+            dispatch(likeActions.createLikePostThunk(likeInfo, post["id"]))
+            updateValue[post["id"]] = "like"
+        }
+
+        setModifiedPostLikes(modifiedPostLikes => ({
+            ...modifiedPostLikes,
+            ...updateValue
+        }))
+
     }
 
+    const dislikeHandler = (post, postLikeStatus, e) => {
+        e.preventDefault()
+        e.stopPropagation()
+
+        let likeInfo = {
+            like_status: "dislike"
+        }
+
+        let updateValue = {}
+
+        if (postLikeStatus === "dislike") {
+            dispatch(likeActions.deleteLikePostThunk(post["id"]))
+            updateValue[post["id"]] = "neutral"
+        } else {
+            dispatch(likeActions.deleteLikePostThunk(post["id"]))
+            dispatch(likeActions.createLikePostThunk(likeInfo, post["id"]))
+            updateValue[post["id"]] = "dislike"
+        }
+
+        setModifiedPostLikes(modifiedPostLikes => ({
+            ...modifiedPostLikes,
+            ...updateValue
+        }))
+    }
+    //
 
     const LoadSubredditPagePosts = () => {
         const subredditPostsToLoad = Object.values(currentSubredditPosts[0])
+        const currentUser = allUsers[0]
         const usersToLoad = allUsers[1]
 
+        const postLikesToLoad = {}
+
+        if (!initialPostLikeStatus) {
+            initialTempPostsLiked()
+        }
+
         return (
-            Array.isArray(subredditPostsToLoad) && subredditPostsToLoad.map(el => {
+            Array.isArray(subredditPostsToLoad) && subredditPostsToLoad.map((el, i) => {
                 const posterId = el["user_id"]
                 const posterInfo = usersToLoad[posterId]
+                const subredditName = Object.values(currentSubreddit[0])[0]["name"]
+
+                // figure out like status of each post on the front page
+                let postLikeStatus = "neutral"
+                let postLikes = Object.values(el["likes"])
+                postLikes.forEach(el => {
+                    if (el["user_id"] === currentUser["id"] && el["like_status"] === "like") {
+                        postLikeStatus = "like"
+                        postLikesToLoad[el["id"]] = "like"
+                    }
+                    if (el["user_id"] === currentUser["id"] && el["like_status"] === "dislike") {
+                        postLikeStatus = "dislike"
+                        postLikesToLoad[el["id"]] = "dislike"
+                    }
+                })
+
+                if (modifiedPostLikes[el["id"]]) {
+                    postLikeStatus = modifiedPostLikes[el["id"]]
+                }
 
                 return (
-                    <div onClick={() => redirectToPostPage(el)} id="subreddit-post-main-container">
+                    <div key={i} onClick={(e) => redirectToPostPage(subredditName, el["id"], history, e)} id="subreddit-post-main-container">
                         <aside id="subreddit-post-left-container">
                             <aside id="subreddit-post-upvote-button" onClick={(e) => {
-                                // if (currentUser === -1) {
-                                //     e.stopPropagation()
-                                // } else {
-                                //     likeHandler(el, e)
-                                // }
+                                e.stopPropagation()
+                                if (currentUser === -1) {
+                                    e.stopPropagation()
+                                    // add in sign in modal here
+                                } else {
+                                    likeHandler(el, postLikeStatus, e)
+                                }
                             }}>
-                                <i className="fa-solid fa-up-long fa-lg" />
+                                <i className="fa-solid fa-up-long fa-lg" id={`post-like-status-${postLikeStatus}`}/>
                             </aside>
-                            <aside id="subreddit-post-vote-counter">{calculatePostLikes(el)}</aside>
-                            <aside id="subreddit-post-downvote-button">
-                                <i className="fa-solid fa-down-long fa-lg" />
+                            <aside id="subreddit-post-vote-counter">{calculatePostLikes(el) + modifyLikeTotal(el, initialPostLikes, modifiedPostLikes)}</aside>
+                            <aside id="subreddit-post-downvote-button" onClick={(e) => {
+                                if (currentUser === -1) {
+                                    e.stopPropagation()
+                                    // add in sign in modal here
+                                } else {
+                                    dislikeHandler(el, postLikeStatus, e)
+                                }
+                            }}>
+                                <i className="fa-solid fa-down-long fa-lg" id={`post-dislike-status-${postLikeStatus}`}/>
                             </aside>
                         </aside>
                         <aside id="subreddit-post-right-container">
@@ -122,11 +226,11 @@ const SubredditPagePosts = () => {
         </div>
     ) : currentSubreddit.length === 0 ? (
         <div>
-            {TestPage()}
+            {ErrorPage()}
         </div>
     ) : (
         <div>
-            {noPostsToLoad()}
+            {NoPostsToLoadComponent()}
         </div>
     )
 }

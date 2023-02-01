@@ -14,6 +14,8 @@ import redirectToSubredditPage from "../../HelperFunctions/redirectToSubredditPa
 import redirectToUserPage from "../../HelperFunctions/redirectToUserPage";
 
 import calculatePostLikes from "../../HelperFunctions/calculatePostLikes"
+import modifyLikeTotal from "../../HelperFunctions/modifyLikeTotal";
+
 
 const AllPosts = () => {
     const history = useHistory();
@@ -72,11 +74,6 @@ const AllPosts = () => {
             ...initialPostLikes,
             ...updateValue
         }))
-
-        // setModifiedPostLikes(modifiedPostLikes => ({
-        //     ...modifiedPostLikes,
-        //     ...updateValue
-        // }))
     }
 
     const likeHandler = (post, postLikeStatus, e) => {
@@ -132,33 +129,6 @@ const AllPosts = () => {
     //
 
 
-    // Functions
-    const modifyLikeTotal = (post) => {
-        if(initialPostLikes[post["id"]] === "like" && modifiedPostLikes[post["id"]] === "neutral") {
-            return -1
-        }
-        if(initialPostLikes[post["id"]] === "like" && modifiedPostLikes[post["id"]] === "dislike") {
-            return -2
-        }
-
-        if(initialPostLikes[post["id"]] === "dislike" && modifiedPostLikes[post["id"]] === "neutral") {
-            return 1
-        }
-        if(initialPostLikes[post["id"]] === "dislike" && modifiedPostLikes[post["id"]] === "like") {
-            return 2
-        }
-
-        if(modifiedPostLikes[post["id"]] === "like") {
-            return 1
-        }
-        if(modifiedPostLikes[post["id"]] === "dislike") {
-            return -1
-        }
-
-        return 0
-    }
-    //
-
     // Main Component
     const LoadAllPosts = () => {
         const postsToLoad = Object.values(allPosts[0])
@@ -171,9 +141,6 @@ const AllPosts = () => {
         if (!initialPostLikeStatus) {
             initialTempPostsLiked()
         }
-
-        console.log('booba initialPostLikes', initialPostLikes)
-        console.log('booba modifiedPostLikes', modifiedPostLikes)
 
         return (
             Array.isArray(postsToLoad) && postsToLoad.map((el, i) => {
@@ -216,7 +183,7 @@ const AllPosts = () => {
                             }}>
                                 <i className="fa-solid fa-up-long fa-lg" id={`post-like-status-${postLikeStatus}`} />
                             </aside>
-                            <aside id="post-vote-counter">{calculatePostLikes(el) + modifyLikeTotal(el)}</aside>
+                            <aside id="post-vote-counter">{calculatePostLikes(el) + modifyLikeTotal(el, initialPostLikes, modifiedPostLikes)}</aside>
                             {/* <aside id="post-vote-counter">{modifyLikeTotal(el)}</aside> */}
                             <aside id="post-downvote-button" onClick={(e) => {
                                 if (currentUser === -1) {
@@ -259,11 +226,6 @@ const AllPosts = () => {
                                     ) : (
                                         <div></div>
                                     )}
-                                    {/* {postImage !== null ? */}
-
-                                    {/* <section id="individual-post-image">
-                                        ) : (
-                                        )} */}
                                 </section>
                                 <section id="individual-post-body">
                                     {postBody}
