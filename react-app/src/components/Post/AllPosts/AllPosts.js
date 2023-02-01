@@ -147,6 +147,14 @@ const AllPosts = () => {
         if(initialPostLikes[post["id"]] === "dislike" && modifiedPostLikes[post["id"]] === "like") {
             return 2
         }
+
+        if(modifiedPostLikes[post["id"]] === "like") {
+            return 1
+        }
+        if(modifiedPostLikes[post["id"]] === "dislike") {
+            return -1
+        }
+
         return 0
     }
     //
