@@ -1,10 +1,21 @@
 /* TODO Add site wide styles */
 
 html, body {
+    display: flex;
+    justify-content: center;
+
     margin: 0px;
     padding: 0px;
 
     background-color: #030303;
 
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+body #login-modal-main-container{
+    margin-top: 100px;
+}
+
+body #signup-modal-main-container{
+    margin-top: 100px;
 }

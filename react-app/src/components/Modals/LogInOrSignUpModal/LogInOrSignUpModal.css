@@ -1,0 +1,83 @@
+/* -----------------------------------------------------------------------*/
+/* Subreddit Upvote Before Logging/Signing In Container */
+
+#ask-user-before-voting-main-container {
+    display: flex;
+    flex-direction: column;
+
+    margin-top: 70px;
+
+    width: 400px;
+
+    border-radius: 10px;
+
+    background-color: white;
+}
+
+#ask-user-header-section {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#ask-before-exit-button {
+    margin: 10px;
+
+    border: none;
+
+    color: #878A8C;
+    background-color: inherit;
+}
+
+#ask-before-exit-button:hover {
+    cursor: pointer;
+}
+
+#ask-user-main-section{
+    display: flex;
+    flex-direction: column;
+
+    margin: 50px;
+    margin-top: 15px;
+}
+
+#ask-user-before-voting-signup * {
+    height: 35px;
+    width: 100%;
+
+    border: none;
+    border-radius: 35px;
+
+    color: white;
+    background-color: #D93A00;
+}
+
+#ask-user-before-voting-signup *:hover {
+    cursor: pointer;
+
+    background-color: #DC4A14;
+}
+
+#ask-user-footer-section {
+    display: flex;
+    flex-direction: column;
+
+    margin: 50px;
+    margin-top: 0px;
+}
+
+#ask-user-footer-login-modal * {
+    height: 35px;
+    width: 100%;
+
+    border: none;
+    border-radius: 35px;
+
+    color: white;
+    background-color: #D93A00;
+}
+
+#ask-user-footer-login-modal *:hover {
+    cursor: pointer;
+
+    background-color: #DC4A14;
+}

@@ -180,29 +180,6 @@ export const createLikeCommentThunk = (likeInfo, commentId) => async (dispatch) 
 }
 
 
-// export const updateLikePostThunk = (likeInfo, postId) => async (dispatch) => {
-//     const res = await fetch(`/api/likes/posts/${postId}`, {
-//         method: "PUT",
-//         headers: {
-//             'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify(likeInfo)
-//     })
-
-//     if (res.ok) {
-//         const like = await res.json()
-//         dispatch(putLikesPost(like))
-//         return like
-//     } else if (res.status < 500) {
-//         const data = res.json()
-//         if (data.errors) {
-//             return data.errors
-//         }
-//     }
-
-//     return null
-// }
-
 export const deleteLikePostThunk = (postId) => async (dispatch) => {
     const res = await fetch(`/api/likes/posts/${postId}`, {
         method: "DELETE"

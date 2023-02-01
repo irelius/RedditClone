@@ -37,15 +37,9 @@ const AllPostsPostComponent = (post, usersToLoad, subredditsToLoad) => {
                     {postTitle}
                 </section>
                 <section id="individual-post-image">
-<<<<<<< HEAD
-                    {post["image"] !== null ? (
-                        <img src={`${post["image"]}`}
-                            width={300}
-=======
                     {postImage !== null ? (
                         <img src={`${postImage}`}
                             width={400}
->>>>>>> refactoring-components
                         ></img>
                     ) : (
                         <div></div>

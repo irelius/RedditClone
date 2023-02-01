@@ -3,6 +3,9 @@ import "./OnePost.css"
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom"
+import { Modal } from "../../../context/Modal";
+
+import LogInOrSignUpModal from "../../Modals/LogInOrSignUpModal/LogInOrSignUpModal";
 
 import * as subredditActions from "../../../store/subreddit"
 import * as postActions from "../../../store/post"
@@ -20,6 +23,7 @@ const OnePost = () => {
     const [loadEditPostComponent, setLoadEditPostComponent] = useState(false)
     const [newCommentBody, setNewCommentBody] = useState(null)
     const [loadEditCommentComponent, setLoadEditCommentComponent] = useState(false)
+    const [askUserToLogin, setAskUserToLogin] = useState(false)
 
     const [commentBody, setCommentBody] = useState("")
 
@@ -193,9 +197,6 @@ const OnePost = () => {
 
     // Like/Dislike Handling
     const likeHandler = async (postToLoad, postLikeStatus, e) => {
-        e.preventDefault()
-        e.stopPropagation()
-
         let likeInfo = {
             like_status: "like"
         }
@@ -237,7 +238,6 @@ const OnePost = () => {
 
             setPostLikeStatus('dislike')
         }
-
     }
 
 
@@ -500,8 +500,10 @@ const OnePost = () => {
                     <aside id="post-page-post-main-container">
                         <aside id="post-page-post-left-container">
                             <aside onClick={(e) => {
+                                e.preventDefault()
+                                e.stopPropagation()
                                 if (currentUser === -1) {
-                                    e.stopPropagation()
+                                    setAskUserToLogin(true)
                                 } else {
                                     likeHandler(postToLoad, postLikeStatus, e)
                                 }
@@ -510,8 +512,10 @@ const OnePost = () => {
                             </aside>
                             <aside id="post-vote-counter">{likeTotal}</aside>
                             <aside onClick={(e) => {
+                                e.preventDefault()
+                                e.stopPropagation()
                                 if (currentUser === -1) {
-                                    e.stopPropagation()
+                                    setAskUserToLogin(true)
                                 } else {
                                     dislikeHandler(postToLoad, postLikeStatus)
                                 }
@@ -600,6 +604,11 @@ const OnePost = () => {
 
     return currentPost.length > 0 && currentSubreddit.length > 0 && allUsers.length > 1 && currentPostLikes.length > 0 && load ? (
         <div id="post-page-background-1">
+            {askUserToLogin && (
+                <Modal>
+                    {LogInOrSignUpModal({ setAskUserToLogin })}
+                </Modal>
+            )}
             {LoadOnePost()}
         </div>
     ) : (

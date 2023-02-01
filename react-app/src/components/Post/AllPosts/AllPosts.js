@@ -3,6 +3,7 @@ import "./AllPosts.css"
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom"
+import { Modal } from "../../../context/Modal";
 
 import * as postActions from "../../../store/post"
 import * as subredditActions from "../../../store/subreddit"
@@ -12,17 +13,23 @@ import * as likeActions from "../../../store/like"
 import redirectToPostPage from "../../HelperFunctions/redirectToPostPage";
 import redirectToSubredditPage from "../../HelperFunctions/redirectToSubredditPage";
 import redirectToUserPage from "../../HelperFunctions/redirectToUserPage";
+import LogInOrSignUpModal from "../../Modals/LogInOrSignUpModal/LogInOrSignUpModal";
 
 import calculatePostLikes from "../../HelperFunctions/calculatePostLikes"
+import modifyLikeTotal from "../../HelperFunctions/modifyLikeTotal";
+
 
 const AllPosts = () => {
     const history = useHistory();
     const dispatch = useDispatch();
 
+
     const [load, setLoad] = useState(false)
     const [initialPostLikeStatus, setInitialPostLikeStatus] = useState(false)
     const [initialPostLikes, setInitialPostLikes] = useState({})
     const [modifiedPostLikes, setModifiedPostLikes] = useState({})
+
+    const [askUserToLogin, setAskUserToLogin] = useState(false)
 
     useEffect(() => {
         dispatch(sessionActions.loadAllUserThunk())
@@ -45,44 +52,43 @@ const AllPosts = () => {
     const allUsers = Object.values(useSelector(sessionActions.loadAllUsers))
     const currentUserLikes = Object.values(useSelector(likeActions.loadLikes))
 
-
-
     // Like/Dislike Handling
     const initialTempPostsLiked = () => {
         setInitialPostLikeStatus(true)
 
         let updateValue = {}
 
-        const allUserLikes = Object.values(currentUserLikes[0]["likes"])
-        const alluserDislikes = Object.values(currentUserLikes[0]["dislikes"])
+        let allUserLikes;
+        let allUserDislikes;
 
-        allUserLikes.forEach(el => {
-            if (el["post_id"]) {
-                updateValue[el["post_id"]] = el["like_status"]
-            }
-        })
 
-        alluserDislikes.forEach(el => {
-            if (el["post_id"]) {
-                updateValue[el["post_id"]] = el["like_status"]
-            }
-        })
+        if (currentUserLikes.length > 0) {
+            allUserLikes = Object.values(currentUserLikes[0]["likes"])
+            allUserDislikes = Object.values(currentUserLikes[0]["dislikes"])
+            allUserLikes.forEach(el => {
+                if (el["post_id"]) {
+                    updateValue[el["post_id"]] = el["like_status"]
+                }
+            })
 
-        setInitialPostLikes(initialPostLikes => ({
-            ...initialPostLikes,
-            ...updateValue
-        }))
+            allUserDislikes.forEach(el => {
+                if (el["post_id"]) {
+                    updateValue[el["post_id"]] = el["like_status"]
+                }
+            })
 
-        // setModifiedPostLikes(modifiedPostLikes => ({
-        //     ...modifiedPostLikes,
-        //     ...updateValue
-        // }))
+            setInitialPostLikes(initialPostLikes => ({
+                ...initialPostLikes,
+                ...updateValue
+            }))
+        } else {
+            allUserDislikes = null;
+            allUserLikes = null;
+        }
+
     }
 
     const likeHandler = (post, postLikeStatus, e) => {
-        e.preventDefault()
-        e.stopPropagation()
-
         let likeInfo = {
             like_status: "like"
         }
@@ -106,9 +112,6 @@ const AllPosts = () => {
     }
 
     const dislikeHandler = (post, postLikeStatus, e) => {
-        e.preventDefault()
-        e.stopPropagation()
-
         let likeInfo = {
             like_status: "dislike"
         }
@@ -132,25 +135,6 @@ const AllPosts = () => {
     //
 
 
-    // Functions
-    const modifyLikeTotal = (post) => {
-        if(initialPostLikes[post["id"]] === "like" && modifiedPostLikes[post["id"]] === "neutral") {
-            return -1
-        }
-        if(initialPostLikes[post["id"]] === "like" && modifiedPostLikes[post["id"]] === "dislike") {
-            return -2
-        }
-
-        if(initialPostLikes[post["id"]] === "dislike" && modifiedPostLikes[post["id"]] === "neutral") {
-            return 1
-        }
-        if(initialPostLikes[post["id"]] === "dislike" && modifiedPostLikes[post["id"]] === "like") {
-            return 2
-        }
-        return 0
-    }
-    //
-
     // Main Component
     const LoadAllPosts = () => {
         const postsToLoad = Object.values(allPosts[0])
@@ -163,9 +147,6 @@ const AllPosts = () => {
         if (!initialPostLikeStatus) {
             initialTempPostsLiked()
         }
-
-        console.log('booba initialPostLikes', initialPostLikes)
-        console.log('booba modifiedPostLikes', modifiedPostLikes)
 
         return (
             Array.isArray(postsToLoad) && postsToLoad.map((el, i) => {
@@ -199,21 +180,23 @@ const AllPosts = () => {
                     <div key={i} id="all-posts-main-container" onClick={(e) => redirectToPostPage(subredditInfo["name"], el["id"], history, e)}>
                         <aside id="all-posts-left-section">
                             <aside id="post-upvote-button" onClick={(e) => {
+                                e.stopPropagation()
+                                e.preventDefault()
                                 if (currentUser === -1) {
-                                    e.stopPropagation()
-                                    // add in sign in modal here
+                                    setAskUserToLogin(true)
                                 } else {
                                     likeHandler(el, postLikeStatus, e)
                                 }
                             }}>
                                 <i className="fa-solid fa-up-long fa-lg" id={`post-like-status-${postLikeStatus}`} />
                             </aside>
-                            <aside id="post-vote-counter">{calculatePostLikes(el) + modifyLikeTotal(el)}</aside>
+                            <aside id="post-vote-counter">{calculatePostLikes(el) + modifyLikeTotal(el, initialPostLikes, modifiedPostLikes)}</aside>
                             {/* <aside id="post-vote-counter">{modifyLikeTotal(el)}</aside> */}
                             <aside id="post-downvote-button" onClick={(e) => {
+                                e.stopPropagation()
+                                e.preventDefault()
                                 if (currentUser === -1) {
-                                    e.stopPropagation()
-                                    // add in sign in modal here
+                                    setAskUserToLogin(true)
                                 } else {
                                     dislikeHandler(el, postLikeStatus, e)
                                 }
@@ -251,11 +234,6 @@ const AllPosts = () => {
                                     ) : (
                                         <div></div>
                                     )}
-                                    {/* {postImage !== null ? */}
-
-                                    {/* <section id="individual-post-image">
-                                        ) : (
-                                        )} */}
                                 </section>
                                 <section id="individual-post-body">
                                     {postBody}
@@ -281,8 +259,13 @@ const AllPosts = () => {
         )
     }
 
-    return allPosts.length > 0 && allUsers.length > 1 && allSubreddits.length > 0 && currentUserLikes.length > 0 && load ? (
+    return allPosts.length > 0 && allUsers.length > 1 && allSubreddits.length > 0 && load ? (
         <div>
+            {askUserToLogin && (
+                <Modal>
+                    {LogInOrSignUpModal({ setAskUserToLogin })}
+                </Modal>
+            )}
             {LoadAllPosts()}
         </div>
     ) : (

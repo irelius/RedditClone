@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
 import NavBarProfileMenu from "./NavBarComponents/NavBarProfileMenu/NavBarProfileMenu";
-import LoginFormModal from "../Modals/LoginFormModal";
+import LoginModal from "../Modals/LoginModal";
 import SignUpFormModal from "../Modals/SignUpModal";
 
 const NavBar = () => {
@@ -55,7 +55,7 @@ const NavBar = () => {
             <SignUpFormModal />
           </aside>
           <aside id="navbar-right-button-login">
-            <LoginFormModal />
+            <LoginModal />
           </aside>
         </div>
       )}
