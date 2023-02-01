@@ -2,31 +2,31 @@ from app.models import db, Subreddit, environment, SCHEMA
 import os
 
 def seed_subreddits():
-    subreddit_one = Subreddit(
-        name = "Subreddit_1",
+    subreaddit_one = Subreddit(
+        name = "Subreaddit1",
         description = "Subreddit 1 description",
         admin_id = 1
     )
-    subreddit_two = Subreddit(
-        name = "Subreddit_2",
+    subreaddit_two = Subreddit(
+        name = "Subreaddit2",
         admin_id = 1,
         description = "Subreddit 2 description"
     )
-    subreddit_three = Subreddit(
-        name = "Subreddit_3",
+    subreaddit_three = Subreddit(
+        name = "Subreaddit3",
         admin_id = 5,
         description = "Subreddit 3 description"
     )
-    subreddit_four = Subreddit(
-        name = "Subreddit_4",
+    subreaddit_four = Subreddit(
+        name = "Subreaddit4",
         admin_id = 5,
         description = "Subreddit 4 description"
     )
 
-    db.session.add(subreddit_one)
-    db.session.add(subreddit_two)
-    db.session.add(subreddit_three)
-    db.session.add(subreddit_four)
+    db.session.add(subreaddit_one)
+    db.session.add(subreaddit_two)
+    db.session.add(subreaddit_three)
+    db.session.add(subreaddit_four)
 
     db.session.commit()
 

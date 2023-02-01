@@ -3,12 +3,14 @@ import "./SubredditPagePosts.css"
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom"
+import { Modal } from "../../../../context/Modal";
 
 import * as postActions from "../../../../store/post"
 import * as subredditActions from "../../../../store/subreddit"
 import * as sessionActions from "../../../../store/session"
 import * as likeActions from "../../../../store/like"
 
+import LogInOrSignUpModal from "../../../Modals/LogInOrSignUpModal/LogInOrSignUpModal";
 import ErrorPage from "../../../ErrorPage";
 import redirectToPostPage from "../../../HelperFunctions/redirectToPostPage";
 import NoPostsToLoadComponent from "../../../NoPostsToLoadComponent";
@@ -26,14 +28,17 @@ const SubredditPagePosts = () => {
     const [initialPostLikes, setInitialPostLikes] = useState({})
     const [modifiedPostLikes, setModifiedPostLikes] = useState({})
 
+    const [askUserToLogin, setAskUserToLogin] = useState(false)
+
     useEffect(() => {
         const currentSubredditName = window.location.href.split("/")[4]
         dispatch(sessionActions.loadAllUserThunk())
-        dispatch(postActions.loadCurrentSubredditPostsThunk(currentSubredditName))
         dispatch(subredditActions.loadCurrentSubredditThunk(currentSubredditName))
+        dispatch(postActions.loadCurrentSubredditPostsThunk(currentSubredditName))
         dispatch(likeActions.loadUserLikesThunk())
 
         setLoad(true)
+
         return () => {
             dispatch(subredditActions.clearSubreddit())
             dispatch(postActions.clearPost())
@@ -52,31 +57,36 @@ const SubredditPagePosts = () => {
 
         let updateValue = {}
 
-        const allUserLikes = Object.values(currentUserLikes[0]["likes"])
-        const alluserDislikes = Object.values(currentUserLikes[0]["dislikes"])
+        let allUserDislikes;
+        let allUserLikes;
 
-        allUserLikes.forEach(el => {
-            if (el["post_id"]) {
-                updateValue[el["post_id"]] = el["like_status"]
-            }
-        })
+        if (currentUserLikes.length > 0) {
+            allUserLikes = Object.values(currentUserLikes[0]["likes"])
+            allUserDislikes = Object.values(currentUserLikes[0]["dislikes"])
+            allUserLikes.forEach(el => {
+                if (el["post_id"]) {
+                    updateValue[el["post_id"]] = el["like_status"]
+                }
+            })
 
-        alluserDislikes.forEach(el => {
-            if (el["post_id"]) {
-                updateValue[el["post_id"]] = el["like_status"]
-            }
-        })
+            allUserDislikes.forEach(el => {
+                if (el["post_id"]) {
+                    updateValue[el["post_id"]] = el["like_status"]
+                }
+            })
+            setInitialPostLikes(initialPostLikes => ({
+                ...initialPostLikes,
+                ...updateValue
+            }))
+        } else {
+            allUserDislikes = null;
+            allUserLikes = null;
+        }
 
-        setInitialPostLikes(initialPostLikes => ({
-            ...initialPostLikes,
-            ...updateValue
-        }))
+
     }
 
     const likeHandler = (post, postLikeStatus, e) => {
-        e.preventDefault()
-        e.stopPropagation()
-
         let likeInfo = {
             like_status: "like"
         }
@@ -100,9 +110,6 @@ const SubredditPagePosts = () => {
     }
 
     const dislikeHandler = (post, postLikeStatus, e) => {
-        e.preventDefault()
-        e.stopPropagation()
-
         let likeInfo = {
             like_status: "dislike"
         }
@@ -125,10 +132,12 @@ const SubredditPagePosts = () => {
     }
     //
 
+
+    // Main Component
     const LoadSubredditPagePosts = () => {
         const subredditPostsToLoad = Object.values(currentSubredditPosts[0])
-        const currentUser = allUsers[0]
         const usersToLoad = allUsers[1]
+        const currentUser = allUsers[0] || -1
 
         const postLikesToLoad = {}
 
@@ -165,27 +174,28 @@ const SubredditPagePosts = () => {
                         <aside id="subreddit-post-left-container">
                             <aside id="subreddit-post-upvote-button" onClick={(e) => {
                                 e.stopPropagation()
+                                e.preventDefault()
                                 if (currentUser === -1) {
-                                    e.stopPropagation()
-                                    // add in sign in modal here
+                                    setAskUserToLogin(true)
                                 } else {
                                     likeHandler(el, postLikeStatus, e)
                                 }
                             }}>
-                                <i className="fa-solid fa-up-long fa-lg" id={`post-like-status-${postLikeStatus}`}/>
+                                <i className="fa-solid fa-up-long fa-lg" id={`post-like-status-${postLikeStatus}`} />
                             </aside>
                             <aside id="subreddit-post-vote-counter">{calculatePostLikes(el) + modifyLikeTotal(el, initialPostLikes, modifiedPostLikes)}</aside>
                             <aside id="subreddit-post-downvote-button" onClick={(e) => {
+                                e.stopPropagation()
+                                e.preventDefault()
                                 if (currentUser === -1) {
-                                    e.stopPropagation()
-                                    // add in sign in modal here
+                                    setAskUserToLogin(true)
                                 } else {
                                     dislikeHandler(el, postLikeStatus, e)
                                 }
                             }}>
-                                <i className="fa-solid fa-down-long fa-lg" id={`post-dislike-status-${postLikeStatus}`}/>
+                                <i className="fa-solid fa-down-long fa-lg" id={`post-dislike-status-${postLikeStatus}`} />
                             </aside>
-                        </aside>
+                        </aside >
                         <aside id="subreddit-post-right-container">
                             <section id="subreddit-post-header-container">
                                 Posted by
@@ -214,7 +224,7 @@ const SubredditPagePosts = () => {
                                 </aside>
                             </section>
                         </aside>
-                    </div>
+                    </div >
                 )
             })
         )
@@ -222,6 +232,11 @@ const SubredditPagePosts = () => {
 
     return currentSubredditPosts.length > 0 && allUsers.length > 1 && load ? (
         <div>
+            {askUserToLogin && (
+                <Modal>
+                    {LogInOrSignUpModal({setAskUserToLogin})}
+                </Modal>
+            )}
             {LoadSubredditPagePosts()}
         </div>
     ) : currentSubreddit.length === 0 ? (

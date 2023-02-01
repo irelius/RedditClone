@@ -23,9 +23,7 @@ ___
    1. Run `pipenv install` in the `RedditClone` directory
    2. Switch to the `react-app` directory and run `npm install`
    3. Run `pipenv shell` to start the virtual environment
-2. Run the following command in your terminal to run the migration and seeder files within the `RedditClone` directory
-   1. `flask db init && flask db migrate && flask db upgrade && flask seed all`
-3. Run the following commands to create start a local session
+2. Run the following commands to create start a local session
    1. In the `RedditClone` directory, run `flask run`
    2. In the `react-app` directory, run `npm start`
 
