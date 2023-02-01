@@ -2,7 +2,7 @@ import "./SubredditCreateForm.css"
 
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { useHistory } from "react-router-dom"
+import { NavLink, Redirect, useHistory } from "react-router-dom"
 import * as subredditActions from "../../../store/subreddit"
 
 
@@ -37,7 +37,9 @@ const SubredditCreateForm = ({ setShowCreateSubredditModal, setShowProfileMenu }
         if (data === null) {
             setShowCreateSubredditModal(false)
             setShowProfileMenu(false)
-            return history.push(`/r/${prepSubredditName}`)
+            console.log('booba', prepSubredditName)
+            history.push(`/r/${prepSubredditName}`)
+            window.location.reload()
         }
     }
 
