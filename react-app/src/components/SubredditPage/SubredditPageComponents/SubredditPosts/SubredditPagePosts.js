@@ -150,6 +150,7 @@ const SubredditPagePosts = () => {
                 const posterId = el["user_id"]
                 const posterInfo = usersToLoad[posterId]
                 const subredditName = Object.values(currentSubreddit[0])[0]["name"]
+                const postImage = Object.values(el["images"])
 
                 // figure out like status of each post on the front page
                 let postLikeStatus = "neutral"
@@ -168,6 +169,8 @@ const SubredditPagePosts = () => {
                 if (modifiedPostLikes[el["id"]]) {
                     postLikeStatus = modifiedPostLikes[el["id"]]
                 }
+
+                console.log('booba', el)
 
                 return (
                     <div key={i} onClick={(e) => redirectToPostPage(subredditName, el["id"], history, e)} id="subreddit-post-main-container">
@@ -209,6 +212,15 @@ const SubredditPagePosts = () => {
                                 <section id="subreddit-post-title">
                                     {el.title}
                                 </section>
+                                {postImage.length > 0 ? (
+                                    <section id="individual-post-image">
+                                        <img src={`${postImage[0]["image_url"]}`}
+                                            width={400}
+                                        ></img>
+                                    </section>
+                                ) : (
+                                    <div></div>
+                                )}
                                 <section id="subreddit-post-body">
                                     {el.body}
                                 </section>
@@ -234,7 +246,7 @@ const SubredditPagePosts = () => {
         <div>
             {askUserToLogin && (
                 <Modal>
-                    {LogInOrSignUpModal({setAskUserToLogin})}
+                    {LogInOrSignUpModal({ setAskUserToLogin })}
                 </Modal>
             )}
             {LoadSubredditPagePosts()}
