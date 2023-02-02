@@ -190,7 +190,7 @@ const commentReducer = (state = initialState, action) => {
                 })
                 return allComments
             }
-
+            /* falls through */
 
         case CREATE_COMMENT:
             return newState

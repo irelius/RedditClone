@@ -193,9 +193,7 @@ const postReducer = (state = initialState, action) => {
                 })
                 return allPosts
             }
-
-
-        // return Object.assign({}, newState, action.posts);
+            /* falls through */
 
         case CREATE_POST:
             return newState

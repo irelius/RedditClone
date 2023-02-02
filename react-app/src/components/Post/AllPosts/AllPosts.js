@@ -232,6 +232,7 @@ const AllPosts = () => {
                                         <section id="individual-post-image">
                                             <img src={`${postImage[0]["image_url"]}`}
                                                 width={400}
+                                                alt="individual-post-on-main-page"
                                             ></img>
                                         </section>
                                     ) : (

@@ -1,9 +1,5 @@
 import "./LandingPage.css"
 
-import LPLoggedIn from "./LPLoggedIn";
-import LPNotLoggedIn from "./LPNotLoggedIn/LPNotLoggedIn";
-import { useSelector } from "react-redux";
-
 import AllPosts from "../Post/AllPosts/AllPosts";
 import SubredditsBar from "../SubredditsBar/SubredditsBar";
 

@@ -2,7 +2,7 @@ import "./SubredditCreateForm.css"
 
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { NavLink, Redirect, useHistory } from "react-router-dom"
+import { useHistory } from "react-router-dom"
 import * as subredditActions from "../../../store/subreddit"
 
 

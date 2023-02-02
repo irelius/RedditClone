@@ -18,7 +18,8 @@ const CreatePostPage = () => {
     const [postBody, setPostBody] = useState("")
     const [postImage, setPostImage] = useState(null)
     const [uploadImage, setUploadImage] = useState(false)
-    const [postVideo, setPostVideo] = useState(null)
+    // const [postVideo, setPostVideo] = useState(null)
+    // const [uploadVideo, setUploadVideo] = useState(false)
 
 
     useEffect(() => {
@@ -47,7 +48,7 @@ const CreatePostPage = () => {
 
         const data = await dispatch(postActions.createPostThunk(postInfo))
         if (data["id"]) {
-            const res = await fetch(`/api/images/new/${data["id"]}`, {
+            await fetch(`/api/images/new/${data["id"]}`, {
                 method: "POST",
                 body: formData,
             });

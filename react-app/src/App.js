@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { Router } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { authenticate } from './store/session';
 
@@ -15,7 +14,7 @@ import CreatePostPage from './components/CreatePostPage';
 import OnePost from './components/Post/OnePost';
 import ErrorPage from './components/ErrorPage';
 
-import TestPage from './components/TestPage/TestPage';
+// import TestPage from './components/TestPage/TestPage';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -57,9 +56,9 @@ function App() {
         <Route path="/r/:subreddit_name" exact={true}>
           <SubredditPage />
         </Route>
-        <Route path="/test">
+        {/* <Route path="/test">
           <TestPage />
-        </Route>
+        </Route> */}
         <Route path="">
           <ErrorPage />
         </Route>

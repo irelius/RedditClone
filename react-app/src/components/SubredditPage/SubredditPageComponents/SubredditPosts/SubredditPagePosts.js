@@ -219,6 +219,7 @@ const SubredditPagePosts = () => {
                                     <section id="individual-post-image">
                                         <img src={`${postImage[0]["image_url"]}`}
                                             width={400}
+                                            alt="subreaddit-page-posts"
                                         ></img>
                                     </section>
                                 ) : (
