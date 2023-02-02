@@ -3,22 +3,22 @@ import os
 
 def seed_subreddits():
     subreaddit_one = Subreddit(
-        name = "Subreaddit1",
+        name = "Subreaddit_1",
         description = "Subreddit 1 description",
         admin_id = 1
     )
     subreaddit_two = Subreddit(
-        name = "Subreaddit2",
+        name = "Subreaddit_2",
         admin_id = 1,
         description = "Subreddit 2 description"
     )
     subreaddit_three = Subreddit(
-        name = "Subreaddit3",
+        name = "Subreaddit_3",
         admin_id = 5,
         description = "Subreddit 3 description"
     )
     subreaddit_four = Subreddit(
-        name = "Subreaddit4",
+        name = "Subreaddit_4",
         admin_id = 5,
         description = "Subreddit 4 description"
     )

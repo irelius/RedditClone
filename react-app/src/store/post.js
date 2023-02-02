@@ -150,12 +150,14 @@ export const putPostThunk = (postInfo, post) => async (dispatch) => {
 
 // Thunk action to delete a post
 export const deletePostThunk = (post) => async (dispatch) => {
-    const res = await fetch(`/api/posts/${post.id}`, {
+    const postId = Object.values(post)[0]["id"]
+
+    const res = await fetch(`/api/posts/${postId}`, {
         method: "DELETE"
     })
 
     if (res.ok) {
-        dispatch(deletePost(post.id))
+        dispatch(deletePost(postId))
     }
 
     return null;

@@ -247,9 +247,9 @@ const AllPosts = () => {
                                             Comments
                                         </aside>
                                     </aside>
-                                    <aside id="individual-post-footer-dots-container">
+                                    {/* <aside id="individual-post-footer-dots-container">
                                         <i id="individual-post-footer-dots-icon" className="fa-solid fa-ellipsis" />
-                                    </aside>
+                                    </aside> */}
                                 </section>
                             </aside>
                         </aside>
