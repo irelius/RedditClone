@@ -97,7 +97,7 @@ export const loadPostCommentsThunk = (postId) => async (dispatch) => {
         dispatch(loadComments(comments))
         return comments
     } else {
-        return {"comments": "no comments"}
+        return "test"
     }
 }
 
@@ -181,13 +181,16 @@ const commentReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_COMMENTS:
             const allComments = { "comments": {} }
-            const commentsArray = Object.values(action.comments.comments)
 
-            commentsArray.forEach(el => {
-                allComments["comments"][el.id] = el
-            })
+            if(action.comments.comments === "No comments") {
+            } else {
+                const commentsArray = Object.values(action.comments.comments)
+                commentsArray.forEach(el => {
+                    allComments["comments"][el.id] = el
+                })
+                return allComments
+            }
 
-            return allComments
 
         case CREATE_COMMENT:
             return newState

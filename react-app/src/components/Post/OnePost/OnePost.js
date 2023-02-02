@@ -54,8 +54,6 @@ const OnePost = () => {
     const currentSubreddit = Object.values(useSelector(subredditActions.loadAllSubreddit))
     const currentComments = Object.values(useSelector(commentActions.loadAllComments))
 
-    // console.log('booba', useSelector(commentActions.loadAllComments))
-
     const allUsers = Object.values(useSelector(state => state.session))
 
     useEffect(() => {
@@ -344,8 +342,10 @@ const OnePost = () => {
     const loadComments = (currentUser) => {
         if (currentComments.length > 0) {
             const commentsToLoad = Object.values(currentComments[0])
+
             return (
                 Array.isArray(commentsToLoad) && commentsToLoad.map((el, i) => {
+
                     let commentPoster = allUsers[1][el["user_id"]]
                     let commentDate = el["created_at"].split(" ")
                     commentDate = commentDate[2] + " " + commentDate[1] + ", " + commentDate[3]
@@ -480,8 +480,9 @@ const OnePost = () => {
 
     // Main Component
     const LoadOnePost = () => {
-        const postToLoad = currentPost[0]
+        const postToLoad = Object.values(currentPost[0])[0]
         const postImage = Object.values(postToLoad["images"])
+
 
         const userToLoad = allUsers[1][postToLoad["user_id"]]
         const currentUser = allUsers[0] || -1

@@ -11,7 +11,7 @@ comment_routes = Blueprint("comments", __name__)
 def return_comments(comments):
     if len(comments) > 0:
         return {"comments": {comment.id: comment.to_dict() for comment in comments}}
-    return {"comments": "No comments"}, 404
+    return {"comments": "No comments"}
 
 
 # Validation error function

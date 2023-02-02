@@ -13,7 +13,7 @@ post_routes = Blueprint("posts", __name__)
 def return_posts(posts):
     if len(posts) > 0:
         return {"posts": {post.id: post.to_dict() for post in posts}}
-    return {"posts": "No posts"}, 404
+    return {"posts": "No posts"}
 
 #Validation error function
 def validation_error_message(validation_errors):

@@ -60,9 +60,9 @@ export const loadPostThunk = (postId) => async (dispatch) => {
     const res = await fetch(`/api/posts/${postId}`)
 
     if (res.ok) {
-        const post = await res.json();
-        dispatch(loadPost(post))
-        return post
+        const posts = await res.json();
+        dispatch(loadPosts(posts))
+        return posts
     }
 }
 
@@ -176,17 +176,22 @@ const postReducer = (state = initialState, action) => {
     const newState = { ...state };
 
     switch (action.type) {
-        case LOAD_POST:
-            return Object.assign({}, newState, action.post.posts);
+        // case LOAD_POST:
+        //     return Object.assign({}, newState, action.post.posts);
         case LOAD_POSTS:
             const allPosts = { "posts": {} };
-            const postsArray = Object.values(action.posts.posts)
 
-            postsArray.forEach(el => {
-                allPosts["posts"][el.id] = el
-            })
+            if(action.posts.posts === "No posts") {
 
-            return allPosts
+            } else {
+                const postsArray = Object.values(action.posts.posts)
+
+                postsArray.forEach(el => {
+                    allPosts["posts"][el.id] = el
+                })
+                return allPosts
+            }
+
 
         // return Object.assign({}, newState, action.posts);
 
