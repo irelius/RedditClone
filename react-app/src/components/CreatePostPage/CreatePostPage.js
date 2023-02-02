@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import * as subredditActions from "../../store/subreddit"
 import * as postActions from "../../store/post"
 
+import redirectToSubredditPage from "../HelperFunctions/redirectToSubredditPage"
+
 const CreatePostPage = () => {
     const dispatch = useDispatch()
     const history = useHistory()
@@ -13,9 +15,11 @@ const CreatePostPage = () => {
     const [load, setLoad] = useState(false)
     const [errors, setErrors] = useState([])
     const [postTitle, setPostTitle] = useState("")
-    const [postBody, setPostBody] = useState(null)
+    const [postBody, setPostBody] = useState("")
     const [postImage, setPostImage] = useState(null)
+    const [uploadImage, setUploadImage] = useState(false)
     const [postVideo, setPostVideo] = useState(null)
+
 
     useEffect(() => {
         const currentSubredditName = window.location.href.split("/")[4]
@@ -36,17 +40,27 @@ const CreatePostPage = () => {
             subreddit_id: currentSubredditInfo.id,
             title: postTitle,
             body: postBody,
-            image: postImage,
-            video: postVideo
         }
+
+        const formData = new FormData()
+        formData.append('image', postImage);
 
         const data = await dispatch(postActions.createPostThunk(postInfo))
         if (data["id"]) {
+            const res = await fetch(`/api/images/new/${data["id"]}`, {
+                method: "POST",
+                body: formData,
+            });
+
             return history.push(`/r/${currentSubredditInfo.name}`)
         } else {
             setErrors(data)
         }
+    }
 
+    const updateImage = (e) => {
+        const file = e.target.files[0]
+        setPostImage(file)
     }
 
 
@@ -87,6 +101,17 @@ const CreatePostPage = () => {
                                     value={postBody}
                                     onChange={(e) => setPostBody(e.target.value)}
                                 />
+                                {uploadImage ? (
+                                    <section id="create-post-form-image-upload-container">
+                                        <input
+                                            type="file"
+                                            accept="image/*"
+                                            onChange={updateImage}
+                                        ></input>
+                                    </section>
+                                ) : (
+                                    <div className="nothing"></div>
+                                )}
                             </section>
                             <section id="create-post-form-button-container">
                                 <aside id="create-post-error-container">
@@ -94,6 +119,13 @@ const CreatePostPage = () => {
                                         <div key={ind}>{error}</div>
                                     ))}
                                 </aside>
+                                <button onClick={(e) => {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    setUploadImage(true)
+                                }} id="create-post-upload-image">
+                                    Upload Image
+                                </button>
                                 <button type="submit" id="create-post-form-button">
                                     Post
                                 </button>
@@ -101,7 +133,7 @@ const CreatePostPage = () => {
                         </form>
                     </section>
                 </aside>
-                <aside id="create-post-bar-main-container">
+                <aside onClick={(e) => redirectToSubredditPage(currentSubredditInfo["name"], history, e)} id="create-post-bar-main-container">
                     <section id="create-post-bar-banner">
                     </section>
                     <section id="create-post-bar-header-container">
@@ -120,9 +152,8 @@ const CreatePostPage = () => {
                             Created {subredditDate}
                         </section>
                     </section>
-                    {/* TO DO: details about the subreddit
-                    <section >
-
+                    {/* TO DO: details about the subreddit like member count? */}
+                    {/* <section >
                     </section> */}
                 </aside>
             </div>

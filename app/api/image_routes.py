@@ -11,7 +11,7 @@ image_routes = Blueprint("images", __name__)
 # Return images based on length
 def return_images(images):
     if len(images) > 0:
-        return {"images": {image.id: image.to_dict() for image in images}}
+        return {"images": {image.post_id: image.to_dict() for image in images}}
     return {"images": "No images"}, 404
 
 #Validation error function
@@ -32,7 +32,7 @@ def images_all():
     return return_images(images)
 
 
-@image_routes.route("/<int:post_id>", methods=["POST"])
+@image_routes.route("/new/<int:post_id>", methods=["POST"])
 @login_required
 def images_upload(post_id):
     if "image" not in request.files:
@@ -47,6 +47,9 @@ def images_upload(post_id):
 
     upload = upload_file_to_s3(image)
 
+    # This funciton is properly uploading to aws and is getting a url back, just need to create a new Image
+    # entry in the session database with that url.
+
     if "url" not in upload:
         # if the dictionary doesn't have a url key
         # it means that there was an error when we tried to upload
@@ -55,7 +58,11 @@ def images_upload(post_id):
 
     url = upload["url"]
     # flask_login allows us to get the current user from the request
+
     new_image = Image(post_id=post_id, image_url=url)
+
     db.session.add(new_image)
     db.session.commit()
+
+
     return {"url": url}

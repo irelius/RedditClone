@@ -225,6 +225,9 @@ const AllPosts = () => {
                                     <section id="individual-post-title">
                                         {postTitle}
                                     </section>
+                                    <section id="individual-post-body">
+                                        {postBody}
+                                    </section>
                                     {postImage.length > 0 ? (
                                         <section id="individual-post-image">
                                             <img src={`${postImage[0]["image_url"]}`}
@@ -232,11 +235,8 @@ const AllPosts = () => {
                                             ></img>
                                         </section>
                                     ) : (
-                                        <div></div>
+                                        <div className="nothing"></div>
                                     )}
-                                </section>
-                                <section id="individual-post-body">
-                                    {postBody}
                                 </section>
                                 <section id="individual-post-footer-container">
                                     <aside id="individual-post-footer-comments-container">

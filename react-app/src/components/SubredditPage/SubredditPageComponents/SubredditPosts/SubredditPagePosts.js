@@ -170,8 +170,6 @@ const SubredditPagePosts = () => {
                     postLikeStatus = modifiedPostLikes[el["id"]]
                 }
 
-                console.log('booba', el)
-
                 return (
                     <div key={i} onClick={(e) => redirectToPostPage(subredditName, el["id"], history, e)} id="subreddit-post-main-container">
                         <aside id="subreddit-post-left-container">
@@ -212,6 +210,9 @@ const SubredditPagePosts = () => {
                                 <section id="subreddit-post-title">
                                     {el.title}
                                 </section>
+                                <section id="subreddit-post-body">
+                                    {el.body}
+                                </section>
                                 {postImage.length > 0 ? (
                                     <section id="individual-post-image">
                                         <img src={`${postImage[0]["image_url"]}`}
@@ -219,11 +220,8 @@ const SubredditPagePosts = () => {
                                         ></img>
                                     </section>
                                 ) : (
-                                    <div></div>
+                                    null
                                 )}
-                                <section id="subreddit-post-body">
-                                    {el.body}
-                                </section>
                             </section>
                             <section id="subreddit-post-footer-container">
                                 <aside id="subreddit-post-footer-comments">

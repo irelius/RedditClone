@@ -9,13 +9,12 @@ import { useHistory, useParams } from "react-router-dom"
 // import * as likeActions from "../../store/like"
 
 const TestPage = () => {
-      return (
+    return (
         <div id="test-page-main-container">
-            hello
-
-
+            test
         </div>
     )
+
 }
 
 export default TestPage

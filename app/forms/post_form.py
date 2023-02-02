@@ -15,5 +15,5 @@ def check_title_length(form, field):
 class PostForm(FlaskForm):
     title = StringField("title", validators=[DataRequired(), check_title_length])
     body = StringField("body")
-    image = StringField("image")
-    video = StringField("video")
+    # image = StringField("image")
+    # video = StringField("video")

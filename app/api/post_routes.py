@@ -2,6 +2,8 @@ from flask import Blueprint, request
 from flask_login import current_user, login_required
 from app.models import db, Post, Subreddit, User
 from app.forms import PostForm
+from app.aws import (
+    upload_file_to_s3, allowed_file, get_unique_filename)
 
 post_routes = Blueprint("posts", __name__)
 
@@ -40,7 +42,7 @@ def posts_specific(post_id):
 
 
 # Get posts made by current user
-@post_routes.route("/current")
+@post_routes.route("/users/current")
 @login_required
 def posts_by_current_user():
     current_user_id = int(current_user.get_id())
@@ -97,8 +99,8 @@ def posts_create_new(subreddit_id):
             subreddit_id = subreddit_id,
             title = form.data["title"],
             body = form.data["body"],
-            image = form.data["image"],
-            video = form.data["video"],
+            # image = form.data["image"],
+            # video = form.data["video"],
         )
 
         # TO DO: by default, creator of a post or comment auto likes their own post/comment

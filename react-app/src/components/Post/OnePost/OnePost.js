@@ -540,15 +540,6 @@ const OnePost = () => {
                                     {postToLoad.title}
                                 </section>
                             </section>
-                            <section id="post-page-post-image-container">
-                                {postImage.length > 0 ? (
-                                    <img src={`${postImage["0"]["image_url"]}`}
-                                        width={650}
-                                    ></img>
-                                ) : (
-                                    <div></div>
-                                )}
-                            </section>
                             <section id="post-page-post-body-container">
                                 {loadEditPostComponent ? (
                                     <section>
@@ -558,6 +549,15 @@ const OnePost = () => {
                                     <section id="post-page-post-body">
                                         {postToLoad.body}
                                     </section>
+                                )}
+                            </section>
+                            <section id="post-page-post-image-container">
+                                {postImage.length > 0 ? (
+                                    <img src={`${postImage["0"]["image_url"]}`}
+                                        width={650}
+                                    ></img>
+                                ) : (
+                                    <div></div>
                                 )}
                             </section>
                             <section>

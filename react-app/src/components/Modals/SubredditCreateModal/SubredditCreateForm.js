@@ -37,7 +37,6 @@ const SubredditCreateForm = ({ setShowCreateSubredditModal, setShowProfileMenu }
         if (data === null) {
             setShowCreateSubredditModal(false)
             setShowProfileMenu(false)
-            console.log('booba', prepSubredditName)
             history.push(`/r/${prepSubredditName}`)
             window.location.reload()
         }

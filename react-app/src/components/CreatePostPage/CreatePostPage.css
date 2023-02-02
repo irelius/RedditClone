@@ -31,6 +31,13 @@
 
 
 /* -----------------------------------------------------------------------*/
+/* Create Post Form Container */
+
+#create-post-form-container {
+}
+
+
+/* -----------------------------------------------------------------------*/
 /* Create Post Header Container */
 
 #create-post-header {
@@ -101,12 +108,18 @@
 
 #create-post-form-body-container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
 
     margin: 10px;
     padding-bottom: 20px;
 
     border-bottom: 1px solid #343536;
+    border-bottom: 5px solid orange;
+}
+
+#create-post-form-image-upload-container {
+    margin-top: 15px;
 }
 
 #create-post-form-body {
@@ -130,6 +143,28 @@
     border: 1px solid white;
 }
 
+
+/* -----------------------------------------------------------------------*/
+/* Create Post Upload Image Container */
+
+#create-post-upload-image {
+    height: 35px;
+    width: 120px;
+
+    margin-right: 20px;
+
+    border: 1px solid white;
+    border-radius: 35px;
+
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    background-color: black;
+}
+
+#create-post-upload-image:hover {
+    cursor: pointer;
+}
 
 /* -----------------------------------------------------------------------*/
 /* Create Post Button Container */
@@ -186,6 +221,10 @@
     border-radius: 5px;
 
     background-color: #1A1A1B
+}
+
+#create-post-bar-main-container:hover {
+    cursor: pointer;
 }
 
 

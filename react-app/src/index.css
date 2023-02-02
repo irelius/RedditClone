@@ -19,3 +19,8 @@ body #login-modal-main-container{
 body #signup-modal-main-container{
     margin-top: 100px;
 }
+
+.nothing {
+    margin: 0;
+    padding: 0;
+}
