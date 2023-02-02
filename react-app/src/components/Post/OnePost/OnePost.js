@@ -53,6 +53,9 @@ const OnePost = () => {
     const currentPost = Object.values(useSelector(postActions.loadAllPosts))
     const currentSubreddit = Object.values(useSelector(subredditActions.loadAllSubreddit))
     const currentComments = Object.values(useSelector(commentActions.loadAllComments))
+
+    // console.log('booba', useSelector(commentActions.loadAllComments))
+
     const allUsers = Object.values(useSelector(state => state.session))
 
     useEffect(() => {

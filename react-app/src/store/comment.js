@@ -96,6 +96,8 @@ export const loadPostCommentsThunk = (postId) => async (dispatch) => {
         const comments = await res.json()
         dispatch(loadComments(comments))
         return comments
+    } else {
+        return {"comments": "no comments"}
     }
 }
 
@@ -178,7 +180,7 @@ const commentReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case LOAD_COMMENTS:
-            const allComments = {"comments": {}}
+            const allComments = { "comments": {} }
             const commentsArray = Object.values(action.comments.comments)
 
             commentsArray.forEach(el => {
