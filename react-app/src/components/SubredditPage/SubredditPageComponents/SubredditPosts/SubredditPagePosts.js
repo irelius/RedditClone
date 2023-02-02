@@ -150,6 +150,10 @@ const SubredditPagePosts = () => {
                 const posterId = el["user_id"]
                 const posterInfo = usersToLoad[posterId]
                 const subredditName = Object.values(currentSubreddit[0])[0]["name"]
+
+                console.log('booba currentSubreddit', currentSubreddit)
+                console.log('booba subredditName', subredditName)
+
                 const postImage = Object.values(el["images"])
 
                 // figure out like status of each post on the front page
