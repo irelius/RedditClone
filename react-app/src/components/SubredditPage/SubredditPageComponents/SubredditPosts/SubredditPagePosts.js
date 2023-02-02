@@ -149,6 +149,14 @@ const SubredditPagePosts = () => {
             Array.isArray(subredditPostsToLoad) && subredditPostsToLoad.map((el, i) => {
                 const posterId = el["user_id"]
                 const posterInfo = usersToLoad[posterId]
+
+                console.log('booba 1', currentSubreddit)
+                console.log('booba 2', currentSubreddit[0])
+                console.log('booba 3', Object.values(currentSubreddit[0]))
+                console.log('booba 4', Object.values(currentSubreddit[0])[0])
+                console.log('booba 5', Object.values(currentSubreddit[0])[0]["name"])
+
+
                 const subredditName = Object.values(currentSubreddit[0])[0]["name"]
 
                 const postImage = Object.values(el["images"])
