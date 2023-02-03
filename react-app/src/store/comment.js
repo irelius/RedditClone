@@ -158,7 +158,6 @@ export const deleteCommentThunk = (comment) => async (dispatch) => {
 
     if (res.ok) {
         dispatch(deleteComment(comment.id))
-        return true;
     }
 
     return null

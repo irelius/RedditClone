@@ -53,11 +53,11 @@ export const clearSubreddit = () => {
 
 // Thunk action to load a specific subreddit
 export const loadSubredditThunk = (subredditId) => async (dispatch) => {
-    const res = await fetch (`/api/subreddits/${subredditId}`)
+    const res = await fetch(`/api/subreddits/${subredditId}`)
 
     if (res.ok) {
         const subreddit = await res.json()
-        dispatch(loadSubreddit(subreddit))
+        dispatch(loadSubreddits(subreddit))
         return subreddit
     }
 }
@@ -68,13 +68,13 @@ export const loadCurrentSubredditThunk = (subredditName) => async (dispatch) => 
 
     if (res.ok) {
         const subreddit = await res.json()
-        return dispatch(loadSubreddit(subreddit))
+        return dispatch(loadSubreddits(subreddit))
     }
 }
 
 // Thunk action to load all subreddits
 export const loadSubredditsThunk = () => async (dispatch) => {
-    const res = await fetch ("/api/subreddits")
+    const res = await fetch("/api/subreddits")
 
     if (res.ok) {
         const subreddits = await res.json();
@@ -105,7 +105,7 @@ export const createSubredditThunk = (subredditInfo) => async (dispatch) => {
         return null;
     } else if (res.status < 500) {
         const data = await res.json()
-        if(data.errors) {
+        if (data.errors) {
             return data.errors
         }
     }
@@ -120,12 +120,12 @@ export const putSubredditThunk = (subredditInfo, subreddit) => async (dispatch) 
     const res = await fetch(`/api/subreddits/${subreddit.id}`, {
         method: "PUT",
         headers: {
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify(subredditInfo),
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(subredditInfo),
     })
 
-    if(res.ok) {
+    if (res.ok) {
         const data = await res.json();
         dispatch(updateSubreddit(data))
         return data
@@ -141,7 +141,7 @@ export const deleteSubredditThunk = (subreddit) => async (dispatch) => {
         method: "DELETE",
     })
 
-    if(res.ok) {
+    if (res.ok) {
         dispatch(deleteSubreddit(subreddit.id))
     }
 
@@ -160,14 +160,30 @@ export const loadAllSubreddit = (state) => state.subreddits
 const initialState = {};
 
 const subredditReducer = (state = initialState, action) => {
-    const newState = {...state}
+    const newState = { ...state }
 
-    switch(action.type) {
+    switch (action.type) {
         case LOAD_SUBREDDIT:
-            return Object.assign({}, newState, action.subreddit)
+            return Object.assign({}, newState, action.subreddits)
 
         case LOAD_SUBREDDITS:
             return Object.assign({}, newState, action.subreddits)
+            // const allSubreddits = { "subreddits" : {}}
+
+            // if (action.subreddits === "No subreddits") {
+
+            // } else {
+            //     const subredditsArray = Object.values(action.subreddits)
+
+            //     subredditsArray.forEach(el => {
+            //         allSubreddits["subreddits"][el.id] = el
+            //     })
+
+            //     return allSubreddits
+            //     return Object.assign({}, newState, action.subreddits)
+
+            // }
+            /* falls through */
 
         case CREATE_SUBREDDIT:
             return Object.assign({}, newState, action.subreddits)
@@ -176,7 +192,7 @@ const subredditReducer = (state = initialState, action) => {
             return Object.assign({}, newState, action.subreddits)
 
         case DELETE_SUBREDDIT:
-            const deletedSubreddit  = {...newState};
+            const deletedSubreddit = { ...newState };
             delete deletedSubreddit[action.subredditd]
             return deletedSubreddit
 

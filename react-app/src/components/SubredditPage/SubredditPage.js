@@ -7,8 +7,6 @@ import CreatePostSection from "./SubredditPageComponents/CreatePostSection"
 
 
 const SubredditPage = () => {
-    // console.log('booba')
-
     return (
         <div id="subreddit-page-main-container">
             <section id="subreddit-page-banner-container">

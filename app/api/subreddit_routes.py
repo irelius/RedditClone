@@ -10,9 +10,6 @@ subreddit_routes = Blueprint('subreddits', __name__)
 # Return subreddits based on length
 def return_subreddits(subreddits):
     if len(subreddits) > 0:
-        print('')
-        print("booba", subreddits)
-        print('')
         return {"subreddits": {subreddit.id: subreddit.to_dict() for subreddit in subreddits}}
     return {"subreddits": "No subreddits"}
 

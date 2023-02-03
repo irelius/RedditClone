@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 from flask_login import current_user, login_required
-from app.models import db, Comment, User
+from app.models import db, Comment, User, Subreddit
 from app.forms import CommentForm
 
 comment_routes = Blueprint("comments", __name__)
@@ -164,11 +164,12 @@ def comments_update_specific(comment_id):
 def comments_delete_specific(comment_id):
     current_user_id = int(current_user.get_id())
     comment_to_delete = Comment.query.get(comment_id)
+    subreddit = Subreddit.query.get(comment_to_delete.subreddit_id)
 
     if comment_to_delete == None:
         return {"errors": f"Comment {comment_id} does not exist"}, 404
 
-    if comment_to_delete.user_id != current_user_id:
+    if comment_to_delete.user_id != current_user_id and subreddit.admin_id != current_user_id:
         return {"errors": f"User {current_user_id} does not have permission to delete Comment {comment_id}"}, 403
 
     db.session.delete(comment_to_delete)

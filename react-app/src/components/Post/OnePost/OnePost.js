@@ -13,6 +13,11 @@ import * as userActions from "../../../store/session"
 import * as likeActions from "../../../store/like"
 import * as commentActions from "../../../store/comment"
 
+import redirectToPostPage from "../../HelperFunctions/redirectToPostPage";
+import redirectToSubredditPage from "../../HelperFunctions/redirectToSubredditPage";
+import redirectToUserPage from "../../HelperFunctions/redirectToUserPage"
+import ErrorPage from "../../ErrorPage";
+
 
 const OnePost = () => {
     const dispatch = useDispatch()
@@ -21,11 +26,10 @@ const OnePost = () => {
     const [errors, setErrors] = useState([])
     const [newPostBody, setNewPostBody] = useState(null)
     const [loadEditPostComponent, setLoadEditPostComponent] = useState(false)
+    const [commentBody, setCommentBody] = useState("")
     const [newCommentBody, setNewCommentBody] = useState(null)
     const [loadEditCommentComponent, setLoadEditCommentComponent] = useState(false)
     const [askUserToLogin, setAskUserToLogin] = useState(false)
-
-    const [commentBody, setCommentBody] = useState("")
 
     const [likeTotal, setLikeTotal] = useState(0)
     const [postLikeStatus, setPostLikeStatus] = useState("neutral")
@@ -84,22 +88,6 @@ const OnePost = () => {
     //
 
 
-    // Redirection Functions
-    const redirectToSubreddit = (subredditToLoad, e) => {
-        e.stopPropagation()
-
-        history.push(`/r/${subredditToLoad.name}`)
-    }
-
-
-    const redirectToUserPage = (username, e) => {
-        e.stopPropagation();
-
-        history.push(`/users/${username}`)
-    }
-    //
-
-
     // Post Update
     const updatePost = async (e) => {
         e.preventDefault();
@@ -132,10 +120,18 @@ const OnePost = () => {
             history.goBack()
         }
     }
-    const handlePostRemove = () => {
+    const handlePostRemove = (e) => {
+        e.stopPropagation()
         const postToDelete = currentPost[0]
-        dispatch(postActions.deletePostThunk(postToDelete))
-        history.goBack();
+
+        const confirmDelete = prompt(
+            `Are you sure you want to remove this post? You can't undo this`, "Yes"
+        )
+
+        if (confirmDelete === "Yes") {
+            dispatch(postActions.deletePostThunk(postToDelete))
+            history.goBack();
+        }
     }
     //
 
@@ -359,7 +355,7 @@ const OnePost = () => {
                                     height={30}
                                     alt="commentPosterProfileImage"
                                 />
-                                <aside onClick={(e) => redirectToUserPage(commentPoster.username, e)} id="comments-section-poster-username">
+                                <aside onClick={(e) => redirectToUserPage(commentPoster.username, history, e)} id="comments-section-poster-username">
                                     {commentPoster["username"]}
                                 </aside>
                                 <aside>
@@ -466,11 +462,9 @@ const OnePost = () => {
                                 <button id="create-comment-submit-button" type="submit">
                                     Comment
                                 </button>
-
                             </aside>
                         </section>
                     </form>
-
                 </section>
             </div>
         )
@@ -483,14 +477,15 @@ const OnePost = () => {
         const postToLoad = Object.values(currentPost[0])[0]
         const postImage = Object.values(postToLoad["images"])
 
-
         const userToLoad = allUsers[1][postToLoad["user_id"]]
         const currentUser = allUsers[0] || -1
 
         const subredditToLoad = Object.values(currentSubreddit[0])[0]
+
+        // console.log('booba asdf', currentSubreddit)
+
         let subredditDate = subredditToLoad.created_at.split(" ")
         subredditDate = subredditDate[2] + " " + subredditDate[1] + ", " + subredditDate[3]
-
 
         return (
             <div id="post-page-background-2">
@@ -529,13 +524,13 @@ const OnePost = () => {
                         </aside>
                         <aside id="post-page-post-right-container">
                             <section id="post-page-post-header-container">
-                                <aside onClick={(e) => redirectToSubreddit(subredditToLoad, e)} id="post-page-post-header">
+                                <aside onClick={(e) => redirectToSubredditPage(subredditToLoad["name"], history, e)} id="post-page-post-header">
                                     r/{subredditToLoad.name}
                                 </aside>
                                 <aside id="post-page-post-poster-decoration-text">
                                     Posted by
                                 </aside>
-                                <aside id="post-page-post-poster" onClick={(e) => redirectToUserPage(userToLoad.username, e)}>
+                                <aside id="post-page-post-poster" onClick={(e) => redirectToUserPage(userToLoad.username, history, e)}>
                                     u/{userToLoad.username}
                                 </aside>
                             </section>
@@ -581,7 +576,7 @@ const OnePost = () => {
                             </aside>
                         </aside>
                     </aside>
-                    <aside onClick={(e) => redirectToSubreddit(subredditToLoad, e)} id="post-page-bar-main-container">
+                    <aside onClick={(e) => redirectToSubredditPage(subredditToLoad["name"], history, e)} id="post-page-bar-main-container">
                         <section id="post-page-bar-banner">
                         </section>
                         <section id="post-page-bar-header-container">
@@ -606,7 +601,7 @@ const OnePost = () => {
         )
     }
 
-    return currentPost.length > 0 && currentSubreddit.length > 0 && allUsers.length > 1 && currentPostLikes.length > 0 && load ? (
+    return currentPost.length > 0 && currentSubreddit.length > 0 && allUsers.length > 1 && currentPostLikes.length > 0 && load && Object.values(currentSubreddit[0])[0]["id"] === Object.values(currentPost[0])[0]["subreddit_id"] ? (
         <div id="post-page-background-1">
             {askUserToLogin && (
                 <Modal>
@@ -616,7 +611,9 @@ const OnePost = () => {
             {LoadOnePost()}
         </div>
     ) : (
-        <div></div>
+        <div>
+            <ErrorPage />
+        </div>
     )
 
 
