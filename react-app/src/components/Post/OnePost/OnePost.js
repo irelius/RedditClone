@@ -147,7 +147,8 @@ const OnePost = () => {
             body: commentBody
         }
 
-        const data = await dispatch(commentActions.createCommentThunk(commentInfo, currentPost[0]["id"]))
+        let postId = Object.values(currentPost[0])
+        const data = await dispatch(commentActions.createCommentThunk(commentInfo, postId[0]["id"]))
         if (data) {
             setErrors(data)
         }
