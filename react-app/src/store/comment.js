@@ -79,7 +79,7 @@ export const loadCommentThunk = (commentId) => async (dispatch) => {
 
 // Thunk action to load all comments by user
 export const loadUserCommentsThunk = (username) => async (dispatch) => {
-    const res = await fetch(`/api/posts/users/${username}`)
+    const res = await fetch(`/api/comments/users/${username}`)
 
     if (res.ok) {
         const comments = await res.json()
@@ -182,6 +182,7 @@ const commentReducer = (state = initialState, action) => {
             const allComments = { "comments": {} }
 
             if(action.comments.comments === "No comments") {
+
             } else {
                 const commentsArray = Object.values(action.comments.comments)
                 commentsArray.forEach(el => {

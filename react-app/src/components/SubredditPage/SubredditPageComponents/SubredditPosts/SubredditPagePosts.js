@@ -135,6 +135,22 @@ const SubredditPagePosts = () => {
 
     // Main Component
     const LoadSubredditPagePosts = () => {
+        if (currentSubreddit.length === 0) {
+            return (
+                <div>
+                    <ErrorPage />
+                </div>
+            )
+        }
+
+        if (currentSubredditPosts.length === 0) {
+            return (
+                <div>
+                    <NoPostsToLoadComponent />
+                </div>
+            )
+        }
+
         const subredditPostsToLoad = Object.values(currentSubredditPosts[0])
         const usersToLoad = allUsers[1]
         const currentUser = allUsers[0] || -1
@@ -243,7 +259,7 @@ const SubredditPagePosts = () => {
         )
     }
 
-    return currentSubredditPosts.length > 0 && allUsers.length > 1 && load ? (
+    return allUsers.length > 1 && load ? (
         <div>
             {askUserToLogin && (
                 <Modal>
@@ -252,13 +268,8 @@ const SubredditPagePosts = () => {
             )}
             {LoadSubredditPagePosts()}
         </div>
-    ) : currentSubreddit.length === 0 ? (
-        <div>
-            {ErrorPage()}
-        </div>
     ) : (
         <div>
-            {NoPostsToLoadComponent()}
         </div>
     )
 }

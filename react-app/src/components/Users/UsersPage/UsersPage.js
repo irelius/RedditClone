@@ -4,46 +4,42 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 
-import * as postActions from "../../../store/post"
+import * as sessionActions from "../../../store/session"
 import * as subredditActions from "../../../store/subreddit"
+import * as postActions from "../../../store/post"
+import * as commentActions from "../../../store/comment"
+
+import ErrorPage from "../../ErrorPage"
+import UsersPageComments from "./UsersPageComponents/UsersPageComments/UsersPageComments";
+import UsersPagePosts from "./UsersPageComponents/UsersPagePosts/UsersPagePosts";
 
 import calculatePostLikes from "../../HelperFunctions/calculatePostLikes";
+import redirectToUserPage from "../../HelperFunctions/redirectToUserPage"
+import redirectToPostPage from "../../HelperFunctions/redirectToPostPage"
+import redirectToSubredditPage from "../../HelperFunctions/redirectToSubredditPage"
 
 const UsersPage = () => {
-    const username = useParams().username;
     const dispatch = useDispatch()
+    const username = useParams().username;
     const history = useHistory()
     const [load, setLoad] = useState(false)
+    const [tabSelected, setTabSelected] = useState("posts")
+
 
     useEffect(() => {
+        dispatch(sessionActions.loadAllUserThunk())
+        dispatch(commentActions.loadUserCommentsThunk(username))
         dispatch(postActions.loadUserPostsThunk(username))
         dispatch(subredditActions.loadSubredditsThunk())
         setLoad(true)
     }, [dispatch])
 
     const currentUserPosts = Object.values(useSelector(postActions.loadAllPosts))
+    const currentUserComments = Object.values(useSelector(commentActions.loadAllComments))
+    const allUsers = Object.values(useSelector(sessionActions.loadAllUsers))
     const allSubreddits = Object.values(useSelector(subredditActions.loadAllSubreddit))
 
-    const redirectToUserPage = (username, e) => {
-        e.stopPropagation();
-
-        history.push(`/users/${username}`)
-    }
-
-    const redirectToPostPage = (post) => {
-        const postId = post.id
-        const subredditName = allSubreddits[0][post.subreddit_id]["name"]
-
-        history.push(`/r/${subredditName}/${postId}`)
-    }
-
-    const redirectToSubredditPage = (name, e) => {
-        e.stopPropagation();
-
-        history.push(`/r/${name}`)
-    }
-
-
+    // Main Component
     const loadUsersPage = () => {
         const postsToLoad = Object.values(currentUserPosts[0])
         const subredditsToLoad = allSubreddits[0]
@@ -56,7 +52,7 @@ const UsersPage = () => {
                 const subredditInfo = subredditsToLoad[subredditId]
 
                 return (
-                    <div id="user-posts-main-container" onClick={() => redirectToPostPage(el)}>
+                    <div id="user-posts-main-container" onClick={(e) => redirectToPostPage(el, history, e)}>
                         <aside id="user-posts-left-container">
                             <aside id="post-upvote-button">
                                 <i className="fa-solid fa-up-long fa-lg" />
@@ -69,7 +65,7 @@ const UsersPage = () => {
                         <aside id="user-posts-right-container">
                             <section id="user-posts-header-container">
                                 {subredditInfo ? (
-                                    <section id="user-posts-header-subreddit-information" onClick={(e) => redirectToSubredditPage(subredditInfo.name, e)}>
+                                    <section id="user-posts-header-subreddit-information" onClick={(e) => redirectToSubredditPage(subredditInfo.name, history, e)}>
                                         r/{subredditInfo.name}
                                     </section>
                                 ) : (
@@ -79,7 +75,7 @@ const UsersPage = () => {
                                 )}
                                 <aside id="user-posts-header-poster-container">
                                     Posted by
-                                    <section id="user-post-header-poster" onClick={(e) => redirectToUserPage(username, e)}>
+                                    <section id="user-post-header-poster" onClick={(e) => redirectToUserPage(username, history, e)}>
                                         u/{username}
                                     </section>
                                 </aside>
@@ -112,21 +108,45 @@ const UsersPage = () => {
         )
     }
 
+    const loadBody = () => {
+        if (tabSelected === "posts") {
+            return (
+                <div>
+                    <UsersPagePosts currentUserPosts={currentUserPosts} />
+                </div>
+            )
+        } else if (tabSelected === "comments") {
+            return (
+                <div>
+                    <UsersPageComments currentUserComments={currentUserComments} />
+                </div>
+            )
+        }
+    }
 
-    return username && currentUserPosts.length > 0 && allSubreddits.length > 0 && load ? (
-        <div>
-            <div id="user-posts-user">
-                Posts made by u/{username}
-            </div>
-            <div id="users-posts">
-                {loadUsersPage()}
-            </div>
-        </div>
+    return allUsers.length > 0 && currentUserPosts.length > 0 && allSubreddits.length > 0 && load ? (
+        <div id="user-page-main-container">
+            <section id="user-page-tabs-container">
+                <aside id="user-page-posts-tab-container">
+                    <section id="user-page-posts-tab" className={`posts-selected-${tabSelected}`} onClick={() => setTabSelected("posts")}>
+                        POSTS
+                    </section>
+                </aside>
+                <aside id="user-page-comments-tab-container">
+                    <section id="user-page-comments-tab" className={`comments-selected-${tabSelected}`} onClick={() => setTabSelected("comments")}>
+                    COMMENTS
+            </section>
+        </aside>
+            </section >
+    <section id="user-page-content-container">
+        {loadBody()}
+    </section>
+        </div >
     ) : (
-        <div id="users-posts-no-user">
-            No such user is found
-        </div>
-    )
+    <div id="users-posts-no-user">
+        <ErrorPage />
+    </div>
+)
 }
 
 export default UsersPage;

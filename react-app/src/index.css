@@ -24,3 +24,7 @@ body #signup-modal-main-container{
     margin: 0;
     padding: 0;
 }
+
+.black-background {
+    background-color: black;
+}

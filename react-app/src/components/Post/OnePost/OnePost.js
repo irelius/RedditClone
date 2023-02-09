@@ -474,6 +474,14 @@ const OnePost = () => {
 
     // Main Component
     const LoadOnePost = () => {
+        if (currentPost.length === 0 || Object.values(currentSubreddit[0])[0]["id"] !== Object.values(currentPost[0])[0]["subreddit_id"]) {
+            return (
+                <div className="black-background">
+                    <ErrorPage />
+                </div>
+            )
+        }
+
         const postToLoad = Object.values(currentPost[0])[0]
         const postImage = Object.values(postToLoad["images"])
 
@@ -481,9 +489,6 @@ const OnePost = () => {
         const currentUser = allUsers[0] || -1
 
         const subredditToLoad = Object.values(currentSubreddit[0])[0]
-
-        // console.log('booba asdf', currentSubreddit)
-
         let subredditDate = subredditToLoad.created_at.split(" ")
         subredditDate = subredditDate[2] + " " + subredditDate[1] + ", " + subredditDate[3]
 
@@ -601,7 +606,7 @@ const OnePost = () => {
         )
     }
 
-    return currentPost.length > 0 && currentSubreddit.length > 0 && allUsers.length > 1 && currentPostLikes.length > 0 && load && Object.values(currentSubreddit[0])[0]["id"] === Object.values(currentPost[0])[0]["subreddit_id"] ? (
+    return currentSubreddit.length > 0 && allUsers.length > 1 && currentPostLikes.length > 0 && load ? (
         <div id="post-page-background-1">
             {askUserToLogin && (
                 <Modal>
@@ -611,12 +616,8 @@ const OnePost = () => {
             {LoadOnePost()}
         </div>
     ) : (
-        <div>
-            <ErrorPage />
-        </div>
+        <div></div>
     )
-
-
 }
 
 export default OnePost
