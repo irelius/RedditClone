@@ -13,7 +13,7 @@ import * as userActions from "../../../store/session"
 import * as likeActions from "../../../store/like"
 import * as commentActions from "../../../store/comment"
 
-import redirectToPostPage from "../../HelperFunctions/redirectToPostPage";
+// import redirectToPostPage from "../../HelperFunctions/redirectToPostPage";
 import redirectToSubredditPage from "../../HelperFunctions/redirectToSubredditPage";
 import redirectToUserPage from "../../HelperFunctions/redirectToUserPage"
 import ErrorPage from "../../ErrorPage";
