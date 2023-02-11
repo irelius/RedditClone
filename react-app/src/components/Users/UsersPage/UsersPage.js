@@ -35,16 +35,28 @@ const UsersPage = () => {
     const allSubreddits = Object.values(useSelector(subredditActions.loadAllSubreddit))
     const currentUserComments = Object.values(useSelector(commentActions.loadAllComments))
 
+
     const loadBody = () => {
         let props = {
             "allSubreddits": allSubreddits,
             "allPosts": allPosts,
-            "currentUserComments": currentUserComments
+            "currentUserComments": currentUserComments,
+            "allUsers": allUsers
         }
         if (tabSelected === "posts") {
+            // console.log('booba', Object.values(allUsers[1]))
+
+            const profileUserId = Object.values(allUsers[1]).filter(el => {
+                if (el["username"] === username) {
+                    console.log('booba', el["id"])
+                    return el['id']
+                }
+            })[0]["id"]
+
             props["allPosts"] = {
                 0: Object.values(allPosts[0]).filter(el => {
-                    if (el["user_id"] === currentUserId) {
+                    // console.log('booba', el)
+                    if (el["user_id"] === profileUserId) {
                         return el
                     }
                 })

@@ -1,0 +1,121 @@
+/* -----------------------------------------------------------------------*/
+/* Users Comments Main Container */
+
+#user-comments-main-container {
+    display: flex;
+    flex-direction: column;
+
+    margin-top: 10px;
+    padding: 15px;
+
+    width: 500px;
+
+    border: 1px solid rgb(52, 53, 54);
+    background-color: #1A1A1B;
+}
+
+#user-comments-main-container:hover {
+    border: 1px solid rgb(129, 131, 132)
+}
+
+/* -----------------------------------------------------------------------*/
+/* Users Comments Header Container */
+
+#user-comments-header-container {
+    display: flex;
+    flex-direction: row;
+
+    padding-bottom: 10px;
+
+    border-bottom: 1px solid rgb(22, 22, 23);
+    font-size: 12px;
+    color: rgb(111, 112, 113)
+}
+
+
+#user-comments-header-container * {
+    display: flex;
+    align-items: center;
+}
+
+#user-comments-header-icon {
+    margin-right: 10px;
+}
+
+#user-comments-header-username {
+    margin-right: 4px;
+    color: white;
+}
+
+#user-comments-header-username:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+#user-comments-header-post {
+    margin-left: 4px;
+    margin-right: 10px;
+
+    font-size: 14px;
+}
+
+#user-comments-header-post:hover {
+    cursor: pointer;
+}
+
+#user-comments-header-subreddit {
+    margin-right: 10px;
+
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+}
+
+#user-comments-header-subreddit:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+#user-comments-header-poster {
+    margin-left: 4px;
+}
+
+#user-comments-header-poster:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Users Comments Body Container */
+
+#user-comments-body-container {
+    display: flex;
+    flex-direction: column;
+
+    margin-left: 40px;
+}
+
+#user-comments-body-header-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    margin-bottom: 5px;
+
+    font-size: 12px;
+}
+
+#user-comments-body-username {
+    margin-right: 4px;
+}
+
+#user-comments-body-username:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+#user-comments-OP {
+    color: rgb(0, 121, 211);
+    font-weight: bold;
+}

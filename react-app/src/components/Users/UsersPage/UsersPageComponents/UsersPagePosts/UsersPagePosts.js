@@ -12,6 +12,7 @@ const UsersPagePosts = ({ props }) => {
     const username = useParams().username;
 
     const postsToLoad = Object.values(props["allPosts"][0])
+
     const subredditsToLoad = props["allSubreddits"][0]
 
     return (
