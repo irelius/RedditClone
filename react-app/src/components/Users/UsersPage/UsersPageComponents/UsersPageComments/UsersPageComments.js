@@ -24,17 +24,10 @@ const UsersPageComments = ({ props }) => {
     return (
         Array.isArray(commentsArray) && commentsArray.map((el, i) => {
             const belongToPostId = el["post_id"]
+            const belongToSubredditId = el["subreddit_id"]
             const postTitle = posts[belongToPostId]["title"]
 
-            // console.log('booba', posts[belongToPostId])
-            console.log('booba', postTitle)
-
-            // console.log('booba', belongToPostId)
-            // console.log('booba1', posts)
-
-
-            // console.log('booba 1', posts[1]["title"])
-            // console.log('booba 2', posts[commentId])
+            console.log('booba', el)
 
             return (
                 <div key={i} id="user-comments-main-container">
@@ -46,10 +39,10 @@ const UsersPageComments = ({ props }) => {
                             <section>
                                 {username}
                             </section>
-                            {/* commented on {posts[commentId]} */}
+                            commented on {postTitle}
                         </aside>
                         <aside id="user-comments-header-subreddit">
-
+                            r/{}
                         </aside>
                         <aside id="user-comments-header-poster">
 

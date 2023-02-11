@@ -92,16 +92,15 @@ def comments_create_new_to_post(post_id):
 
     if form.validate_on_submit():
         new_comment = Comment(
-            post_id = post_id,
             user_id = current_user_id,
-            body = form.data["body"]
+            body = form.data["body"],
+            post_id = post_id,
+            subreddit_id = 1,
+            reply_to_id = None
         )
 
         db.session.add(new_comment)
         db.session.commit()
-
-    # requires a form to create a new comment
-        # add to subreddits?
 
         return new_comment.to_dict()
 
@@ -119,19 +118,23 @@ def comments_create_new_to_comment(comment_id):
         return {"errors": "You must be logged in before leaving a comment"}, 401
 
     form = CommentForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
 
-    new_comment = Comment(
-        body = form.data["body"],
-        post_id = comment.post_id,
-        reply_to_id = comment_id,
-        subreddit_id = comment.subreddit_id,
-        user_id = current_user_id,
-    )
+    if form.validate_on_submit():
+        new_comment = Comment(
+            user_id = current_user_id,
+            body = form.data["body"],
+            post_id = comment.post_id,
+            subreddit_id = comment.subreddit_id,
+            reply_to_id = comment_id,
+        )
 
-    db.session.add(new_comment)
-    db.session.commit()
+        db.session.add(new_comment)
+        db.session.commit()
 
-    return new_comment.to_dict()
+        return new_comment.to_dict()
+
+    return {"errors": validation_error_message(form.errors)}, 401
 
 
 # Update a specific comment

@@ -138,12 +138,19 @@ const OnePost = () => {
     // Comment Creation
     const createComment = async (e) => {
         e.preventDefault();
+        let postId = Object.values(currentPost[0])
+
+        let currentSubredditId = Object.keys(currentSubreddit[0])[0] || null
+        let currentPostId = postId[0]["id"] || null
+        let currentCommentId = null
 
         let commentInfo = {
-            body: commentBody
+            body: commentBody,
+            subreddit_id: currentSubredditId,
+            reply_to_id: currentCommentId,
+            post_id: currentPostId,
         }
 
-        let postId = Object.values(currentPost[0])
         const data = await dispatch(commentActions.createCommentThunk(commentInfo, postId[0]["id"]))
         if (data) {
             setErrors(data)
@@ -427,6 +434,7 @@ const OnePost = () => {
             )
         }
     }
+
     const createCommentComponent = (currentUser) => {
         return (
             <div id="create-comment-main-container">
