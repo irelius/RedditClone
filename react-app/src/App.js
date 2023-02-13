@@ -12,7 +12,9 @@ import LandingPage from './components/LandingPage/LandingPage';
 import SubredditPage from './components/SubredditPage';
 import CreatePostPage from './components/CreatePostPage';
 import OnePost from './components/Post/OnePost';
+import SearchPage from './components/SearchPage';
 import ErrorPage from './components/ErrorPage';
+
 
 import TestPage from './components/TestPage/TestPage';
 
@@ -55,6 +57,9 @@ function App() {
         </Route>
         <Route path="/r/:subreddit_name" exact={true}>
           <SubredditPage />
+        </Route>
+        <Route path="/search/:search_param" exact={true}>
+          <SearchPage />
         </Route>
         <Route path="/test">
           <TestPage />

@@ -44,18 +44,14 @@ const UsersPage = () => {
             "allUsers": allUsers
         }
         if (tabSelected === "posts") {
-            // console.log('booba', Object.values(allUsers[1]))
-
             const profileUserId = Object.values(allUsers[1]).filter(el => {
                 if (el["username"] === username) {
-                    console.log('booba', el["id"])
                     return el['id']
                 }
             })[0]["id"]
 
             props["allPosts"] = {
                 0: Object.values(allPosts[0]).filter(el => {
-                    // console.log('booba', el)
                     if (el["user_id"] === profileUserId) {
                         return el
                     }

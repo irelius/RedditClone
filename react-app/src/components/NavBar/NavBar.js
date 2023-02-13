@@ -1,8 +1,8 @@
 import "./Navbar.css"
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 
 import NavBarProfileMenu from "./NavBarComponents/NavBarProfileMenu/NavBarProfileMenu";
 import LoginModal from "../Modals/LoginModal";
@@ -10,6 +10,19 @@ import SignUpFormModal from "../Modals/SignUpModal";
 
 const NavBar = () => {
   const sessionUser = useSelector(state => state.session.user)
+  const history = useHistory()
+
+  const [searchInput, setSearchInput] = useState("")
+
+  const goToSearch = (e) => {
+    e.preventDefault()
+    setSearchInput("")
+    if (searchInput === "") {
+      return
+    }
+    history.push(`/search/${searchInput}`)
+    e.target.reset()
+  }
 
   return (
     <div id="navbar-main-container">
@@ -38,11 +51,18 @@ const NavBar = () => {
       </section>
 
       <section id="navbar-middle">
-        {/* <section id="navbar-search-bar-container">
-          <form>
-            <input id="navbar-search-bar" type="text" placeholder="Search..." name="search" />
+        <section id="navbar-search-bar-container">
+          <form onSubmit={(e) => { goToSearch(e) }}>
+            <input
+              id="navbar-search-bar"
+              type="text"
+              placeholder="Search..."
+              onChange={(e) => { setSearchInput(e.target.value) }}
+              name="search"
+              minLength={1}
+            />
           </form>
-        </section> */}
+        </section>
       </section>
 
       {sessionUser ? (
