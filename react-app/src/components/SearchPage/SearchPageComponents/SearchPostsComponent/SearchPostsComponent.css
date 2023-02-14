@@ -1,0 +1,125 @@
+/* -----------------------------------------------------------------------*/
+
+
+/* SearchPostsComponent CSS */
+
+
+/* -----------------------------------------------------------------------*/
+/* SearchPostsComponent Main Container */
+
+#search-posts-component-main-container {
+    display: flex;
+    flex-direction: row;
+
+    border-radius: 5px;
+    width: 600px;
+
+    color: white;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* SearchPostsComponent Left Container Left Section */
+
+#search-posts-left-section-main-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    border: 1px solid rgb(52, 53, 54);
+    border-radius: 5px;
+
+    height: 150px;
+    width: 600px;
+}
+
+#search-posts-left-section-main-container:hover {
+    cursor:pointer;
+    border: 1px solid rgb(129, 131, 132);
+
+}
+
+#search-posts-left-section-left-container {
+    display: flex;
+    flex-direction: column;
+}
+
+#search-posts-left-section-header-container {
+    display: flex;
+    flex-direction: row;
+
+    margin-top: 10px;
+    margin-left: 10px;
+
+    font-size: 13px;
+}
+
+#search-posts-left-section-subreddit-name {
+    margin-right: 10px;
+}
+
+#search-posts-left-section-subreddit-name:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+#search-posts-left-section-posted-by {
+    margin-right: 5px;
+    color: rgb(129, 131, 132)
+}
+
+#search-posts-left-section-poster-name {
+    color: rgb(129, 131, 132)
+}
+
+#search-posts-left-section-poster-name:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+#search-posts-left-section-body-container {
+    font-size: 16px;
+    margin-top: 3px;
+    margin-left: 10px;
+}
+
+#search-posts-left-section-footer-container {
+    display: flex;
+    flex-direction: row;
+    margin-left: 10px;
+    margin-top: 80px;
+
+    font-size: 13px;
+    color: rgb(129, 131, 132)
+}
+
+#search-posts-left-section-likes-value {
+    margin-right: 10px;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* SearchPostsComponent Left Container Right Section */
+
+#search-posts-left-section-right-container {
+    margin-top: 25px;
+    margin-right: 25px;
+
+    width: 120px;
+
+    border-radius: 5px;
+}
+
+#search-posts-left-section-right-container * {
+    object-fit: cover;
+
+    border-radius: 5px;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* SearchPostsComponent Right Container */
+
+#search-posts-component-right-section {
+    background-color: orange;
+}
