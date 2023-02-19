@@ -14,7 +14,6 @@
     justify-content: center;
 
     border-radius: 5px;
-    width: 600px;
 
     color: white;
     background-color: black;
@@ -47,7 +46,7 @@
 }
 
 #search-posts-left-section-main-container:hover {
-    cursor:pointer;
+    cursor: pointer;
     border: 1px solid rgb(129, 131, 132);
 }
 
@@ -133,12 +132,132 @@
 
 
 /* -----------------------------------------------------------------------*/
-/* SearchPostsComponent Right Section */
+/* SearchPostsComponent Right Section - Communities Container*/
 
-#search-posts-component-right-section {
-    background-color: orange;
+#search-posts-right-section-communities-container {
+    margin-bottom: 15px;
+    padding: 15px;
+    padding-bottom: 0px;
+
+    height: fit-content;
+    width: 250px;
+
+    border: 1px solid rgb(52, 53, 54);
+    border-radius: 5px;
+
+    background-color: #1A1A1B;
 }
 
 #search-posts-right-section-header-container {
+    font-size: 18px;
+    margin-bottom: 20px;
     width: 150px;
+}
+
+#search-posts-communities {
+    margin-bottom: 15px;
+}
+
+#search-posts-communities:hover {
+    cursor: pointer;
+}
+
+#search-posts-no-communities-header {
+    margin-bottom: 10px;
+}
+
+#search-posts-create-community-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    padding: 10px;
+}
+
+#search-posts-create-community-button * {
+    font-weight: bold;
+
+    height: 40px;
+    width: 100%;
+
+    border-radius: 30px;
+    border: 1px solid white;
+}
+
+#search-posts-create-community-button *:hover {
+    cursor: pointer;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* SearchPostsComponent Right Section - People Container*/
+
+#search-posts-right-section-peoples-container {
+    padding: 15px;
+
+    height: fit-content;
+    width: 250px;
+
+    border: 1px solid rgb(52, 53, 54);
+    border-radius: 5px;
+
+    background-color: #1A1A1B;
+}
+
+#search-posts-people-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    margin-top: 10px;
+}
+
+#search-posts-people-container:hover {
+    cursor: pointer;
+}
+
+#search-posts-people-profile-image {
+    margin-right: 10px;
+    border-radius: 90%;
+}
+
+#search-posts-people-username {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#search-posts-people-username:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Search Posts No Results */
+
+#search-posts-left-section-no-results-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgb(52, 53, 54);
+    border-radius: 5px;
+
+    height: 100px;
+    width: 600px;
+
+    background-color: #1A1A1B;
+}
+
+
+#search-posts-left-section-no-posts-header {
+    width: 500px;
+    font-size: larger;
+    word-break: break-all;
+}
+
+#search-posts-left-section-no-posts-subtitle {
+    margin-top: 10px;
+    font-size: small;
+    color: rgb(129, 131, 132)
 }

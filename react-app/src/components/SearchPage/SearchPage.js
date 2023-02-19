@@ -64,16 +64,16 @@ const SearchPage = () => {
     return allPosts.length > 0 && allSubreddits.length > 0 && allUsers.length > 0 && allComments.length > 0 && load ? (
         <div id="search-page-main-container">
             <section id="search-page-tabs-container">
-                <aside onClick={() => setSearchState("posts")}>
+                <aside id={`search-page-posts-selected-${searchState}`} onClick={() => setSearchState("posts")}>
                     Posts
                 </aside>
-                <aside onClick={() => setSearchState("comments")}>
+                <aside id={`search-page-comments-selected-${searchState}`} onClick={() => setSearchState("comments")}>
                     Comments
                 </aside>
-                <aside onClick={() => setSearchState("communities")}>
+                <aside id={`search-page-communities-selected-${searchState}`} onClick={() => setSearchState("communities")}>
                     Communities
                 </aside>
-                <aside onClick={() => setSearchState("people")}>
+                <aside id={`search-page-people-selected-${searchState}`} onClick={() => setSearchState("people")}>
                     People
                 </aside>
             </section>

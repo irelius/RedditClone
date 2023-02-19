@@ -2,7 +2,7 @@ import "./UsersPage.css"
 
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import * as sessionActions from "../../../store/session"
 import * as subredditActions from "../../../store/subreddit"
@@ -16,7 +16,6 @@ import UsersPagePosts from "./UsersPageComponents/UsersPagePosts/UsersPagePosts"
 const UsersPage = () => {
     const dispatch = useDispatch()
     const username = useParams().username;
-    const history = useHistory()
     const [load, setLoad] = useState(false)
     const [tabSelected, setTabSelected] = useState("posts")
 
