@@ -11,15 +11,26 @@
     display: flex;
     flex-direction: row;
 
+    justify-content: center;
+
     border-radius: 5px;
     width: 600px;
 
     color: white;
+    background-color: black;
 }
 
 
 /* -----------------------------------------------------------------------*/
-/* SearchPostsComponent Left Container Left Section */
+/* SearchPostsComponent Left Section */
+
+#search-posts-component-left-section {
+    margin-right: 30px;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* SearchPostsComponent Left Section Left Container */
 
 #search-posts-left-section-main-container {
     display: flex;
@@ -29,26 +40,29 @@
     border: 1px solid rgb(52, 53, 54);
     border-radius: 5px;
 
-    height: 150px;
+    height: fit-content;
     width: 600px;
+
+    background-color: #1A1A1B;
 }
 
 #search-posts-left-section-main-container:hover {
     cursor:pointer;
     border: 1px solid rgb(129, 131, 132);
-
 }
 
 #search-posts-left-section-left-container {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 #search-posts-left-section-header-container {
     display: flex;
     flex-direction: row;
-
-    margin-top: 10px;
     margin-left: 10px;
 
     font-size: 13px;
@@ -87,7 +101,7 @@
     display: flex;
     flex-direction: row;
     margin-left: 10px;
-    margin-top: 80px;
+    margin-top: 10px;
 
     font-size: 13px;
     color: rgb(129, 131, 132)
@@ -99,11 +113,12 @@
 
 
 /* -----------------------------------------------------------------------*/
-/* SearchPostsComponent Left Container Right Section */
+/* SearchPostsComponent Left Section Right Container */
 
 #search-posts-left-section-right-container {
-    margin-top: 25px;
     margin-right: 25px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 
     width: 120px;
 
@@ -118,8 +133,12 @@
 
 
 /* -----------------------------------------------------------------------*/
-/* SearchPostsComponent Right Container */
+/* SearchPostsComponent Right Section */
 
 #search-posts-component-right-section {
     background-color: orange;
+}
+
+#search-posts-right-section-header-container {
+    width: 150px;
 }

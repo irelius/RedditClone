@@ -50,20 +50,20 @@ const SearchPage = () => {
         if (searchState === "posts") {
             return <SearchPostsComponent props={props} />
         }
-        // if(searchState === "comments") {
-        //     return <SearchCommentsComponent props={props}/>
-        // }
-        // if(searchState === "communities") {
-        //     return <SearchCommunitiesComponent props={props}/>
-        // }
-        // if(searchState === "people") {
-        //     return <SearchPeopleComponent props={props}/>
-        // }
+        if (searchState === "comments") {
+            return <SearchCommentsComponent props={props} />
+        }
+        if (searchState === "communities") {
+            return <SearchCommunitiesComponent props={props} />
+        }
+        if (searchState === "people") {
+            return <SearchPeopleComponent props={props} />
+        }
     }
 
     return allPosts.length > 0 && allSubreddits.length > 0 && allUsers.length > 0 && allComments.length > 0 && load ? (
         <div id="search-page-main-container">
-            <section>
+            <section id="search-page-tabs-container">
                 <aside onClick={() => setSearchState("posts")}>
                     Posts
                 </aside>
@@ -77,14 +77,12 @@ const SearchPage = () => {
                     People
                 </aside>
             </section>
-            <section>
+            <section id="search-page-body-container">
                 {loadSearchState()}
             </section>
         </div>
     ) : (
-        <div>
-            booba
-        </div>
+        <div></div>
     )
 }
 

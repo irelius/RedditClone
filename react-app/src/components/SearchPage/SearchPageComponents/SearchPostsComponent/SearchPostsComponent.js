@@ -49,15 +49,17 @@ const SearchPostsComponent = ({ props }) => {
                 return (
                     <div key={i} id="search-posts-left-section-main-container">
                         <aside id="search-posts-left-section-left-container">
-                            <section id='search-posts-left-section-header-container'>
-                                {/* TO DO, add ability to create a subreddit icon */}
-                                {/* <aside><img src=} /></aside> */}
-                                <aside id="search-posts-left-section-subreddit-name">r/{subreddit["name"]}</aside>
-                                <aside id="search-posts-left-section-posted-by">Posted by</aside>
-                                <aside id="search-posts-left-section-poster-name">u/{poster["username"]}</aside>
-                            </section>
-                            <section id="search-posts-left-section-body-container">
-                                {el["title"]}
+                            <section>
+                                <section id='search-posts-left-section-header-container'>
+                                    {/* TO DO, add ability to create a subreddit icon */}
+                                    {/* <aside><img src=} /></aside> */}
+                                    <aside id="search-posts-left-section-subreddit-name">r/{subreddit["name"]}</aside>
+                                    <aside id="search-posts-left-section-posted-by">Posted by</aside>
+                                    <aside id="search-posts-left-section-poster-name">u/{poster["username"]}</aside>
+                                </section>
+                                <section id="search-posts-left-section-body-container">
+                                    {el["title"]}
+                                </section>
                             </section>
                             <section id="search-posts-left-section-footer-container">
                                 <aside id="search-posts-left-section-likes-value">{calculatePostLikes(el)} upvotes</aside>
