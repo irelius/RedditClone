@@ -1,0 +1,185 @@
+/* -----------------------------------------------------------------------*/
+
+
+/* Search Comments Page Tab CSS */
+
+
+/* -----------------------------------------------------------------------*/
+
+/* Search Comments Page Main Container  */
+
+#search-comments-main-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 15px;
+
+    border: 1px solid rgb(52, 53, 54);
+
+    height: fit-content;
+    width: 900px;
+
+    color: white;
+}
+
+#search-comments-main-container:hover{
+    border: 1px solid rgb(129, 131, 132);
+    cursor: pointer;
+}
+
+/* -----------------------------------------------------------------------*/
+/* Search Comments Page Post Header Section */
+
+#search-comments-posts-header-section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 12px;
+}
+
+#search-comments-posts-subreddit-section {
+    margin-right: 10px;
+}
+
+#search-comments-posts-subreddit-section:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+#search-comments-posts-poster-section {
+    display: flex;
+    flex-direction: row;
+
+    color: rgb(129, 131, 132)
+}
+
+#search-comments-posts-poster-name {
+    margin-left: 5px;
+}
+
+#search-comments-posts-poster-name:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Search Comments Page Post Title */
+
+#search-comments-posts-title {
+    margin-top: 5px;
+
+    font-size: 12px;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Search Comments Page Comment Main Container */
+
+#search-comments-comment-main-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-top: 10px;
+    margin-left: 30px;
+    padding: 10px;
+
+    height: fit-content;
+    width: 90%;
+
+    border-radius: 3px;
+    background-color: #17232D;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Search Comments Page Comment Top Section */
+
+#search-comments-comment-top-section {
+    margin-bottom: 10px;
+}
+
+#search-comments-comment-header-section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#search-comments-commenter-profile-image {
+    margin-right: 10px;
+    border-radius: 90%;
+}
+
+#search-comments-commenter-name {
+    font-size: 14px;
+}
+
+#search-comments-commenter-name:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+#search-comments-comment-body {
+    margin-top: 10px;
+    margin-left: 35px;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Search Comments Page Comment Bottom Section */
+
+#search-comments-comment-bottom-section {
+    margin-top: 10px;
+    margin-left: 35px;
+
+    font-size: 12px;
+    color: rgb(129, 131, 132)
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Search Comments Page Post Footer Section */
+
+#search-comments-posts-footer {
+    display: flex;
+    flex-direction: row;
+
+    margin-top: 15px;
+
+    font-size: 12px;
+    color: rgb(129, 131, 132)
+}
+
+#search-comments-post-upvote-count {
+    margin-right: 15px;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Search Comments Page No Results */
+
+#search-comments-no-results-main-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+
+    border: 1px solid rgb(52, 53, 54);
+
+    height: 150px;
+    width: 900px;
+
+    color: white;
+}
+
+#search-comments-no-results-header {
+    font-size: larger;
+    margin-bottom: 10px;
+}
+
+#search-comments-no-results-subtitle {
+    margin-top: 10px;
+    font-size: small;
+    color: rgb(129, 131, 132)
+}

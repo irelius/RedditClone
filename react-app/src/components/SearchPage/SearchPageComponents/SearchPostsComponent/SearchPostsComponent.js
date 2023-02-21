@@ -8,28 +8,19 @@ import redirectToSubredditPage from "../../../HelperFunctions/redirectToSubreddi
 import redirectToUserPage from "../../../HelperFunctions/redirectToUserPage";
 import redirectToPostPage from "../../../HelperFunctions/redirectToPostPage";
 
+import searchPostsFunction from "../searchHelperFunctions/searchPostsFunction";
+import searchPeoplesFunction from "../searchHelperFunctions/searchPeoplesFunction";
+import searchCommunitiesFunction from "../searchHelperFunctions/searchCommunitiesFunction";
+
+
 const SearchPostsComponent = ({ props }) => {
     const history = useHistory()
 
-    const searchTermLower = props["searchParam"].toLowerCase()
     const [showProfileMenu, setShowProfileMenu] = useState(false)
 
-    let searchPeoplesArray = Object.values(props["allUsers"][1]).filter(el => {
-        if (el["username"].toLowerCase().includes(searchTermLower)) return el
-    })
-
-    let searchPostsArray = Object.values(props["allPosts"][0]).filter(el => {
-        if (el["body"].toLowerCase().includes(props["searchParam"].toLowerCase()) || el["title"].toLowerCase().includes(props["searchParam"].toLowerCase()) || el["user_id"] === searchPeoplesArray[0]["id"]) {
-            return el
-        }
-    })
-
-    let searchCommunitiesArray = Object.values(props["allSubreddits"][0]).filter(el => {
-        if (el["name"].toLowerCase().includes(searchTermLower) || el["description"].toLowerCase().includes(searchTermLower)) {
-            return el
-        }
-    })
-
+    let searchPeoplesArray = searchPeoplesFunction(props)
+    let searchPostsArray = searchPostsFunction(props)
+    let searchCommunitiesArray = searchCommunitiesFunction(props)
 
     const searchPostsLeftSection = () => {
         if (searchPostsArray.length > 0) {
