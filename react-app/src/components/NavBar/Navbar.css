@@ -92,7 +92,6 @@
 }
 
 
-
 /* -----------------------------------------------------------------------*/
 /* Navbar Middle Section */
 
@@ -100,7 +99,9 @@
     height: 35px;
     width: 100%;
 
-    border: 0.1px solid #808283;
+    padding-left: 20px;
+
+    border: 1px solid #808283;
     border-radius: 50px;
 
     color: #808283;
@@ -114,6 +115,7 @@
 
 #navbar-search-bar:focus {
     outline: none;
+    color: white;
 }
 
 

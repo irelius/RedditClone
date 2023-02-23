@@ -56,7 +56,7 @@ const NavBar = () => {
             <input
               id="navbar-search-bar"
               type="text"
-              placeholder="Search..."
+              placeholder="Search Readdit"
               onChange={(e) => { setSearchInput(e.target.value) }}
               name="search"
               minLength={1}
@@ -64,6 +64,22 @@ const NavBar = () => {
           </form>
         </section>
       </section>
+
+      {/* <section id="navbar-middle">
+        <section id="navbar-search-bar-container">
+          <i id="navbar-search-bar-magnifying-glass" className="fa-solid fa-magnifying-glass" />
+          <form id="test" onSubmit={(e) => { goToSearch(e) }}>
+            <input
+              id="navbar-search-bar"
+              type="text"
+              placeholder="Search Readdit"
+              onChange={(e) => { setSearchInput(e.target.value) }}
+              name="search"
+              minLength={1}
+            />
+          </form>
+        </section>
+      </section> */}
 
       {sessionUser ? (
         <div>
