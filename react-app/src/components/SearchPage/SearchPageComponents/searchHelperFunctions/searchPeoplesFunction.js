@@ -5,7 +5,6 @@ const searchPeoplesFunction = (props) => {
         if (el["username"].toLowerCase().includes(searchTermLower)) return el
     })
 
-    console.log('booba', searchPeoplesArray)
     return searchPeoplesArray
 }
 

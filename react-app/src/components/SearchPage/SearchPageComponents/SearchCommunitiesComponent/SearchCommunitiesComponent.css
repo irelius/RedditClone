@@ -1,0 +1,131 @@
+/* -----------------------------------------------------------------------*/
+
+
+/* Search Page Communities CSS */
+
+
+/* -----------------------------------------------------------------------*/
+/* Search Communities Page Main Container*/
+
+#search-communities-main-container {
+    border: 1px solid rgb(52, 53, 54);
+    border-bottom: none;
+    border-radius: 5px;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Search Communities Page Container*/
+
+#search-communities-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    height: 75px;
+    width: 800px;
+
+    border-bottom: 1px solid rgb(52, 53, 54);
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+#search-communities-container:hover {
+    cursor: pointer;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Search Communities Left Section*/
+
+#search-communities-left-section > * {
+    margin-left: 20px;
+    font-size: 12px;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Search Communities Page Name*/
+
+#search-community-name {
+    margin-bottom: 5px;
+    color: white;
+    font-weight: bold;
+}
+
+#search-community-name:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Search Communities Page Description*/
+
+#search-community-description {
+    width: 650px;
+    white-space: nowrap;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+
+    color: rgb(129, 131, 132);
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Search Communities Redirect Button */
+
+#search-communities-redirect-button {
+    margin-right: 20px;
+
+    height: 30px;
+    width: 75px;
+
+    font-weight: bold;
+    font-size: 14px;
+
+    border: none;
+    border-radius: 30px;
+
+    color: white;
+    background-color: rgb(39, 39, 41);
+}
+
+#search-communities-redirect-button:hover {
+    cursor: pointer;
+    background-color: rgb(53, 53, 55);
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Search Communities No Result */
+
+#search-communities-no-results-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    border-bottom: 1px solid rgb(52, 53, 54);
+    border-radius: 5px;
+
+    height: 150px;
+    width: 600px;
+
+    background-color: #1A1A1B;
+}
+
+#search-communities-no-results-header {
+    display: flex;
+    justify-content: center;
+    font-size: larger;
+
+    color: white;
+}
+
+#search-communities-no-results-subtitle {
+    margin-top: 20px;
+    font-size: small;
+    color: rgb(129, 131, 132)
+}

@@ -44,8 +44,6 @@ const SearchPage = () => {
         "allComments": allComments
     }
 
-    // console.log('booba 1', props)
-
     const loadSearchState = () => {
         if (searchState === "posts") {
             return <SearchPostsComponent props={props} />
