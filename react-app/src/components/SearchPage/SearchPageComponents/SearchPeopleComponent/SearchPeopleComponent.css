@@ -1,0 +1,133 @@
+/* -----------------------------------------------------------------------*/
+
+
+/* Search Page Peoples CSS */
+
+
+/* -----------------------------------------------------------------------*/
+/* Search Peoples Page Main Container*/
+
+#search-peoples-main-container {
+    border: 1px solid rgb(52, 53, 54);
+    border-bottom: none;
+    border-radius: 5px;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Search Peoples Page Container*/
+
+#search-peoples-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    height: 75px;
+    width: 800px;
+
+    border-bottom: 1px solid rgb(52, 53, 54);
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+#search-peoples-container:hover {
+    cursor: pointer;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Search Peoples Left Section*/
+
+#search-peoples-left-section > * {
+    margin-left: 20px;
+    font-size: 12px;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Search Peoples Page Name*/
+
+#search-community-name {
+    width: fit-content;
+
+    margin-bottom: 5px;
+    color: white;
+    font-weight: bold;
+}
+
+#search-community-name:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Search Peoples Page Description*/
+
+#search-community-description {
+    width: 650px;
+    white-space: nowrap;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+
+    color: rgb(129, 131, 132);
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Search Peoples Redirect Button */
+
+#search-peoples-redirect-button {
+    margin-right: 20px;
+
+    height: 30px;
+    width: 75px;
+
+    font-weight: bold;
+    font-size: 14px;
+
+    border: none;
+    border-radius: 30px;
+
+    color: white;
+    background-color: rgb(39, 39, 41);
+}
+
+#search-peoples-redirect-button:hover {
+    cursor: pointer;
+    background-color: rgb(53, 53, 55);
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Search Peoples No Result */
+
+#search-peoples-no-results-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    border-bottom: 1px solid rgb(52, 53, 54);
+    border-radius: 5px;
+
+    height: 150px;
+    width: 600px;
+
+    background-color: #1A1A1B;
+}
+
+#search-peoples-no-results-header {
+    display: flex;
+    justify-content: center;
+    font-size: larger;
+
+    color: white;
+}
+
+#search-peoples-no-results-subtitle {
+    margin-top: 20px;
+    font-size: small;
+    color: rgb(129, 131, 132)
+}

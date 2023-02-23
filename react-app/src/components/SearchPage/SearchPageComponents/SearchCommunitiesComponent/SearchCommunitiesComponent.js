@@ -15,8 +15,6 @@ const SearchCommunitiesComponent = ({ props }) => {
         if (searchCommunitiesArray.length > 0) {
             return (
                 Array.isArray(searchCommunitiesArray) && searchCommunitiesArray.map((el, i) => {
-                    console.log('booba', el)
-
                     return (
                         <div key={i} id="search-communities-container">
                             <aside id="search-communities-left-section">
