@@ -11,8 +11,9 @@ ___
 - React / Redux
 - Flask
 - SQLAlchemy
+- AWS
 <br>
-Future technologies that may be utilized are Text Editors (e.g. Lexical) and AWS to allow users to post images and videos.
+Future technologies that may be utilized are Text Editors (e.g. Lexical) to allow users to customize text in comments.
 <br>
 <br>
 
@@ -32,9 +33,12 @@ ___
 ## Description:
 This is a repository of a Readdit clone by Kihong (Samuel) Bae.
 <br>
-This project implements 2 fully CRUD features: Subreddits and Posts.
+This project implements 2 full CRUD features: Subreddits and Posts and 2 partial CRUD features: Likes and Comments.
 <br>
-This clone project also implements a feature to allow users to create a new account, sign in with a Demo User account, and log out.
+This clone project also implements additional features such as:
+1. Allow users to create a new account, or sign in with a Demo User account, as well as logging out
+2. Search function to look up posts, communities, or users with a keyword
+3. See all the posts and comments made by a particular user by visiting their profile page
 
 ___
 
@@ -104,6 +108,8 @@ Users are able to delete their posts. As posts can only be made to Subreddit pag
 ___
 
 ## Future Features:
-Future features to add would be to allow users to add Comments and Likes/Dislikes on Posts. Comments would also be a full CRUD feature whereas Likes/Dislikes would be a partial CRUD features.
-Other bonus features that could be added is the ability for users to upload photos/files for Posts and Subreddit icons as well as implementing a search bar to allow users to search for a particular Subreddit by name, instead of having to rely on the Subreddit bar on the Landing/Main page.
+Future features to add would be the following:
+1. Allow users to create Likes/Dislikes on Comments.
+2. Allow users to edit previously made Comments, making it a full CRUD feature.
+3. Implement a text editor to allow for more styling of comments.
 <br>
