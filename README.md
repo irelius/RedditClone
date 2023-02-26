@@ -110,6 +110,7 @@ ___
 ## Future Features:
 Future features to add would be the following:
 1. Allow users to create Likes/Dislikes on Comments.
-2. Allow users to edit previously made Comments, making it a full CRUD feature.
-3. Implement a text editor to allow for more styling of comments.
+2. Allow users to sort through Posts through other options, such as Most Recent, Most Popular, etc.
+3. Allow users to edit previously made Comments, making it a full CRUD feature.
+4. Implement a text editor to allow for more styling of comments.
 <br>
