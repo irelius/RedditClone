@@ -21,7 +21,7 @@ const SearchCommentsComponent = ({ props }) => {
                 const post = Object.values(props["allPosts"])[0][postId]
                 const posterId = post["user_id"]
                 const poster = Object.values(props["allUsers"])[1][posterId]
-                const subredditId = el["subreddit_id"]
+                const subredditId = post["subreddit_id"]
                 const subreddit = Object.values(props["allSubreddits"])[0][subredditId]
 
                 const commentsBelongingToPosts = Object.values(props["allComments"][0]).filter(comment => {

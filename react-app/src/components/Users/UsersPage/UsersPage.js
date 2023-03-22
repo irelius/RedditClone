@@ -28,12 +28,12 @@ const UsersPage = () => {
         setLoad(true)
     }, [dispatch])
 
+
     const allUsers = Object.values(useSelector(sessionActions.loadAllUsers))
-    const currentUserId = allUsers[0]["id"]
+    // const currentUserId = allUsers[0]["id"] || -1
     const allPosts = Object.values(useSelector(postActions.loadAllPosts))
     const allSubreddits = Object.values(useSelector(subredditActions.loadAllSubreddit))
     const currentUserComments = Object.values(useSelector(commentActions.loadAllComments))
-
 
     const loadBody = () => {
         let props = {

@@ -176,6 +176,7 @@ const AllPosts = () => {
                     postLikeStatus = modifiedPostLikes[el["id"]]
                 }
 
+
                 return (
                     <div key={i} id="all-posts-main-container" onClick={(e) => redirectToPostPage(subredditInfo["name"], el["id"], history, e)}>
                         <aside id="all-posts-left-section">
