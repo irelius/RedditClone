@@ -1,25 +1,25 @@
-import "./OnePost.css"
+import "./PostsIndividual.css"
 
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom"
-import { Modal } from "../../../context/Modal";
+import { Modal } from "../../context/Modal";
 
-import LogInOrSignUpModal from "../../Modals/LogInOrSignUpModal/LogInOrSignUpModal";
+import LogInOrSignUpModal from "../Modals/LogInOrSignUpModal/LogInOrSignUpModal";
 
-import * as subredditActions from "../../../store/subreddit"
-import * as postActions from "../../../store/post"
-import * as userActions from "../../../store/session"
-import * as likeActions from "../../../store/like"
-import * as commentActions from "../../../store/comment"
+import * as subredditActions from "../../store/subreddit"
+import * as postActions from "../../store/post"
+import * as userActions from "../../store/session"
+import * as likeActions from "../../store/like"
+import * as commentActions from "../../store/comment"
 
 // import redirectToPostPage from "../../HelperFunctions/redirectToPostPage";
-import redirectToSubredditPage from "../../HelperFunctions/redirectToSubredditPage";
-import redirectToUserPage from "../../HelperFunctions/redirectToUserPage"
-import ErrorPage from "../../ErrorPage";
+import redirectToSubredditPage from "../HelperFunctions/redirectToSubredditPage";
+import redirectToUserPage from "../HelperFunctions/redirectToUserPage"
+import ErrorPage from "../ErrorPage";
 
 
-const OnePost = () => {
+const PostsIndividual = () => {
     const dispatch = useDispatch()
     const history = useHistory()
     const [load, setLoad] = useState(false)
@@ -385,7 +385,7 @@ const OnePost = () => {
                             </section>
                             <section id="comments-section-footer">
                                 {/* TO DO: Implement a comment edit function */}
-                                {/* <aside onClick={() => setLoadEditCommentComponent(true)} id="comments-edit-container">
+                                <aside onClick={() => setLoadEditCommentComponent(true)} id="comments-edit-container">
                                     {
                                         currentUser["id"] === el["user_id"] ? (
                                             <div id="comments-footer-create-comment">
@@ -398,7 +398,7 @@ const OnePost = () => {
                                             <div></div>
                                         )
                                     }
-                                </aside> */}
+                                </aside>
                                 {currentUser === -1 ? (
                                     <div id="comments-remove-no-user"></div>
                                 ) : (
@@ -482,6 +482,7 @@ const OnePost = () => {
 
     // Main Component
     const LoadOnePost = () => {
+        // Figuring out if the subreaddit has the post of a particular ID. If it doesn't exist, then return an error page
         if (currentPost.length === 0 || Object.values(currentSubreddit[0])[0]["id"] !== Object.values(currentPost[0])[0]["subreddit_id"]) {
             return (
                 <div className="black-background">
@@ -628,4 +629,4 @@ const OnePost = () => {
     )
 }
 
-export default OnePost
+export default PostsIndividual

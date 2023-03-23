@@ -1,6 +1,6 @@
 import "./CreateCommentComponent.css"
 
-// TO DO: This is a redundant file, but may be useful when dividing up the OnePost.js file
+// TO DO: This is a redundant file, but may be useful when dividing up the PostsIndividual.js file
 const CreateCommentComponent = (currentUser) => {
     return (
         <div id="create-comment-main-container">

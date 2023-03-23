@@ -11,7 +11,7 @@ import LandingPage from './components/LandingPage/LandingPage';
 
 import SubredditPage from './components/SubredditPage';
 import CreatePostPage from './components/CreatePostPage';
-import OnePost from './components/Post/OnePost';
+import PostsIndividual from './components/PostsIndividual';
 import SearchPage from './components/SearchPage';
 import ErrorPage from './components/ErrorPage';
 
@@ -53,7 +53,7 @@ function App() {
           <CreatePostPage />
         </Route>
         <Route path="/r/:subreddit_name/:post_id" exact={true}>
-          <OnePost />
+          <PostsIndividual />
         </Route>
         <Route path="/r/:subreddit_name" exact={true}>
           <SubredditPage />
@@ -61,9 +61,9 @@ function App() {
         <Route path="/search/:search_param" exact={true}>
           <SearchPage />
         </Route>
-        <Route path="/test">
+        {/* <Route path="/test">
           <TestPage />
-        </Route>
+        </Route> */}
         <Route path="">
           <ErrorPage />
         </Route>

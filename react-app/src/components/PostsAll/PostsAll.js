@@ -1,25 +1,25 @@
-import "./AllPosts.css"
+import "./PostsAll.css"
 
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom"
-import { Modal } from "../../../context/Modal";
+import { Modal } from "../../context/Modal";
 
-import * as postActions from "../../../store/post"
-import * as subredditActions from "../../../store/subreddit"
-import * as sessionActions from "../../../store/session"
-import * as likeActions from "../../../store/like"
+import * as postActions from "../../store/post"
+import * as subredditActions from "../../store/subreddit"
+import * as sessionActions from "../../store/session"
+import * as likeActions from "../../store/like"
 
-import redirectToPostPage from "../../HelperFunctions/redirectToPostPage";
-import redirectToSubredditPage from "../../HelperFunctions/redirectToSubredditPage";
-import redirectToUserPage from "../../HelperFunctions/redirectToUserPage";
-import LogInOrSignUpModal from "../../Modals/LogInOrSignUpModal/LogInOrSignUpModal";
+import redirectToPostPage from "../HelperFunctions/redirectToPostPage";
+import redirectToSubredditPage from "../HelperFunctions/redirectToSubredditPage";
+import redirectToUserPage from "../HelperFunctions/redirectToUserPage";
+import LogInOrSignUpModal from "../Modals/LogInOrSignUpModal/LogInOrSignUpModal";
 
-import calculatePostLikes from "../../HelperFunctions/calculatePostLikes"
-import modifyLikeTotal from "../../HelperFunctions/modifyLikeTotal";
+import calculatePostLikes from "../HelperFunctions/calculatePostLikes";
+import modifyLikeTotal from "../HelperFunctions/modifyLikeTotal";
 
 
-const AllPosts = () => {
+const PostsAll = () => {
     const history = useHistory();
     const dispatch = useDispatch();
 
@@ -277,4 +277,4 @@ const AllPosts = () => {
 
 }
 
-export default AllPosts;
+export default PostsAll;
