@@ -40,6 +40,9 @@ function App() {
         <Route path='/' exact={true} >
           <LandingPage />
         </Route>
+        {/* <Route path="/r/:subreddit_name/:post_id">
+          <TestPage />
+        </Route> */}
         <Route path='/login' exact={true}>
           <LoginForm />
         </Route>
@@ -61,9 +64,6 @@ function App() {
         <Route path="/search/:search_param" exact={true}>
           <SearchPage />
         </Route>
-        {/* <Route path="/test">
-          <TestPage />
-        </Route> */}
         <Route path="">
           <ErrorPage />
         </Route>
