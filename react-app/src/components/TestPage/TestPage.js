@@ -6,6 +6,7 @@ import { useHistory, useParams } from "react-router-dom"
 import { Modal } from "../../context/Modal";
 
 import PostBody from "../PostsIndividual/PostComponents/PostBody"
+import PostSubreadditBar from "../PostsIndividual/PostComponents/PostSubreadditBar";
 
 import * as subredditActions from "../../store/subreddit"
 import * as postActions from "../../store/post"
@@ -16,11 +17,13 @@ const TestPage = () => {
     const dispatch = useDispatch()
     const history = useHistory()
 
-    const [load, setLoad] = useState(true)
+    const [load, setLoad] = useState(false)
+    const [newPostBody, setNewPostBody] = useState(null)
+    const [loadEditPostComponent, setLoadEditPostComponent] = useState(false)
+
     const { subreddit_name, post_id } = useParams();
 
     useEffect(() => {
-        console.log('booba, useeffect')
         dispatch(userActions.loadAllUserThunk())
         dispatch(subredditActions.loadCurrentSubredditThunk(subreddit_name))
         dispatch(postActions.loadPostThunk(post_id))
@@ -33,7 +36,7 @@ const TestPage = () => {
             dispatch(postActions.clearPost())
             dispatch(likeActions.clearLikes())
         })
-    }, [dispatch])
+    }, [dispatch, setLoadEditPostComponent, setNewPostBody])
 
     const currentPostLikes = Object.values(useSelector(likeActions.loadPostLikes))
     const currentPost = Object.values(useSelector(postActions.loadAllPosts))
@@ -42,11 +45,26 @@ const TestPage = () => {
     const currentUser = allUsers[0] || -1
 
     return (
-        <div>
-            <section>{PostBody()}</section>
+        <div id="individual-post-main-container">
+            <aside id="individual-post-left-section">
+                <section>
+                    {PostBody({ currentPostLikes, currentPost, currentSubreddit, allUsers, currentUser, load })}
+                </section>
+                <section>
+
+                </section>
+                <section>
+
+                </section>
+                <section>
+
+                </section>
+            </aside>
+            <aside id="individual-post-right-section">
+                {PostSubreadditBar({currentSubreddit})}
+            </aside>
         </div>
     )
-
 }
 
 export default TestPage

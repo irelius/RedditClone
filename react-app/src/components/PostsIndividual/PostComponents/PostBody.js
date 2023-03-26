@@ -13,7 +13,9 @@ import redirectToUserPage from "../../HelperFunctions/redirectToUserPage";
 import redirectToSubredditPage from "../../HelperFunctions/redirectToSubredditPage";
 import LogInOrSignUpModal from "../../Modals/LogInOrSignUpModal/LogInOrSignUpModal";
 
+// const PostBody = (currentPostLikes, currentPost, currentSubreddit, allUsers, currentUser, load) => {
 const PostBody = ({ currentPostLikes, currentPost, currentSubreddit, allUsers, currentUser, load }) => {
+
     const dispatch = useDispatch()
     const history = useHistory()
 
@@ -217,6 +219,7 @@ const PostBody = ({ currentPostLikes, currentPost, currentSubreddit, allUsers, c
     }
     // -------------------------------------------------------------------------------------------------- //
 
+
     const LoadOnePost = () => {
         // Figuring out if the subreaddit has the post of a particular ID. If it doesn't exist, then return an error page
         if (currentPost.length === 0 || Object.values(currentSubreddit[0])[0]["id"] !== Object.values(currentPost[0])[0]["subreddit_id"]) {
@@ -335,7 +338,7 @@ const PostBody = ({ currentPostLikes, currentPost, currentSubreddit, allUsers, c
                             </aside> */}
                         </aside>
                     </aside>
-                    <aside onClick={(e) => redirectToSubredditPage(subredditToLoad["name"], history, e)} id="post-page-bar-main-container">
+                    {/* <aside onClick={(e) => redirectToSubredditPage(subredditToLoad["name"], history, e)} id="post-page-bar-main-container">
                         <section id="post-page-bar-banner">
                         </section>
                         <section id="post-page-bar-header-container">
@@ -354,24 +357,12 @@ const PostBody = ({ currentPostLikes, currentPost, currentSubreddit, allUsers, c
                                 Created {subredditDate}
                             </section>
                         </section>
-                    </aside>
+                    </aside> */}
                 </div>
             </div >
         )
     }
 
-    // return (
-    //     <div id="post-page-background-1">
-    //         {/* {askUserToLogin && (
-    //             <Modal>
-    //                 {LogInOrSignUpModal({ setAskUserToLogin })}
-    //             </Modal>
-    //         )} */}
-    //         {LoadOnePost()}
-    //     </div>
-    // )
-
-    console.log('booba',currentSubreddit.length, allUsers.length, currentPostLikes.length, load)
 
     return currentSubreddit.length > 0 && allUsers.length > 1 && currentPostLikes.length > 0 && load ? (
         <div id="post-page-background-1">
