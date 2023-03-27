@@ -7,7 +7,7 @@ const TestOne = () => {
     const dispatch = useDispatch()
 
     const [state, setState] = useState(false)
-    console.log('booba state', state)
+
 
     useEffect(() => {
         dispatch(userActions.loadAllUserThunk())
@@ -15,7 +15,7 @@ const TestOne = () => {
     }, [dispatch])
 
     const users = Object.values(useSelector(state => state.session))
-    console.log('booba users', users)
+
 
     return state ? (
         <div>

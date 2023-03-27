@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router-dom"
+import { useHistory } from "react-router-dom"
 
 import redirectToSubredditPage from "../../HelperFunctions/redirectToSubredditPage";
 
@@ -16,7 +14,6 @@ const PostSubreadditBar = ({ currentSubreddit }) => {
     }
 
     const SubredditBar = () => {
-        console.log("booba", subredditToLoad)
         return (
             <div onClick={(e) => redirectToSubredditPage(subredditToLoad["name"], history, e)} id="post-page-bar-main-container">
                 <section id="post-page-bar-banner">

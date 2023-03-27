@@ -1,35 +1,186 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router-dom"
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom"
 
-import * as subredditActions from "../../../store/subreddit"
-import * as postActions from "../../../store/post"
-import * as userActions from "../../../store/session"
-import * as likeActions from "../../../store/like"
 import * as commentActions from "../../../store/comment"
 
-import ErrorPage from "../../ErrorPage";
 import redirectToUserPage from "../../HelperFunctions/redirectToUserPage";
-import redirectToSubredditPage from "../../HelperFunctions/redirectToSubredditPage";
-import LogInOrSignUpModal from "../../Modals/LogInOrSignUpModal/LogInOrSignUpModal";
 
-const PostComments = () => {
+const PostComments = ({ currentComments, currentPost, currentSubreddit, allUsers, currentUser, load }) => {
     const dispatch = useDispatch()
     const history = useHistory()
-    const [load, setLoad] = useState(false)
-    const [errors, setErrors] = useState([])
-    const [newPostBody, setNewPostBody] = useState(null)
-    const [loadEditPostComponent, setLoadEditPostComponent] = useState(false)
-    const [commentBody, setCommentBody] = useState("")
     const [newCommentBody, setNewCommentBody] = useState(null)
     const [loadEditCommentComponent, setLoadEditCommentComponent] = useState(false)
     const [askUserToLogin, setAskUserToLogin] = useState(false)
 
+    // ----------------------------------------- Functions ---------------------------------------------- //
+    // Comment Update
+    const updateComment = async (e, el) => {
+        e.preventDefault();
 
-    return (
+        let commentInfo = {
+            body: newCommentBody
+        }
+
+        dispatch(commentActions.putCommentThunk(commentInfo, el))
+        el.body = commentInfo.body
+
+        setLoadEditCommentComponent(false)
+    }
+    // Comment Removal/Deletion
+    const handleCommentDelete = (el) => {
+        const confirmDelete = prompt(
+            `Are you sure you want to delete this comment? You can't undo this`, "Yes"
+        )
+
+        if (confirmDelete === "Yes") {
+            dispatch(commentActions.deleteCommentThunk(el))
+        }
+    }
+    const handleCommentRemoval = (el) => {
+        const confirmDelete = prompt(
+            `Are you sure you want to remove this comment? You can't undo this`, "Yes"
+        )
+
+        if (confirmDelete === "Yes") {
+            dispatch(commentActions.deleteCommentThunk(el))
+        }
+    }
+    // -------------------------------------------------------------------------------------------------- //
+
+
+    // ----------------------------------------- Components ---------------------------------------------- //
+    const loadEditCommentSection = (commentToLoad) => {
+        if (newCommentBody === null && commentToLoad.body) {
+            setNewCommentBody(commentToLoad.body)
+        }
+
+        return (
+            <form onSubmit={updateComment}>
+                <textarea
+                    type="text"
+                    minLength={1}
+                    value={newCommentBody}
+                    onChange={(e) => setNewCommentBody(e.target.value)}
+                >
+                </textarea>
+                <section>
+                    <button onClick={() => setLoadEditCommentComponent(false)}>
+                        Cancel
+                    </button>
+                    <button type="submit">
+                        Save Edits
+                    </button>
+                </section>
+
+            </form>
+        )
+    }
+
+    const LoadComments = () => {
+        if (currentComments.length > 0) {
+            const commentsToLoad = Object.values(currentComments[0])
+
+            return (
+                Array.isArray(commentsToLoad) && commentsToLoad.map((el, i) => {
+                    let commentPoster = -1;
+                    if (allUsers[1]) {
+                        commentPoster = allUsers[1][el["user_id"]]
+                    }
+
+                    let commentDate = el["created_at"].split(" ")
+                    commentDate = commentDate[2] + " " + commentDate[1] + ", " + commentDate[3]
+
+                    return (
+                        <div id='comments-section-main-container' key={i}>
+                            <section id="comments-section-header">
+                                <img id="comments-section-poster-profile-pic"
+                                    src={commentPoster["profile_image"]}
+                                    width={30}
+                                    height={30}
+                                    alt="commentPosterProfileImage"
+                                />
+                                <aside onClick={(e) => redirectToUserPage(commentPoster.username, history, e)} id="comments-section-poster-username">
+                                    {commentPoster["username"]}
+                                </aside>
+                                <aside>
+                                    -
+                                </aside>
+                                <aside id="comments-section-date">
+                                    {commentDate}
+                                </aside>
+                            </section>
+                            <section id="comments-section-comment">
+                                {loadEditCommentComponent ? (
+                                    <section>
+                                        {loadEditCommentSection(el)}
+                                    </section>
+                                ) : (
+                                    <section>
+                                        {el["body"]}
+                                    </section>
+                                )}
+                            </section>
+                            <section id="comments-section-footer">
+                                {/* TO DO: Implement a comment edit function */}
+                                {/* <aside onClick={() => setLoadEditCommentComponent(true)} id="comments-edit-container">
+                                    {
+                                        currentUser["id"] === el["user_id"] ? (
+                                            <div id="comments-footer-create-comment">
+                                                <i className="fa-solid fa-pen" />
+                                                <aside>
+                                                    Edit
+                                                </aside>
+                                            </div>
+                                        ) : (
+                                            <div></div>
+                                        )
+                                    }
+                                </aside> */}
+                                {currentUser === -1 ? (
+                                    <div id="comments-remove-no-user"></div>
+                                ) : (
+                                    <aside id="comments-remove-container">
+                                        {currentUser["id"] === el["user_id"] ? (
+                                            <div id="comments-footer-delete-comment" onClick={() => handleCommentDelete(el)}>
+                                                <i className="fa-regular fa-trash-can" />
+                                                <aside className="comments-footer-text">
+                                                    Delete Comment
+                                                </aside>
+                                            </div>
+                                        ) : (
+                                            <div id="comments-footer-remove-comment" onClick={() => handleCommentRemoval(el)}>
+                                                <i className="fa-solid fa-ban" />
+                                                <aside className="comments-footer-text">
+                                                    Remove Comment
+                                                </aside>
+                                            </div>
+                                        )}
+                                    </aside>
+                                )}
+                            </section>
+                        </div>
+                    )
+                })
+            )
+        } else {
+            return (
+                <div id='comments-section-no-comments'>
+                    There are no comments yet. Why don't you fix that?
+                </div>
+            )
+        }
+    }
+    // -------------------------------------------------------------------------------------------------- //
+
+
+
+    return currentComments.length > 0 && currentPost.length > 0 && allUsers.length > 0 && load ? (
         <div>
-            comments
+            {LoadComments()}
         </div>
+    ) : (
+        <div></div>
     )
 }
 

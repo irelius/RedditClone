@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router-dom"
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom"
 import { Modal } from "../../../context/Modal";
 
-import * as subredditActions from "../../../store/subreddit"
 import * as postActions from "../../../store/post"
-import * as userActions from "../../../store/session"
 import * as likeActions from "../../../store/like"
 
 import ErrorPage from "../../ErrorPage";
@@ -13,9 +11,7 @@ import redirectToUserPage from "../../HelperFunctions/redirectToUserPage";
 import redirectToSubredditPage from "../../HelperFunctions/redirectToSubredditPage";
 import LogInOrSignUpModal from "../../Modals/LogInOrSignUpModal/LogInOrSignUpModal";
 
-// const PostBody = (currentPostLikes, currentPost, currentSubreddit, allUsers, currentUser, load) => {
 const PostBody = ({ currentPostLikes, currentPost, currentSubreddit, allUsers, currentUser, load }) => {
-
     const dispatch = useDispatch()
     const history = useHistory()
 
@@ -24,10 +20,6 @@ const PostBody = ({ currentPostLikes, currentPost, currentSubreddit, allUsers, c
     const [askUserToLogin, setAskUserToLogin] = useState(false)
     const [likeTotal, setLikeTotal] = useState(0)
     const [postLikeStatus, setPostLikeStatus] = useState("neutral")
-
-    const { subreddit_name, post_id } = useParams();
-
-
 
     useEffect(() => {
         if (currentPostLikes.length > 0) {
@@ -244,12 +236,6 @@ const PostBody = ({ currentPostLikes, currentPost, currentSubreddit, allUsers, c
 
         return (
             <div id="post-page-background-2">
-                <div id="post-page-close-button-container">
-                    <button onClick={() => history.goBack()} id="post-page-close-button">
-                        <i className="fa-solid fa-xmark fa-lg" />
-                        Close
-                    </button>
-                </div>
                 <div id="post-page-main-container">
                     <aside id="post-page-post-main-container">
                         {/* Left container is the part of the post that contains the like functionality of posts */}
@@ -324,40 +310,8 @@ const PostBody = ({ currentPostLikes, currentPost, currentSubreddit, allUsers, c
                             <section>
                                 {loadFooter(currentUser, postToLoad, subredditToLoad)}
                             </section>
-                            {/* <aside id="post-page-comments-form-container">
-                                {currentUser !== -1 ? (
-                                    <div>
-                                        {createCommentComponent(currentUser)}
-                                    </div>
-                                ) : (
-                                    <div></div>
-                                )}
-                            </aside> */}
-                            {/* <aside id="post-page-comments-section-container">
-                                {loadComments(currentUser, subredditToLoad)}
-                            </aside> */}
                         </aside>
                     </aside>
-                    {/* <aside onClick={(e) => redirectToSubredditPage(subredditToLoad["name"], history, e)} id="post-page-bar-main-container">
-                        <section id="post-page-bar-banner">
-                        </section>
-                        <section id="post-page-bar-header-container">
-                            <aside id="post-page-bar-icon">
-                                r/
-                            </aside>
-                            <aside id="post-page-bar-header">
-                                r/{subredditToLoad.name}
-                            </aside>
-                        </section>
-                        <section id="post-page-bar-details-container">
-                            <section id="post-page-bar-details-body">
-                                {subredditToLoad.description}
-                            </section>
-                            <section id="post-page-bar-date">
-                                Created {subredditDate}
-                            </section>
-                        </section>
-                    </aside> */}
                 </div>
             </div >
         )
