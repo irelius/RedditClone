@@ -40,9 +40,9 @@ function App() {
         <Route path='/' exact={true} >
           <LandingPage />
         </Route>
-        {/* <Route path="/r/:subreddit_name/:post_id">
+        <Route path="/r/:subreddit_name/:post_id">
           <TestPage />
-        </Route> */}
+        </Route>
         <Route path='/login' exact={true}>
           <LoginForm />
         </Route>

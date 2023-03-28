@@ -47,27 +47,29 @@ const TestPage = () => {
     const currentUser = allUsers[0] || -1
 
     return (
-        <div id="individual-post-main-container">
-            <div id="post-page-close-button-container">
+        <div id="test-main-container">
+            <section id="test-button-container">
                 <button onClick={() => history.goBack()} id="post-page-close-button">
                     <i className="fa-solid fa-xmark fa-lg" />
                     Close
                 </button>
-            </div>
-            <aside id="individual-post-left-section">
-                <section>
-                    {PostBody({ currentPostLikes, currentPost, currentSubreddit, allUsers, currentUser, load })}
-                </section>
-                <section>
-                    {PostCreateComment({ currentPost, currentSubreddit, allUsers, currentUser, load })}
-                </section>
-                <section>
-                    {PostComments({ currentComments, currentPost, currentSubreddit, allUsers, currentUser, load })}
-                </section>
-            </aside>
-            <aside id="individual-post-right-section">
-                {PostSubreadditBar({ currentSubreddit })}
-            </aside>
+            </section>
+            <section id="test-post-main-body">
+                <aside id="test-post-left-section">
+                    <section>
+                        {PostBody({ currentPostLikes, currentPost, currentSubreddit, allUsers, currentUser, load })}
+                    </section>
+                    <section>
+                        {PostCreateComment({ currentPost, currentSubreddit, allUsers, currentUser, load })}
+                    </section>
+                    <section>
+                        {PostComments({ currentComments, currentPost, currentSubreddit, allUsers, currentUser, load })}
+                    </section>
+                </aside>
+                <aside id="test-post-right-section">
+                    {PostSubreadditBar({ currentSubreddit })}
+                </aside>
+            </section>
         </div>
     )
 }
