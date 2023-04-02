@@ -1,5 +1,3 @@
-import searchPeoplesFunction from "./searchPeoplesFunction"
-
 const searchCommentsFunction = (props) => {
     let searchCommentsArray = [];
 

@@ -1,17 +1,30 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom"
+import "./PostComments.css"
 
-import * as commentActions from "../../../store/comment"
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory, useParams } from "react-router-dom"
 
-import redirectToUserPage from "../../HelperFunctions/redirectToUserPage";
+import * as commentActions from "../../../../store/comment"
 
-const PostComments = ({ currentComments, currentPost, currentSubreddit, allUsers, currentUser, load }) => {
+import redirectToUserPage from "../../../HelperFunctions/redirectToUserPage";
+
+const PostComments = ({ currentPost, currentSubreddit, allUsers, currentUser, post_id, load }) => {
     const dispatch = useDispatch()
     const history = useHistory()
+
+    const [errors, setErrors] = useState([])
+    const [commentBody, setCommentBody] = useState("")
     const [newCommentBody, setNewCommentBody] = useState(null)
     const [loadEditCommentComponent, setLoadEditCommentComponent] = useState(false)
-    const [askUserToLogin, setAskUserToLogin] = useState(false)
+    // const [askUserToLogin, setAskUserToLogin] = useState(false)
+
+
+    useEffect(() => {
+        dispatch(commentActions.loadPostCommentsThunk(post_id))
+    }, [dispatch])
+
+    const currentComments = Object.values(useSelector(commentActions.loadAllComments))
+
 
     // ----------------------------------------- Functions ---------------------------------------------- //
     // Comment Update
@@ -77,7 +90,7 @@ const PostComments = ({ currentComments, currentPost, currentSubreddit, allUsers
         )
     }
 
-    const LoadComments = () => {
+    const CommentsComponent = () => {
         if (currentComments.length > 0) {
             const commentsToLoad = Object.values(currentComments[0])
 
@@ -174,11 +187,13 @@ const PostComments = ({ currentComments, currentPost, currentSubreddit, allUsers
     // -------------------------------------------------------------------------------------------------- //
 
 
-
-    return currentComments.length > 0 && currentPost.length > 0 && allUsers.length > 0 && load ? (
+    // ----------------------------------------- Main Component ----------------------------------------- //
+     return currentSubreddit.length > 0 && currentComments.length > 0 && currentPost.length > 0 && allUsers.length > 0 && load ? (
         <div>
-            {LoadComments()}
-        </div>
+                <aside id="post-page-comments-section-container">
+                    {CommentsComponent()}
+                </aside>
+            </div>
     ) : (
         <div></div>
     )

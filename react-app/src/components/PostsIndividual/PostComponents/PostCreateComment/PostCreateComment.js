@@ -1,43 +1,49 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import "./PostCreateComment.css"
+
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom"
 
-import * as commentActions from "../../../store/comment"
+import * as commentActions from "../../../../store/comment"
 
-import redirectToUserPage from "../../HelperFunctions/redirectToUserPage";
+import redirectToUserPage from "../../../HelperFunctions/redirectToUserPage";
 
 
-const PostCreateComment = ({ currentPost, currentSubreddit, allUsers, currentUser, load }) => {
+const PostCreateComment = ({ currentPost, currentSubreddit, allUsers, currentUser, post_id, load }) => {
     const dispatch = useDispatch();
     const history = useHistory();
 
     const [errors, setErrors] = useState([])
     const [commentBody, setCommentBody] = useState("")
 
+    useEffect(() => {
+        dispatch(commentActions.loadPostCommentsThunk(post_id))
+    }, [dispatch])
+
     // ----------------------------------------- Functions ---------------------------------------------- //
     // Comment Creation
-    const createComment = () => {
-        const post_id = currentPost[0].id;
-        let postId = Object.values(currentPost[0])
+    const createComment = async (e) => {
+        e.preventDefault()
+        let postId = Object.values(currentPost[0])[0].id || null
 
         let currentSubredditId = Object.keys(currentSubreddit[0])[0] || null
-        let currentPostId = postId[0]["id"] || null
         let currentCommentId = null
 
         let commentInfo = {
             body: commentBody,
             subreddit_id: currentSubredditId,
             reply_to_id: currentCommentId,
-            post_id: currentPostId,
+            post_id: postId,
         }
 
-        const data = dispatch(commentActions.createCommentThunk(commentInfo, postId[0]["id"]))
+        const data = await dispatch(commentActions.createCommentThunk(commentInfo, postId))
+
         if (data) {
             setErrors(data)
         }
 
         if (data === null) {
-            dispatch(commentActions.loadPostCommentsThunk(post_id))
+            dispatch(commentActions.loadPostCommentsThunk(postId))
         }
 
         setCommentBody("")
@@ -72,11 +78,11 @@ const PostCreateComment = ({ currentPost, currentSubreddit, allUsers, currentUse
                             />
                         </section>
                         <section id="create-comment-form-button-container">
-                            <aside id="create-comment-error-container">
+                            {/* <aside id="create-comment-error-container">
                                 {errors.map((error, ind) => (
                                     <div key={ind}>{error}</div>
                                 ))}
-                            </aside>
+                            </aside> */}
                             <aside>
                                 <button id="create-comment-submit-button" type="submit">
                                     Comment

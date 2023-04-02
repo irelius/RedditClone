@@ -16,7 +16,8 @@ import SearchPage from './components/SearchPage';
 import ErrorPage from './components/ErrorPage';
 
 
-import TestPage from './components/TestPage/TestPage';
+// import TestPage from './components/TestPage/TestPage';
+import PostsIndividualBackup from './components/PostsIndividual/PostIndividualBackup';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -40,9 +41,13 @@ function App() {
         <Route path='/' exact={true} >
           <LandingPage />
         </Route>
-        <Route path="/r/:subreddit_name/:post_id">
-          <TestPage />
-        </Route>
+
+{/*
+        <Route path="/r/:subreddit_name/:post_id" exact={true}>
+          <PostsIndividualBackup />
+        </Route> */}
+
+
         <Route path='/login' exact={true}>
           <LoginForm />
         </Route>

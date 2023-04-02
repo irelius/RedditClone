@@ -46,6 +46,7 @@ const SearchCommentsComponent = ({ props }) => {
                                         <img id="search-comments-commenter-profile-image" src={commenter['profile_image']}
                                             height={25}
                                             width={25}
+                                            alt={`readdit-profile: ${commenter['profile_image']}`}
                                         />
                                         <aside id="search-comments-commenter-name" onClick={(e) => redirectToUserPage(commenter["username"], history, e)}>{commenter["username"]}</aside>
                                     </section>

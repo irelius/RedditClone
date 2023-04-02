@@ -69,6 +69,7 @@ const SearchPostsComponent = ({ props }) => {
                                     <img src={imageToLoad}
                                         width={130}
                                         height={100}
+                                        alt={`readdit-search-preview-${imageToLoad}`}
                                     />
                                 ) : (
                                     <div></div>
@@ -127,6 +128,7 @@ const SearchPostsComponent = ({ props }) => {
                                 <img id="search-posts-people-profile-image" src={el["profile_image"]}
                                     width={30}
                                     height={30}
+                                    alt={`readdit-profile: ${el["profile_image"]}`}
                                 />
                             </aside>
                             <aside id="search-posts-people-username">

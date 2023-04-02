@@ -1,0 +1,247 @@
+
+/* Individual Post Body Main Container */
+#post-page-main-container {
+    display: flex;
+    flex-direction: row;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Individual Post Body Left Container */
+#post-page-left-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    margin-top: 10px;
+    margin-right: 5px;
+}
+
+#post-upvote-button:hover {
+    cursor: pointer;
+}
+
+#post-downvote-button:hover {
+    cursor: pointer;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Individual Post Body Right Container */
+
+#post-page-right-container {
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Post Page Header Container */
+
+#post-page-header-container {
+    display: flex;
+    flex-direction: row;
+
+    margin: 10px;
+    margin-left: 0px;
+    margin-bottom: 5px;
+
+    font-size: small;
+}
+
+#post-page-header {
+    margin-right: 10px;
+
+    font-weight: bold;
+    color: white;
+}
+
+#post-page-header:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+#post-page-poster {
+    color: #707172;
+}
+
+#post-page-poster-decoration-text {
+    margin-right: 3px;
+    color: #707172;
+}
+
+#post-page-poster:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Post Page Title Container */
+
+#post-page-title-container {
+    font-size: larger;
+    font-weight: bold;
+
+    margin: 5px;
+    margin-left: 0px;
+
+    color: white;
+}
+
+/* -----------------------------------------------------------------------*/
+/* Post Page Body Container */
+
+#post-page-body {
+    margin: 5px;
+    margin-left: 0px;
+    margin-bottom: 15px;
+
+    word-break: normal;
+
+    color: white;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Post Page Body Edit Container */
+
+#post-page-edit-main-container {
+    display: flex;
+    flex-direction: column;
+
+    width: 660px;
+}
+
+#post-page-edit-input {
+    width: 650px;
+
+    resize: vertical;
+    outline: none;
+
+    border: 1px solid #343536;
+    border-radius: 5px;
+
+    font-family: tre;
+    color: white;
+    background-color: #191919;
+}
+
+#post-page-edit-input:focus {
+    border: 1px solid white;
+}
+
+#post-page-edit-button-container {
+    display: flex;
+    justify-content: flex-end;
+
+    margin-right: 5px;
+    margin-top: 5px;
+}
+
+#post-page-edit-button-container>* {
+    margin-left: 5px;
+
+    height: 35px;
+    width: 90px;
+
+    border: none;
+    border-radius: 45px;
+
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 16px;
+    font-weight: bolder;
+}
+
+#post-page-edit-cancel-button {
+    color: white;
+    background-color: #191919;
+}
+
+#post-page-edit-cancel-button:hover {
+    cursor: pointer;
+    background-color: #29292A;
+}
+
+#post-page-edit-save-button:hover {
+    cursor: pointer;
+    background-color: #C8CBCD;
+}
+
+
+
+/* -----------------------------------------------------------------------*/
+/* Post Page Footer Container */
+
+#post-page-footer-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    height: 40px;
+    width: 100%;
+
+
+}
+
+#post-page-footer-container>* {
+    display: flex;
+    justify-content: center;
+
+    height: 100%;
+
+    color: #707172;
+}
+
+#post-page-footer-container *:hover {
+    cursor: pointer;
+    background-color: #2D2E2F;
+}
+
+#post-page-button-icon {
+    margin-right: 5px;
+}
+
+#post-like-status-like {
+    color: #CC3700;
+}
+
+#post-dislike-status-dislike {
+    color: #5A75CC;
+}
+
+
+#post-page-edit-container {
+    display: flex;
+    align-items: center;
+
+    padding-left: 10px;
+}
+
+#post-page-edit-button {
+    margin-right: 5px;
+
+    border: none;
+
+    font-size: 11px;
+    font-weight: bold;
+    color: #707172;
+    background-color: transparent;
+}
+
+#post-page-delete-container {
+    display: flex;
+    align-items: center;
+
+    padding-left: 10px;
+}
+
+#post-page-delete-button {
+    border: none;
+
+    font-size: 11px;
+    font-weight: bold;
+    color: #707172;
+    background-color: transparent;
+}

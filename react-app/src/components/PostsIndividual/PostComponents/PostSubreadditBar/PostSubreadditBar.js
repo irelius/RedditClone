@@ -1,6 +1,8 @@
+import "./PostSubreadditBar.css"
+
 import { useHistory } from "react-router-dom"
 
-import redirectToSubredditPage from "../../HelperFunctions/redirectToSubredditPage";
+import redirectToSubredditPage from "../../../HelperFunctions/redirectToSubredditPage";
 
 const PostSubreadditBar = ({ currentSubreddit }) => {
     const history = useHistory();

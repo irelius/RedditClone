@@ -3,7 +3,6 @@ import "./SearchPage.css"
 import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom"
 
 import * as sessionActions from "../../store/session"
 import * as subredditActions from "../../store/subreddit"

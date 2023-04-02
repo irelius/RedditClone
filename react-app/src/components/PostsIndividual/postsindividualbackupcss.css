@@ -1,0 +1,637 @@
+/* -----------------------------------------------------------------------*/
+
+
+/* PostsIndividual CSS */
+
+
+/* -----------------------------------------------------------------------*/
+/* Post Page Background */
+
+#post-page-background-1 {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+
+    background-color: #191919;
+}
+
+#post-page-background-2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    height: 100%;
+    width: 1300px;
+
+    background-color: #030303;
+}
+
+#post-page-close-button-container {
+    display: flex;
+    justify-content: flex-end;
+
+    margin-top: 60px;
+    margin-right: 250px;
+
+    width: 100%;
+}
+
+#post-page-close-button {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+    height: 25px;
+    width: 75px;
+
+    border: none;
+
+    color: white;
+    background-color: transparent;
+}
+
+#post-page-close-button:hover {
+    cursor: pointer;
+    border-radius: 20px;
+    background-color: #141414;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Post Page Main Container */
+
+#post-page-main-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    margin-top: 25px;
+
+    width: 1050px;
+
+    background-color: #030303;
+
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Post Page Post Main Container */
+
+#post-page-post-main-container {
+    display: grid;
+    grid-template-columns: 1fr 19fr;
+
+    margin-right: 10px;
+
+    width: 750px;
+
+    border-radius: 5px;
+
+    background-color: #191919;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Post Page Left Container */
+
+#post-page-post-left-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    margin-top: 10px;
+}
+
+#post-upvote-button:hover {
+    cursor: pointer;
+}
+
+#post-downvote-button:hover {
+    cursor: pointer;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Post Page Right Container */
+
+#post-page-post-right-container {
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Post Page Header Container */
+
+#post-page-post-header-container {
+    display: flex;
+    flex-direction: row;
+
+    margin: 10px;
+    margin-left: 0px;
+    margin-bottom: 5px;
+
+    font-size: small;
+}
+
+#post-page-post-header {
+    margin-right: 10px;
+
+    font-weight: bold;
+    color: white;
+}
+
+#post-page-post-header:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+#post-page-post-poster {
+    color: #707172;
+}
+
+#post-page-post-poster-decoration-text {
+    margin-right: 3px;
+    color: #707172;
+}
+
+#post-page-post-poster:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+/* -----------------------------------------------------------------------*/
+/* Post Page Title Container */
+
+#post-page-post-title-container {
+    font-size: larger;
+    font-weight: bold;
+
+    margin: 5px;
+    margin-left: 0px;
+
+    color: white;
+}
+
+/* -----------------------------------------------------------------------*/
+/* Post Page Body Container */
+
+#post-page-post-body {
+    margin: 5px;
+    margin-left: 0px;
+    margin-bottom: 15px;
+
+    word-break: normal;
+
+    color: white;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Post Page Body Edit Container */
+
+#post-page-edit-main-container {
+    display: flex;
+    flex-direction: column;
+
+    width: 660px;
+}
+
+#post-page-edit-input {
+    width: 650px;
+
+    resize: vertical;
+    outline: none;
+
+    border: 1px solid #343536;
+    border-radius: 5px;
+
+    font-family: tre;
+    color: white;
+    background-color: #191919;
+}
+
+#post-page-edit-input:focus {
+    border: 1px solid white;
+}
+
+#post-page-edit-button-container {
+    display: flex;
+    justify-content: flex-end;
+
+    margin-right: 5px;
+    margin-top: 5px;
+}
+
+#post-page-edit-button-container>* {
+    margin-left: 5px;
+
+    height: 35px;
+    width: 90px;
+
+    border: none;
+    border-radius: 45px;
+
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 16px;
+    font-weight: bolder;
+}
+
+#post-page-edit-cancel-button {
+    color: white;
+    background-color: #191919;
+}
+
+#post-page-edit-cancel-button:hover {
+    cursor: pointer;
+    background-color: #29292A;
+}
+
+#post-page-edit-save-button:hover {
+    cursor: pointer;
+    background-color: #C8CBCD;
+}
+
+
+
+/* -----------------------------------------------------------------------*/
+/* Post Page Footer Container */
+
+#post-page-post-footer-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    height: 40px;
+    width: 100%;
+
+
+}
+
+#post-page-post-footer-container>* {
+    display: flex;
+    justify-content: center;
+
+    height: 100%;
+
+    color: #707172;
+}
+
+#post-page-post-footer-container *:hover {
+    cursor: pointer;
+    background-color: #2D2E2F;
+}
+
+#post-page-post-button-icon {
+    margin-right: 5px;
+}
+
+#post-like-status-like {
+    color: #CC3700;
+}
+
+#post-dislike-status-dislike {
+    color: #5A75CC;
+}
+
+
+#post-page-post-edit-container {
+    display: flex;
+    align-items: center;
+
+    padding-left: 10px;
+}
+
+#post-page-post-edit-button {
+    margin-right: 5px;
+
+    border: none;
+
+    font-size: 11px;
+    font-weight: bold;
+    color: #707172;
+    background-color: transparent;
+}
+
+#post-page-post-delete-container {
+    display: flex;
+    align-items: center;
+
+    padding-left: 10px;
+}
+
+#post-page-post-delete-button {
+    border: none;
+
+    font-size: 11px;
+    font-weight: bold;
+    color: #707172;
+    background-color: transparent;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Post Page Bar Main Container */
+
+#post-page-bar-main-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    height: fit-content;
+    max-width: 325px;
+    width: 325px;
+
+    border: 1px solid #474748;
+    border-radius: 5px;
+
+    background-color: #191919;
+}
+
+#post-page-bar-main-container:hover {
+    cursor: pointer;
+}
+
+#post-page-bar-banner {
+    height: 35px;
+
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+
+    background-color: #FF4500;
+}
+
+#post-page-bar-header-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#post-page-bar-icon {
+    display: flex;
+    justify-content: center;
+
+    margin: 10px;
+
+    height: 39px;
+    width: 39px;
+
+    border: 5px solid white;
+    border-radius: 100%;
+
+    font-size: xx-large;
+    font-weight: bold;
+
+    color: white;
+    background-color: #ff4500;
+}
+
+#post-page-bar-header {
+    margin-bottom: 1px;
+
+    font-size: 16px;
+    font-weight: lighter;
+    color: white;
+}
+
+
+#post-page-bar-details-container>* {
+    margin-bottom: 10px;
+    margin-left: 10px;
+
+    font-size: 16px;
+}
+
+#post-page-bar-details-body {
+    color: white;
+}
+
+#post-page-bar-date {
+    color: #818384;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Comment Create Section Main Container */
+
+#create-comment-main-container {
+    display: flex;
+    flex-direction: column;
+
+    margin: 10px;
+}
+
+#create-comment-commenter-container {
+    display: flex;
+    flex-direction: row;
+    font-size: small;
+
+    color: white;
+}
+
+#create-comment-commenter-name {
+    margin-left: 5px;
+
+    color: #3A7CA5;
+}
+
+#create-comment-commenter-name:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+#create-comment-form-container {
+    display: flex;
+    margin-top: 10px;
+}
+
+#create-comment-form {
+    display: flex;
+    flex-direction: column;
+}
+
+#create-comment-form-body-container {
+    margin-bottom: 5px;
+}
+
+
+#create-comment-form-body {
+    padding: 10px;
+
+    min-height: 100px;
+    width: 600px;
+
+    border: 1px solid #343536;
+    border-radius: 5px;
+
+    resize: vertical;
+
+    color: white;
+    background-color: #1A1A1B;
+}
+
+#create-comment-form-body:focus {
+    border: 1px solid white;
+    outline: none;
+}
+
+
+#create-comment-form-button-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#create-comment-error-container {
+    display: flex;
+    align-items: center;
+
+    margin-right: 10px;
+
+    font-size: 12px;
+    color: #FF0000;
+}
+
+#create-comment-submit-button {
+    border: none;
+    border-radius: 30px;
+
+    height: 25px;
+    width: 100px;
+
+    font-weight: bold;
+}
+
+#create-comment-submit-button:hover {
+    cursor: pointer;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Comment Section Main Container */
+
+#post-page-comments-section-container {
+    display: flex;
+    flex-direction: column;
+
+    margin-top: 10px;
+}
+
+#comments-section-main-container {
+    display: flex;
+    flex-direction: column;
+
+    margin-bottom: 5px;
+
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: white;
+    background-color: #191919;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Comment Section Header Container */
+
+#comments-section-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+
+#comments-section-header>* {
+    margin-right: 10px;
+    font-size: 12px;
+    color: #818384;
+}
+
+
+#comments-section-poster-username:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+/* -----------------------------------------------------------------------*/
+/* Profile Picture */
+
+#comments-section-poster-profile-pic {
+    border-radius: 90%;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Comments Section Body Container */
+#comments-section-comment {
+    display: flex;
+    align-items: center;
+
+    margin-left: 40px;
+    margin-bottom: 5px;
+
+    height: 30px;
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* Comments Section Footer Container */
+#comments-remove-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    margin-left: 35px;
+
+    height: 30px;
+
+    font-size: 14px;
+    color: #707172;
+
+}
+
+#comments-remove-container>* {
+    display: flex;
+    flex-direction: row;
+
+    padding: 10px;
+}
+
+#comments-remove-container>*:hover {
+    cursor: pointer;
+    background-color: #2C2C2E;
+}
+
+#comments-remove-no-user>*hover {
+    cursor: auto;
+    background-color: transparent;
+}
+
+#comments-section-vote-container {
+    display: flex;
+    flex-direction: row;
+
+    margin-right: 10px;
+}
+
+.comments-footer-text {
+    margin-left: 5px;
+}
+
+/* -----------------------------------------------------------------------*/
+/* Comments Section No Comments */
+#comments-section-no-comments {
+    display: flex;
+    justify-content: center;
+
+    margin-top: 30px;
+    margin-bottom: 30px;
+
+    font-size: 16px;
+    color: white;
+}
+
+
+
+#test {
+    background-color: white;
+    margin-top: 100px;
+}

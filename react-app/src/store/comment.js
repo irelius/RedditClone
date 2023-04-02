@@ -103,6 +103,7 @@ export const loadPostCommentsThunk = (postId) => async (dispatch) => {
 
 // Thunk action to create a new comment
 export const createCommentThunk = (commentInfo, postId) => async (dispatch) => {
+    console.log('booba thunk hello')
     const res = await fetch(`/api/comments/posts/${postId}`, {
         method: "POST",
         headers: {
@@ -110,11 +111,10 @@ export const createCommentThunk = (commentInfo, postId) => async (dispatch) => {
         },
         body: JSON.stringify(commentInfo)
     })
-
     if (res.ok) {
         const data = await res.json();
+        console.log('booba data')
         dispatch(createComment(data))
-
     } else if (res.status < 500) {
         const data = await res.json()
         if (data.errors) {
