@@ -22,6 +22,7 @@ const SubredditPageBar = () => {
     }, [dispatch, setLoadEditComponent, setNewSubredditDescription])
 
     const currentSubreddit = Object.values(useSelector(subredditActions.loadAllSubreddit))
+    console.log('booba test1', currentSubreddit)
     const currentUser = useSelector(state => state.session.user) || {}
 
     const redirectPost = (subredditToLoad) => {

@@ -1,7 +1,7 @@
 import "./PostBody.css"
 
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom"
 import { Modal } from "../../../../context/Modal";
 
@@ -22,6 +22,11 @@ const PostBody = ({ currentPostLikes, currentPost, currentSubreddit, allUsers, c
     const [askUserToLogin, setAskUserToLogin] = useState(false)
     const [likeTotal, setLikeTotal] = useState(0)
     const [postLikeStatus, setPostLikeStatus] = useState("neutral")
+
+    // useEffect(() => {
+    //     const postId = window.location.href.split("/")[3]
+    //     dispatch(postActions.loadPostThunk(postId))
+    // }, [dispatch])
 
     useEffect(() => {
         if (currentPostLikes.length > 0) {
@@ -48,13 +53,17 @@ const PostBody = ({ currentPostLikes, currentPost, currentSubreddit, allUsers, c
         }
     }, [currentPostLikes])
 
+    // currentPost = Object.values(useSelector(postActions.loadAllPosts))
+    // console.log('booba test', currentPost)
+
+
 
     // ----------------------------------------- Functions ---------------------------------------------- //
     // Post Update - function to handle post updates
     const updatePost = async (e) => {
         e.preventDefault();
 
-        const postToEdit = currentPost[0]
+        const postToEdit = Object.values(currentPost[0])[0]
 
         let postInfo = {
             title: postToEdit.title,
@@ -62,7 +71,7 @@ const PostBody = ({ currentPostLikes, currentPost, currentSubreddit, allUsers, c
         }
 
         dispatch(postActions.putPostThunk(postInfo, postToEdit))
-        currentPost[0].body = postInfo.body
+        Object.values(currentPost[0])[0].body = postInfo.body
 
         setLoadEditPostComponent(false)
     }
@@ -224,7 +233,9 @@ const PostBody = ({ currentPostLikes, currentPost, currentSubreddit, allUsers, c
             )
         }
 
+        // prepping post and post image
         const postToLoad = Object.values(currentPost[0])[0]
+        console.log('booba main', postToLoad)
         const postImage = Object.values(postToLoad["images"])
 
         let userToLoad = -1;
@@ -235,6 +246,7 @@ const PostBody = ({ currentPostLikes, currentPost, currentSubreddit, allUsers, c
         const subredditToLoad = Object.values(currentSubreddit[0])[0]
         return (
             <div id="post-page-main-container">
+
                 {/* Left container is the part of the post that contains the like functionality of posts */}
                 <aside id="post-page-left-container">
                     {/* Upvote button and function to handle clicking it */}
@@ -264,6 +276,7 @@ const PostBody = ({ currentPostLikes, currentPost, currentSubreddit, allUsers, c
                         <i id={`post-dislike-status-${postLikeStatus}`} className="fa-solid fa-down-long fa-lg" />
                     </aside>
                 </aside>
+
                 {/* Right container is the main body of the post: title, body text, image, etc. */}
                 <aside id="post-page-right-container">
                     {/* header container contains the post's information: poster, subreaddit belonging to, etc. */}
@@ -283,7 +296,7 @@ const PostBody = ({ currentPostLikes, currentPost, currentSubreddit, allUsers, c
                             {postToLoad.title}
                         </section>
                     </section>
-                    {/* body container contains the meat of the post: text and image */}
+                    {/* body container contains the meat of the post: text and image. will load the edit post component if the state is active*/}
                     <section id="post-page-body-container">
                         {loadEditPostComponent ? (
                             <section>
@@ -295,6 +308,8 @@ const PostBody = ({ currentPostLikes, currentPost, currentSubreddit, allUsers, c
                             </section>
                         )}
                     </section>
+
+                    {/* image container for post image if it exists */}
                     <section id="post-page-image-container">
                         {postImage.length > 0 ? (
                             <img src={`${postImage["0"]["image_url"]}`}
@@ -305,6 +320,8 @@ const PostBody = ({ currentPostLikes, currentPost, currentSubreddit, allUsers, c
                             <div></div>
                         )}
                     </section>
+
+                    {/* footer section which includes post options (edit, delete) */}
                     <section>
                         {loadFooter(currentUser, postToLoad, subredditToLoad)}
                     </section>

@@ -61,7 +61,7 @@ export const loadPostThunk = (postId) => async (dispatch) => {
 
     if (res.ok) {
         const posts = await res.json();
-        dispatch(loadPosts(posts))
+        dispatch(loadPost(posts))
         return posts
     }
 }
@@ -134,6 +134,8 @@ export const putPostThunk = (postInfo, post) => async (dispatch) => {
         body: JSON.stringify(postInfo)
     })
 
+    console.log('booba', res.ok)
+
     if (res.ok) {
         const data = await res.json();
         dispatch(updatePost(data))
@@ -178,25 +180,27 @@ const postReducer = (state = initialState, action) => {
     const newState = { ...state };
 
     switch (action.type) {
-        // case LOAD_POST:
-        //     return Object.assign({}, newState, action.post.posts);
+        case LOAD_POST:
+            return Object.assign({}, newState, action.post);
         case LOAD_POSTS:
             const allPosts = { "posts": {} };
 
-            if(action.posts.posts === "No posts") {
+            if (action.posts.posts === "No posts") {
 
             } else {
                 const postsArray = Object.values(action.posts.posts)
-
                 postsArray.forEach(el => {
                     allPosts["posts"][el.id] = el
                 })
                 return allPosts
             }
-            /* falls through */
+        /* falls through */
 
         case CREATE_POST:
             return newState
+
+        case PUT_POST:
+            return Object.assign({}, newState, action.post)
 
         case DELETE_POST:
             const deletedPost = { ...newState }

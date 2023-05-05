@@ -2,13 +2,11 @@ import "./SubredditEditForm.css"
 
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { useHistory } from "react-router-dom"
 
 import * as subredditActions from "../../../store/subreddit"
 
 const SubredditEditForm = ({ setShowEditSubredditModal }) => {
     const dispatch = useDispatch()
-    const history = useHistory()
 
     const [newSubredditDescription, setNewSubredditDescription] = useState("")
     const [descriptionLength, setDescriptionLength] = useState(0)

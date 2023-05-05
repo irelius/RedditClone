@@ -128,8 +128,6 @@ def posts_update_specific(post_id):
 
     post_to_edit.title = form.data["title"]
     post_to_edit.body = form.data["body"]
-    post_to_edit.image = form.data["image"]
-    post_to_edit.video = form.data["video"]
 
     db.session.commit()
     return post_to_edit.to_dict()
