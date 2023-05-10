@@ -134,8 +134,6 @@ export const putPostThunk = (postInfo, post) => async (dispatch) => {
         body: JSON.stringify(postInfo)
     })
 
-    console.log('booba', res.ok)
-
     if (res.ok) {
         const data = await res.json();
         dispatch(updatePost(data))

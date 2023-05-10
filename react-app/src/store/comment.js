@@ -96,14 +96,11 @@ export const loadPostCommentsThunk = (postId) => async (dispatch) => {
         const comments = await res.json()
         dispatch(loadComments(comments))
         return comments
-    } else {
-        return "test"
     }
 }
 
 // Thunk action to create a new comment
 export const createCommentThunk = (commentInfo, postId) => async (dispatch) => {
-    console.log('booba thunk hello')
     const res = await fetch(`/api/comments/posts/${postId}`, {
         method: "POST",
         headers: {
@@ -113,7 +110,6 @@ export const createCommentThunk = (commentInfo, postId) => async (dispatch) => {
     })
     if (res.ok) {
         const data = await res.json();
-        console.log('booba data')
         dispatch(createComment(data))
     } else if (res.status < 500) {
         const data = await res.json()
@@ -152,6 +148,7 @@ export const putCommentThunk = (commentInfo, comment) => async (dispatch) => {
 
 // Thunk action to delete a comment
 export const deleteCommentThunk = (comment) => async (dispatch) => {
+    console.log('booba test thunk', comment.id)
     const res = await fetch(`/api/comments/${comment.id}`, {
         method: "DELETE"
     })
@@ -181,7 +178,7 @@ const commentReducer = (state = initialState, action) => {
         case LOAD_COMMENTS:
             const allComments = { "comments": {} }
 
-            if(action.comments.comments === "No comments") {
+            if (action.comments.comments === "No comments") {
 
             } else {
                 const commentsArray = Object.values(action.comments.comments)
@@ -190,14 +187,14 @@ const commentReducer = (state = initialState, action) => {
                 })
                 return allComments
             }
-            /* falls through */
+        /* falls through */
 
         case CREATE_COMMENT:
             return newState
 
         case DELETE_COMMENT:
             const deletedComment = { ...newState }
-            delete deletedComment[action.commentId]
+            delete deletedComment.comments[action.comment]
             return deletedComment
 
         case CLEAR_COMMENT:

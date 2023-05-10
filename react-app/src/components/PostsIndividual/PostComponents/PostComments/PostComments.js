@@ -24,6 +24,7 @@ const PostComments = ({ currentPost, currentSubreddit, allUsers, currentUser, po
     }, [dispatch])
 
     const currentComments = Object.values(useSelector(commentActions.loadAllComments))
+    // console.log('booba test', currentComments)
 
 
     // ----------------------------------------- Functions ---------------------------------------------- //
@@ -47,6 +48,7 @@ const PostComments = ({ currentPost, currentSubreddit, allUsers, currentUser, po
         )
 
         if (confirmDelete === "Yes") {
+            console.log('booba test action', el)
             dispatch(commentActions.deleteCommentThunk(el))
         }
     }

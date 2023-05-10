@@ -1,12 +1,9 @@
 import "./PostComments.css"
 
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router-dom"
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom"
 
 import * as commentActions from "../../store/comment"
-import * as userActions from "../../store/session"
-import * as likeActions from "../../store/like"
 
 const PostComments = (currentComments, allUsers, currentUser, subredditToLoad) => {
     const history = useHistory()

@@ -53,9 +53,6 @@ const PostBody = ({ currentPostLikes, currentPost, currentSubreddit, allUsers, c
         }
     }, [currentPostLikes])
 
-    // currentPost = Object.values(useSelector(postActions.loadAllPosts))
-    // console.log('booba test', currentPost)
-
 
 
     // ----------------------------------------- Functions ---------------------------------------------- //
@@ -235,7 +232,6 @@ const PostBody = ({ currentPostLikes, currentPost, currentSubreddit, allUsers, c
 
         // prepping post and post image
         const postToLoad = Object.values(currentPost[0])[0]
-        console.log('booba main', postToLoad)
         const postImage = Object.values(postToLoad["images"])
 
         let userToLoad = -1;
