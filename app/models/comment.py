@@ -15,7 +15,7 @@ class Comment(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
     # One to Many Relationship, Unidirectional FROM Comment
-    likes = db.relationship("Like")
+    likes = db.relationship("Like", cascade="all, delete")
 
     # Many to One Relationship, Unidirectional TO Comment
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")))

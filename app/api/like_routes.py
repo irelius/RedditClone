@@ -1,6 +1,6 @@
 from flask import Blueprint
 from flask_login import current_user, login_required
-from app.models import db, Like
+from app.models import db, Like, Post, Comment
 from app.forms import LikeForm
 
 like_routes = Blueprint("likes", __name__)
@@ -54,6 +54,30 @@ def likes_comments():
 
     return return_likes(current_user_id, likes, dislikes)
 
+
+# Get all likes and dislikes made to comments for comments that belong to a specific post
+@like_routes.route('/all/post/<int:post_id>/comments')
+@login_required
+def likes_comments_per_post(post_id):
+    current_user_id = int(current_user.get_id())
+
+    # likes = Like.query.filter(Like.like_status == "like").filter(Like.post_id == post_id).filter(Like.comment_id == 11).all()
+    # dislikes = Like.query.filter(Like.like_status == "dislike").filter(Like.post_id == post_id).filter(Like.comment_id == 11).all()
+
+    # test = db.query(Like, Comment).join(Comment)
+
+    likes = Like.query.filter(Like.like_status == "like").filter(Like.comment_id != None).filter(Comment.post_id == post_id).all()
+    dislikes = Like.query.filter(Like.like_status == "dislike").filter(Like.comment_id != None).filter(Comment.post_id == post_id).all()
+
+    comment = Comment.query.filter(Comment.post_id == post_id).all()
+
+    print('booba', comment[0].to_dict())
+    # likes = Like.query.filter(Like.like_status == "like").filter(Like.comment_id != None).all()
+    # dislikes = Like.query.filter(Like.like_status == "dislike").filter(Like.comment_id != None).all()
+
+    # return 'booba'
+
+    return return_likes(current_user_id, likes, dislikes)
 
 
 # Get all likes and dislikes made by current user

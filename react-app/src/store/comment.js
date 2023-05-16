@@ -148,7 +148,6 @@ export const putCommentThunk = (commentInfo, comment) => async (dispatch) => {
 
 // Thunk action to delete a comment
 export const deleteCommentThunk = (comment) => async (dispatch) => {
-    console.log('booba test thunk', comment.id)
     const res = await fetch(`/api/comments/${comment.id}`, {
         method: "DELETE"
     })

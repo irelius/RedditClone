@@ -5,8 +5,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom"
 
 import * as commentActions from "../../../../store/comment"
+import * as likeActions from "../../../../store/like"
 
 import redirectToUserPage from "../../../HelperFunctions/redirectToUserPage";
+// import IndividualComment from "./IndividualComment";
+import IndividualComment from "./IndividualComment/IndividualComment"
 
 const PostComments = ({ currentPost, currentSubreddit, allUsers, currentUser, post_id, load }) => {
     const dispatch = useDispatch()
@@ -21,10 +24,33 @@ const PostComments = ({ currentPost, currentSubreddit, allUsers, currentUser, po
 
     useEffect(() => {
         dispatch(commentActions.loadPostCommentsThunk(post_id))
+        dispatch(likeActions.loadLikesPostThunk(post_id))
+
+        return (() => {
+            dispatch(commentActions.clearComment())
+            dispatch(likeActions.clearLikes())
+        })
     }, [dispatch])
 
     const currentComments = Object.values(useSelector(commentActions.loadAllComments))
-    // console.log('booba test', currentComments)
+    const commentLikes = Object.values(useSelector(likeActions.loadLikes))[0]
+
+
+    console.log('booba', '\n', commentLikes, '\n', currentComments)
+
+
+    // const CommentsComponent = () => {
+    //     const commentsToLoad = Object.values(currentComments[0])
+    //     return (
+    //         Array.isArray(commentsToLoad) && commentsToLoad.map((el, i) => {
+    //             return (
+    //                 <div>
+    //                     {IndividualComment()}
+    //                 </div>
+    //             )
+    //         })
+    //     )
+    // }
 
 
     // ----------------------------------------- Functions ---------------------------------------------- //
@@ -48,7 +74,6 @@ const PostComments = ({ currentPost, currentSubreddit, allUsers, currentUser, po
         )
 
         if (confirmDelete === "Yes") {
-            console.log('booba test action', el)
             dispatch(commentActions.deleteCommentThunk(el))
         }
     }
@@ -71,7 +96,7 @@ const PostComments = ({ currentPost, currentSubreddit, allUsers, currentUser, po
         }
 
         return (
-            <form onSubmit={updateComment}>
+            <form onSubmit={(e) => updateComment(e, commentToLoad)}>
                 <textarea
                     type="text"
                     minLength={1}
@@ -89,6 +114,62 @@ const PostComments = ({ currentPost, currentSubreddit, allUsers, currentUser, po
                 </section>
 
             </form>
+        )
+    }
+
+    const loadCommentFooter = (el) => {
+        console.log('booba', el)
+        return (
+            currentUser === -1 ? (
+                <div id="comments-remove-no-user"></div>
+            ) : (
+
+                <div id="comment-footer-main-container">
+                    {/* TO DO: Implement a comment edit function */}
+                    <aside onClick={() => setLoadEditCommentComponent(true)} id="comments-edit-container">
+                    {
+                        currentUser["id"] === el["user_id"] ? (
+                            <div id="comments-footer-create-comment">
+                                <i className="fa-solid fa-pen" />
+                                <aside>
+                                    Edit
+                                </aside>
+                            </div>
+                        ) : (
+                            <div></div>
+                        )
+                    }
+                    </aside>
+                    <aside id="comment-footer-vote-container">
+                        <aside>
+                            <i className="fa-solid fa-up-long fa-lg" />
+                        </aside>
+                        <aside>
+                            Vote
+                        </aside>
+                        <aside>
+                            <i className="fa-solid fa-down-long fa-lg" />
+                        </aside>
+                    </aside>
+                    <aside id="comments-footer-delete-container">
+                        {currentUser["id"] === el["user_id"] ? (
+                            <div id="comments-footer-delete-comment" onClick={() => handleCommentDelete(el)}>
+                                <i className="fa-regular fa-trash-can" />
+                                <aside className="comments-footer-text">
+                                    Delete Comment
+                                </aside>
+                            </div>
+                        ) : (
+                            <div id="comments-footer-remove-comment" onClick={() => handleCommentRemoval(el)}>
+                                <i className="fa-solid fa-ban" />
+                                <aside className="comments-footer-text">
+                                    Remove Comment
+                                </aside>
+                            </div>
+                        )}
+                    </aside>
+                </div>
+            )
         )
     }
 
@@ -137,42 +218,7 @@ const PostComments = ({ currentPost, currentSubreddit, allUsers, currentUser, po
                                 )}
                             </section>
                             <section id="comments-section-footer">
-                                {/* TO DO: Implement a comment edit function */}
-                                {/* <aside onClick={() => setLoadEditCommentComponent(true)} id="comments-edit-container">
-                                    {
-                                        currentUser["id"] === el["user_id"] ? (
-                                            <div id="comments-footer-create-comment">
-                                                <i className="fa-solid fa-pen" />
-                                                <aside>
-                                                    Edit
-                                                </aside>
-                                            </div>
-                                        ) : (
-                                            <div></div>
-                                        )
-                                    }
-                                </aside> */}
-                                {currentUser === -1 ? (
-                                    <div id="comments-remove-no-user"></div>
-                                ) : (
-                                    <aside id="comments-remove-container">
-                                        {currentUser["id"] === el["user_id"] ? (
-                                            <div id="comments-footer-delete-comment" onClick={() => handleCommentDelete(el)}>
-                                                <i className="fa-regular fa-trash-can" />
-                                                <aside className="comments-footer-text">
-                                                    Delete Comment
-                                                </aside>
-                                            </div>
-                                        ) : (
-                                            <div id="comments-footer-remove-comment" onClick={() => handleCommentRemoval(el)}>
-                                                <i className="fa-solid fa-ban" />
-                                                <aside className="comments-footer-text">
-                                                    Remove Comment
-                                                </aside>
-                                            </div>
-                                        )}
-                                    </aside>
-                                )}
+                                {loadCommentFooter(el)}
                             </section>
                         </div>
                     )
@@ -190,12 +236,12 @@ const PostComments = ({ currentPost, currentSubreddit, allUsers, currentUser, po
 
 
     // ----------------------------------------- Main Component ----------------------------------------- //
-     return currentSubreddit.length > 0 && currentComments.length > 0 && currentPost.length > 0 && allUsers.length > 0 && load ? (
+    return currentSubreddit.length > 0 && currentComments.length > 0 && currentPost.length > 0 && allUsers.length > 0 && load ? (
         <div>
-                <aside id="post-page-comments-section-container">
-                    {CommentsComponent()}
-                </aside>
-            </div>
+            <aside id="post-page-comments-section-container">
+                {CommentsComponent()}
+            </aside>
+        </div>
     ) : (
         <div></div>
     )

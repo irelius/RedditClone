@@ -16,7 +16,6 @@ import * as likeActions from "../../store/like"
 import * as commentActions from "../../store/comment"
 
 
-
 const PostsIndividual = () => {
     const dispatch = useDispatch()
     const history = useHistory()

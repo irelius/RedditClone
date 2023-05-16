@@ -149,9 +149,11 @@
 }
 
 
+
 /* -----------------------------------------------------------------------*/
-/* Comments Section Footer Container */
-#comments-remove-container {
+/* Comments Section Footer Main Container */
+
+#comment-footer-main-container {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -160,19 +162,41 @@
 
     height: 30px;
 
-    font-size: 14px;
+    font-size: 13px;
     color: #707172;
-
 }
 
-#comments-remove-container>* {
+
+
+/* -----------------------------------------------------------------------*/
+/* Comments Section Footer Vote Container */
+#comment-footer-vote-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    margin-right: 10px;
+}
+
+#comment-footer-vote-container>* {
+    padding: 5px;
+}
+
+#comment-footer-vote-container>*:hover {
+    cursor: pointer;
+    background-color: #2C2C2E;
+}
+
+/* -----------------------------------------------------------------------*/
+/* Comments Section Footer Delete Container */
+#comments-footer-delete-container>* {
     display: flex;
     flex-direction: row;
 
-    padding: 10px;
+    padding: 5px;
 }
 
-#comments-remove-container>*:hover {
+#comments-footer-delete-container>*:hover {
     cursor: pointer;
     background-color: #2C2C2E;
 }
@@ -180,13 +204,6 @@
 #comments-remove-no-user>*hover {
     cursor: auto;
     background-color: transparent;
-}
-
-#comments-section-vote-container {
-    display: flex;
-    flex-direction: row;
-
-    margin-right: 10px;
 }
 
 .comments-footer-text {
@@ -204,11 +221,4 @@
 
     font-size: 16px;
     color: white;
-}
-
-
-
-#test {
-    background-color: white;
-    margin-top: 100px;
 }
