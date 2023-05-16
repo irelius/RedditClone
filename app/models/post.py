@@ -16,7 +16,7 @@ class Post(db.Model):
 
     # One to Many Relationships, Unidirectional FROM Post
     comments = db.relationship("Comment", cascade="all, delete")
-    likes = db.relationship("Like", cascade="all, delete")
+    post_likes = db.relationship("PostLike", cascade="all, delete")
     images = db.relationship("Image", cascade="all, delete")
     # videos = db.relationship("Video", cascade="all, delete")
 
@@ -35,8 +35,7 @@ class Post(db.Model):
             "body": self.body,
             "images":  {image.id: image.to_dict() for image in self.images},
             # "videos": {video.id: video.to_dict() for video in self.videos},
-            "likes": {like.id: like.to_dict() for like in self.likes},
-            # "likes_total": self.likes_total,
+            "post_likes": {post_likes.id: post_likes.to_dict() for post_likes in self.post_likes},
             'created_at': self.created_at,
             'updated_at': self.updated_at
         }

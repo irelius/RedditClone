@@ -35,7 +35,7 @@ const SubredditPagePosts = () => {
         dispatch(sessionActions.loadAllUserThunk())
         dispatch(subredditActions.loadCurrentSubredditThunk(currentSubredditName))
         dispatch(postActions.loadCurrentSubredditPostsThunk(currentSubredditName))
-        dispatch(likeActions.loadUserLikesThunk())
+        dispatch(likeActions.loadUserPostLikesThunk())
 
         setLoad(true)
 

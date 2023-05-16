@@ -80,7 +80,7 @@ export const clearLikes = () => {
 
 // Thunk action to load likes for a post
 export const loadLikesPostThunk = (postId) => async (dispatch) => {
-    const res = await fetch(`/api/likes/posts/${postId}`)
+    const res = await fetch(`/api/post_likes/posts/${postId}`)
 
 
     if (res.ok) {
@@ -93,7 +93,7 @@ export const loadLikesPostThunk = (postId) => async (dispatch) => {
 
 // Thunk action to load likes for a comment
 export const loadLikesCommentThunk = (commentId) => async (dispatch) => {
-    const res = await fetch(`/api/likes/comments/${commentId}`)
+    const res = await fetch(`/api/comment_likes/comments/${commentId}`)
 
     if (res.ok) {
         const likes = await res.json()
@@ -105,7 +105,7 @@ export const loadLikesCommentThunk = (commentId) => async (dispatch) => {
 
 // Thunk action to load all likes made to posts
 export const loadAllLikesPostThunk = () => async (dispatch) => {
-    const res = await fetch(`/api/likes/all/posts`)
+    const res = await fetch(`/api/post_likes/`)
 
     if (res.ok) {
         const likes = await res.json()
@@ -117,7 +117,7 @@ export const loadAllLikesPostThunk = () => async (dispatch) => {
 
 // Thunk action to load all likes made to comments
 export const loadAllLikesCommentThunk = () => async (dispatch) => {
-    const res = await fetch(`/api/likes/all/comments`)
+    const res = await fetch(`/api/comment_likes/`)
 
     if (res.ok) {
         const likes = await res.json()
@@ -140,8 +140,8 @@ export const loadAllLikesCommentThunk = () => async (dispatch) => {
 
 
 // Thunk action to load likes from current user
-export const loadUserLikesThunk = () => async (dispatch) => {
-    const res = await fetch(`/api/likes/users/current`)
+export const loadUserPostLikesThunk = () => async (dispatch) => {
+    const res = await fetch(`/api/post_likes/users/current`)
 
     if (res.ok) {
         const likes = await res.json()
@@ -150,8 +150,20 @@ export const loadUserLikesThunk = () => async (dispatch) => {
     }
 }
 
+// Thunk action to load likes from current user
+export const loadUserCommentLikesThunk = () => async (dispatch) => {
+    const res = await fetch(`/api/comment_likes/users/current`)
+
+    if (res.ok) {
+        const likes = await res.json()
+        dispatch(loadUserLikes(likes))
+        return likes
+    }
+}
+
+
 export const createLikePostThunk = (likeInfo, postId) => async (dispatch) => {
-    const res = await fetch(`/api/likes/posts/${postId}`, {
+    const res = await fetch(`/api/post_likes/posts/${postId}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -169,7 +181,7 @@ export const createLikePostThunk = (likeInfo, postId) => async (dispatch) => {
 }
 
 export const createDislikePostThunk = (dislikeInfo, postId) => async (dispatch) => {
-    const res = await fetch(`/api/likes/posts/${postId}`, {
+    const res = await fetch(`/api/post_likes/posts/${postId}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -193,7 +205,7 @@ export const createLikeCommentThunk = (likeInfo, commentId) => async (dispatch) 
 
 
 export const deleteLikePostThunk = (postId) => async (dispatch) => {
-    const res = await fetch(`/api/likes/posts/${postId}`, {
+    const res = await fetch(`/api/post_likes/posts/${postId}`, {
         method: "DELETE"
     })
 

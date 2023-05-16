@@ -9,7 +9,8 @@ from .users_subreddits import seed_users_subreddits, undo_users_subreddits
 from .posts import seed_posts, undo_posts
 from .images import seed_images, undo_images
 from .comments import seed_comments, undo_comments
-from .likes import seed_likes, undo_likes
+from .post_likes import seed_post_likes, undo_post_likes
+from .comment_likes import seed_comment_likes, undo_comment_likes
 
 
 # Creates a seed group to hold our commands
@@ -30,20 +31,23 @@ def seed():
         undo_posts()
         undo_images()
         undo_comments()
-        undo_likes()
+        undo_post_likes()
+        undo_comment_likes()
     seed_users()
     seed_subreddits()
     seed_users_subreddits()
     seed_posts()
     seed_images()
     seed_comments()
-    seed_likes()
+    seed_post_likes()
+    seed_comment_likes()
 
 
 # Creates the `flask seed undo` command
 @seed_commands.command('undo')
 def undo():
-    undo_likes()
+    undo_post_likes()
+    undo_comment_likes()
     undo_comments()
     undo_posts()
     undo_images()

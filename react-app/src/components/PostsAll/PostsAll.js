@@ -35,7 +35,7 @@ const PostsAll = () => {
         dispatch(sessionActions.loadAllUserThunk())
         dispatch(subredditActions.loadSubredditsThunk())
         dispatch(postActions.loadPostsThunk())
-        dispatch(likeActions.loadUserLikesThunk())
+        dispatch(likeActions.loadUserPostLikesThunk())
 
         setLoad(true)
 
@@ -51,6 +51,8 @@ const PostsAll = () => {
     const allSubreddits = Object.values(useSelector(subredditActions.loadAllSubreddit))
     const allUsers = Object.values(useSelector(sessionActions.loadAllUsers))
     const currentUserLikes = Object.values(useSelector(likeActions.loadLikes))
+
+    // console.log('booba', currentUserLikes)
 
     // Like/Dislike Handling
     const initialTempPostsLiked = () => {
@@ -85,6 +87,8 @@ const PostsAll = () => {
             allUserDislikes = null;
             allUserLikes = null;
         }
+
+        console.log('booba', initialPostLikes)
 
     }
 
@@ -160,7 +164,8 @@ const PostsAll = () => {
 
                 // figure out like status of each post on the front page
                 let postLikeStatus = "neutral"
-                let postLikes = Object.values(el["likes"])
+                let postLikes = Object.values(el["post_likes"])
+
                 postLikes.forEach(el => {
                     if (el["user_id"] === currentUser["id"] && el["like_status"] === "like") {
                         postLikeStatus = "like"
@@ -172,10 +177,10 @@ const PostsAll = () => {
                     }
                 })
 
+
                 if (modifiedPostLikes[el["id"]]) {
                     postLikeStatus = modifiedPostLikes[el["id"]]
                 }
-
 
                 return (
                     <div key={i} id="all-posts-main-container" onClick={(e) => redirectToPostPage(subredditInfo["name"], el["id"], history, e)}>

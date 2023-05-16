@@ -4,9 +4,10 @@ const calculatePostLikes = (post) => {
 
     let likesArray = [];
 
-    if (post && post.likes) {
-        likesArray = Object.values(post.likes)
+    if (post && post.post_likes) {
+        likesArray = Object.values(post.post_likes)
     }
+    console.log('booba', likesArray)
 
     if (likesArray.length > 0) {
         likesArray.forEach(el => {
